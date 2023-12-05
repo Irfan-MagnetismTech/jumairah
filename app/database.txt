@@ -1,0 +1,18 @@
+
+iou---
+added:
+            $table->foreignId('supplier_id')->nullable();
+            $table->longText('iou_no')->nullable();
+            $table->string('po_no')->nullable();
+            $table->integer('workorder_id')->nullable();
+            $table->integer('boq_eme_work_order_id')->nullable();
+iou-details---
+deleted:
+$table->string('po_no')->nullable();
+$table->unsignedBigInteger('workorder_id')->nullable();
+
+edited:
+from-$table->integer('type')->default(0)->comment('0=>employee,1=>supplier,2=>construction');
+to-$table->integer('type')->default(0)->comment('0=>employee,1=>supplier,2=>construction,3=>eme');
+
+
