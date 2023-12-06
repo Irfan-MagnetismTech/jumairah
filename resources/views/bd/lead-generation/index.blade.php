@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/Datatables/dataTables.bootstrap4.min.css')}}">
 @endsection
 
-@section('breadcrumb-title') 
+@section('breadcrumb-title')
     Lead Generation List
 @endsection
 
@@ -15,7 +15,7 @@
 
 
     @section('content')
-    
+
             <!-- put search form here.. -->
     <div class="table-responsive">
         <table id="dataTable" class="table table-striped table-bordered">
@@ -51,8 +51,8 @@
                 $followup_data = App\BD\BdleadFollowUp::where('bd_lead_generation_id', $data->id)->latest()->get();
             @endphp
                 <tr>
-                    <td> {{ $loop->iteration }} </td> 
-                    <td> 
+                    <td> {{ $loop->iteration }} </td>
+                    <td>
                         @foreach($data->BdLeadGenerationDetails as $row)
                             {{ $row->name }},
                         @endforeach
@@ -60,12 +60,12 @@
                     <td> {{ $data->land_location }} </td>
                     <td> {{ date_format($data->created_at, 'd-m-Y') }} </td>
                     <td> {{ $data->lead_stage }} </td>
-                    <td> 
-                        {{ $followup_data->isNotEmpty() ? date_format($followup_data[0]->created_at, 'd-m-Y' )  : null }} 
+                    <td>
+                        {{ $followup_data->isNotEmpty() ? date_format($followup_data[0]->created_at, 'd-m-Y' )  : null }}
                     </td>
-                    <td> {{ $data->user->name }} </td>
+                    <td> {{ $data->user ? $data->user->name : '' }} </td>
                     <td> {{ $data->source->name }} </td>
-                    <td> 
+                    <td>
                         <div class="icon-btn">
                             <nobr>
                                 <a href="{{ url('followup') }}/{{ $data->id }}" data-toggle="tooltip" title="followup" class="btn btn-outline-success"><i class="fas fa-retweet"></i></a>
