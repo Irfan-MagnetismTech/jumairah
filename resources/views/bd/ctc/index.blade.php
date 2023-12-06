@@ -50,7 +50,7 @@
             @foreach($bd_ctc as $key => $bd)
                     <tr>
                         <td rowspan="{{count($bd->BdFeasiCtcDetail)}}">{{$loop->iteration}}</td>
-                        <td rowspan="{{count($bd->BdFeasiCtcDetail)}}"><strong>{{$bd->user->name}}</strong></td>
+                        <td rowspan="{{count($bd->BdFeasiCtcDetail)}}"><strong>{{$bd->user ? $bd->user->name : ''}}</strong></td>
                         <td rowspan="{{count($bd->BdFeasiCtcDetail)}}"><strong>{{$bd->BdLeadGeneration->land_location}}</strong></td>
                         @foreach ($bd->BdFeasiCtcDetail as $detals_key => $details_value )
                                 <td>{{$details_value->department_id}}</td>
