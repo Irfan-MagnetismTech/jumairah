@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/Datatables/dataTables.bootstrap4.min.css')}}">
 @endsection
 
-@section('breadcrumb-title') 
+@section('breadcrumb-title')
     Project Duration List
 @endsection
 
@@ -15,7 +15,7 @@
 
 
     @section('content')
-    
+
             <!-- put search form here.. -->
     <div class="table-responsive">
         <table id="dataTable" class="table table-striped table-bordered">
@@ -38,6 +38,7 @@
                 </tr>
             </tfoot>
             <tbody>
+                @if (!empty($progress_data[0]))
             @foreach($progress_data[0]->ProjectProgressReportDetails as $key => $ProjectProgressReportDetail)
                 @php($id= $progress_data[0]->id)
                 <tr>
@@ -45,7 +46,7 @@
                     <td> {{ $ProjectProgressReportDetail->costCenter->name }} </td>
                     <td> {{ $ProjectProgressReportDetail->date_of_inception }} </td>
                     <td> {{ $ProjectProgressReportDetail->date_of_completion }} </td>
-                    <td> 
+                    <td>
                         <div class="icon-btn">
                             <nobr>
                                 <a href="{{ url("construction/monthly_progress_report/$id/edit") }}" data-toggle="tooltip" title="Edit" class="btn btn-outline-warning"><i class="fas fa-pen"></i></a>
@@ -60,6 +61,7 @@
                     </td>
                 </tr>
             @endforeach
+            @endif
             </tbody>
         </table>
     </div>
