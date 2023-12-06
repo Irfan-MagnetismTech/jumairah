@@ -51,6 +51,7 @@ Monthly budget report
                 </thead>
                 <tbody class="text-right">
                     @php $total = 0; @endphp
+                    @if (!empty($budgets->adminMonthlyBudgetDetails))
                     @foreach($budgets->adminMonthlyBudgetDetails as $key => $budget)
                     @php $totalSales = 0; $totalBooking = 0; @endphp
                     <tr>
@@ -63,7 +64,7 @@ Monthly budget report
                         <td>@money($budget->week_one + $budget->week_two + $budget->week_three + $budget->week_four + $budget->week_five)</td>
                     </tr>
                     @endforeach
-                    <tr>
+                    @endif
                     </tbody>
                 </table>
         </div>
