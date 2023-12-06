@@ -60,9 +60,9 @@
                         </strong>
                         <br>
                     </td>
-                    <td><strong>{{$data->oldProject->name}} - ({{$data->oldApartment->name}}) </strong></td>
-                    <td><strong> {{$data->newProject->name}} - ({{$data->newApartment->name}})</strong></td>
-                    <td  class="text-right">@money($data->sale->total_value)</td>
+                    <td><strong>{{$data->oldProject ? $data->oldProject->name : ''}} - ({{$data->oldApartment ? $data->oldApartment->name : ''}}) </strong></td>
+                    <td><strong> {{$data->newProject ? $data->newProject->name : ''}} - ({{$data->newApartment ? $data->newApartment->name : ''}})</strong></td>
+                    <td  class="text-right">@money($data->sale ? $data->sale->total_value : 0)</td>
                     <td  class="text-right">
                         @if($data->attachment)
                             <strong><a href="storage/{{$data->attachment}}" target="_blank"> Attachment </a></strong>
