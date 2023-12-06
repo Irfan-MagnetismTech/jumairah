@@ -43,16 +43,16 @@
                     <td>
                         <div class="icon-btn">
                             <nobr>
-                                  
+
                                 @php
                                     $approval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($data){
-                                        $q->where([['name','Feasibility Finance'],['department_id',$data->appliedBy->department_id]]);
+                                        $q->where([['name','Feasibility Finance'],['department_id',@$data->appliedBy->department_id]]);
                                     })->wheredoesnthave('approvals',function ($q) use($data){
                                         $q->where('approvable_id',$data->id)->where('approvable_type',\App\BD\BdFeasiFinance::class);
                                     })->orderBy('order_by','asc')->first();
                                 @endphp
 
-                                @if((!empty($approval) && $approval->designation_id == auth()->user()->designation?->id && $approval->department_id == auth()->user()->department_id) || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin'])))
+                                @if((!empty($approval) && @$approval->designation_id == auth()->user()->designation?->id && @$approval->department_id == auth()->user()->department_id) || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin'])))
                                     <a href="{{ url("finance/approved/$data->id/1") }}" data-toggle="tooltip" title="Approve" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
                                 @endif
 
