@@ -3110,7 +3110,7 @@
                     </ul>
                 </li>
 
-                <li
+                {{-- <li
                     class="pcoded-hasmenu {{ request()->routeIs(['profitabilityBasicInformation']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="fas fa-donate"></i><b>P</b></span>
@@ -3124,7 +3124,7 @@
                                     Report
                                 </span><span class="pcoded-mcaret"></span></a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <!--            <li class="pcoded-hasmenu {{ request()->routeIs(['mis-correction', 'mis-summary', 'mis-hr-report']) ? 'active pcoded-trigger' : null }}">
                                                 <a href="javascript:void(0)">
                                                     <span class="pcoded-micon"><i class="fas fa-chart-line"></i><b>BC</b></span>
