@@ -67,7 +67,7 @@
                         <input type="text" value="{{$parkingName}}" name="parking_name[]" class="form-control" autocomplete="off" required>
                         <select name="parking_owner[]"  class="form-control" required >
                             <option value="">Select Owner</option>
-                            <option value="RanksFc"{{ old('parking_owner')[$key] == 'RanksFc' ? 'selected' : '' }}>RanconFc</option>
+                            <option value="JumairahProperties"{{ old('parking_owner')[$key] == 'JumairahProperties' ? 'selected' : '' }}>Jumairah Properties Ltd</option>
                             <option value="Landowner" {{old('parking_owner')[$key]== 'Landowner' ? 'selected' : '' }}>LandOwner</option>
                         </select>
                     </div>
@@ -81,7 +81,7 @@
                         <input type="text" value="{{$parkingName->parking_name}}" name="parking_name[]" class="form-control" autocomplete="off" required>
                         <select name="parking_owner[]"  class="form-control" required >
                             <option value="">Select Owner</option>
-                            <option value="RanksFc" {{ $parkingName->parking_owner == 'RanksFc' ? 'selected' : '' }}>RanksFc</option>
+                            <option value="JumairahProperties" {{ $parkingName->parking_owner == 'JumairahProperties' ? 'selected' : '' }}>Jumairah Properties Ltd</option>
                             <option value="Landowner" {{ $parkingName->parking_owner == 'Landowner' ? 'selected' : '' }}>LandOwner</option>
                         </select>
                     </div>
@@ -221,7 +221,7 @@
                             <input type="text" value="${parkingName}-${i}" name="parking_name[]" class="form-control" autocomplete="off" required>
                             <select name="parking_owner[]"  class="form-control" required >
                                 <option value="">Select Owner</option>
-                                <option value="RanksFc">RanksFc</option>
+                                <option value="JumairahProperties">Jumairah Properties Ltd</option>
                                 <option value="Landowner">LandOwner</option>
                             </select>
                         </div>
@@ -233,4 +233,3 @@
         });
     </script>
 @endsection
-
