@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="icon" href="{{asset('images/ranksfc_log.png')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('images/jumairah.png')}}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/themify-icons.css')}}">
@@ -74,7 +74,7 @@
                     </div>
                     <a href="{{route('home')}}">
                         <h4 class="my-0">
-                            <img src="{{asset('images/ranksfc_log.png')}}" alt="">
+                            <img src="{{asset('images/jumairah.png')}}" alt="" width="180px" height="80px">
                         </h4>
                     </a>
                     <a class="mobile-options">
