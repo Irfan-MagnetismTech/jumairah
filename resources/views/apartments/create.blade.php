@@ -56,7 +56,7 @@
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="face">Apartment Type<span class="text-danger">*</span></label>
-                {{Form::select('type', $apartmentType, old('type') ? old('type') : (!empty($apartment->type) ? $apartment->type : null),['class' => 'form-control', 'id' => 'type', 'autocomplete'=>"off", 'placeholder'=>'Select Type','required'] )}}
+                {{Form::select('apartment_type', $apartmentType, old('apartment_type') ? old('apartment_type') : (!empty($apartment->apartment_type) ? $apartment->apartment_type : null),['class' => 'form-control', 'id' => 'type', 'autocomplete'=>"off", 'placeholder'=>'Select Type','required'] )}}
             </div>
         </div>
         <div class="col-xl-4 col-md-6">
