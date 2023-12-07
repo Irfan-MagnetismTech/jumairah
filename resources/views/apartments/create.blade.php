@@ -68,7 +68,7 @@
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="owner">Owner<span class="text-danger">*</span></label>
-                {{Form::select('owner', [1=>'Ranks FC' , 2=>'Land Owner'], old('owner') ? old('owner') : (!empty($apartment->owner) ? $apartment->owner : null),['class' => 'form-control', 'id' => 'owner', 'autocomplete'=>"off", 'placeholder'=>'Select Owner','required'] )}}
+                {{Form::select('owner', [1=>'Jumairah Properties Ltd' , 2=>'Land Owner'], old('owner') ? old('owner') : (!empty($apartment->owner) ? $apartment->owner : null),['class' => 'form-control', 'id' => 'owner', 'autocomplete'=>"off", 'placeholder'=>'Select Owner','required'] )}}
             </div>
         </div>
     </div> <!-- row -->

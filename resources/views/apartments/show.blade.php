@@ -32,7 +32,9 @@
                             @endif
                         </td>
                     </tr>
-                    <tr><td> <strong>Type</strong> </td> <td> {{ $apartment->type->type_name}}</td></tr>
+
+                    {{-- @dd($apartment) --}}
+                    <tr><td> <strong>Type</strong> </td> <td> {{ $apartment ? $apartment->type : ''}}</td></tr>
                     <tr><td> <strong>Floor</strong> </td> <td> {{ $apartment->floor}}</td></tr>
                     <tr><td> <strong>Face</strong> </td> <td> {{ $apartment->face}}</td></tr>
                     <tr><td> <strong>Owner</strong> </td> <td> {{$apartment->owner  == 2 ? "LandOwner" : "Ranks Fc"}}</td></tr>
