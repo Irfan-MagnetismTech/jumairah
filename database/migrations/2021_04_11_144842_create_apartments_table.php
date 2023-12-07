@@ -17,7 +17,7 @@ class CreateApartmentsTable extends Migration
             $table->id();
             $table->string('project_id');
             $table->string('name');
-            $table->string('type');
+            $table->string('apartment_type');
             $table->string('type_composite_key');
 
             $table->integer('floor');
