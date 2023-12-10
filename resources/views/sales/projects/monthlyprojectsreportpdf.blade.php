@@ -79,9 +79,9 @@
 <body>
 
 <div id="logo" class="pdflogo">
-    <img src="{{ asset('images/ranksfc_log.png')}}" alt="Logo" class="pdfimg">
+    <img src="{{ asset('images/Jumairah.png')}}" alt="Logo" class="pdfimg">
     <div class="clearfix"></div>
-    <h5>Atlas Rangs Plaza, 07 Sk. Mujib Road, Agrabad C/A, Chattogram, Phone: 09617124124</h5>
+    <h5>JHL Address.</h5>
     <h3>Monthly Project Report</h3>
 </div>
 
