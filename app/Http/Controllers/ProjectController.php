@@ -121,7 +121,7 @@ class ProjectController extends Controller
     {
         $inventories = Apartment::with('project', 'sell')->where('project_id', $project->id)->where('owner', 1)->get();
         $project = Project::with('apartments.sell.sellClient.client', 'parkings.parkingDetails.soldParking')->where('id', $project->id)->firstOrFail();
-        $apartments = Apartment::where('type','Commercial')->where('project_id',$project->id);
+        $apartments = Apartment::where('apartment_type','Commercial')->where('project_id',$project->id);
         $commercialApartments = $apartments->orderBy('floor','desc')->get()->groupBy('floor');
         if ($apartments->get()->isNotEmpty()){
             $maxValue = max($apartments->groupBy('floor')->select(DB::raw('count(*) as total'))->get()->pluck('total')->toArray());
