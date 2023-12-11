@@ -155,7 +155,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
         $itemCount = 0;
     @endphp
@@ -165,9 +165,9 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                     <p>
-                        Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
+                        JHL Address.<br>
                         Phone: 2519906-8; 712023-5<br>
                         <a style="color:#000;" target="_blank">www.ranksfc.com</a>
                     </p>
@@ -192,7 +192,7 @@
                 Project Name: {{ $iou->costCenter->name }}
             </p><br>
             <p>
-                IOU For: 
+                IOU For:
                 @if ($iou->type == 0)
                     Employee
                 @elseif ($iou->type == 1)
@@ -203,7 +203,7 @@
                     EME
                 @endif
             </p><br>
-            
+
             @if ($iou->type == 1)
             <p>
                 PO No.: {{$iou->po_no}}
@@ -235,7 +235,7 @@
                 Note: {{$iou->remarks}}
             </p>
             <br>
-          
+
         </div>
     </div>
 
@@ -255,7 +255,7 @@
             <tbody style="text-align: center">
 
                 @foreach ($chunk as $requisitiondetail)
-               
+
 
                 <tr>
                     <td> {{ $iteration++ }} </td>
@@ -276,9 +276,9 @@
 
         </table>
         <div id="fixed_footer" style="margin-top:30px; padding-left: 10px; width: 97%;">
-            
-          
-           
+
+
+
             <div  style="margin-top: 30px;">
                 <table class="approval" style="text-align: center; border:none!important">
                     <tr>
@@ -309,9 +309,9 @@
                             <p>Received By</p>
                         </td>
                     </tr>
-                </table>    
-            </div> 
-        </div> 
+                </table>
+            </div>
+        </div>
     </div>
     @if (!$loop->last)
             <div class="page_break"></div>

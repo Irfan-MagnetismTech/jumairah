@@ -100,7 +100,7 @@
     <div class="container">
         <div class="row">
             <div class="head1" style="padding-left: 400px; text-align: right">
-                {{-- <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc"> --}}
+                {{-- <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc"> --}}
             </div>
         </div>
     </div><br><br>
@@ -187,7 +187,7 @@
                         </p>
                     </td>
                     <td>
-                        <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc" style="padding-left: 230px; text-align: right">
+                        <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc" style="padding-left: 230px; text-align: right">
 
                     </td>
                 </tr>

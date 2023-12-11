@@ -8,8 +8,8 @@
     <style>
         #tableArea{margin-top: 10px;margin-bottom: 10px;}
         table{
-            width: 70%!important; 
-            margin: 0 auto; 
+            width: 70%!important;
+            margin: 0 auto;
         }
         table, table th, table td {border-spacing: 0;border: 1px solid #918c8c;}
         table th, table td{padding:5px;}
@@ -17,8 +17,8 @@
             text-align: right;
         }
         table thead{
-            background: #e3e3e3; 
-            text-align: center; 
+            background: #e3e3e3;
+            text-align: center;
         }
         .text-left{
             text-align: left;
@@ -27,20 +27,20 @@
             text-align: right;
         }
         .text-center{
-            text-align: center; 
+            text-align: center;
         }
         table tbody td:first-child {
             text-align: left;
         }
         .base_header{font-weight: bold }
         .balance_header{font-weight: bold; padding-left:20px; }
-        .balance_line{ padding-left:50px; }        
+        .balance_line{ padding-left:50px; }
     </style>
 </head>
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset('images/ranksfc_log.png')}}" alt="">
+        <img src="{{asset(config('company_info.logo'))}}" alt="">
         <h2 style="margin:0; padding:0"> HR Data </h2>
         <strong>From Jan'{{now()->format('y')}} to Dec'{{now()->format('y')}}</strong>
     </div>
@@ -67,7 +67,7 @@
                 <td>Oct-21	</td>
                 <td>Nov-21	</td>
                 <td>Dec-21</td>
-            </tr>         
+            </tr>
         </thead>
         <tbody style="text-align: center;">
 
@@ -168,6 +168,6 @@
             </tr>
         </tbody>
     </table>
-    
+
 </body>
 </html>

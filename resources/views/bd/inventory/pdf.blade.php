@@ -155,7 +155,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
         $itemCount = 0;
     @endphp
@@ -165,7 +165,7 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 260px; text-align: center">
-                    <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                     <p>
                         Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road,<br> Agrabad C/A, Chattogram.
                         Phone: 2519906-8; 712023-5<br>
@@ -180,7 +180,7 @@
         </div>
         <div style="clear: both"></div>
     </div>
-    
+
 
     <div class="container" style="margin-top: 25px;">
         <table class="customers">

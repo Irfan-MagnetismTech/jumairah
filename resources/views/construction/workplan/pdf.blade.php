@@ -128,15 +128,15 @@
 <body>
 
     <div id="logo" class="pdflogo">
-        <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+        <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
         <div class="clearfix"></div>
-        <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+        <h5>JHL Address.</h5>
     </div>
 
-    
+
 
     <div class="container" style="margin-top: 10px; clear: both; display: block; width: 100%;">
-        
+
 
 
         <div class="table-responsive">
@@ -171,30 +171,30 @@
                         <th >Supply Chain Dept.</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     @forelse ($currentYearPlans as $currentYearPlan)
-                        @php 
-                            $planGroups = $currentYearPlan->workPlanDetails->groupBy('work_id'); 
-                        @endphp 
+                        @php
+                            $planGroups = $currentYearPlan->workPlanDetails->groupBy('work_id');
+                        @endphp
                         @foreach ($planGroups as $planGroup)
                             @foreach($planGroup as $key => $planDetail)
-                                <tr>  
+                                <tr>
                                     @if ($loop->parent->first && $loop->first)
-                                        <td rowspan="{{count($currentYearPlan->workPlanDetails)}}"> 
+                                        <td rowspan="{{count($currentYearPlan->workPlanDetails)}}">
                                             {{ $currentYearPlan->projects->name }}
-                                        </td>                            
+                                        </td>
                                     @endif
-    
+
                                     @if ($loop->first)
-                                        <td rowspan="{{count($planGroup)}}"> 
-                                            {{ $planDetail->boqWorks->name }}                                 
-                                        </td> 
+                                        <td rowspan="{{count($planGroup)}}">
+                                            {{ $planDetail->boqWorks->name }}
+                                        </td>
                                     @endif
-    
-                                    
+
+
                                     @if ($loop->first)
-                                        <td rowspan="{{count($planGroup)}}"> 
+                                        <td rowspan="{{count($planGroup)}}">
                                             @if($planDetail->sub_work && $planDetail->target_accomplishment)
                                             {{ $planDetail->sub_work }}<br>
                                             {{ $planDetail->target_accomplishment }}% completed
@@ -203,14 +203,14 @@
                                             @elseif($planDetail->target_accomplishment)
                                             {{ $planDetail->target_accomplishment }}% completed
                                             @endif
-                                        </td> 
+                                        </td>
                                     @endif
-                                    
+
                                     <td>{{ $planDetail->target }}%</td>
                                     <td></td>
-    
+
                                     <td>{{ $planDetail->description }}</td>
-    
+
                                     <td>{{ $planDetail->name }}</td>
                                     <td>{{ $planDetail->architect_eng_name }}</td>
                                     <td>{{ $planDetail->sc_eng_name }}</td>
@@ -219,11 +219,11 @@
                                     <td >{{ $planDetail->delay }}</td>
                                     <td></td>
                                 </tr>
-    
+
                             @endforeach
                         @endforeach
                         @empty
-                            
+
                     @endforelse
                 </tbody>
             </table>
@@ -231,7 +231,7 @@
 
 
 
-        
+
 
         <br><br><br>
         <div style="display: block; width: 100%;">

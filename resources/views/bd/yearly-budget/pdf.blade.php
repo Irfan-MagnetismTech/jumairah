@@ -155,7 +155,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
         $itemCount = 0;
     @endphp
@@ -165,7 +165,7 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 280px; text-align: center">
-                    <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                     <p>
                         Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, <br>Agrabad C/A, Chattogram.
                         Phone: 2519906-8; 712023-5<br>
@@ -181,7 +181,7 @@
         <div style="clear: both"></div>
 
     </div>
-    
+
 
     <div class="container" style="margin-top: 25px;">
         <table class="customers">
@@ -210,7 +210,7 @@
                 </tr>
             </thead>
             <tbody style="text-align: center">
-                @php 
+                @php
                     $costCenterGroups = $chunk->BdProgressYearlyBudget->groupBy('progress_cost_center_id');
                 @endphp
                     @foreach ($costCenterGroups as $groupkey => $bdProgressBudgets)
@@ -219,11 +219,11 @@
                         <tr>
                             <td> {{ $iteration++ }}</td>
                             @if($loop->first)
-                             <td rowspan= "{{ $rows }}"> {{ $bdProgressBudget->costCenter->name }}     
+                             <td rowspan= "{{ $rows }}"> {{ $bdProgressBudget->costCenter->name }}
                             </td>
                             @endif
-                            
-                            <td >{{ $bdProgressBudget->progress_particulers }} </td> 
+
+                            <td >{{ $bdProgressBudget->progress_particulers }} </td>
                             <td> {{ $bdProgressBudget->progress_remarks }} </td>
                             <td> {{ $bdProgressBudget->progress_january }} </td>
                             <td> {{ $bdProgressBudget->progress_february }} </td>
@@ -291,7 +291,7 @@
                 </tr>
             </thead>
             <tbody style="text-align: center">
-                @php 
+                @php
                     $futureCostCenterGroups = $chunk->BdFutureYearlyBudget->groupBy('future_cost_center_id');
                     $i =1;
                 @endphp
@@ -346,15 +346,15 @@
                 <table class="customers">
                     <tr style="text-align: center">
                         <td >
-                            Total Payable Amount:  
+                            Total Payable Amount:
                         </td>
                         <td >
-                            {{ $bd_yearly_budget_details[0]->total_amount }} 
+                            {{ $bd_yearly_budget_details[0]->total_amount }}
                         </td>
                     </tr>
-                </table>    
-            </div>  
-        </div>  
+                </table>
+            </div>
+        </div>
     </div>
     @if (!$loop->last)
             <div class="page_break"></div>
