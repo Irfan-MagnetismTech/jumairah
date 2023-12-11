@@ -60,14 +60,17 @@
                 {{ Form::text('applied_date', old('applied_date') ? old('applied_date') : (!empty($requisition) ? $requisition->applied_date : null), ['class' => 'form-control', 'id' => 'applied_date', 'autocomplete' => 'off', 'required', 'placeholder' => 'Applied Date', 'readonly']) }}
             </div>
         </div>
-        @unlessrole('super-admin')
-            <div class="col-md-3">
+        {{-- @unlessrole('super-admin') --}}
+            {{-- <div class="col-md-3">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon">Approval Type<span class="text-danger">*</span></label>
-                    {{ Form::select('approval_layer_id', $ApprovalLayerName, old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : null), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
+                    {{ Form::select('approval_layer_id', $ApprovalLayerName, old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : 7), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
+                    {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : 7), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
                 </div>
-            </div>
-        @endunlessrole
+            </div> --}}
+            {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : 7), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
+
+        {{-- @endunlessrole --}}
         <div class="col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="note">Note (Purpose,Brand, <br>Origin, Other

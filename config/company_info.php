@@ -8,6 +8,7 @@ return [
         'company_email' => '',
         'company_website' => '',
         'logo' => "images/jumairah_logo.png",
+        'altText' => 'Jumairah Holdings Limited',
 
         ];
 

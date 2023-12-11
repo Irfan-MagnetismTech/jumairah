@@ -74,7 +74,7 @@
                     </div>
                     <a href="{{route('home')}}">
                         <h4 class="my-0">
-                            <img src="{{asset('images/jumairah.png')}}" alt="" width="180px" height="80px">
+                            <img src="{{asset(config('company_info.logo'))}}" alt="" width="180px" height="80px">
                         </h4>
                     </a>
                     <a class="mobile-options">
