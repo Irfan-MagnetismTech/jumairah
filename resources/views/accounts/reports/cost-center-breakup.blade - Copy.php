@@ -59,7 +59,7 @@
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset(config('company_info.logo'))}}" alt="">
+        <img src="{{asset(config('company_info.logo'))}}" alt="{{ asset(config('company_info.altText')) }}">
         <h1 style="margin:0; padding:0">Trial Balance</h1>
         <strong>December 31, {{now()->format('Y')}}</strong>
     </div>

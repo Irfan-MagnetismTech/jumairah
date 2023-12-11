@@ -102,7 +102,7 @@
         <div class="container">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="{{ asset(config('company_info.altText')) }}">
                     <p>
                         JHL Address.<br>
                         Phone: 0312519906 Mobile: 09617124124.<br>

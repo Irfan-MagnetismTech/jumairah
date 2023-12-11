@@ -40,7 +40,7 @@
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset(config('company_info.logo'))}}" alt="">
+        <img src="{{asset(config('company_info.logo'))}}" alt="{{ asset(config('company_info.altText')) }}">
         <h2 style="margin:0; padding:0"> Budget Cash Flow </h2>
         <strong>From Jan'{{now()->format('y')}} to Dec'{{now()->format('y')}}</strong>
 {{--        <strong>From Jan'{{now()->format('y')}} to Dec'{{now()->format('y')}}</strong>--}}

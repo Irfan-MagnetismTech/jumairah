@@ -165,7 +165,7 @@
                 <div class="container" id="fixed_header">
                     <div class="row">
                         <div class="head1" style="padding-left: 280px; text-align: center">
-                            <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
+                            <img src="{{ asset(config('company_info.logo')) }}" alt="{{ asset(config('company_info.altText')) }}">
                             <p>
                                 JHL Address.<br>
                                 Phone: JHL Phone Number<br>
