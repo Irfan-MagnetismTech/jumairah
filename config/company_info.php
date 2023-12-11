@@ -7,7 +7,8 @@ return [
         'company_phone' => '02-58951100',
         'company_email' => '',
         'company_website' => '',
-        'logo' => "images/jumairah_logo1.png",
+        'logo' => "images/jumairah_logo.png",
+        'altText' => 'Jumairah Holdings Limited',
 
         ];
 
