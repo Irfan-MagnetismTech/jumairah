@@ -168,7 +168,7 @@
                     <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                     <p>
                         JHL Address.<br>
-                        Phone: 2519906-8; 712023-5<br>
+                        Phone: JHL Phone Number<br>
                         <a style="color:#000;" target="_blank">www.ranksfc.com</a>
                     </p>
                     <h3>
