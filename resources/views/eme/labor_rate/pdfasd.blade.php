@@ -132,7 +132,7 @@
         }
 
         /*header - position: fixed */
-       
+
 
         /*fixed_footer - position: fixed */
         #fixed_footer {
@@ -167,7 +167,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
         $total = 0;
     @endphp
@@ -175,14 +175,14 @@
             <div class="container" id="fixed_header">
                 <div class="row">
                     <div class="head1" style="padding-left: 180px; text-align: center">
-                        <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                        <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                         <p>
-                            Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
-                            Phone: 2519906-8; 712023-5<br>
+                            JHL Address.<br>
+                            Phone: JHL Phone Number<br>
                             <a style="color:#000;" target="_blank">www.ranksfc.com</a>
                         </p>
-                        
-                        
+
+
                     </div>
                     <div style="padding:50 0 0 50; ">
                         <h4>
@@ -258,7 +258,7 @@
                             <td class="text-bold">
                                 @php
                                     $electric_bill =($BoqEmeUtilityBill->present_reading - $BoqEmeUtilityBill->previous_reading) * $BoqEmeUtilityBill->electricity_rate;
-                              
+
                                 @endphp
                                     {{ $electric_bill }}
                             </td>
@@ -350,7 +350,7 @@
                                 <tr>
                                     @php
                                         $iteration++
-                                    @endphp 
+                                    @endphp
                                     <td> {{ $value->other_cost_name }} Charge (Tk)</td>
                                     <td> {{ $value->other_cost_amount }} </td>
                                     <td></td>
@@ -363,7 +363,7 @@
                                     <td>ada</td>
                                 </tr>
                         @endforeach
-                       
+
                         <tr>
                             <td>Previous Due Bill (TK) </td>
                             <td>{{$BoqEmeUtilityBill->due_amount}}</td>
@@ -412,7 +412,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                       
+
                     </table>
                 </div>
                 {{-- <div style="margin-top: 30px;">
@@ -452,7 +452,7 @@
                             <td></td>
                             <td></td>
                         </tr>
-                       
+
                     </table>
                 </div> --}}
                 {{-- <p>
@@ -477,7 +477,7 @@
                             <tr>
                                 @php
                                     $iteration++
-                                @endphp 
+                                @endphp
                                 <td> {{ $value->other_cost_name }} Charge (Tk)</td>
                                 <td> {{ $value->other_cost_amount }} </td>
                                 <td></td>
@@ -505,7 +505,7 @@
                     <table class="customers">
                         <tr>
                             <td>
-                                <p>Remarks from Project/Site: {{ $requisitions[0]->remarks }} </p> 
+                                <p>Remarks from Project/Site: {{ $requisitions[0]->remarks }} </p>
                             </td>
                         </tr>
                     </table>
@@ -560,7 +560,7 @@
                         </tr>
                     </table>
                 </div>
-            </div> 
+            </div>
         </div> --}}
         {{-- @if (!$loop->last)
             <div class="page_break"></div>

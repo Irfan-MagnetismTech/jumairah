@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{!! asset(url('css/bootstrap.min.css')) !!}">
     <link rel="stylesheet" type="text/css" href="{!! asset(url('css/style.css')) !!}">
     <style>
-        
+
         body{
             /* background: #ffffff!important; */
             background-image: url("{{asset('/images/back_image.png')}}");
@@ -93,7 +93,7 @@
             right: 0;
         }
     </style>
-    
+
 </head>
 
 <body class="fix-menu">
@@ -108,7 +108,7 @@
 <!-- Pre-loader end -->
 <!-- style="background: #ffffff!important;" -->
 <section class="p-fixed d-flex text-center" >
-    
+
     <!-- Container-fluid starts -->
     <div class="container">
         <div class="row">
@@ -169,9 +169,9 @@
                         </div>
                         <div class="text-center" >
 {{--                            <h2 style="color: white">Magnetism Tech Ltd.</h2>--}}
-                            <img src="{{asset('images/ranksfc_logo_big.png')}}" alt="RanksFC" class="loginLogo">
+                            <img src="{{asset('images/login.png')}}" alt="RanksFC" class="loginLogo">
                             <p style="margin-top:165%" id="fixed_position">
-                                Atlas Rangs Plaza(Level-9 & 10), 7 SK Mujib Road Agrabad C/A, Chattogram.
+                                JHL Address.
                             </p>
                         </div>
                     </form>

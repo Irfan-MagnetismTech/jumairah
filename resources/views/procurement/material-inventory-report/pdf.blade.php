@@ -143,7 +143,7 @@
                         }else{
                             $r_span = $total->first()->nestedMaterial->parent->id;
                         }
-                            
+
                         if(isset($opening_inventory[$key])){
                             $openingInventory = $opening_inventory[$key]->first()->previous_stock;
                         }else{
@@ -202,9 +202,9 @@
                     @if ($loop->first)
                     <header>
                         <div id="logo" class="pdflogo">
-                            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+                            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
                             <div class="clearfix"></div>
-                            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+                            <h5>JHL Address.</h5>
                         </div>
                         <div class="table-responsive" style="width:100%; margin-left:400px">
                         </div>
@@ -256,8 +256,8 @@
                                         <th>Cumulative Issue to work site <br/>(Column 14 of) store ledger</th>
                                         <th >Remaining Required Quantity Total <br/>Estimated Quantity less Net Cumin Quantity</th>
                                     </tr>
-                    
-                    
+
+
                     @endif
                     <tr>
                         <td >{{ $loop->iteration }}</td>
@@ -303,7 +303,7 @@
                             $chek[$r_span] = 1;
                         @endphp
                     </tr>
-                            
+
                 @if ($loop->last)
                      </table>
                             </div>

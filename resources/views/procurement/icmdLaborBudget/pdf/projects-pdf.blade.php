@@ -92,11 +92,11 @@
         }
 
         /*header - position: fixed */
-        #fixed_header { 
-            position: fixed; 
-            width: 100%; 
-            top: 0; 
-            left: 0; 
+        #fixed_header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
             right: 0;
         }
 
@@ -117,7 +117,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $sub_total = 0;
         $iteration = 1;
     @endphp
@@ -126,9 +126,9 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                     <p>
-                        Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
+                        JHL Address.<br>
                         Phone: 0312519906 Mobile: 09617124124.<br>
                         <a style="color:#000;" target="_blank">www.ranksfc.com</a>
                     </p>
@@ -289,7 +289,7 @@
                 </td>
             </tr>
         </table>
-        
+
 
 
         <table id="fixed_footer" style="position: fixed; left: 12; bottom: 130; width: 88%;">

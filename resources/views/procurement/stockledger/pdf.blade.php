@@ -215,9 +215,9 @@
 
                 <header>
                     <div id="logo" class="pdflogo">
-                        <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+                        <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
                         <div class="clearfix"></div>
-                        <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+                        <h5>JHL Address.</h5>
                     </div>
                     <div class="table-responsive" style="width:100%; margin-left:400px">
                         {{-- <table id="table" class="table table-striped table-bordered text-left">
@@ -262,10 +262,10 @@
                         </div>
                     </div>
                 </header>
-        
+
                 <div class="container" style="clear: both; width: 100%;">
-                   
-                
+
+
                     <div class="row ">
                         <div class="table-responsive">
                             <table class="table table-bordered text-center" id="tableLeft">
@@ -333,22 +333,22 @@
                                   $receiveFromPurchase = 0;
                               }
                               $cumulative_purchase += $receiveFromPurchase;
-          
+
                               if (isset($issued_for_work_site[$key])){
                                   $issuedForWorkSite = $issued_for_work_site[$key]['sum'];
                               }else{
                                   $issuedForWorkSite = 0;
                               }
-          
+
                               $cumulative_issued_for_worksite += $issuedForWorkSite;
-          
+
                               if (isset($movement_In[$key])){
                                   $movementIn = $movement_In[$key]['sum'];
                               }else{
                                   $movementIn = 0;
                               }
                               $cumulative_movement_in += $movementIn;
-          
+
                               if (isset($movement_out[$key])){
                                   $movementout = $movement_out[$key]['sum'];
                               }else{
@@ -369,7 +369,7 @@
                                               0
                                   @endif
                               </td>
-          
+
                               <td>
                                   @if (isset($receive_from_purchase[$key]))
                                       @forelse ($receive_from_purchase[$key]['item'] as $dddd)
@@ -380,7 +380,7 @@
                                   @else
                                               0
                                   @endif
-          
+
                               </td>
                               <td >{{ $cumulative_purchase }}</td>
                               <td>
@@ -457,13 +457,13 @@
                               <td>{{  $cumulative_purchase + $cumulative_movement_in - $cumulative_movement_out - $cumulative_issued_for_worksite }}</td>
                           </tr>
                           @endforeach
-          
+
                       </table>
                   </div>
-          
-              
-          
-          
+
+
+
+
 
 
                 </div>

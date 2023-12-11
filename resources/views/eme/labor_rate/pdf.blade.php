@@ -148,7 +148,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
     @endphp
 
@@ -158,9 +158,9 @@
     <div>
     <div>
         <div id="logo" class="pdflogo" id="fixed_header">
-            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
             <div class="clearfix"></div>
-            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+            <h5>JHL Address.</h5>
         </div>
 
         <div id="pageTitle" style="display: block; width: 100%;">
@@ -195,16 +195,16 @@
                     @else
                         <th width="100px">Material's Name</th>
                     @endif
-                
+
                 <th width="30px">Unit</th>
-                <th width="30px">Qty</th> 
-                <th width="30px">Amount</th> 
+                <th width="30px">Qty</th>
+                <th width="30px">Amount</th>
             </tr>
         </thead>
         <tbody>
             @php $price_index = 0; @endphp
             @foreach ($chunk as $data)
-                    
+
                 <tr>
                     <td style="text-align: center">{{ $iteration++ }}</td>
                     @if ($labor_rate->type == 1)
@@ -212,16 +212,16 @@
                     @else
                         <td style="text-align: center"><b>{{ $data->NestedMaterial->name }}</b></td>
                     @endif
-                    
+
                     <td style="text-align: center"><b>{{ $data->labor_rate }}</b></td>
                     <td style="text-align: center"><b>{{ $data->qty }}</b></td>
                     <td style="text-align: center"><b>{{ $data->qty * $data->labor_rate}}</b></td>
-{{-- 
+{{--
                     @if ($loop->last) <td style="text-align: center">{{ $labor_rate->remarks }}</td> @endif --}}
                 </tr>
             @endforeach
-          
-          
+
+
         </tbody>
     </table>
     <br>
@@ -257,7 +257,7 @@
     </div>
 </div>
 
-   
+
     @if (!$loop->last)
             <div class="page_break"></div>
         @endif

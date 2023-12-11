@@ -128,7 +128,7 @@
 <body>
     <header>
         <div id="logo" class="pdflogo">
-            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg pullRight">
+            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg pullRight">
         </div>
     </header>
 
@@ -401,7 +401,7 @@
             <tr>
                 <th style="width: 15%;">Less {{ $allConstructionBill->first()->percentage }}% security</th>
                 <th style="width: 13%;"></th>
-                
+
                 <th style="width: 18%;">@money($security)</th>
                 <th style="width: 18%;"></th>
                 <th style="width: 18%;"></th>
@@ -449,7 +449,7 @@
         {{-- <p>Pls issue an A/C Payee Cheque in favour of <strong>"{{ $constructionBill->supplier->name }}"</strong> </p> --}}
         <p>{{ $constructionBill->remarks }}</p>
     </div>
-    
+
 
     <footer>
 
@@ -468,7 +468,7 @@
                 <img src="{{ asset("{$constructionBill->appliedBy->signature}") }}" id="signature_view" width="100px" height="40px" alt="Signature">
             </div>
         </div>
-        
+
         @forelse($approvals as $approval)
             <div class="col-2-5">
                 <div class="text-center" style="text-decoration: underline;">

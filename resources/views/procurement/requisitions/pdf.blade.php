@@ -155,7 +155,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
         $itemCount = 0;
     @endphp
@@ -165,10 +165,10 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                     <p>
-                        Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
-                        Phone: 2519906-8; 712023-5<br>
+                        JHL Address.<br>
+                        Phone: JHL Phone Number<br>
                         <a style="color:#000;" target="_blank">www.ranksfc.com</a>
                     </p>
                     <h3>
@@ -218,14 +218,14 @@
                 @foreach ($chunk as $requisitiondetail)
                 @php
                     $boqMaterial = App\Procurement\NestedMaterial::whereHas('boqSupremeBudgets')->whereAncestorOrSelf($requisitiondetail->material_id)->orderBy('id','desc')->first();
-                    
+
                     if (!empty($requisitiondetail->floor_id)) {
                         $floorNo = $requisitiondetail->boqFloors->where('project_id', $requisitiondetail->requisition->costCenter->project_id)->first();
                         $boq_quantity = App\Procurement\BoqSupremeBudget::
                                 where('project_id',$requisitiondetail->requisition->costCenter->project_id)
                             ->where('floor_id', $floorNo->boq_floor_project_id)
                             ->where('material_id', $boqMaterial->id)
-                            ->first(); 
+                            ->first();
 
                     }else{
                         $boq_quantity = App\Procurement\BoqSupremeBudget::
@@ -281,8 +281,8 @@
                             <p>Remarks from Project/Site: {{ $requisitions[0]->remarks }} </p>
                         </td>
                     </tr>
-                </table>    
-            </div>  
+                </table>
+            </div>
             <div  style="margin-top: 30px;">
                 <table class="customers">
                     <tr>
@@ -293,8 +293,8 @@
                             <p>Remarks by Construction Department: </p>
                         </td>
                     </tr>
-                </table>    
-            </div>  
+                </table>
+            </div>
             <div  style="margin-top: 30px;">
                 <table class="customers">
                     <tr>
@@ -305,8 +305,8 @@
                             <p>Remarks by Construction Department: </p>
                         </td>
                     </tr>
-                </table>    
-            </div>  
+                </table>
+            </div>
             <div  style="margin-top: 30px;">
                 <table class="approval" style="text-align: center; border:none!important">
                     <tr>
@@ -331,9 +331,9 @@
                             <p>store in-charge</p>
                         </td>
                     </tr>
-                </table>    
-            </div> 
-        </div> 
+                </table>
+            </div>
+        </div>
     </div>
     @if (!$loop->last)
             <div class="page_break"></div>

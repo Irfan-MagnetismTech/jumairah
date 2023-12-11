@@ -148,7 +148,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
     @endphp
 
@@ -157,9 +157,9 @@
 
     <div>
         <div id="logo" class="pdflogo" id="fixed_header">
-            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
             <div class="clearfix"></div>
-            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+            <h5>JHL Address.</h5>
         </div>
 
         {{-- <div id="pageTitle" style="display: block; width: 100%;">
@@ -217,7 +217,7 @@
         @endphp
         <br/>
         <div>Time allowed for completion of Scrap sale from project carrying is within {{ $ScrapCsMaterialSupplier->first()->Cssupplier->lead_time }} days from the date of sale orser.Total amount has to be paid in {{ $ScrapCsMaterialSupplier->first()->Cssupplier->payment_type }} before scrap sale from project. This rate is applicable for
-        
+
         @if ($dd->y)
              {{ $dd->y }} year
         @endif
@@ -238,7 +238,7 @@
                 <tr>
                     <td>
                         <span>-----------------------------</span>
-                        
+
                     </td>
                     <td>
                     </td>
@@ -248,7 +248,7 @@
                     </td>
                     <td>
                         <span>----------------------------</span>
-                        
+
                     </td>
                 </tr>
                 <tr>

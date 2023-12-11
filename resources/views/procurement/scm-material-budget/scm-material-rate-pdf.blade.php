@@ -165,10 +165,10 @@
                 <div class="container" id="fixed_header">
                     <div class="row">
                         <div class="head1" style="padding-left: 280px; text-align: center">
-                            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                            <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                             <p>
-                                Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
-                                Phone: 2519906-8; 712023-5<br>
+                                JHL Address.<br>
+                                Phone: JHL Phone Number<br>
                                 <a style="color:#000;" target="_blank">www.ranksfc.com</a>
                             </p>
                             <h3>
@@ -194,7 +194,7 @@
                             <th colspan="3">Week-4</th>
                             <th rowspan="2">Remarks</th>
                             <th rowspan="2">Grand Total<br>Amount(BDT.)</th>
-                        </tr> 
+                        </tr>
                         <tr>
                             <th>Quantity</th>
                             <th>Rate</th>
@@ -211,12 +211,12 @@
                         </tr>
                     </thead>
                     <tbody style="text-align: center">
-                        @php 
+                        @php
                             $weekOneTotal = 0; $weekTwoTotal = 0; $weekThreeTotal = 0; $weekFourTotal = 0; $week_grand_total = 0;
                         @endphp
 
                         @foreach ($chunk_data as $data)
-                            @php 
+                            @php
                                 $weekOneTotal += $weekOne = $data->week_one * $data->week_one_rate;
                                 $weekTwoTotal += $weekTwo = $data->week_two * $data->week_two_rate;
                                 $weekThreeTotal += $weekThree = $data->week_three * $data->week_three_rate;
@@ -264,12 +264,12 @@
                             </tr>
                     </tbody>
                 </table>
-            </div> 
+            </div>
         @if (!$loop->last)
             <div class="page_break"></div>
         @endif
     @endforeach
-    
+
     <script type="text/javascript">
         $(document).ready(function() {
         var a = 0;
@@ -278,15 +278,15 @@
                          let rate = $(this).parent('td').prev().prev().find('.qty').val();
                          $(this).val(qty * rate);
                      });
-     
-         $('.rate').on('change keyup', function() {   
+
+         $('.rate').on('change keyup', function() {
              let qty = $(this).parent('td').prev().find('.qty').val();
              let rate = $(this).val();
              $(this).parent('td').next().find('.value').val(qty*rate);
              Get_total();
          })
          function Get_total(){
-            
+
              let week1 = 0;
              let week2 = 0;
              let week3 = 0;
