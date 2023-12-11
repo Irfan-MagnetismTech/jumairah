@@ -39,7 +39,7 @@
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset(config('company_info.logo'))}}" alt="{{ asset(config('company_info.altText')) }}">
+        <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
         <h2 style="margin:0; padding:0">MIS For the Month of {{now()->format('M, Y')}} </h2>
     </div>
     <br>

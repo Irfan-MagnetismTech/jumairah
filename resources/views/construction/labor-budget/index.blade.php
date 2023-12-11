@@ -19,7 +19,7 @@
         <div class="col-md-12 col-xl-12 text-center">
             <img src="{{ asset(config('company_info.logo')) }}">
             <div class="clearfix"></div>
-            <h6>JHL Address.</h6>
+            <h6>{!! htmlspecialchars(config('company_info.company_address')) !!}</h6>
         </div>
     </div>
 

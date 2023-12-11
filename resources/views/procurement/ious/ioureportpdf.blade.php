@@ -165,11 +165,11 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset(config('company_info.logo')) }}" alt="{{ asset(config('company_info.altText')) }}">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
                     <p>
-                        JHL Address.<br>
-                        Phone: JHL Phone Number<br>
-                        <a style="color:#000;" target="_blank">www.ranksfc.com</a>
+                        {!! htmlspecialchars(config('company_info.company_address')) !!}<br>
+                        Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!}<br>
+                        <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                     </p>
                     <h2 style="text-align: center; width: 25%; border: 1px solid #000000; border-radius: 5px; margin: 10px auto">IOU SLIP</h2>
                 </div>

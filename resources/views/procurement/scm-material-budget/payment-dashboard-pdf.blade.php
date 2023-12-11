@@ -171,11 +171,11 @@
                 <div class="container" id="fixed_header">
                     <div class="row">
                         <div class="head1" style="padding-left: 300px; text-align: center">
-                            <img src="{{ asset(config('company_info.logo')) }}" alt="{{ asset(config('company_info.altText')) }}">
+                            <img src="{{ asset(config('company_info.logo')) }}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
                             <p>
-                                JHL Address.<br>
-                                Phone: JHL Phone Number<br>
-                                <a style="color:#000;" target="_blank">www.ranksfc.com</a>
+                                {!! htmlspecialchars(config('company_info.company_address')) !!}<br>
+                                Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!}<br>
+                                <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                             </p>
                             <h3>
                                 Material Budget for The Month of {{ DateTime::createFromFormat('!m', $month)->format('F') . ', ' . $year }}

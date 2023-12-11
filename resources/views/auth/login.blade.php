@@ -171,7 +171,7 @@
 {{--                            <h2 style="color: white">Magnetism Tech Ltd.</h2>--}}
                             <img src="{{asset('images/login.png')}}" alt="RanksFC" class="loginLogo">
                             <p style="margin-top:165%" id="fixed_position">
-                                JHL Address.
+                                {!! htmlspecialchars(config('company_info.company_address')) !!}
                             </p>
                         </div>
                     </form>

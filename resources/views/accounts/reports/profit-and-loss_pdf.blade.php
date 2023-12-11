@@ -20,7 +20,7 @@
 
 <body>
 <div style="text-align: center">
-    <img src="{{asset(config('company_info.logo'))}}" alt="{{ asset(config('company_info.altText')) }}">
+    <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
     <h1 style="margin:0; padding:0">Income Statement</h1>
     <strong>December 31, {{now()->format('Y')}}</strong>
 </div>

@@ -143,7 +143,7 @@
         </div>
         <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
         <div class="clearfix"></div>
-        <p>JHL Address.</p>
+        <p>{!! htmlspecialchars(config('company_info.company_address')) !!}</p>
         <p>Ph.: +88(031)2519906-8, Fax: 88(031)712023-5.</p>
 
     </div>

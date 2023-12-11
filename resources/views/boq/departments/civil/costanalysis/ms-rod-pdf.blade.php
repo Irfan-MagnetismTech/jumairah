@@ -99,7 +99,7 @@
 
 <div id="logo" class="pdflogo">
     <img src="{{ asset(config('company_info.logo'))}}" alt="Logo" class="pdfimg">
-    <h5>JHL Address.</h5>
+    <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
     <h2>{{ $project->name }}</h2>
 </div>
 

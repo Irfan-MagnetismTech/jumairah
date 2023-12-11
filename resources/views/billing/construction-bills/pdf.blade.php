@@ -136,7 +136,7 @@
         Atlas Rangs Plaza (Level 9&10), 7, Sk. Mujib Road,<br>
         Agrabad C/A, Chattogram, <br>
         Phone: 2519906-8, 712023-5 <br>
-        www.ranksfc.com
+        {!! htmlspecialchars(config('company_info.company_email')) !!}
     </footer> --> --}}
 
     <div class="container" style="width:100%; margin-top:8px;">

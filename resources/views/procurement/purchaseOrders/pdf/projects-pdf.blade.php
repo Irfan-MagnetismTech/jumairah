@@ -126,11 +126,11 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset(config('company_info.logo')) }}" alt="{{ asset(config('company_info.altText')) }}">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
                     <p>
-                        JHL Address.<br>
+                        {!! htmlspecialchars(config('company_info.company_address')) !!}<br>
                         Phone: 0312519906 Mobile: 09617124124.<br>
-                        <a style="color:#000;" target="_blank">www.ranksfc.com</a>
+                        <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                     </p>
                     <h3 style="border: 1px solid #000;">
                         Purchase Order Form

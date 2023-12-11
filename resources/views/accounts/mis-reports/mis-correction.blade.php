@@ -29,7 +29,7 @@
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset(config('company_info.logo'))}}" alt="{{ asset(config('company_info.altText')) }}">
+        <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
         <h2 style="margin:0; padding:0">Correction of MIS Report </h2>
         <strong>for the Calendar Year {{now()->format('Y')}}</strong>
     </div>
