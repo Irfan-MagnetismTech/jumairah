@@ -39,6 +39,13 @@ tbody{
     border: 1px solid #ffffff!important;
 }
 
+.ti-menu {
+    color: #fffa94!important;
+}
+.ti-fullscreen {
+    color: #fffa94!important;
+}
+
 
 .breakWords{
     word-wrap: break-word;
