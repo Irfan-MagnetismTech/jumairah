@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Rancon FC Properties Ltd</title>
+    <title>{!! htmlspecialchars(config('company_info.company_name')) !!}</title>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -169,7 +169,7 @@
                         </div>
                         <div class="text-center" >
 {{--                            <h2 style="color: white">Magnetism Tech Ltd.</h2>--}}
-                            <img src="{{asset('images/login.png')}}" alt="RanksFC" class="loginLogo">
+                            <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="loginLogo">
                             <p style="margin-top:165%" id="fixed_position">
                                 {!! htmlspecialchars(config('company_info.company_address')) !!}
                             </p>

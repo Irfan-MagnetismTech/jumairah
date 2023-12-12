@@ -948,7 +948,6 @@
                         </td>
                         <td><input type="text" name="unit[]" class="form-control text-center form-control-sm unit" readonly tabindex="-1" value='${data.unit}'></td>
                         <td><input type="text" name="requisition_quantity[]" class="form-control text-center form-control-sm requisition_quantity" value='${data.quantity}' readonly tabindex="-1"></td>
-                        // <td><input type="text" name="mrr_quantity[]" class="form-control text-center form-control-sm mrr_quantity" value='${data.mrr_quantity}' readonly tabindex="-1"></td>
                         <td><input type="text" name="brand[]" class="form-control text-center form-control-sm brand" autocomplete="off" value='${data.brand}'></td>
                         <td><input type="text" name="origin[]" class="form-control text-center form-control-sm origin" autocomplete="off"  ></td>
                         <td><input type="number" name="challan_no[]" class="form-control text-center form-control-sm challan_no" autocomplete="off"  ></td>
