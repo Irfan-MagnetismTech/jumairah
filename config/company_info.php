@@ -12,13 +12,14 @@ return [
         'altText' => 'Jumairah Holdings Limited',
 
         'modules' => [
-                'General' =>'General',
-                'Sales'   =>'Sales',
-                'SCM'     =>'SCM',
-                'HR'      =>'HR',
-                'Accounts'=>'Accounts',
-                'BD'      =>'BD',
-                'BOQ'     =>'BOQ',
+                'General'       =>'General',
+                'BD'            =>'BD',
+                'BOQ'           =>'BOQ',
+                'SCM'           =>'SCM',
+                'Construction'  =>'Construction',
+                'Sales'         =>'Sales',
+                'HR'            =>'HR',
+                'Accounts'      =>'Accounts',
                 ]
 
         ];

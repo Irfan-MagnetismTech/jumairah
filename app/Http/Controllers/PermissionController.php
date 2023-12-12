@@ -27,9 +27,10 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::latest()->get();
-        $modulse = config('company_info.modules'); 
+        $modules = config('company_info.modules');
+        $subjects = [];
         $formType = "create";
-        return view('permissions.create', compact('modulse','permissions', 'formType'));
+        return view('permissions.create', compact('modules','subjects','permissions', 'formType'));
     }
 
     /**
@@ -41,7 +42,9 @@ class PermissionController extends Controller
     {
         $formType = "create";
         $permissions = Permission::latest()->get();
-        return view('permissions.create', compact('permissions', 'formType'));
+        $modules = config('company_info.modules');
+        $subjects = [];
+        return view('permissions.create', compact('modules','subjects','permissions', 'formType'));
     }
 
     /**
@@ -87,7 +90,9 @@ class PermissionController extends Controller
     {
         $formType = "edit";
         $permissions = Permission::latest()->get();
-        return view('permissions.create', compact('permission', 'permissions', 'formType'));
+        $modules = config('company_info.modules');
+        $subjects = [];
+        return view('permissions.create', compact('modules','subjects','permission', 'permissions', 'formType'));
     }
 
     /**
