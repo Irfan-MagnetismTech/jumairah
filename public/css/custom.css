@@ -39,6 +39,10 @@ tbody{
     border: 1px solid #ffffff!important;
 }
 
+style attribute {
+    color: #e1d3d3;
+}
+
 
 .breakWords{
     word-wrap: break-word;
