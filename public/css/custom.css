@@ -39,8 +39,11 @@ tbody{
     border: 1px solid #ffffff!important;
 }
 
-style attribute {
-    color: #e1d3d3;
+.ti-menu {
+    color: #fffa94!important;
+}
+.ti-fullscreen {
+    color: #fffa94!important;
 }
 
 
