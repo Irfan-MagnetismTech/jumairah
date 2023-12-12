@@ -31,8 +31,8 @@ class ProcessedSalary extends Model
         return $this->belongsTo(Shift::class, 'shift_id', 'id');
     }
 
-    public function transaction()
-    {
-        return $this->morphOne(Transaction::class, 'transactionable');
-    }
+    // public function transaction()
+    // {
+    //     return $this->morphOne(Transaction::class, 'transactionable');
+    // }
 }
