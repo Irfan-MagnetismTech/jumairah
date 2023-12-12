@@ -35,7 +35,7 @@
                     <tr><td> <strong>Type</strong> </td> <td> {{ $apartment->type->type_name}}</td></tr>
                     <tr><td> <strong>Floor</strong> </td> <td> {{ $apartment->floor}}</td></tr>
                     <tr><td> <strong>Face</strong> </td> <td> {{ $apartment->face}}</td></tr>
-                    <tr><td> <strong>Owner</strong> </td> <td> {{$apartment->owner  == 2 ? "LandOwner" : "Ranks Fc"}}</td></tr>
+                    <tr><td> <strong>Owner</strong> </td> <td> {{$apartment->owner  == 2 ? "LandOwner" : "Jumairah Holdings Ltd"}}</td></tr>
                     <tr><td> <strong>Apartment Size</strong> </td> <td> @money($apartment->apartment_size)</td></tr>
                     @if($apartment->owner  == 1)
                     <tr><td> <strong>Apartment Rate(SFT)</strong> </td> <td> @money($apartment->apartment_rate)</td></tr>
