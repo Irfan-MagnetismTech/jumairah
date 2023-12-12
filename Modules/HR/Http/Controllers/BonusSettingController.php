@@ -23,8 +23,8 @@ class BonusSettingController extends Controller
     public function index()
     {
         $this->authorize('bonus-setting-show');
-        $bonusSettings = BonusSetting::where('com_id', auth()->user()->com_id)->with('employee','bonus')->latest()->get();
-        return view('hr::bonus-setting.index',compact('bonusSettings'));
+        $bonusSettings = BonusSetting::with('employee', 'bonus')->latest()->get();
+        return view('hr::bonus-setting.index', compact('bonusSettings'));
     }
 
     /**
@@ -35,10 +35,10 @@ class BonusSettingController extends Controller
     {
         $this->authorize('bonus-setting-create');
         $formType = 'create';
-        $bonuses = Bonus::pluck('name','id');
-        $departments = Department::where('com_id',auth()->user()->com_id)->pluck('name','id');
-        $employees = Employee::where('com_id',auth()->user()->com_id)->pluck('emp_name','id');
-        return view('hr::bonus-setting.create',compact('bonuses','departments','formType','employees'));
+        $bonuses = Bonus::pluck('name', 'id');
+        $departments = Department::pluck('name', 'id');
+        $employees = Employee::pluck('emp_name', 'id');
+        return view('hr::bonus-setting.create', compact('bonuses', 'departments', 'formType', 'employees'));
     }
 
     /**
@@ -54,10 +54,10 @@ class BonusSettingController extends Controller
             $input = $request->except('department_id');
             $input['bonus_id'] = json_encode($input['bonus_id']);
             DB::transaction(function () use ($input, $request) {
-                if(BonusSetting::where('employee_id',$input['employee_id'])->count()>0){
-                    $bonusSettings = BonusSetting::where('com_id', auth()->user()->com_id)->where('employee_id',$input['employee_id'])->first();
+                if (BonusSetting::where('employee_id', $input['employee_id'])->count() > 0) {
+                    $bonusSettings = BonusSetting::where('employee_id', $input['employee_id'])->first();
                     $bonusSettings->update($input);
-                }else{
+                } else {
                     BonusSetting::create($input);
                 }
             });
@@ -87,11 +87,11 @@ class BonusSettingController extends Controller
     {
         $this->authorize('bonus-setting-edit');
         $formType = 'edit';
-        $bonusSetting = BonusSetting::where('com_id', auth()->user()->com_id)->find($id);
-        $bonuses = Bonus::pluck('name','id');
-        $departments = Department::where('com_id', auth()->user()->com_id)->pluck('name','id');
-        $employees = Employee::where('com_id', auth()->user()->com_id)->pluck('emp_name','id');
-        return view('hr::bonus-setting.create',compact('bonusSetting','bonuses','departments','formType','employees'));
+        $bonusSetting = BonusSetting::find($id);
+        $bonuses = Bonus::pluck('name', 'id');
+        $departments = Department::pluck('name', 'id');
+        $employees = Employee::pluck('emp_name', 'id');
+        return view('hr::bonus-setting.create', compact('bonusSetting', 'bonuses', 'departments', 'formType', 'employees'));
     }
 
     /**
@@ -107,13 +107,13 @@ class BonusSettingController extends Controller
 
             $input = $request->except('department_id');
 
-            if($input['amount_type']=='percentage' && $input['amount']>100){
+            if ($input['amount_type'] == 'percentage' && $input['amount'] > 100) {
                 $input['amount'] = 100;
             }
 
             $input['bonus_id'] = json_encode($input['bonus_id']);
             DB::transaction(function () use ($input, $request, $id) {
-                $bonusSettings = BonusSetting::where('com_id', auth()->user()->com_id)->findOrFail($id);
+                $bonusSettings = BonusSetting::findOrFail($id);
                 $bonusSettings->update($input);
             });
 
@@ -135,7 +135,7 @@ class BonusSettingController extends Controller
             $message = 0;
             DB::transaction(function () use ($id, &$message) {
                 BonusSetting::where('com_id', auth()->user()->com_id)->findOrFail($id)->delete();
-                $message = ['message'=>'Bonus Setting information deleted successfully.'];
+                $message = ['message' => 'Bonus Setting information deleted successfully.'];
             });
 
             return redirect()->route('bonus-settings.index')->with($message);
