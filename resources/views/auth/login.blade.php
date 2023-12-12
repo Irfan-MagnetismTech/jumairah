@@ -169,7 +169,7 @@
                         </div>
                         <div class="text-center" >
 {{--                            <h2 style="color: white">Magnetism Tech Ltd.</h2>--}}
-                            <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="loginLogo">
+                            <img src="{{asset(config('company_info.login_logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="loginLogo">
                             <p style="margin-top:165%" id="fixed_position">
                                 {!! htmlspecialchars(config('company_info.company_address')) !!}
                             </p>
