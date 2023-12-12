@@ -10,6 +10,16 @@ return [
         'logo' => "images/jumairah_logo.png",
         'altText' => 'Jumairah Holdings Limited',
 
+        'modules' => [
+                'General' =>'General',
+                'Sales'   =>'Sales',
+                'SCM'     =>'SCM',
+                'HR'      =>'HR',
+                'Accounts'=>'Accounts',
+                'BD'      =>'BD',
+                'BOQ'     =>'BOQ',
+        ]
+
         ];
 
 ?>

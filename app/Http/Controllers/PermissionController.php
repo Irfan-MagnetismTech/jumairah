@@ -27,8 +27,9 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::latest()->get();
+        $modulse = config('company_info.modules'); 
         $formType = "create";
-        return view('permissions.create', compact('permissions', 'formType'));
+        return view('permissions.create', compact('modulse','permissions', 'formType'));
     }
 
     /**

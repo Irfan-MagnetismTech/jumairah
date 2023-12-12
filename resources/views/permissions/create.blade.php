@@ -30,8 +30,11 @@
             {!! Form::open(array('url' => "permissions",'method' => 'POST')) !!}
         @endif
         <div class="row">
-            <div class="col-md-5 pr-md-1 my-1 my-md-0">
+            <div class="col-md-4 pr-md-1 my-1 my-md-0">
                 {{Form::text('name', old('name') ? old('name') : (!empty($permission->name) ? $permission->name : null),['class' => 'form-control','id' => 'name', 'placeholder' => 'Permission Name'] )}}
+            </div>
+            <div class="col-md-3 pr-md-1 my-1 my-md-0">
+                {{Form::select('module', $modulse, old('module') ? old('module') : (!empty($permission->module) ? $permission->module : null),['class' => 'form-control','id' => 'module', 'placeholder' => 'Select Module'] )}}
             </div>
             <div class="col-md-2 pl-md-1 my-1 my-md-0">
                 <div class="input-group input-group-sm">
