@@ -148,7 +148,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
     @endphp
 
@@ -157,9 +157,9 @@
 
     <div>
         <div id="logo" class="pdflogo" id="fixed_header">
-            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
             <div class="clearfix"></div>
-            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+            <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
         </div>
 
         <div id="pageTitle" style="display: block; width: 100%;">
@@ -197,7 +197,7 @@
                             <span>{{ $cs_supplier->supplier->address }}</span> <br>
                             <span>{{ $cs_supplier->supplier->contact }}</span> <br>
                             @foreach ($cs_supplier->csSupplierOptions as $csSupplierOption)
-                            <span>{{ $csSupplierOption->options->name }}: {{$csSupplierOption->value}}</span> <br>    
+                            <span>{{ $csSupplierOption->options->name }}: {{$csSupplierOption->value}}</span> <br>
                             @endforeach
                             <span>{{ $cs_supplier->is_checked ? 'Selected' : ''}}</span> <br>
                         </th>
@@ -222,8 +222,8 @@
                         @if ($loop->last) <td style="text-align: center">{{ $work_c->remarks }}</td> @endif
                     </tr>
                 @endforeach
-              
-              
+
+
             </tbody>
         </table>
         <br>

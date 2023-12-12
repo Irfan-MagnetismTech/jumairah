@@ -44,7 +44,7 @@ class SalesCollectionNotificiation extends Notification Implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $cc = ['rayhan@ranconfc.com.bd','imtiaz@ranconfc.com.bd'];
+        $cc = ['saleha@magnetismtech.com'];
 
         return (new \Illuminate\Notifications\Messages\MailMessage)
         ->subject('Payment was received.')

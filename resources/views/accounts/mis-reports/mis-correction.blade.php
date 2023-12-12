@@ -19,7 +19,7 @@
             text-align: right;
         }
         .text-center{
-            text-align: center; 
+            text-align: center;
         }
         table tbody td:first-child {
             text-align: left;
@@ -29,7 +29,7 @@
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset('images/ranksfc_log.png')}}" alt="">
+        <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
         <h2 style="margin:0; padding:0">Correction of MIS Report </h2>
         <strong>for the Calendar Year {{now()->format('Y')}}</strong>
     </div>
@@ -52,7 +52,7 @@
                 <th>Nov-21</th>
                 <th>Dec-21</th>
                 <th>YTD 2020</th>
-            </tr>            
+            </tr>
         </thead>
         <tbody style="text-align: center;">
             <tr>
@@ -171,6 +171,6 @@
 
     </table>
     <p><strong class="text-center">* Closing Balance of CD A/c is BDT 558,324 on 30.06.2021 </strong></p>
-    
+
 </body>
 </html>

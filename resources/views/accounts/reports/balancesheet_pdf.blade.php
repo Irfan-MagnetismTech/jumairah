@@ -13,7 +13,7 @@
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset('images/ranksfc_log.png')}}" alt="">
+        <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
         <h1 style="margin:0; padding:0">Balance Sheet</h1>
         <strong>December 31,</strong>
     </div>

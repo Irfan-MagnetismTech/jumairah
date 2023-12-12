@@ -8,8 +8,8 @@
     <style>
         #tableArea{margin-top: 10px;margin-bottom: 10px;}
         table{
-            width: 70%!important; 
-            margin: 0 auto; 
+            width: 70%!important;
+            margin: 0 auto;
         }
         table, table th, table td {border-spacing: 0;border: 1px solid #e3e3e3;}
         table th, table td{padding:5px;}
@@ -17,7 +17,7 @@
             text-align: right;
         }
         table thead{
-            background: #e3e3e3; 
+            background: #e3e3e3;
         }
         .text-left{
             text-align: left;
@@ -26,20 +26,20 @@
             text-align: right;
         }
         .text-center{
-            text-align: center; 
+            text-align: center;
         }
         table tbody td:first-child {
             text-align: left;
         }
         .base_header{font-weight: bold }
         .balance_header{font-weight: bold; padding-left:20px; }
-        .balance_line{ padding-left:50px; }        
+        .balance_line{ padding-left:50px; }
     </style>
 </head>
 
 <body>
     <div style="text-align: center">
-        <img src="{{asset('images/ranksfc_log.png')}}" alt="">
+        <img src="{{asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
         <h2 style="margin:0; padding:0">MIS For the Month of {{now()->format('M, Y')}} </h2>
     </div>
     <br>
@@ -50,12 +50,12 @@
                 <th rowspan="2">Lead Column</th>
                 <th rowspan="2">Jun'21</th>
                 <th>YTD</th>
-            </tr> 
+            </tr>
                 <th>
-                    Calendar Year 2021 <br>                
-                    (Jan'{{now()->format('y')}}-Dec'{{now()->format('y  ')}}) 
+                    Calendar Year 2021 <br>
+                    (Jan'{{now()->format('y')}}-Dec'{{now()->format('y  ')}})
                 </th>
-            </tr>            
+            </tr>
         </thead>
         <tbody style="text-align: center;">
             <tr>
@@ -110,7 +110,7 @@
             <tr>
                 <td>Lead Column </td>
                 <td>As on 30.06.21</td>
-            </tr>          
+            </tr>
         </thead>
         <tbody style="text-align: center;">
             <tr>
@@ -144,7 +144,7 @@
                 <td> Ongoing Projects No(s) </td>
                 <td> Upcoming Projects No(s) </td>
                 <td> Total (ongoing + Upcoming) </td>
-            </tr>          
+            </tr>
         </thead>
         <tbody style="text-align: center;">
             <tr>
@@ -180,7 +180,7 @@
             <tr>
                 <td>No of Employees: </td>
                 <td>No(s) </td>
-            </tr>         
+            </tr>
         </thead>
         <tbody style="text-align: center;">
             <tr>
@@ -200,7 +200,7 @@
             <tr>
                 <td>No of Employees: </td>
                 <td>No(s) </td>
-            </tr>         
+            </tr>
         </thead>
         <tbody style="text-align: center;">
             <tr>
@@ -220,7 +220,7 @@
             <tr>
                 <td>Total Current Monthly CTC </td>
                 <td> 0.35 </td>
-            </tr>         
+            </tr>
         </thead>
     </table>
 
@@ -231,7 +231,7 @@
                 <td>Lead Column </td>
                 <td>Jun'21 </td>
                 <td> YTD (Jan'21 to Dec'21) </td>
-            </tr>         
+            </tr>
         </thead>
         <tbody style="text-align: center;">
             <td>Monthly Gross Salary (Mgt) </td>
@@ -239,6 +239,6 @@
             <td> 1.63  </td>
         </tbody>
     </table>
-    
+
 </body>
 </html>

@@ -126,9 +126,9 @@
 
 <body>
     <div id="logo" class="pdflogo">
-        <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+        <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
         <div class="clearfix"></div>
-        <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+        <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
     </div>
 
     <div class="container" style="margin-top: 10px; clear: both; display: block; width: 100%;">
@@ -150,7 +150,7 @@
                         <th>Remarks</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     @php
                         $bill_total = $week_total = $bill_sum = $audit_sum = $accounts_sum = $first_week = $second_week = $third_week = $fourth_week = 0;
@@ -158,7 +158,7 @@
                         $listing_project_details = count($budget_details);
                     @endphp
                     @forelse ($budget_details as $key => $budget_detail)
-                    
+
                         @foreach ($budget_detail as $data)
                             @php
                                 $bill_total += $data->bill_amount;
@@ -196,7 +196,7 @@
                                     $fourth_week += $data->bill_amount;
                                 @endphp
                             @endif
-                            
+
                         @endforeach
                         @foreach ($budget_detail as $data)
 
@@ -216,7 +216,7 @@
                                 @else
                                     <td></td>
                                 @endif
-                                
+
                                 @if ($data->status == "Accepted")
                                     <td>{{$data->bill_amount}}</td>
                                 @else
@@ -274,9 +274,9 @@
                                 </tr>
                             @endforeach
                         @endif
-                        
+
                     @empty
-                        
+
                     @endforelse
                     <tr class="bg-primary">
                         <td colspan="4">Total</td>
@@ -298,7 +298,7 @@
             </table>
         </div>
     </div>
-    
+
 </body>
 
 </html>

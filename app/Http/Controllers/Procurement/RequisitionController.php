@@ -55,8 +55,11 @@ class RequisitionController extends Controller
         if (auth()->user()->isAdmin()) {
             $ApprovalLayerName = ApprovalLayer::where('name', 'like', 'Requisition%')->pluck('name', 'id');
         } else {
-            $ApprovalLayerName = ApprovalLayer::where('name', 'like', 'Requisition%')->where('department_id', auth()->user()?->department?->id)->pluck('name', 'id');
+            $ApprovalLayerName = ApprovalLayer::where('name', 'like', "Requisition%")
+            // ->where('department_id', auth()->user()?->department?->id)
+            ->pluck('name', 'id');
         }
+        // dd($ApprovalLayerName);
         $formType     = "create";
 
         return view('procurement.requisitions.create', compact('formType', 'ApprovalLayerName'));
@@ -134,8 +137,11 @@ class RequisitionController extends Controller
         if (auth()->user()->isAdmin()) {
             $ApprovalLayerName = ApprovalLayer::where('name', 'like', 'Requisition%')->pluck('name', 'id');
         } else {
-            $ApprovalLayerName = ApprovalLayer::where('name', 'like', 'Requisition%')->where('department_id', auth()->user()?->department?->id)->pluck('name', 'id');
+            $ApprovalLayerName = ApprovalLayer::where('name', 'like', "Requisition%")
+            // ->where('department_id', auth()->user()?->department?->id)
+            ->pluck('name', 'id');
         }
+        
         $requisition->load('requisitionDetails.nestedMaterial.boqSupremeBudgets');
         return view('procurement.requisitions.create', compact('requisition', 'formType', 'ApprovalLayerName'));
     }

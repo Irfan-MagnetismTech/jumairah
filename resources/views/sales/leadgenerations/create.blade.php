@@ -221,6 +221,8 @@
         </div>
     </div> <!-- end row -->
 
+    @if ($formType != 'edit')
+
     <hr class="bg-success">
     <div class="row">
 
@@ -308,6 +310,7 @@
             </div>
         </div>
     </div> <!-- end row -->
+    @endif
     <hr>
     <div class="row">
         <div class="offset-md-4 col-md-4 mt-2">

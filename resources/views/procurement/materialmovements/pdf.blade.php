@@ -123,14 +123,14 @@
             margin: 40px 0 0 0;
         }
 
-       
+
 
     </style>
 </head>
 
 <body>
 
-   
+
 
     <div id="logo" class="pdflogo">
         <div  style=" width:100% ; float:right !imoirtant; padding-left:750px;padding-top:0px; padding-right:0px;margin-right:-67px;">
@@ -141,13 +141,13 @@
             <p style="text-align: center; width: 55%; border: 1px solid #000000;  margin: 10px auto; padding: 10px;">
                 Date: ......../......../.............</p>
         </div>
-        <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+        <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
         <div class="clearfix"></div>
-        <p>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</p>
+        <p>{!! htmlspecialchars(config('company_info.company_address')) !!}</p>
         <p>Ph.: +88(031)2519906-8, Fax: 88(031)712023-5.</p>
-        
+
     </div>
-    
+
 
     <div id="pageTitle" style="display: block; width:100%  float:right">
         <h2 style="text-align: center; width: 30%; margin: 10px auto">
@@ -179,8 +179,8 @@
 
     <br>
     <div class="container" style="margin-top: 10px; clear: both; display: block; width: 100%;">
-        
-        
+
+
         <table id="table">
             <thead>
                 <tr style="vertical-align: middle" class="text-center">
@@ -253,7 +253,7 @@
                     </td>
                 </tr>
             </table>
-            
+
         <br>
         <span style="font-size: 11px; padding-left: 60px">This Report submit to Head Office every Month the date of 5th even if it is nil.</span>
         <br>

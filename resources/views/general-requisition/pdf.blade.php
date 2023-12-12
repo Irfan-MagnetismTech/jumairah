@@ -157,7 +157,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
     @endphp
     @foreach ($requisitions->first()->requisitiondetails->chunk(15) as $chunk)
@@ -165,11 +165,11 @@
             <div class="container" id="fixed_header">
                 <div class="row">
                     <div class="head1" style="padding-left: 180px; text-align: center">
-                        <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                        <img src="{{ asset(config('company_info.logo')) }}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
                         <p>
-                            Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
-                            Phone: 2519906-8; 712023-5<br>
-                            <a style="color:#000;" target="_blank">www.ranksfc.com</a>
+                            {!! htmlspecialchars(config('company_info.company_address')) !!}<br>
+                            Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!}<br>
+                            <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                         </p>
                         <h3>
                             MATERIAL PURCHASE REQUISITION(MPR)

@@ -148,7 +148,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
     @endphp
 
@@ -156,9 +156,9 @@
     <div>
     <div>
         <div id="logo" class="pdflogo" id="fixed_header">
-            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
             <div class="clearfix"></div>
-            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+            <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
         </div>
 
         <div id="pageTitle" style="display: block; width: 100%;">
@@ -184,7 +184,7 @@
          $calculation_type = ['Common','typical','generator'];
     $project_type = ['Residential','Commercial','Residential_cum_commercial'];
     @endphp
-   
+
 @endphp
 @foreach ($boqemeloadcalculation as $key => $grpvalues)
 @foreach ($grpvalues as $key1 => $values)
@@ -202,8 +202,8 @@
                 <span class='float-right pr-5 mr-5 d-flex'>
                      {{-- @include('components.buttons.action-button', ['actions' => ['edit', 'delete'], 'route' => 'boq.project.departments.electrical.load_calculations', 'route_key' => ['project' => $project,'load_calculation' => $values->first()]]) --}}
                      <div class="icon-btn">
-                       
-                    </div> 
+
+                    </div>
                 </span>
             </th>
         </tr>
@@ -310,7 +310,7 @@
     </div>
 </div>
 
-   
+
     {{-- @if (!$loop->last)
             <div class="page_break"></div>
         @endif --}}

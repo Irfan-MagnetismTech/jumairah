@@ -107,9 +107,9 @@
 <body>
 
         <div id="logo" class="pdflogo">
-            <img src="{{ asset('images/ranksfc_log.png')}}" alt="Logo" class="pdfimg">
+            <img src="{{ asset(config('company_info.logo'))}}" alt="Logo" class="pdfimg">
             <div class="clearfix"></div>
-            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+            <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
         </div>
 
     <div id="pageTitle" style="display: block; width: 100%;">
@@ -126,15 +126,15 @@
             <th>Project</th>
             <th>Apartment</th>
             <th>Last Followup</th>
-            <th>Entry By</th> 
+            <th>Entry By</th>
         </tr>
         </thead>
         <tbody>
             @foreach($leadgenerations as $key => $leadGeneration)
                 <tr>
                     <td>{{$loop->iteration}}</td>
-                    <td class="text-left breakWords"> 
-                        {{$leadGeneration->name}} 
+                    <td class="text-left breakWords">
+                        {{$leadGeneration->name}}
                         {{$leadGeneration->country_code}}-{{$leadGeneration->contact}}
                     </td>
                     <td>{{$leadGeneration->lead_date}}</td>
@@ -155,15 +155,15 @@
                     </td>
                     <td>
                         {{$leadGeneration->createdBy->name}}
-                    </td> 
-                </tr> 
+                    </td>
+                </tr>
             {{-- @empty
                 <tr>
                     <td colspan="29"> <h5 class="text-muted my-3 text-left"> No Data Found Based on your query. </h5> </td>
                 </tr> --}}
             @endforeach
         </tbody>
-        
+
     </table>
 </div>
 

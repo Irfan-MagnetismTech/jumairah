@@ -111,7 +111,7 @@
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="date">Approval Date<span class="text-danger">*</span></label>
-                {{ Form::text('approval_date', old('approval_date') ? old('approval_date') : (!empty($salesCollectionApproval->approval_date) ? $salesCollectionApproval->approval_date : Carbon\Carbon::now()), ['class' => 'form-control', 'id' => 'approval_date', 'autocomplete' => 'off', 'required', 'readonly']) }}
+                {{ Form::text('approval_date', old('approval_date') ? old('approval_date') : (!empty($salesCollectionApproval->approval_date) ? $salesCollectionApproval->approval_date : Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control', 'id' => 'approval_date', 'autocomplete' => 'off', 'required', 'readonly']) }}
             </div>
         </div>
 
@@ -128,7 +128,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="bank_date">Bank Date</label>
-                    {{ Form::text('bank_date', old('bank_date') ? old('bank_date') : (!empty($saleCollection->bank_date) ? $saleCollection->bank_date : Carbon\Carbon::now()), ['class' => 'form-control', 'id' => 'bank_date', 'autocomplete' => 'off', 'readonly']) }}
+                    {{ Form::text('bank_date', old('bank_date') ? old('bank_date') : (!empty($saleCollection->bank_date) ? $saleCollection->bank_date : Carbon\Carbon::now()->format('d-m-Y')), ['class' => 'form-control', 'id' => 'bank_date', 'autocomplete' => 'off', 'readonly']) }}
                 </div>
             </div>
             <div class="col-xl-4 col-md-6">

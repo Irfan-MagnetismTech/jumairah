@@ -130,5 +130,13 @@
                             </li>
                         </ul>
                     </div>
+                    <a href="{{route('home')}}">
+                        <h4 class="my-0">
+                            <img src="{{asset(config('company_info.logo'))}}" alt="" width="180px" height="80px">
+                        </h4>
+                    </a>
+                    <a class="mobile-options">
+                        <i class="ti-more"></i>
+                    </a>
                 </div>
             </nav> <!-- end header -->

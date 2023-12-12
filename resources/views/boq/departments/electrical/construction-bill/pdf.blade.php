@@ -41,27 +41,27 @@
     .terms li{
         word-wrap: break-word;
     }
-    
+
 
     #payment_schedule, #payment_schedule th, #payment_schedule td {
         border-spacing: 0;
         padding-bottom: 0;
-        border: 1px solid #000; 
-        font-size: 14px; 
-        vertical-align: middle; 
+        border: 1px solid #000;
+        font-size: 14px;
+        vertical-align: middle;
         border-collapse: collapse;
     }
-       
+
     .wo_pages {
         position: absolute;
         top: 100px;
         right: 15px;
         background: black;
         color: #fff;
-        display:inline-block; 
+        display:inline-block;
         line-height: 18px;
-        font-weight: 14px; 
-        padding: 3px 5px; 
+        font-weight: 14px;
+        padding: 3px 5px;
     }
 
     .page_break { page-break-after: always; }
@@ -85,7 +85,7 @@
         right: 0;
         height: 30px;
         width: 100%;
-        display: block;     
+        display: block;
     }
     footer{
         position: fixed;
@@ -95,31 +95,31 @@
         height: 30px;
         width: 100%;
         display: block;
-        font-size: 11px;        
+        font-size: 11px;
     }
-    
+
     tr.hide_all > td, td.hide_all{
         border-style:hidden!important;
-    
+
     }
 </style>
 <body>
     <header>
         <div id="logo" class="pdflogo">
-            <img src="{{ asset('images/ranksfc_log.png')}}" alt="Logo" class="pdfimg pullRight">
+            <img src="{{ asset(config('company_info.logo'))}}" alt="Logo" class="pdfimg pullRight">
         </div>
     </header>
-    
+
     <footer>
         Atlas Rangs Plaza (Level 9&10), 7, Sk. Mujib Road,<br>
         Agrabad C/A, Chattogram, <br>
         Phone: 2519906-8, 712023-5 <br>
-        www.ranksfc.com
+        {!! htmlspecialchars(config('company_info.company_email')) !!}
     </footer>
 
     <div class="container" style= "width:100%; margin-top:8px;">
         <div class="text-left" style="float:left; width:80%;">
-            <p>{{$constructionBill->date}}</p> 
+            <p>{{$constructionBill->date}}</p>
         </div>
         <div class="text-center" style="float: right; width:20%;">
             <p> Bill Sl. No. {{ $constructionBill?->bill_no }} </p>
@@ -129,11 +129,11 @@
         <p style="text-align: center; margin-top: 40px;"><strong>BILL</strong></p>
         <p style="text-align: center;"><strong>Name: {{$constructionBill?->supplier?->name}}</strong></p>
         <P style="text-align: center;">Project Name: {{$constructionBill?->project?->name}} </P>
-        <P style="text-align: center;">Type of Work: 
+        <P style="text-align: center;">Type of Work:
             @foreach($constructionBill->workorder->workorderRates as $rate)
                 {{ $rate->work_level }}
                 @if (!$loop->last)
-                   , 
+                   ,
                 @endif
             @endforeach
         </P><br>
@@ -150,7 +150,7 @@
                         <th style="width: 18%;">Adjusted <br>Amount</th>
                     </tr>
                 </thead>
-               
+
                 @php
                     $cumulitive_bill = 0;
                     $paid_amount = 0;
@@ -206,7 +206,7 @@
                                 @endphp
                                 <td class="textRight" style="padding-right:5px">@money($cumulitive_bill)</td>
                                 <td class="textRight" style="padding-right:5px">@money($value3->paidBill)</td>
-                                
+
                                 @if ($loop->last)
                                     <td class="textRight" style="padding-right:5px">0.00</td>
                                 @else
@@ -218,8 +218,8 @@
                                     @else
                                         <td class="textRight" style="padding-right:5px">0.00</td>
                                     @endif
-                                    
-                                    
+
+
                                 @endif
                                 <td class="textRight" style="padding-right:5px">@money($value3->adjusted_amount)</td>
                             </tr>
@@ -317,7 +317,7 @@
                 <tr style="width: 100%;" class="hide_all">
                     <td style="width: 90%" class="hide_all">
                         <strong>Bill payable against this {{ addOrdinalNumberSuffix($bill_no - 1) }} no.bill</strong>
-                        <strong>(After Advance adustment)</strong>      
+                        <strong>(After Advance adustment)</strong>
                     </td>
                     <td class="hide_all"></td>
                     <td style="width: 10%" class="textRight hide_all">@money($cumulitive_bill - $security - $paid_amount - $adjusted_amount - $due_payable)</td>
@@ -327,7 +327,7 @@
                     <td class="hide_all"></td>
                 </tr>
             </tfoot>
-            </table>            
+            </table>
         </div>
 
         {{-- <table style="margin-bottom: 20px;width: 100%!important;">
@@ -380,7 +380,7 @@
         <div class="container" id="signature" style="width:100%; margin-top: 50px;">
             <div style="float:left; width:25%; margin-right:10px;">
                 <p style="text-align: center; border-top: solid black 2px;">Prepared By</p>
-                <p style="text-align: center;">Billing Dept.</p> 
+                <p style="text-align: center;">Billing Dept.</p>
             </div>
             <div style="float:left; width:25%;margin-right:10px;">
                 <p style="text-align: center; border-top: solid black 2px;">Prepared By</p>
@@ -394,7 +394,7 @@
                 <p style="text-align: center; border-top: solid black 2px;">Prepared By</p>
                 <p style="text-align: center;">CEO</p>
             </div>
-        </div>    
+        </div>
 
 {{-- <div class="page_break"></div> --}}
 
@@ -403,4 +403,3 @@
 
 </body>
 </html>
-

@@ -155,7 +155,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
         $itemCount = 0;
     @endphp
@@ -166,11 +166,11 @@
         <div class="container" id="fixed_header">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
                     <p>
                         Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road,<br> Agrabad C/A, Chattogram.
-                        Phone: 2519906-8; 712023-5<br>
-                        <a style="color:#000;" target="_blank">www.ranksfc.com</a>
+                        Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!}<br>
+                        <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                     </p>
                     <h3>
                         Budget of Business Development (Aproximate) <br>
@@ -183,7 +183,7 @@
         <div style="clear: both"></div>
 
     </div>
-    
+
 
     <div class="container" style="margin-top: 25px;">
         <table class="customers">
@@ -201,13 +201,13 @@
             </thead>
             <tbody style="text-align: center">
 
-                {{-- @php 
+                {{-- @php
                     $group_cost_ceneter_id = $chunk->BdProgressBudget->groupBy('progress_cost_center_id')
                 @endphp --}}
                 @foreach ($chunk->BdProgressBudget as  $Bd_progress_budget_details)
                 <tr>
                     <td> {{$iteration++}} </td>
-                    
+
                     <td> {{ $Bd_progress_budget_details->costCenter->name }} </td>
                     <td> {{ $Bd_progress_budget_details->progress_particulers }} </td>
                     <td> {{ $Bd_progress_budget_details->progress_amount }} </td>
@@ -265,15 +265,15 @@
                 <table class="customers">
                     <tr style="text-align: center">
                         <td >
-                            Total Payable Amount:  
+                            Total Payable Amount:
                         </td>
                         <td >
-                            {{ $bd_budget_details[0]->total_amount }} 
+                            {{ $bd_budget_details[0]->total_amount }}
                         </td>
                     </tr>
-                </table>    
-            </div>  
-        </div>  
+                </table>
+            </div>
+        </div>
     </div>
     @if (!$loop->last)
             <div class="page_break"></div>

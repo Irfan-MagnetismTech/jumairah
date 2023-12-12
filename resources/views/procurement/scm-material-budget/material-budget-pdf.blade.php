@@ -165,11 +165,11 @@
                 <div class="container" id="fixed_header">
                     <div class="row">
                         <div class="head1" style="padding-left: 280px; text-align: center">
-                            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                            <img src="{{ asset(config('company_info.logo')) }}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
                             <p>
-                                Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
-                                Phone: 2519906-8; 712023-5<br>
-                                <a style="color:#000;" target="_blank">www.ranksfc.com</a>
+                                {!! htmlspecialchars(config('company_info.company_address')) !!}<br>
+                                Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!}<br>
+                                <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                             </p>
                             <h3>
                                 Material Budget for The Month of {{ DateTime::createFromFormat('!m', $month)->format('F') . ', ' . $year }}
@@ -211,14 +211,14 @@
                             $week_grand_total = 0;
                         @endphp
                         @foreach($chunk_data as $key => $materialPlan)
-                            @php 
+                            @php
                                 $weekOne = 0;
                                 $weekTwo = 0;
                                 $weekThree = 0;
                                 $weekFour = 0;
                             @endphp
                             @foreach($materialPlan->materialPlanDetails as $materialPlanDetail)
-                                @php 
+                                @php
                                     $weekOne += $materialPlanDetail->week_one * $materialPlanDetail->week_one_rate;
                                     $weekTwo += $materialPlanDetail->week_two * $materialPlanDetail->week_two_rate;
                                     $weekThree += $materialPlanDetail->week_three * $materialPlanDetail->week_three_rate;
@@ -235,13 +235,13 @@
                             @endphp
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{ $materialPlan->projects->name }}</td> 
+                                <td>{{ $materialPlan->projects->name }}</td>
                                 <td>@money($weekOne)</td>
                                 <td>@money($weekTwo)</td>
                                 <td>@money($weekThree)</td>
                                 <td>@money($weekFour)</td>
                                 <td>@money($totalAmount)</td>
-                            </tr> 
+                            </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
@@ -253,7 +253,7 @@
                         <th>@money($week_grand_total)</th>
                     </tfoot>
                 </table>
-            </div> 
+            </div>
     @if (!$loop->last)
             <div class="page_break"></div>
         @endif
