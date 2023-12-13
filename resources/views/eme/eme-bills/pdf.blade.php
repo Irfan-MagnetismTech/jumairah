@@ -106,7 +106,7 @@
 <body>
     <header>
         <div id="logo" class="pdflogo">
-            <img src="{{ asset(config('company_info.logo'))}}" alt="Logo" class="pdfimg pullRight">
+            <img src="{{ asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="pdfimg pullRight">
         </div>
     </header>
 
