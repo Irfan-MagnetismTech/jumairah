@@ -143,7 +143,7 @@
             <table id="table" class="table table-striped table-bordered text-center">
                 <thead>
                     <tr>
-                        <th colspan="13">Ranks FC Properties Ltd.</th>
+                        <th colspan="13">JUMAIRAH HOLDINGS LTD</th>
                     </tr>
                     <tr>
                         <th rowspan="4">Project Name</th>

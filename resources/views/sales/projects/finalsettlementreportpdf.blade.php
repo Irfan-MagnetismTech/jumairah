@@ -193,7 +193,7 @@
                 <td style="text-align: right">@money($regCost = $sell->finalSettlement->registration_cost ?? 0)</td>
             </tr>
             <tr>
-                <td style="width: 80%">Less: Refund by Ranks FC</td>
+                <td style="width: 80%">Less: Refund by JHL</td>
                 <td style="width: 2px !important;">:</td>
                 <td style="text-align: right">@money($csd_final_costing_refund->sum('amount_refund'))</td>
             </tr>

@@ -169,7 +169,7 @@
         <div class="container" style="clear: both; display: block; width: 96%;">
             <div style="text-align: center !important; position: relative;">
                 <div>
-                    <div style="float: left;">Ref: Ranks FC / {{$ScrapCsMaterialSupplier->first()->Cs->reference_no}}</div>
+                    <div style="float: left;">Ref: JHL / {{$ScrapCsMaterialSupplier->first()->Cs->reference_no}}</div>
                     <div style="float:right;">Date : {{$ScrapCsMaterialSupplier->first()->Cs->effective_date}}</div>
                 </div>
                 <div style="clear: both;"></div>
@@ -181,7 +181,7 @@
                 Mobile No- {{ $ScrapCsMaterialSupplier->first()->Cssupplier->supplier->contact }}<br />
                 Subject : Sale order for Scrap buying project.<br /><br /><br />
                 Dear {{ $ScrapCsMaterialSupplier->first()->Cssupplier->supplier->name }}<br /><br />
-                The management of RANKS FC PROPERTIES LTD. is pleased to inform you that you have been selected for Scrap sale against your offer. The terms & condition and rates for the work are summarized below.
+                The management of Jumairah Holdings LTD. is pleased to inform you that you have been selected for Scrap sale against your offer. The terms & condition and rates for the work are summarized below.
                 </div>
                 <table id="table" style="text-align: right;clear: both;margin-top: 2%!important;">
                     <tr>

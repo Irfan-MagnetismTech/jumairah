@@ -170,7 +170,7 @@
                     <span>{{ Auth::user()?->employee?->fullName }}</span><br/>
                     <span>{{ Auth::user()?->employee?->designation?->name }}</span><br>
                     <span>Customer Service Department</span><br>
-                    <span>Ranks FC Propertise Limited</span><br/>
+                    <span>JUMAIRAH HOLDINGS LTD</span><br/>
                     <span>Contact : {{ Auth::user()?->employee?->contact }}</span>
                 </td
             </tr>

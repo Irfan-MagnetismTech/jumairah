@@ -19,7 +19,7 @@
     <div class="col-xl-1 col-md-1"></div>
     <div class="col-xl-8 col-md-8">
         <div class="input-group input-group-sm input-group-primary">
-            {{ $CsdLetterMail->address_word_one }} &nbsp;{{ $CsdLetterMail->client->name }} 
+            {{ $CsdLetterMail->address_word_one }} &nbsp;{{ $CsdLetterMail->client->name }}
         </div>
     </div>
 </div>
@@ -78,7 +78,7 @@
                 <td>
                     <span>Manager</span><br>
                     <span>Customer Service Department</span><br>
-                    <span>Rancon FC Propertise Limited</span>
+                    <span>Jumairah Limited</span>
                 </td>
             </tr>
         </table>

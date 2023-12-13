@@ -116,7 +116,7 @@
         </p><br>
 
         <h4>Dear {{$workorder->supplier->contact_person_name}},</h4><br>
-        <p>The Management of <span style="font-weight: bold;"> "RANKS FC PROPERTIES LTD."</span> is pleased to inform you that against your offer, you have been awarded the "Work Order"
+        <p>The Management of <span style="font-weight: bold;"> "JUMAIRAH HOLDINGS LTD"</span> is pleased to inform you that against your offer, you have been awarded the "Work Order"
             for the captioned works under the following terms & conditions and rates etc (enclosed herewith). The terms & conditions, quotation
             and rates are an integral part of this Work Order.
         </p><br>
@@ -125,7 +125,7 @@
         <p>If you agree with the above, please return the duplicate upon your proper signing in acceptance. </p><br><br>
         <p>Thanking you,</p><br><br>
         <p>Very Truly Yours</p>
-        <p>For <span style="font-weight: bold;">RANKS FC PROPERTIES LTD.</span> </p>
+        <p>For <span style="font-weight: bold;">JUMAIRAH HOLDINGS LTD</span> </p>
     </div>
     <div class="container" style= "width:100%; margin-top: 50px;">
         <div class="text-left" style="float:left; width:75%;">
@@ -143,9 +143,8 @@
     </div>
 
 <footer>
-    Atlas Rangs Plaza (Level 9&10), 7, Sk. Mujib Road,<br>
-    Agrabad C/A, Chattogram, <br>
-    Phone: 2519906-8, 712023-5 <br>
+    {!! htmlspecialchars(config('company_info.company_address')) !!}
+    {!! htmlspecialchars(config('company_info.company_phone')) !!}
     {!! htmlspecialchars(config('company_info.company_email')) !!}
 </footer>
 

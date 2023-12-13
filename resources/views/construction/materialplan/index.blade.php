@@ -24,7 +24,7 @@
         <table id="dataTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th colspan="10">Ranks FC Properties Ltd.</th>
+                    <th colspan="10">JUMAIRAH HOLDINGS LTD</th>
                 </tr>
                 <tr>
                     <th colspan="5">Project Name: {{ $currentYearPlans[0]->materialPlan->projects->name }}</th>
@@ -42,7 +42,7 @@
                     <th >Remarks</th>
                     <th >Action</th>
                 </tr>
-                
+
             </thead>
             <tfoot>
                 <tr>
@@ -75,7 +75,7 @@
                                                     $id = $currentYearPlan->material_plan_id;
                                                     $project_id = $currentYearPlan->materialPlan->project_id;
 
-                                              
+
                                                     $approval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q)use($currentYearPlan){
                                                     $q->where([['name','Material Plan'],['department_id',$currentYearPlan->materialPlan->appliedBy->department_id]]);
                                                 })->whereDoesntHave('approvals',function ($q) use($currentYearPlan){
@@ -84,11 +84,11 @@
                                                 @endphp
                                                 @if((!empty($approval) && $approval->designation_id == auth()->user()->designation?->id && $approval->department_id == auth()->user()->department_id) || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin'])))
                                                 <a href="{{ url("construction/material-plan/approved/$currentYearPlan->material_plan_id/1") }}" data-toggle="tooltip" title="Approval" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
-                                                
+
                                                 @endif
                                                 @if($currentYearPlan->materialPlan->approval()->doesntExist() || auth()->user()->hasAnyRole(['admin','super-admin']))
                                                         <a href="{{ url("construction/material_plan/$currentYearPlan->material_plan_id/edit") }}" data-toggle="tooltip" title="Edit" class="btn btn-outline-warning"><i class="fas fa-pen"></i></a><br><br>
-                                                   
+
                                                     @if($currentYearPlan->materialPlan->approval()->doesntExist())
                                                     {!! Form::open(array('url' => route("construction.material_plan.destroy", $currentYearPlan->material_plan_id),'method' => 'delete', 'class'=>'d-inline','data-toggle'=>'tooltip','title'=>'Delete')) !!}
                                                     {{ Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-outline-danger btn-sm delete'])}}

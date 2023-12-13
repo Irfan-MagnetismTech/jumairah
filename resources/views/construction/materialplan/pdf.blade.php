@@ -143,7 +143,7 @@
             <table id="table" class="table table-striped table-bordered text-center" style="border-collapse: collapse">
                 <thead>
                     <tr>
-                        <th colspan="10">Ranks FC Properties Ltd.</th>
+                        <th colspan="10">JUMAIRAH HOLDINGS LTD</th>
                     </tr>
                     <tr>
                         <th colspan="4">Project Name: {{ $currentYearPlans[0]->materialPlan->projects->name }}</th>
