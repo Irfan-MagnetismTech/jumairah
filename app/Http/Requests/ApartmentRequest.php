@@ -32,6 +32,8 @@ class ApartmentRequest extends FormRequest
             'floor' => "required",
             'face' => "required",
             'owner' => "required",
+            'apartment_type' => 'required',
+            'apartment_size' => 'required',
         ];
     }
 

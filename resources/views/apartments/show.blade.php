@@ -23,6 +23,7 @@
                 <tbody class="text-left">
                     <tr class="bg-success"><td> <strong>Apartment ID</strong> </td> <td> <strong>{{ $apartment->name}}</strong></td></tr>
                     <tr><td> <strong>Project Name</strong> </td> <td> {{$apartment->project->name}}</td></tr>
+                    <tr><td> <strong>Apartment Type</strong> </td> <td> {{$apartment->apartment_type}}</td></tr>
                     <tr><td> <strong>Apartment Status</strong> </td>
                         <td>
                             @if($apartment->sell)
