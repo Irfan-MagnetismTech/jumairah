@@ -210,10 +210,10 @@
             <table id="nomineeTable" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Relation</th>
-                    <th>Address</th>
+                    <th>Name<span class="text-danger">*</span></th>
+                    <th>Age<span class="text-danger">*</span></th>
+                    <th>Relation<span class="text-danger">*</span></th>
+                    <th>Address<span class="text-danger">*</span></th>
                     <th>Nominee Picture</th>
                     <th><i class="btn btn-primary btn-sm fa fa-plus" id="addItem" onclick="addNominee()"> </i></th>
                 </tr>
@@ -386,4 +386,3 @@
 
     </script>
 @endsection
-
