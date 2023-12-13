@@ -2,16 +2,17 @@
 
 namespace Modules\HR\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Department;
 use Illuminate\Http\Request;
+use Modules\HR\Entities\Bonus;
+use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Modules\HR\Entities\Bonus;
 use Modules\HR\Entities\BonusSetting;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\Employee;
+use Illuminate\Database\QueryException;
+// use Modules\HR\Entities\Department;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class BonusSettingController extends Controller
 {

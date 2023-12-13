@@ -2,6 +2,9 @@
 
 namespace Modules\HR\Entities;
 
+use App\Employee;
+use App\Department;
+use App\Designation;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Accounting\Entities\Transaction;
 

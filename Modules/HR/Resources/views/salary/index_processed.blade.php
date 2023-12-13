@@ -146,7 +146,7 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td class="text-left">{{ $data->employee?->emp_code }}</td>
                                 <td class="text-left">{{ $data->employee?->emp_name }}</td>
-                                <td class="text-left">{{ $data->employee->department->name }}</td>
+                                <td class="text-left">{{ $data?->employee?->department?->name }}</td>
                                 <td class="text-center">{{ $data->month }}</td>
                                 <td class="text-center">{{ $data->total_working_day }}</td>
                                 <td class="text-center">{{ $data->total_ot_hour }}</td>

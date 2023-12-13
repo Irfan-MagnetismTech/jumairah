@@ -2,15 +2,16 @@
 
 namespace Modules\HR\Http\Controllers;
 
+use App\Department;
 use Illuminate\Http\Request;
 use Modules\HR\Entities\Section;
 use Illuminate\Routing\Controller;
+// use Modules\HR\Entities\Department;
 use Illuminate\Support\Facades\DB;
-use Modules\HR\Entities\Department;
 use Illuminate\Database\QueryException;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Modules\SoftwareSettings\Entities\CompanyInfo;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class SectionController extends Controller
 {
@@ -22,7 +23,7 @@ class SectionController extends Controller
     public function index()
     {
         $this->authorize('section-show');
-        $sections = Section::with('department')->where('com_id',auth()->user()->com_id)->latest()->get();
+        $sections = Section::with('department')->latest()->get();
         return view('hr::section.index', compact('sections'));
     }
 
@@ -34,8 +35,8 @@ class SectionController extends Controller
     {
         $this->authorize('section-create');
         $formType = "create";
-        $depertments =  Department::where('com_id', auth()->user()->com_id)->orderBy('name')->pluck('name', 'id');
-        return view('hr::section.create',compact('formType','depertments'));
+        $depertments =  Department::orderBy('name')->pluck('name', 'id');
+        return view('hr::section.create', compact('formType', 'depertments'));
     }
 
     /**
@@ -77,9 +78,9 @@ class SectionController extends Controller
     {
         $this->authorize('section-edit');
         $formType = "edit";
-        $depertments =  Department::where('com_id', auth()->user()->com_id)->orderBy('name')->pluck('name', 'id');
-        $section = Section::where('com_id', auth()->user()->com_id)->where('id',$id)->first();
-        return view('hr::section.create',compact('formType','depertments','section'));
+        $depertments =  Department::orderBy('name')->pluck('name', 'id');
+        $section = Section::where('id', $id)->first();
+        return view('hr::section.create', compact('formType', 'depertments', 'section'));
     }
 
     /**
@@ -94,8 +95,8 @@ class SectionController extends Controller
         try {
             $this->authorize('section-edit');
             $input = $request->all();
-            DB::transaction(function () use ($input, $request,$id) {
-                Section::where('id',$id)->where('com_id',auth()->user()->com_id)->first()->update($input);
+            DB::transaction(function () use ($input, $request, $id) {
+                Section::where('id', $id)->first()->update($input);
             });
 
             return redirect()->route('sections.index')->with('message', 'Section information updated successfully.');
@@ -115,13 +116,13 @@ class SectionController extends Controller
             $this->authorize('section-delete');
             $message = 0;
             DB::transaction(function () use ($id, &$message) {
-                $section = Section::where('id',$id)->where('com_id',auth()->user()->com_id)->first();
+                $section = Section::where('id', $id)->first();
                 // dd($section);
                 if ($section->subsections->count() === 0 && $section->employees->count() === 0) {
                     $section->delete();
-                    $message = ['message'=>'Section deleted successfully.'];
+                    $message = ['message' => 'Section deleted successfully.'];
                 } else {
-                    $message = ['error'=>'This data has some dependency.'];
+                    $message = ['error' => 'This data has some dependency.'];
                 }
             });
 

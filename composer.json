@@ -24,6 +24,7 @@
         "maatwebsite/excel": "^3.1",
         "nexmo/laravel": "^2.4",
         "nwidart/laravel-modules": "8.*",
+        "rats/zkteco": "^002.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^3.17",
         "spatie/laravel-backup": "^6.16",

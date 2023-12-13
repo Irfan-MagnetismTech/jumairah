@@ -3,6 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
+use App\Department;
+use App\Designation;
 use Modules\HR\Entities\Line;
 use Modules\HR\Entities\Unit;
 use Modules\HR\Entities\Floor;

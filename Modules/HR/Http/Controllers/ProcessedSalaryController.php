@@ -2,18 +2,14 @@
 
 namespace Modules\HR\Http\Controllers;
 
-use Carbon\Carbon;
 use App\CostCenter;
+use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Modules\HR\Entities\Department;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
-use Modules\Accounting\Entities\Account;
 use Modules\HR\Entities\ProcessedSalary;
 use Illuminate\Contracts\Support\Renderable;
-use Modules\Accounting\Entities\Transaction;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProcessedSalaryController extends Controller
@@ -40,11 +36,12 @@ class ProcessedSalaryController extends Controller
             ->when($cost_center_id, function ($query) use ($cost_center_id) {
                 return $query->where('cost_center_id', $cost_center_id);
             })
-            ->with('employee')->latest()
+            ->with('employee.department')->latest()
             ->paginate($request->per_page ?? 15)
             ->withQueryString();
 
         $departments = Department::orderBy('name')->pluck('name', 'id');
+        // dd($processed_salaries);
         $costCenters = CostCenter::orderBy('name')->pluck('name', 'id');
         return view('hr::salary.index_processed', compact('processed_salaries', 'departments', 'costCenters'));
     }

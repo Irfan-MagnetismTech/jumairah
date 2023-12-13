@@ -3,15 +3,16 @@
 namespace Modules\HR\Http\Controllers;
 
 use Exception;
+use App\Department;
 use Illuminate\Http\Request;
 use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Modules\HR\Entities\EmployeeOt;
 use Illuminate\Support\Facades\Auth;
+// use Modules\HR\Entities\Department;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\EmployeeOt;
 
 class EmployeeOtController extends Controller
 {
