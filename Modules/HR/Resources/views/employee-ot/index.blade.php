@@ -45,7 +45,7 @@
                     {{ Form::select('employee_id[]', $employees, null, [
                         'class' => 'form-control select2',
                         'id' => 'employee_id',
-                        'multiple' 
+                        'multiple',
                     ]) }}
                 </div>
             </div>
@@ -113,8 +113,8 @@
                                 html +=
                                     `<tr employee_id="${item.employee_id}" class="ot_hour_container">
                                     <td><input type="checkbox" class="check_single_ot_record"></td>
-                                    <td>${item.emp_code}</td>
                                     <td>${item.emp_name}</td>
+                                    <td>${item.emp_code}</td>
                                     <td >
                                         <span>`;
 

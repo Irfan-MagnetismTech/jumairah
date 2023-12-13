@@ -3,16 +3,16 @@
 namespace Modules\HR\Http\Controllers;
 
 use Exception;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Department;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Modules\HR\Entities\LeaveBalance;
-use Modules\HR\Entities\Employee;
-use Modules\HR\Entities\Department;
 use Modules\HR\Entities\Section;
+use Modules\HR\Entities\Employee;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Modules\HR\Entities\LeaveBalance;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class LeaveBalanceController extends Controller
 {

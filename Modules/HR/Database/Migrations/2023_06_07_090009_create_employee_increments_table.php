@@ -19,11 +19,11 @@ return new class extends Migration
 
             $table->string('incement_type');
             $table->date('date');
-            $table->unsignedBigInteger('old_designation_id');
+            $table->unsignedBigInteger('old_designation_id')->nullable();
             $table->unsignedBigInteger('new_designation_id')->nullable();
-            $table->unsignedBigInteger('old_section_id');
+            $table->unsignedBigInteger('old_section_id')->nullable();
             $table->unsignedBigInteger('new_section_id')->nullable();
-            $table->unsignedBigInteger('old_emp_type_id');
+            $table->unsignedBigInteger('old_emp_type_id')->nullable();
             $table->unsignedBigInteger('new_emp_type_id')->nullable();
 
 

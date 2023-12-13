@@ -2,12 +2,13 @@
 
 namespace Modules\HR\Entities;
 
-use Modules\HR\Entities\Department;
+// use Modules\HR\Entities\Department;
+use App\Department;
 use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
-   
+
     protected $guarded = [];
 
     public function department()

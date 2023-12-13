@@ -11,7 +11,7 @@ use Modules\HR\Entities\Section;
 use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Modules\HR\Entities\Department;
+// use Modules\HR\Entities\Department;
 use Illuminate\Support\Facades\Auth;
 use Modules\HR\Entities\Designation;
 use Modules\HR\Entities\FixAttendance;
@@ -29,7 +29,7 @@ class ProcessedAttendanceController extends Controller
     {
         $this->authorize('process-attendance');
 
-        $com_user_id = Auth::user()->com_id;
+        // $com_user_id = Auth::user()->com_id;
 
         $monthYear = explode("-", $request->month);
         $startDate = null;
@@ -43,16 +43,17 @@ class ProcessedAttendanceController extends Controller
             if (count($monthYear) == 2) {
                 foreach (Carbon::parse($startDate)->daysUntil($endDate) as $yeardate) {
                     $dateYear = date('Y-m-d', strtotime($yeardate));
-                    DB::select("SET @DATE = ?, @Department= ? , @Overtime= ?,@Com_User= ?", [$dateYear, $request->department_id, date("H:i:s", strtotime("00:00:00")), $com_user_id]);
-                    DB::select("CALL attendance_processed(@DATE,@Department,@Overtime,@Com_User)");
+                    DB::select("SET @DATE = ?, @Department= ? , @Overtime= ?", [$dateYear, $request->department_id, date("H:i:s", strtotime("00:00:00"))]);
+                    DB::select("CALL attendance_processed(@DATE,@Department,@Overtime)");
                 }
             } else {
                 $date = date('Y-m-d', strtotime($request->date));
-                DB::select("SET @DATE = ?, @Department= ? , @Overtime= ? ,@Com_User= ?", [$date, $request->department_id, date("H:i:s", strtotime("00:00:00")), $com_user_id]);
-                DB::select("CALL attendance_processed(@DATE,@Department,@Overtime,@Com_User)");
+                DB::select("SET @DATE = ?, @Department= ? , @Overtime= ?", [$date, $request->department_id, date("H:i:s", strtotime("00:00:00"))]);
+                DB::select("CALL attendance_processed(@DATE,@Department,@Overtime)");
             }
             return redirect()->back()->with('message', 'Attendance processed created successfully');
         } catch (Exception $e) {
+            dd($e);
 
             return redirect()->back()->with('error', $e);
         }

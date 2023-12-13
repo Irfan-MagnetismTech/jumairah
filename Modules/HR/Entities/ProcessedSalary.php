@@ -2,6 +2,9 @@
 
 namespace Modules\HR\Entities;
 
+use App\Employee;
+use App\Department;
+use App\Designation;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Accounting\Entities\Transaction;
 
@@ -31,8 +34,8 @@ class ProcessedSalary extends Model
         return $this->belongsTo(Shift::class, 'shift_id', 'id');
     }
 
-    public function transaction()
-    {
-        return $this->morphOne(Transaction::class, 'transactionable');
-    }
+    // public function transaction()
+    // {
+    //     return $this->morphOne(Transaction::class, 'transactionable');
+    // }
 }

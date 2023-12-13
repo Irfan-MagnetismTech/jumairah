@@ -3,19 +3,21 @@
 namespace Modules\HR\Http\Controllers;
 
 use Exception;
+use App\Department;
+use App\Designation;
+use Illuminate\Http\Request;
+use Modules\HR\Entities\Section;
+use Modules\HR\Entities\Employee;
+use Illuminate\Routing\Controller;
+// use Modules\HR\Entities\Department;
+use Illuminate\Support\Facades\DB;
+// use Modules\HR\Entities\Designation;
+use Illuminate\Support\Facades\Auth;
+use Modules\HR\Entities\EmployeeType;
+use Modules\HR\Entities\EmployeeSalary;
+use Modules\HR\Entities\EmployeeTransfer;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Modules\HR\Entities\EmployeeTransfer;
-use Modules\HR\Entities\Employee;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\Designation;
-use Modules\HR\Entities\EmployeeType;
-use Modules\HR\Entities\Section;
-use Modules\HR\Entities\EmployeeSalary;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class EmployeeTransferController extends Controller
 {

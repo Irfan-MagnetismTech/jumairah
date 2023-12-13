@@ -2,41 +2,42 @@
 
 namespace Modules\HR\Http\Controllers;
 
-use App\Helpers\MTLHelper;
+use PDF;
+use Carbon\Carbon;
+use App\Designation;
 use App\Models\User;
-use Illuminate\Contracts\Support\Renderable;
+use App\Helpers\MTLHelper;
 use Illuminate\Http\Request;
+use App\Rules\FromToDateRule;
+use Modules\HR\Entities\Bonus;
+use Modules\HR\Entities\Shift;
+use Illuminate\Validation\Rule;
+use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
-use App\Rules\FromToDateRule;
-use Carbon\Carbon;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
+// use Modules\HR\Entities\Department;
+// use Modules\HR\Entities\Designation;
 use Illuminate\Support\Facades\DB;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\Designation;
-use Modules\HR\Entities\Employee;
-use Modules\HR\Entities\EmployeeIncrement;
-use Modules\HR\Entities\EmployeeType;
-use Modules\HR\Entities\LeaveType;
-use Modules\HR\Entities\ProcessedAttendance;
-// use Modules\HR\Entities\ProcessedSalary;
-use Modules\HR\Entities\ReleasedType;
-use Modules\HR\Entities\Shift;
-use PDF;
-use Illuminate\Validation\Rule;
 use Modules\HR\Entities\Allowance;
-use Modules\HR\Entities\AppointmentLetter;
-use Modules\HR\Entities\Bonus;
-use Modules\HR\Entities\FixAttendance;
-use Modules\HR\Entities\JobLocation;
-use Modules\HR\Entities\LeaveBalance;
+use Modules\HR\Entities\LeaveType;
 use Modules\HR\Entities\LeaveEntry;
+use Illuminate\Support\Facades\Auth;
+// use Modules\HR\Entities\ProcessedSalary;
+use Modules\HR\Entities\JobLocation;
+use Modules\HR\Entities\EmployeeType;
+use Modules\HR\Entities\LeaveBalance;
+use Modules\HR\Entities\ReleasedType;
+use Modules\HR\Entities\FixAttendance;
+use Illuminate\Database\QueryException;
 use Modules\HR\Entities\ProcessedBonus;
-use Modules\HR\Entities\ProcessedBonusDetail;
 use Modules\HR\Entities\ProcessedSalary;
+use Illuminate\Auth\Middleware\Authorize;
+use Modules\HR\Entities\AppointmentLetter;
+use Modules\HR\Entities\EmployeeIncrement;
+use Illuminate\Contracts\Support\Renderable;
+use Modules\HR\Entities\ProcessedAttendance;
+use Modules\HR\Entities\ProcessedBonusDetail;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HRReportController extends Controller
 {
