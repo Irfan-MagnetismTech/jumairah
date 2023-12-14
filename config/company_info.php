@@ -12,6 +12,7 @@ return [
         'altText' => 'Jumairah Holdings Limited',
 
         'modules' => [
+                'Administrative'=>'Administrative',
                 'General'       =>'General',
                 'BD'            =>'BD',
                 'BOQ'           =>'BOQ',
