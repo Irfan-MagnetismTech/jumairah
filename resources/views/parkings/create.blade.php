@@ -67,7 +67,7 @@
                         <input type="text" value="{{$parkingName}}" name="parking_name[]" class="form-control" autocomplete="off" required>
                         <select name="parking_owner[]"  class="form-control" required >
                             <option value="">Select Owner</option>
-                            <option value="JumairahProperties"{{ old('parking_owner')[$key] == 'JumairahProperties' ? 'selected' : '' }}>Jumairah Properties Ltd</option>
+                            <option value="JHL"{{ old('parking_owner')[$key] == 'JHL' ? 'selected' : '' }}>Jumairah Holdings Ltd</option>
                             <option value="Landowner" {{old('parking_owner')[$key]== 'Landowner' ? 'selected' : '' }}>LandOwner</option>
                         </select>
                     </div>
@@ -81,7 +81,7 @@
                         <input type="text" value="{{$parkingName->parking_name}}" name="parking_name[]" class="form-control" autocomplete="off" required>
                         <select name="parking_owner[]"  class="form-control" required >
                             <option value="">Select Owner</option>
-                            <option value="JumairahProperties" {{ $parkingName->parking_owner == 'JumairahProperties' ? 'selected' : '' }}>Jumairah Properties Ltd</option>
+                            <option value="JHL" {{ $parkingName->parking_owner == 'JHL' ? 'selected' : '' }}>Jumairah Holdings Ltd</option>
                             <option value="Landowner" {{ $parkingName->parking_owner == 'Landowner' ? 'selected' : '' }}>LandOwner</option>
                         </select>
                     </div>
