@@ -21,7 +21,7 @@
     <table id="dataTable" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th colspan="13">Rancon FC Properties Ltd.</th>
+                <th colspan="13">Jumairah Holdings Ltd.</th>
             </tr>
             <tr>
                 <th rowspan="4">Project Name</th>
@@ -56,27 +56,27 @@
         </tfoot>
         <tbody>
             @forelse ($currentYearPlans as $currentYearPlan)
-                @php 
-                    $planGroups = $currentYearPlan->workPlanDetails->groupBy('work_id'); 
-                @endphp 
+                @php
+                    $planGroups = $currentYearPlan->workPlanDetails->groupBy('work_id');
+                @endphp
                 @foreach ($planGroups as $planGroup)
                     @foreach($planGroup as $key => $planDetail)
-                        <tr>  
+                        <tr>
                             @if ($loop->parent->first && $loop->first)
-                                <td rowspan="{{count($currentYearPlan->workPlanDetails)}}"> 
+                                <td rowspan="{{count($currentYearPlan->workPlanDetails)}}">
                                     {{ $currentYearPlan->projects->name }}
-                                </td>                            
+                                </td>
                             @endif
 
                             @if ($loop->first)
-                                <td rowspan="{{count($planGroup)}}"> 
-                                    {{ $planDetail->boqWorks->name }}                                 
-                                </td> 
+                                <td rowspan="{{count($planGroup)}}">
+                                    {{ $planDetail->boqWorks->name }}
+                                </td>
                             @endif
 
-                            
+
                             @if ($loop->first)
-                                <td rowspan="{{count($planGroup)}}"> 
+                                <td rowspan="{{count($planGroup)}}">
                                     @if($planDetail->sub_work && $planDetail->target_accomplishment)
                                     {{ $planDetail->sub_work }}<br>
                                     {{ $planDetail->target_accomplishment }}% completed
@@ -85,9 +85,9 @@
                                     @elseif($planDetail->target_accomplishment)
                                     {{ $planDetail->target_accomplishment }}% completed
                                     @endif
-                                </td> 
+                                </td>
                             @endif
-                            
+
                             <td>{{ $planDetail->target }}%</td>
                             <td></td>
 
@@ -100,13 +100,13 @@
                             <td>{{ $planDetail->finish_date }}</td>
                             <td >{{ $planDetail->delay }}</td>
                             <td></td>
-                            
+
                         </tr>
 
                     @endforeach
                 @endforeach
                 @empty
-                    
+
             @endforelse
         </tbody>
     </table>

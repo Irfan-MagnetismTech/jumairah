@@ -125,7 +125,7 @@
                             <span>---------------------------------</span><br>
                             <span>Manager</span><br>
                             <span>Customer Service Department</span><br>
-                            <span>Rancon FC Propertise Limited</span>
+                            <span>Jumairah Holdings Limited</span>
                         </td>
                     </tr>
                 </table>
