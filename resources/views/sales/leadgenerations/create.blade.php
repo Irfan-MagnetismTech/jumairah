@@ -277,7 +277,7 @@
                 <datalist id="activity_type_list">
                     <option value="Physical Visit"></option>
                     <option value="Telephone Conversation"></option>
-                    <option value="Ranks Office Visit"></option>
+                    <option value="Jumairah Office Visit"></option>
                     <option value="Project Visit"></option>
                 </datalist>
             </div>
