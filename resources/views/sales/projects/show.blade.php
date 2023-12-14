@@ -67,7 +67,7 @@
                                         @if($apartment->owner == 1)
                                             <h6 class="m-0">{{$apartment->name}} </h6>
                                             Size (SFT): @money($apartment->apartment_size)
-                                            <h6 class="m-0">{{$apartment->owner == 1 ? "Ranks FC" : "Land Owner"}}</h6>
+                                            <h6 class="m-0">{{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}</h6>
                                             @if($apartment->sell)
                                                 <p class="m-1"><strong class="px-1 bg-danger rounded">SOLD</strong> <br></p>
                                                 <strong class="breakWords">Client :
@@ -80,7 +80,7 @@
                                             @endif
                                         @else
                                             {{$apartment->name}} <br> Size (SFT): @money($apartment->apartment_size) <br>
-                                            {{$apartment->owner == 1 ? "Ranks FC" : "Land Owner"}}
+                                            {{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}
                                         @endif
                                     @endif
                                 @endforeach
@@ -101,22 +101,22 @@
                 <td  style="font-size: 14px;background-color: #227447 !important;" colspan="{{count($project->parkings)}}"><strong >Parking of {{$project->name}} </strong> </td>
             </tr>
             </thead>
-            @forelse($project->parkings as $parking) 
+            @forelse($project->parkings as $parking)
                 <tr>
                     @foreach($parking->parkingDetails as $parkingDetail)
                     {{-- @dd($parkingDetail); --}}
-                        <td class="breakWords text-center {{$parkingDetail->parking_owner =="RanksFc" ? 'bg-success' : null}}" style="float: left;width:85px;height: 90px">
+                        <td class="breakWords text-center {{$parkingDetail->parking_owner =="JHL" ? 'bg-success' : null}}" style="float: left;width:85px;height: 90px">
                             <h6 style="font-size: 14px;font-weight: 600;"> {{$parkingDetail->parking_name}}</h6>
                             @if($parkingDetail->soldParking->parking_rate)
                                 <p class="text-center"><span class="label label-danger"><strong>SOLD</strong></span></p>
-                                @if($parkingDetail->parking_owner=="RanksFc")
+                                @if($parkingDetail->parking_owner=="JHL")
                                 <strong style="font-size: 14px;color: #053225;">{{$parkingDetail->parking_owner}}</strong>
                                 @else
                                     <strong class="text-danger">{{$parkingDetail->parking_owner}}</strong>
                                 @endif
                             @else
                                 <p class="text-center"><span class="label label-primary"><strong>UNSOLD</strong></span></p>
-                                @if($parkingDetail->parking_owner=="RanksFc")
+                                @if($parkingDetail->parking_owner=="JHL")
                                     <strong style="font-size: 14px;color: #053225;">{{$parkingDetail->parking_owner}}</strong>
                                 @else
                                     <strong class="text-danger">{{$parkingDetail->parking_owner}} </strong>
@@ -157,7 +157,7 @@
                                     @if($apartment->owner == 1)
                                         <h6 class="m-0">{{$apartment->name}} </h6>
                                         Size (SFT): @money($apartment->apartment_size)
-                                        <h6 class="m-0">{{$apartment->owner == 1 ? "Ranks FC" : "Land Owner"}}</h6>
+                                        <h6 class="m-0">{{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}</h6>
                                         @if($apartment->sell)
                                             <p class="m-1"><strong class="px-1 bg-danger rounded">SOLD</strong> <br></p>
                                             <strong class="breakWords">Client :
@@ -171,7 +171,7 @@
                                     @else
                                         {{$apartment->name}} <br>
                                         Size (SFT): @money($apartment->apartment_size) <br>
-                                        {{$apartment->owner == 1 ? "Ranks FC" : "Land Owner"}}
+                                        {{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}
                                     @endif
                                     {{--                        @endif--}}
                                 </td>
