@@ -28,6 +28,7 @@ class BoqFloorProject extends Model
     {
         return $this->belongsTo(BoqFloor::class, 'floor_id', 'id')->withDefault();
     }
+    
 
     public function boqCommonFloor(): HasOne
     {

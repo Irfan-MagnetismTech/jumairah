@@ -21,7 +21,7 @@
         <table id="dataTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th colspan="9">Rancon FC Properties Ltd.</th>
+                    <th colspan="9">Jumairah Holdings Ltd.</th>
                 </tr>
                 <tr>
                     <th colspan="4">Project Name: {{ $currentYearPlans[0]->materialPlan->projects->name }}</th>
@@ -39,7 +39,7 @@
                     <th >Total<br>Quantity</th>
                     <th >Remarks</th>
                 </tr>
-                
+
             </thead>
             <tfoot>
                 <tr>
@@ -65,5 +65,3 @@
         </table>
     </div>
 @endsection
-
-

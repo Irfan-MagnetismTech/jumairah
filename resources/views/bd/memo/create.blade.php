@@ -23,7 +23,7 @@
         {!! Form::open(array('url' => 'memo','method' => 'POST', 'class'=>'custom-form')) !!}
     @endif
 
-        
+
         <div class="row">
             <div class="col-xl-6 col-md-6">
                 <div class="input-group input-group-sm input-group-primary">
@@ -110,7 +110,7 @@
                             <span>---------------------------------</span><br>
                             <span>Manager</span><br>
                             <span>Logistics Department</span><br>
-                            <span>Rancon FC Propertise Limited</span>
+                            <span>Jumairah Holdings Limited</span>
                         </td>
                     </tr>
                 </table>

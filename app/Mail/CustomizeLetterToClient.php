@@ -16,10 +16,10 @@ class CustomizeLetterToClient extends Mailable
      *
      * @return void
      */
-    public $CsdLetterMail; 
+    public $CsdLetterMail;
     public function __construct($CsdLetterMail)
     {
-        $this->CsdLetterMail = $CsdLetterMail; 
+        $this->CsdLetterMail = $CsdLetterMail;
     }
 
     /**
@@ -30,9 +30,9 @@ class CustomizeLetterToClient extends Mailable
     public function build()
     {
         $cc = ['sumon@magnetismtech.com', 'sumonchandrashil@gmail.com'];
-        
+
         return $this->markdown('emails.customize-letter-to-client')
-            ->subject('RANKS FC')
+            ->subject('JUMAIRAH HOLDINGS LTD')
             ->cc($cc);
     }
 }

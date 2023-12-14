@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="col-xl-4 col-md-6">
-            
+
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="time_from">Time From<span class="text-danger">*</span></label>
                 {{Form::time('time_from', old('time_from') ? old('time_from') : (!empty($followup->time_from) ? $followup->time_from : date('H:i',strtotime(now()))),['class' => 'form-control','id' => 'time_from', 'autocomplete'=>"off",'required','readonly'])}}
@@ -68,7 +68,7 @@
                 <datalist id="activity_type_list">
                     <option value="Physical Visit"></option>
                     <option value="Telephone Conversation"></option>
-                    <option value="Ranks Office Visit"></option>
+                    <option value="Jumairah Office Visit"></option>
                     <option value="Project Visit"></option>
                 </datalist>
             </div>
@@ -113,4 +113,3 @@
         });//document.ready
     </script>
 @endsection
-

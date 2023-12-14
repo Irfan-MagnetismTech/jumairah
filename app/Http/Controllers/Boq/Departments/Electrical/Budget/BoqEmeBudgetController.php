@@ -246,7 +246,7 @@ class BoqEmeBudgetController extends Controller
         $canvas->page_text(
             $width / 3,
             $height / 2,
-            'Rancon FC',
+            'Jumairah Holdings',
             null,
             55,
             array(0, 0, 0),
