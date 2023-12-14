@@ -229,7 +229,7 @@ class BoqElectricalLaborRateController extends Controller
         $canvas->page_text(
             $width / 3,
             $height / 2,
-            'Rancon Fc',
+            'Jumairah Holdings',
             null,
             55,
             array(0, 0, 0),
