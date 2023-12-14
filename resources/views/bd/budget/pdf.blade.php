@@ -168,7 +168,7 @@
                 <div class="head1" style="padding-left: 180px; text-align: center">
                     <img src="{{ asset(config('company_info.logo')) }}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}">
                     <p>
-                        Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road,<br> Agrabad C/A, Chattogram.
+                        {!! htmlspecialchars(config('company_info.company_address')) !!}
                         Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!}<br>
                         <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                     </p>
