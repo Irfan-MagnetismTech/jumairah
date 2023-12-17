@@ -3,10 +3,10 @@
 
 <head>
     @php
-        $user = Auth::user();
-        $companyData = DB::table('company_infos')
-            ->where('com_id', $user->com_id)
-            ->first();
+        // $user = Auth::user();
+        // $companyData = DB::table('company_infos')
+        //     ->where('com_id', $user->com_id)
+        //     ->first();
 
         $totalQty = 0;
 
@@ -86,9 +86,9 @@
 
         }
 
-        .delivery-order-details-table{
+        .delivery-order-details-table {
             border-collapse: collapse;
-            width:100%;
+            width: 100%;
         }
 
         .job-card-table td {
@@ -261,10 +261,11 @@
             text-align: left;
         }
 
-        .search-criteria-container{
+        .search-criteria-container {
             font-size: 12px;
         }
-        .search-criteria-container h6{
+
+        .search-criteria-container h6 {
             font-size: 12px;
             margin: 0;
         }
@@ -288,14 +289,14 @@
             &nbsp;
         </div>
         <div style="width: 24%; float:left;">
-            <img class="float-right" style="height: 50px;"
-                src="{{ asset('images/company/' . $companyData->company_logo) }}" alt="Golden ispat Logo">
+            <img class="float-right" style="height: 50px;" src="{{ asset(config('company_info.logo')) }}"
+                alt="Golden ispat Logo">
         </div>
         <div style="width: 50%; float:left;">
             <div style="margin-top: 20px;">
-                <h1 style="font-size: 20px;  text-align: center">{{ $companyData->company_name }}</h1>
-                <p style="font-size: 12px; text-align: center">{{ $companyData->primary_address }}</p>
-                <p style="font-size: 12px; text-align: center">Phone: {{ $companyData->company_phone_1 }}</p>
+                <h1 style="font-size: 20px;  text-align: center">{{ config('company_info.company_name') }}</h1>
+                <p style="font-size: 12px; text-align: center">{{ config('company_info.company_address') }}</p>
+                <p style="font-size: 12px; text-align: center">Phone: {{ config('company_info.company_phone') }}</p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold;text-transform: uppercase; ">
                     Job Card
                     {{-- date('d-m-Y', strtotime($user->from_date)); --}}
@@ -312,7 +313,7 @@
             <div class="search-criteria-container">
                 <h6>Search Criteria:</h6>
                 <div>
-                    @foreach ($search_criteria as $key=>$sc)
+                    @foreach ($search_criteria as $key => $sc)
                         <p>{{ $key }} : {{ $sc }}</p>
                     @endforeach
                 </div>
@@ -324,11 +325,11 @@
     <html-separator />
 
 
-    <div class="container" >
+    <div class="container">
         @php
             $flag = 0;
         @endphp
-        @if(count($reportData))
+        @if (count($reportData))
             @foreach ($reportData as $data)
                 @if ($flag != 0)
                     <pagebreak>
@@ -344,7 +345,7 @@
                             <td style="width: 16%">{{ $data->first()?->employee?->emp_code }}</td>
                             <td style="width: 1%"></td>
                             <th style="width: 8%">Designation:</th>
-                            <td style="width: 16%">{{ $data->first()?->designation}}</td>
+                            <td style="width: 16%">{{ $data->first()?->designation }}</td>
 
                         </tr>
                         <tr>
@@ -389,8 +390,12 @@
 
                                 <td>{{ $dt->shift?->name }}</td>
 
-                                <td class="text-center">{{ $dt->time_in ? Carbon\Carbon::parse($dt->time_in)->format('h:i:s A') : '' }}</td>
-                                <td class="text-center">{{ $dt->time_out ? Carbon\Carbon::parse($dt->time_out)->format('h:i:s A') : '' }}</td>
+                                <td class="text-center">
+                                    {{ $dt->time_in ? Carbon\Carbon::parse($dt->time_in)->format('h:i:s A') : '' }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $dt->time_out ? Carbon\Carbon::parse($dt->time_out)->format('h:i:s A') : '' }}
+                                </td>
 
                                 <td class="text-center">{{ $dt->late }}</td>
                                 <td class="text-center">{{ $dt->ot_hour }}</td>
@@ -399,19 +404,23 @@
                                     @switch($dt->status)
                                         @case('p')
                                             {{ 'Present' }}
-                                            @break
+                                        @break
+
                                         @case('a')
                                             {{ 'Absent' }}
-                                            @break
+                                        @break
+
                                         @case('l')
                                             {{ 'Late' }}
-                                            @break
+                                        @break
+
                                         @case('w')
                                             {{ 'Weekend' }}
-                                            @break
+                                        @break
+
                                         @case('h')
                                             {{ 'Weekend' }}
-                                            @break
+                                        @break
 
                                         @default
                                             {{ \Modules\HR\Entities\LeaveType::whereRaw('LOWER(short_name) = ?', [strtolower($dt->status)])->first()?->name }}
@@ -424,18 +433,18 @@
 
                             </tr>
                             @if ($key == 14)
-                                @break
-                            @endif
-                        @endforeach
+                            @break
+                        @endif
+                    @endforeach
 
-                    </tbody>
+                </tbody>
 
-                </table>
+            </table>
 
-                @if (count($data) > 15)
-                    <pagebreak>
-                @endif
-                @if (count($data->slice(15)))
+            @if (count($data) > 15)
+                <pagebreak>
+            @endif
+            @if (count($data->slice(15)))
                 <div style="margin-bottom: 25px;">
                     <table class="job-card-table">
                         <tr>
@@ -446,7 +455,7 @@
                             <td style="width: 16%">{{ $data->first()?->employee?->emp_code }}</td>
                             <td style="width: 1%"></td>
                             <th style="width: 8%">Designation:</th>
-                            <td style="width: 16%">{{ $data->first()?->designation}}</td>
+                            <td style="width: 16%">{{ $data->first()?->designation }}</td>
 
                         </tr>
                         <tr>
@@ -490,8 +499,12 @@
 
                                 <td>{{ $dt->shift?->name }}</td>
 
-                                <td class="text-center">{{ $dt->time_in ? Carbon\Carbon::parse($dt->time_in)->format('h:i:s A') : '' }}</td>
-                                <td class="text-center">{{ $dt->time_out ? Carbon\Carbon::parse($dt->time_out)->format('h:i:s A'): '' }}</td>
+                                <td class="text-center">
+                                    {{ $dt->time_in ? Carbon\Carbon::parse($dt->time_in)->format('h:i:s A') : '' }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $dt->time_out ? Carbon\Carbon::parse($dt->time_out)->format('h:i:s A') : '' }}
+                                </td>
 
                                 <td class="text-center">{{ $dt->late }}</td>
                                 <td class="text-center">{{ $dt->ot_hour }}</td>
@@ -500,19 +513,23 @@
                                     @switch($dt->status)
                                         @case('p')
                                             {{ 'Present' }}
-                                            @break
+                                        @break
+
                                         @case('a')
                                             {{ 'Absent' }}
-                                            @break
+                                        @break
+
                                         @case('l')
                                             {{ 'Late' }}
-                                            @break
+                                        @break
+
                                         @case('w')
                                             {{ 'Weekend' }}
-                                            @break
+                                        @break
+
                                         @case('h')
                                             {{ 'Weekend' }}
-                                            @break
+                                        @break
 
                                         @default
                                             {{ \Modules\HR\Entities\LeaveType::whereRaw('LOWER(short_name) = ?', [strtolower($dt->status)])->first()?->name }}
@@ -525,61 +542,64 @@
 
                             </tr>
                             @if ($key == 14)
-                                @break
-                            @endif
-                        @endforeach
+                            @break
+                        @endif
+                    @endforeach
 
-                    </tbody>
+                </tbody>
 
-                </table>
-                @endif
-
-
-                @php
-                    $flag = 1;
-                @endphp
-
-            @endforeach
-        @else
-            <div style="padding-top: 150px;">
-                <h1 class="text-center" >No results found</h1>
-            </div>
+            </table>
         @endif
 
 
-
+        @php
+            $flag = 1;
+        @endphp
+    @endforeach
+@else
+    <div style="padding-top: 150px;">
+        <h1 class="text-center">No results found</h1>
     </div>
+@endif
 
-    <htmlpagefooter name="page-footer">
-        <div class=" text-xs justify-between">
-            <div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
-                    <div>
-                        <div class="text-center">Prepared By</div>
-                    </div>
-                </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
-                    <div>
-                        <div class="text-center">General Manager</div>
-                    </div>
-                </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
-                    <div>
-                        <div class="text-center">Director</div>
-                    </div>
-                </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
-                    <div>
-                        <div class="text-center">Managing Director</div>
-                    </div>
-                </div>
 
-            </div>
+
+</div>
+
+<htmlpagefooter name="page-footer">
+<div class=" text-xs justify-between">
+    <div>
+        <div
+            style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
             <div>
-                &nbsp;
+                <div class="text-center">Prepared By</div>
             </div>
         </div>
-    </htmlpagefooter>
+        <div
+            style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+            <div>
+                <div class="text-center">General Manager</div>
+            </div>
+        </div>
+        <div
+            style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+            <div>
+                <div class="text-center">Director</div>
+            </div>
+        </div>
+        <div
+            style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+            <div>
+                <div class="text-center">Managing Director</div>
+            </div>
+        </div>
+
+    </div>
+    <div>
+        &nbsp;
+    </div>
+</div>
+</htmlpagefooter>
 </body>
 
 </html>

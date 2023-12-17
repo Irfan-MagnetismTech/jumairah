@@ -2,11 +2,13 @@
 
 namespace Modules\HR\Entities;
 
+use App\Department;
+use App\Designation;
 use Illuminate\Database\Eloquent\Model;
 
 class ProcessedAttendance extends Model
 {
-   
+
     protected $guarded = [];
 
     public function employee()

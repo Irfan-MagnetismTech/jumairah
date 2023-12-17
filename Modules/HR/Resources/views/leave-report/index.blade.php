@@ -288,29 +288,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#category_id').change(()=>{
-            $.ajax({
-                url: "{{ route('getCategoryWiseProducts') }}",
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    category_id: $('#category_id').val()
-                },
-                success: function(response) {
-                    $('.product_id').empty();
-                    $('.product_id').append('<option value="">' + "All" + '</option>');
-                    $.each(response, function(index, value) {
-
-                        $('.product_id').append('<option value="' + value.id + '">' + value
-                            .text + '</option>');
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus + ': ' + errorThrown);
-                }
-            });
-        });
+      
 
         $('#employee_type_id').change(()=>{
             $.ajax({
