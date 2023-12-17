@@ -174,9 +174,9 @@ class FixAttendanceController extends Controller
             $this->authorize('fix-attendance-create');
 
             DB::transaction(function () use ($request) {
-                $getFixdata = FixAttendance::where('com_id', auth()->user()->com_id)->where('emp_id', $request->emp_id)->whereDate('punch_date', $request->punch_date)->latest()->first();
+                $getFixdata = FixAttendance::where('emp_id', $request->emp_id)->whereDate('punch_date', $request->punch_date)->latest()->first();
 
-                $employee = Employee::where('employees.com_id', auth()->user()->com_id)->find($request->emp_id);
+                $employee = Employee::find($request->emp_id);
                 // dd($request);
                 // $com_id = Auth::user()->com_id;
                 if ($getFixdata == null) {

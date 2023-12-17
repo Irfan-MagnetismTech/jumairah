@@ -3,10 +3,10 @@
 
 <head>
     @php
-        $user = Auth::user();
-        $companyData = DB::table('company_infos')
-            ->where('com_id', $user->com_id)
-            ->first();
+        // $user = Auth::user();
+        // $companyData = DB::table('company_infos')
+        //     ->where('com_id', $user->com_id)
+        //     ->first();
 
         $totalQty = 0;
 
@@ -86,9 +86,9 @@
 
         }
 
-        .delivery-order-details-table{
+        .delivery-order-details-table {
             border-collapse: collapse;
-            width:100%;
+            width: 100%;
         }
 
         #allowances td {
@@ -220,8 +220,8 @@
         .display {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            margin-left:20%;
-            margin-right:20%;
+            margin-left: 20%;
+            margin-right: 20%;
         }
 
         .font-semibold {
@@ -261,10 +261,11 @@
             text-align: left;
         }
 
-        .search-criteria-container{
+        .search-criteria-container {
             font-size: 12px;
         }
-        .search-criteria-container h6{
+
+        .search-criteria-container h6 {
             font-size: 12px;
             margin: 0;
         }
@@ -285,20 +286,20 @@
             &nbsp;
         </div>
         <div style="width: 24%; float:left;">
-            <img class="float-right" style="height: 50px;"
-                src="{{ asset('images/company/' . $companyData->company_logo) }}" alt="Golden ispat Logo">
+            <img class="float-right" style="height: 50px;" src="{{ asset(config('company_info.logo')) }}"
+                alt="Golden ispat Logo">
         </div>
         <div style="width: 50%; float:left;">
             <div style="margin-top: 20px;">
-                <h1 style="font-size: 20px;  text-align: center">{{ $companyData->company_name }}</h1>
-                <p style="font-size: 12px; text-align: center">{{ $companyData->primary_address }}</p>
-                <p style="font-size: 12px; text-align: center">Phone: {{ $companyData->company_phone_1 }}</p>
+                <h1 style="font-size: 20px;  text-align: center">{{ config('company_info.company_name') }}</h1>
+                <p style="font-size: 12px; text-align: center">{{ config('company_info.company_address') }}</p>
+                <p style="font-size: 12px; text-align: center">Phone: {{ config('company_info.company_phone') }}</p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold;text-transform: uppercase; ">
-                    Pay Slip  {{($type == 'salary')? '(Salary)': '(Bonus)'}}
+                    Pay Slip {{ $type == 'salary' ? '(Salary)' : '(Bonus)' }}
                     {{-- date('d-m-Y', strtotime($user->from_date)); --}}
                 </p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold; ">
-                    {{date('F-Y', strtotime($dateString))}}
+                    {{ date('F-Y', strtotime($dateString)) }}
                 </p>
             </div>
         </div>
@@ -308,7 +309,7 @@
             <div class="search-criteria-container">
                 <h6>Search Criteria:</h6>
                 <div>
-                    @foreach ($search_criteria as $key=>$sc)
+                    @foreach ($search_criteria as $key => $sc)
                         <p>{{ $key }} : {{ $sc }}</p>
                     @endforeach
                 </div>
@@ -321,45 +322,34 @@
 
 
 
-    <div class="container" >
-        @if(count($reportData))
-        <?php $sl=0; ?>
+    <div class="container">
+        @if (count($reportData))
+            <?php $sl = 0; ?>
 
             @foreach ($reportData as $key => $data)
-
                 <?php
-
-                    if($type == 'salary'){
-                        ['total_working_day' => $total_working_day, 'total_working_amount' => $total_working_amount, 'ot_hour'=> $total_ot_hour,'ot_amount'=>$total_ot_amount,'house_rent'=>$house_rent,'medical_allowance'=>$medical_allowance,
-                        'tansport_allowance'=>$tansport_allowance,
-                        'food_allowance'=>$food_allowance,
-                        'other_allowance'=>$other_allowance,
-                        'mobile_allowance'=>$mobile_allowance,
-                        'grade_bonus'=>$grade_bonus,
-                        'skill_bonus'=>$skill_bonus,
-                        'management_bonus'=>$management_bonus,
-                        'income_tax'=>$income_tax,
-                        'casual_salary'=>$casual_salary,
-                        'total_leaves'=>$total_leaves,
-                        'adjustment_amount'=>$adjustment_amount] = $data->processed_salary;
-
-                        $addition=0;
-                        $deduction=0;
-                        if ($adjustment_amount > 0) {
-                            $addition= $adjustment_amount;
-                        }else{
-                            $deduction= (-1 * $adjustment_amount);
-                        }
-                        $total_earnings = $total_working_amount + $total_ot_amount + $house_rent + $medical_allowance + $tansport_allowance + $food_allowance + $other_allowance + $mobile_allowance + $casual_salary + $addition;
-
-                        $total_deductions = $income_tax + $deduction;
+                
+                if ($type == 'salary') {
+                    ['total_working_day' => $total_working_day, 'total_working_amount' => $total_working_amount, 'ot_hour' => $total_ot_hour, 'total_ot_amount' => $total_ot_amount, 'house_rent' => $house_rent, 'medical_allowance' => $medical_allowance, 'tansport_allowance' => $tansport_allowance, 'food_allowance' => $food_allowance, 'other_allowance' => $other_allowance, 'mobile_allowance' => $mobile_allowance, 'grade_bonus' => $grade_bonus, 'skill_bonus' => $skill_bonus, 'management_bonus' => $management_bonus, 'income_tax' => $income_tax, 'casual_salary' => $casual_salary, 'total_leaves' => $total_leaves, 'adjustment_amount' => $adjustment_amount] = $data->processed_salary;
+                
+                    $addition = 0;
+                    $deduction = 0;
+                    if ($adjustment_amount > 0) {
+                        $addition = $adjustment_amount;
+                    } else {
+                        $deduction = -1 * $adjustment_amount;
                     }
-
-                    $total_bonus=0;
-
+                
+                    $total_earnings = $total_working_amount + $total_ot_amount + $house_rent + $medical_allowance + $tansport_allowance + $food_allowance + $other_allowance + $mobile_allowance + $casual_salary + $addition;
+                
+                    $total_deductions = $income_tax + $deduction;
+                }
+                
+                $total_bonus = 0;
+                
                 ?>
                 <div style="margin-left: 20%; margin-right:20%;" class="px-4">
-                    <table id="allowances" >
+                    <table id="allowances">
                         <tbody>
                             <tr>
                                 <td>Employee Name:</td>
@@ -406,69 +396,75 @@
                             @if ($type == 'salary')
                                 <tr>
                                     <td>Total Basic Amount</td>
-                                    <td>{{$total_working_amount}}</td>
+                                    <td>{{ $total_working_amount }}</td>
                                     <td>Income Tax</td>
-                                    <td>{{$income_tax}}</td>
+                                    <td>{{ $income_tax }}</td>
                                 </tr>
                                 <tr>
                                     <td>House Rent</td>
-                                    <td>{{$house_rent}}</td>
+                                    <td>{{ $house_rent }}</td>
                                     <td>Deduction Amount</td>
-                                    <td>{{$deduction}}</td>
+                                    <td>{{ $deduction }}</td>
                                 </tr>
                                 <tr>
                                     <td>Medical Allowance</td>
-                                    <td>{{$medical_allowance}}</td>
+                                    <td>{{ $medical_allowance }}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Tansport Allowance</td>
-                                    <td>{{$tansport_allowance}}</td>
+                                    <td>{{ $tansport_allowance }}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Food Allowance</td>
-                                    <td>{{$food_allowance}}</td>
+                                    <td>{{ $food_allowance }}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Mobile Allowance</td>
-                                    <td>{{$mobile_allowance}}</td>
+                                    <td>{{ $mobile_allowance }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Over Time Allowance</td>
+                                    <td>{{ $total_ot_amount }}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Other Allowance</td>
-                                    <td>{{$other_allowance}}</td>
+                                    <td>{{ $other_allowance }}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
                                     <td>Additional Amount</td>
-                                    <td>{{$addition}}</td>
+                                    <td>{{ $addition }}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td>Casual Salary</td>
-                                    <td>{{$casual_salary}}</td>
+                                    <td>{{ $casual_salary }}</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
 
                                 <tr>
                                     <th>Total Earnigns</th>
-                                    <td>{{$total_earnings }}</td>
+                                    <td>{{ $total_earnings }}</td>
                                     <th>Total Deductions</th>
-                                    <td>{{$total_deductions}}</td>
+                                    <td>{{ $total_deductions }}</td>
                                 </tr>
                                 <tr>
                                     <th colspan="3">Net Salary</th>
-                                    <td>{{ ($total_earnings) - $total_deductions }}/=</td>
+                                    <td>{{ $total_earnings - $total_deductions }}/=</td>
                                 </tr>
                             @endif
                             @if ($type == 'bonus')
@@ -478,56 +474,60 @@
                                     ?>
                                     <tr>
                                         <th colspan="2">{{ ucfirst($bonuse->bonus_name) }}</th>
-                                        <td>{{$bonuse->bonus_amount }}</td>
+                                        <td>{{ $bonuse->bonus_amount }}</td>
                                         <td></td>
                                     </tr>
                                 @endforeach
                                 <tr>
                                     <th colspan="3">Net Bonus</th>
-                                    <td>{{$total_bonus }}/=</td>
+                                    <td>{{ $total_bonus }}/=</td>
                                 </tr>
                             @endif
                         </tbody>
                     </table>
                 </div>
-                    <htmlpagefooter name="page-footer">
-                        <div class="text-xs">
-                            <div class="display">
-                                <div style="width:49%;float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
-                                    <div>
-                                        <div class="text-center">Employer Signature</div>
-                                    </div>
+                <htmlpagefooter name="page-footer">
+                    <div class="text-xs">
+                        <div class="display">
+                            <div
+                                style="width:49%;float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                                <div>
+                                    <div class="text-center">Employer Signature</div>
                                 </div>
-                                <div style="width:49%;float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
-                                    <div>
-                                        <div class="text-center">Employee Signature</div>
-                                    </div>
+                            </div>
+                            <div
+                                style="width:49%;float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                                <div>
+                                    <div class="text-center">Employee Signature</div>
                                 </div>
+                            </div>
 
-                            </div>
-                            <div>
-                                &nbsp;
-                            </div>
                         </div>
-                    </htmlpagefooter>
-                @if (count($reportData) -1 > $key)
+                        <div>
+                            &nbsp;
+                        </div>
+                    </div>
+                </htmlpagefooter>
+                @if (count($reportData) - 1 > $key)
                     <pagebreak>
                 @endif
             @endforeach
         @else
             {{-- <h1 class="text-center" style="margin-top: 120px;">No results found</h1> --}}
             <div style="padding-top: 150px;">
-                <h1 class="text-center" >No results found</h1>
+                <h1 class="text-center">No results found</h1>
             </div>
             <htmlpagefooter name="page-footer">
                 <div class=" text-xs justify-between">
                     <div>
-                        <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                        <div
+                            style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                             <div>
                                 <div class="text-center">Employer Signature</div>
                             </div>
                         </div>
-                        <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                        <div
+                            style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                             <div>
                                 <div class="text-center">Employee Signature</div>
                             </div>
