@@ -90,25 +90,35 @@
                         @endif
                     </td>
                     @php
-                                    $approval = \App\Approval\ApprovalLayerDetails::
+                                    $approvals = \App\Approval\ApprovalLayerDetails::
                                         whereHas('approvalLayer', function ($q){
                                             $q->where('name','Name Transfer');
                                         })->whereDoesntHave('approvals',function ($q) use($data){
                                             $q->where('approvable_id',$data->id)->where('approvable_type',\App\Sells\NameTransfer::class);
                                         })
                                         ->orderBy('order_by','asc')->first();
-                                @endphp
+
+                                        $TotalApproval = \App\Approval\ApprovalLayerDetails::
+                                        whereHas('approvalLayer', function ($q){
+                                            $q->where('name','Name Transfer');
+                                        })->orderBy('order_by','asc')->get()->count();
+                    @endphp
                     <td>
                         @if($data->approval()->exists())
-                            @foreach($data->approval as $approval)
-                                <span class="badge @if($approval->status == 'Approved') bg-primary @else bg-warning @endif bg-warning badge-sm">
-                                    {{ $approval->status }} - {{$approval->user->employee->designation->name ?? ''}}
+                            @foreach($data->approval as $approval1)
+                                <span class="badge @if($approval1->status == 'Approved') bg-primary @else bg-warning @endif bg-warning badge-sm">
+                                    {{ $approval1->status }} - {{$approval1->user->employee->designation->name ?? ''}}
                                 </span><br>
+
                             @endforeach
+                            @if (($data->approval->count() != $TotalApproval))
+                                <span class="badge bg-warning badge-sm">Pending in - {{$approvals->designation->name ?? ''}} - {{$approvals->department->name ?? ''}}</span>
+                            @endif
                         @else
-                        <span class="badge bg-warning badge-sm">Pending in {{$approval->designation->name ?? ''}} - {{$approval->department->name ?? ''}}</span>
+                        <span class="badge bg-warning badge-sm">Pending in - {{$approvals->designation->name ?? ''}} - {{$approvals->department->name ?? ''}}</span>
                         @endif
                     </td>
+
                     <td>
                         <div class="icon-btn">
                             <nobr>
@@ -123,7 +133,8 @@
 
                                     //dump($approval, auth()->user()->designation?->id)
                                 @endphp
-                                @if(!empty($approval) && ($approval->designation_id == auth()->user()->designation?->id) )
+                                @if((!empty($approval) && $approval->designation_id == auth()->user()->designation?->id && $approval->department_id == auth()->user()->department_id) || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin'])))
+
                                     <a href="{{ url("name-transfer-approval/$data->id/1") }}" data-toggle="tooltip" title="Approval" class="btn btn-outline-success">Approve</a>
                                 @endif
 

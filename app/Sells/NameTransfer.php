@@ -2,14 +2,15 @@
 
 namespace App\Sells;
 
+use App\User;
+use App\SellsClient;
+use App\Transaction;
 use App\Accounts\Account;
 use App\Approval\Approval;
 use App\Casts\CommaToFloat;
-use App\SellsClient;
-use App\Transaction;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class NameTransfer extends Model
 {
@@ -50,6 +51,11 @@ class NameTransfer extends Model
     public function approval()
     {
         return $this->morphMany(Approval::class,'approvable','approvable_type','approvable_id');
+    }
+
+    public function appliedBy()
+    {
+        return $this->belongsTo(User::class, 'user_id')->withDefault();
     }
 
 
