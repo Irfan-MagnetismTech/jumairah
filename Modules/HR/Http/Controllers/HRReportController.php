@@ -4,6 +4,7 @@ namespace Modules\HR\Http\Controllers;
 
 use PDF;
 use Carbon\Carbon;
+use App\Department;
 use App\Designation;
 use App\Models\User;
 use App\Helpers\MTLHelper;
@@ -14,15 +15,15 @@ use Modules\HR\Entities\Shift;
 use Illuminate\Validation\Rule;
 use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Collection;
 // use Modules\HR\Entities\Department;
 // use Modules\HR\Entities\Designation;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Modules\HR\Entities\Allowance;
 use Modules\HR\Entities\LeaveType;
 use Modules\HR\Entities\LeaveEntry;
-use Illuminate\Support\Facades\Auth;
 // use Modules\HR\Entities\ProcessedSalary;
+use Illuminate\Support\Facades\Auth;
 use Modules\HR\Entities\JobLocation;
 use Modules\HR\Entities\EmployeeType;
 use Modules\HR\Entities\LeaveBalance;
@@ -1004,12 +1005,13 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         return view('hr::salary-sheet.index', compact('formType', 'employee_types', 'designations', 'departments', 'employees'));
     }
 
     public function salarySheetReport(Request $request)
     {
+
         $this->authorize('slaray-sheet-report');
         $request->validate([
             'month' => 'required',
@@ -1068,6 +1070,7 @@ class HRReportController extends Controller
 
             ->orderBy('processed_salaries.emp_id')
             ->get();
+
 
         $pdf = PDF::loadView(
             'hr::salary-sheet.print',
