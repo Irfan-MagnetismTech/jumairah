@@ -53,23 +53,24 @@
                     <td>{{$storeissue->srf_no}}</td>
                     <td>{{$storeissue->costCenter->name}}</td>
                     <td>{{$storeissue->date}}</td>
-                    @php
+                    <td>
+                        @php
                                     $approval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q)use($storeissue){
                                         $q->where([['name','Store Issue'],['department_id',$storeissue->appliedBy->department_id]]);
                                     })->whereDoesntHave('approvals',function ($q) use($storeissue){
                                         $q->where('approvable_id',$storeissue->id)->where('approvable_type',\App\Procurement\Storeissue::class);
                                     })->orderBy('order_by','asc')->first();
                                 @endphp
-                    <td>
                         @if($storeissue->approval()->exists())
-                            @php $approvalstatus = '' @endphp
+                            @php $approvalstatus = '' ;@endphp
                             @foreach($storeissue->approval as $approval)
                                 <span class="badge @if($approval->status == 'Approved') bg-primary @else bg-warning @endif bg-warning badge-sm">
                                     {{ $approval->status }} - {{$approval->user->employee->department->name ?? ''}} - {{$approval->user->employee->designation->name ?? ''}}
                                 </span><br>
                             @endforeach
                         @else
-                        <span class="badge bg-warning badge-sm">Pending in {{$approval->designation->name ?? ''}} - {{$approval->department->name ?? ''}}</span>
+                        @php $approvalstatus = 'Pending' ;@endphp
+                            <span class="badge bg-warning badge-sm">Pending in {{$approval->designation->name ?? ''}} - {{$approval->department->name ?? ''}}</span>
                         @endif
 {{--                        {{$approvalstatus}}--}}
                     </td>
