@@ -233,7 +233,7 @@ class JsonController extends Controller
         return ParkingDetails::whereHas('parking.project', function($q)use($project_id){
             $q->where('id', $project_id);
         })
-        ->where('parking_owner', "RanksFc")
+        ->where('parking_owner', "JHL")
         ->doesntHave('soldParking')
         ->pluck('parking_name', 'parking_composite');
     }

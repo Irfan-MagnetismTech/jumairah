@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Apartment extends Model
 {
     use HasFactory;
-    protected $fillable = ['project_id','type','type_composite_key','floor','name','face','owner','apartment_size',
+    protected $fillable = ['project_id','apartment_type','type_composite_key','floor','name','face','owner','apartment_size',
         'apartment_rate','apartment_value','parking_no','parking_rate','parking_price','utility_no','utility_rate',
         'utility_fees','reserve_no','reserve_rate','reserve_fund','others', 'total_value'];
 

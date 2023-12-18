@@ -106,14 +106,13 @@
 <body>
     <header>
         <div id="logo" class="pdflogo">
-            <img src="{{ asset(config('company_info.logo'))}}" alt="Logo" class="pdfimg pullRight">
+            <img src="{{ asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="pdfimg pullRight">
         </div>
     </header>
 
     <footer>
-        Atlas Rangs Plaza (Level 9&10), 7, Sk. Mujib Road,<br>
-        Agrabad C/A, Chattogram, <br>
-        Phone: 2519906-8, 712023-5 <br>
+        {!! htmlspecialchars(config('company_info.company_address')) !!}
+        Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!} <br>
         {!! htmlspecialchars(config('company_info.company_email')) !!}
     </footer>
 

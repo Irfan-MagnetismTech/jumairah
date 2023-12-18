@@ -109,7 +109,7 @@
                             <span><b>{{ Auth::user()?->employee?->fullName }}<b></span><br/>
                             <span>{{ Auth::user()?->employee?->designation?->name }}</span><br>
                             <span>Customer Service Department</span><br>
-                            <span>Rancon FC Propertise Limited</span><br/>
+                            <span>Jumairah Holdings Limited</span><br/>
                             <span>Contact : {{ Auth::user()?->employee?->contact }}</span>
                         </td>
                     </tr>

@@ -81,7 +81,7 @@
 <body>
 
 <div id="logo" class="pdflogo">
-    <img src="{{ asset(config('company_info.logo'))}}" alt="Logo" class="pdfimg">
+    <img src="{{ asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="pdfimg">
     <div class="clearfix"></div>
     <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
 </div>
@@ -95,7 +95,7 @@
     <br>
     <table width="100%">
         <tr>
-            <td> Ref: <strong>Ranks FC /CSD/{{$salesCollection->sell->apartment->project->shortName}}/{{date('d/m/y', strtotime(now()))}}</strong> </td>
+            <td> Ref: <strong>JHL /CSD/{{$salesCollection->sell->apartment->project->shortName}}/{{date('d/m/y', strtotime(now()))}}</strong> </td>
             <td style="text-align: right"> Project: <strong>{{$salesCollection->sell->apartment->project->name}}</strong> </td>
         </tr>
         <tr>
@@ -153,11 +153,11 @@
                  hand, if Allottee(s) pay ahead of schedule date,  he/she get rebate 7% pr/annum on that particular installment.
                 </strong>
             </li>
-            <li><strong>Payable only in favor of Ranks FC Properties Ltd.</strong></li>
+            <li><strong>Payable only in favor of Jumairah Holdings Ltd.</strong></li>
         </ul> <br>
         <p>Should you have any queries, please feel free to contact with our customer service team.</p><br>
         <p>Thanking you and assuring you of our best services always. </p><br>
-        <p>For Ranks FC Properties </p><br><br><br><br>
+        <p>For Jumairah Holdings Ltd. </p><br><br><br><br>
         <div style="border-top: 2px solid #000000; width: 150px;">
             <p> <strong>   Authorized Signature </strong> </p>
         </div>

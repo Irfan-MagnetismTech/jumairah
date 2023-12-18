@@ -39,6 +39,7 @@ class NameTransferController extends Controller
 
     public function store(StoreNameTransferRequest $request)
     {
+        // dd($request);
         try{
             $sell_data = $request->except('name','contact','client_id');
             $sell_data['user_id'] = Auth::user()->id;
@@ -51,7 +52,7 @@ class NameTransferController extends Controller
                     'client_id'=>$ladata,
                 ];
             }
-            $sell_data['details'] = $logsArray;
+            $sell_data['details'] = json_encode($logsArray);
             $clientData = array();
             $OldClient = SellsClient::where('sell_id',$request->sale_id)->latest('id')->first();
             $stage= $OldClient->stage + 1;

@@ -92,7 +92,7 @@
 <body>
 
 <div id="logo" class="pdflogo">
-    <img src="{{ asset(config('company_info.logo'))}}" alt="Logo" class="pdfimg">
+    <img src="{{ asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="pdfimg">
     <div class="clearfix"></div>
     <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
 </div>
@@ -193,7 +193,7 @@
                 <td style="text-align: right">@money($regCost = $sell->finalSettlement->registration_cost ?? 0)</td>
             </tr>
             <tr>
-                <td style="width: 80%">Less: Refund by Ranks FC</td>
+                <td style="width: 80%">Less: Refund by JUMAIRAH HOLDINGS LTD</td>
                 <td style="width: 2px !important;">:</td>
                 <td style="text-align: right">@money($csd_final_costing_refund->sum('amount_refund'))</td>
             </tr>

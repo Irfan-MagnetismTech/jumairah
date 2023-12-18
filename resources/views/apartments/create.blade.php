@@ -55,8 +55,8 @@
         </div>
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
-                <label class="input-group-addon" for="face">Apartment Type<span class="text-danger">*</span></label>
-                {{Form::select('apartment_type', $apartmentType, old('apartment_type') ? old('apartment_type') : (!empty($apartment->apartment_type) ? $apartment->apartment_type : null),['class' => 'form-control', 'id' => 'type', 'autocomplete'=>"off", 'placeholder'=>'Select Type','required'] )}}
+                <label class="input-group-addon" for="apartment_type">Apartment Type<span class="text-danger">*</span></label>
+                {{Form::select('apartment_type', $apartmentType, old('apartment_type') ? old('apartment_type') : (!empty($apartment->apartment_type) ? $apartment->apartment_type : null),['class' => 'form-control', 'id' => 'apartment_type', 'autocomplete'=>"off", 'placeholder'=>'Select apartment Type','required'] )}}
             </div>
         </div>
         <div class="col-xl-4 col-md-6">
@@ -68,7 +68,7 @@
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="owner">Owner<span class="text-danger">*</span></label>
-                {{Form::select('owner', [1=>'Jumairah Properties Ltd' , 2=>'Land Owner'], old('owner') ? old('owner') : (!empty($apartment->owner) ? $apartment->owner : null),['class' => 'form-control', 'id' => 'owner', 'autocomplete'=>"off", 'placeholder'=>'Select Owner','required'] )}}
+                {{Form::select('owner', [1=>'Jumairah Holdings Ltd' , 2=>'Land Owner'], old('owner') ? old('owner') : (!empty($apartment->owner) ? $apartment->owner : null),['class' => 'form-control', 'id' => 'owner', 'autocomplete'=>"off", 'placeholder'=>'Select Owner','required'] )}}
             </div>
         </div>
     </div> <!-- row -->

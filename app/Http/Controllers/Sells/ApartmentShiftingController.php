@@ -182,6 +182,6 @@ class ApartmentShiftingController extends Controller
 //            }
         });
 
-        return redirect()->route('name-transfers.index')->with('message', "This Apartment Shifting  $status  Successfully");
+        return redirect()->route('apartment-shiftings.index')->with('message', "This Apartment Shifting  $status  Successfully");
     }
 }

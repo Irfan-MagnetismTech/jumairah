@@ -2,19 +2,23 @@
 @section('title', 'Permission')
 
 @section('breadcrumb-title')
-    @if($formType == 'edit')  Edit  @else  Create  @endif
+    @if (!empty($role))
+        Edit
+    @else
+        Create
+    @endif
     Role
 @endsection
 
 @section('style')
     <style>
-        .input-group-addon{
-           // min-width: 110px;
+        .input-group-addon {
+            // min-width: 110px;
         }
     </style>
 @endsection
 @section('breadcrumb-button')
-    <a href="{{ route('roles.index')}}" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-database"></i></a>
+    <a href="{{ route('roles.index') }}" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-database"></i></a>
 @endsection
 
 @section('sub-title')
@@ -22,49 +26,73 @@
 @endsection
 @section('content')
 
-        @if($formType == 'edit')
-            {!! Form::open(array('url' => "roles/$role->id",'method' => 'PUT', 'class'=>"custom-form")) !!}
-        @else
-            {!! Form::open(array('url' => "roles",'method' => 'POST', 'class'=>"custom-form")) !!}
-        @endif
+    @if (!empty($role))
+        {!! Form::open(['url' => "roles/$role->id", 'method' => 'PUT', 'class' => 'custom-form']) !!}
+    @else
+        {!! Form::open(['url' => 'roles', 'method' => 'POST', 'class' => 'custom-form']) !!}
+    @endif
 
 
 
-         <div class="row">
-             <div class="col-12 my-1">
-                 <div class="input-group input-group-sm input-group-primary">
-                     <label class="input-group-addon"> Role Name <span class="text-danger">*</span></label>
-                     {{Form::text('name', old('name') ? old('name') : (!empty($role->name) ? $role->name : null),['class' => 'form-control','id' => 'name', 'placeholder' => ''] )}}
-                 </div>
-             </div>
-             <div class="col-12 my-1">
-                 <label class="col-12 px-0"> <strong>Permissions</strong> <span class="text-danger">*</span></label>
-                 <div class="input-group input-group-sm input-group-primary">
-                     <div class="border-checkbox-section col-12">
-                         <div class="row">
-                             @foreach($permissions as $permission)
-                                 <div class="col-3">
-                                     <div class="border-checkbox-group border-checkbox-group-warning">
+    <div class="row">
+        <div class="col-12 my-1">
+            <div class="input-group input-group-sm input-group-primary">
+                <label class="input-group-addon"> Role Name <span class="text-danger">*</span></label>
+                {{ Form::text('name', old('name') ? old('name') : (!empty($role->name) ? $role->name : null), ['class' => 'form-control', 'id' => 'name', 'placeholder' => '']) }}
+            </div>
+        </div>
+        <div class="col-12 my-1">
+            <label class="col-12 px-0"> <strong>Permissions</strong> <span class="text-danger">*</span></label>
+            <div class="input-group input-group-sm input-group-primary">
+                <div class="border-checkbox-section col-12">
+                    @foreach ($permissions as $key => $permissionModules)
+                        <span style="" ><b>{{ $key }}</b></span>
+                        <div class="row">
+                            @foreach ($permissionModules as $skey => $permissionSubjects)
+                                <div class="col-md-3">
+                                    <span style="padding-left: 20px"><b>{{ $skey }}</b></span><br>
+                                    @foreach ($permissionSubjects as $permission) 
+                                        <div class="border-checkbox-group border-checkbox-group-warning" style="padding-left: 40px">
+                                            <input class="border-checkbox" type="checkbox" name="permission[]" id="{{$permission->name}}" value="{{$permission->name}}"
+                                                    {{!empty($role) && in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? "checked" : null}}/>
+                                            <label class="border-checkbox-label" for="{{$permission->name}}">{{$permission->name}}</label>
+                                        </div><br>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                    {{-- @foreach ($permissions as $key => $permissionModules) 
+                                <div class="col-3">
+                                    <span>{{ $key }}</span> <br>
+                                    {{-- <div class="border-checkbox-group border-checkbox-group-warning">
                                         <input class="border-checkbox" type="checkbox" name="permission[]" id="{{$permission->name}}" value="{{$permission->name}}"
                                                 {{!empty($role) && in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? "checked" : null}}/>
                                         <label class="border-checkbox-label" for="{{$permission->name}}">{{$permission->name}}</label>
-                                     </div>
-                                 </div>
-                             @endforeach
-                         </div> <!-- end row -->
-                     </div> <!-- end border-checkbox-section -->
-                 </div>
-             </div>
-         </div><!-- end row -->
-        <div class="row">
-            <div class="offset-md-4 col-md-4 mt-2">
-                <div class="input-group input-group-sm ">
-                    <button class="btn btn-success btn-round btn-block py-2">Submit</button>
-                </div>
+                                    </div> --}}
+                    {{-- @foreac h($permissionModules as $skey => $permissionSubjects) 
+                                        @foreach ($permissionSubjects as $permission) 
+                                            <div class="border-checkbox-group border-checkbox-group-warning">
+                                                <input class="border-checkbox" type="checkbox" name="permission[]" id="{{$permission->name}}" value="{{$permission->name}}"
+                                                        {{!empty($role) && in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? "checked" : null}}/>
+                                                <label class="border-checkbox-label" for="{{$permission->name}}">{{$permission->name}}</label>
+                                            </div><br>
+                                        @endforeach
+                                    @endforeach
+                                </div>
+                                
+                             @endforea --}}
+                    {{-- </div> <!-- end row --> --}}
+                </div> <!-- end border-checkbox-section -->
             </div>
-        </div> <!-- end row -->
-        {!! Form::close() !!}
+        </div>
+    </div><!-- end row -->
+    <div class="row">
+        <div class="offset-md-4 col-md-4 mt-2">
+            <div class="input-group input-group-sm ">
+                <button class="btn btn-success btn-round btn-block py-2">Submit</button>
+            </div>
+        </div>
+    </div> <!-- end row -->
+    {!! Form::close() !!}
 @endsection
-
-
-

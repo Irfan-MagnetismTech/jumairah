@@ -55,7 +55,7 @@
     <div style="clear: both; overflow: hidden"></div>
 
     <div>
-        <p> Ref: Rancon FC/CCR/Atrium/AB-10 & {{now()->format('d/m/Y')}} </p><br>
+        <p> Ref: JHL/CCR/Atrium/AB-10 & {{now()->format('d/m/Y')}} </p><br>
         <p> {{now()->format('F d, Y')}} </p><br>
         <p style="text-align: right"> Project: <strong>{{$sell->apartment->project->name}}</strong></p>
         <p style="text-align: right"> Apartment: {{$sell->apartment->name}} </p><br>
@@ -121,7 +121,7 @@
         </li>
         <li>
             Payable only in favor of
-            <strong>Rancon FC Properties Ltd.</strong>
+            <strong>Jumairah Holdings Ltd.</strong>
         </li>
     </ul>
     <br>
@@ -131,7 +131,7 @@
     <p>Executive-Customer Care Revenue</p>
     <p>Mob- xxxxxxxxxx, Email-xxxxxx@rancon.com.bd</p><br>
     <p>Thanking you and assuring you of our best services always.</p><br>
-    <p>For Rancon FC Properties Ltd,</p><br><br><br>
+    <p>For Jumairah Holdings Ltd,</p><br><br><br>
     <p style="border-top: 1px solid #333; display: inline-block;"><strong>Authorized Signature</strong></p>
 
     </body>
