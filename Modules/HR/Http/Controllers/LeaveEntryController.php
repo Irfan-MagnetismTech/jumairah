@@ -24,7 +24,7 @@ class LeaveEntryController extends Controller
     public function index()
     {
         $this->authorize('leave-entry-show');
-        $leave_entries = LeaveEntry::where('com_id',auth()->user()->com_id)->with('leave_type','employee')->latest()->get();
+        $leave_entries = LeaveEntry::with('leave_type', 'employee')->latest()->get();
         // dd($leave_entries);
         return view('hr::employee-leave-entry.index', compact('leave_entries'));
     }
@@ -38,10 +38,10 @@ class LeaveEntryController extends Controller
         $this->authorize('leave-entry-show');
         $formType = 'create';
 
-        $employees = Employee::where('com_id',auth()->user()->com_id)->where('is_active', 1)->pluck(DB::raw("CONCAT(emp_name, ' - ', emp_code) AS emp_name"),'id');
-        $leave_types = LeaveType::where('is_active', 1)->pluck('name','id');
+        $employees = Employee::where('is_active', 1)->pluck('emp_name', 'id');
+        $leave_types = LeaveType::where('is_active', 1)->pluck('name', 'id');
 
-        return view('hr::employee-leave-entry.create', compact('formType','employees','leave_types'));
+        return view('hr::employee-leave-entry.create', compact('formType', 'employees', 'leave_types'));
     }
 
     /**
@@ -54,7 +54,7 @@ class LeaveEntryController extends Controller
         $this->authorize('leave-entry-show');
         try {
 
-            DB::transaction(function() use($request){
+            DB::transaction(function () use ($request) {
                 $leave_entry = $request->except(
                     '_token',
                     'leave_type_name',
@@ -62,37 +62,36 @@ class LeaveEntryController extends Controller
                     'save'
                 );
                 if ($request->has('approve_save')) {
-                    $leave_entry['is_approved']=1;
-                    $leave_entry['approved_com_id']=Auth::user()->id;
+                    $leave_entry['is_approved'] = 1;
+                    $leave_entry['approved_com_id'] = Auth::user()->id;
 
-                    $leave_balance=LeaveBalance::where('com_id',auth()->user()->com_id)->where('emp_id',$request->emp_id)->with('leave_balance_details')->where('year',$request->leave_year)->firstOrFail();
+                    $leave_balance = LeaveBalance::where('emp_id', $request->emp_id)->with('leave_balance_details')->where('year', $request->leave_year)->firstOrFail();
 
-                    $leave_bal_detail=[];
-                    if($request->leave_type_name=="Casual Leave"){
-                        $leave_bal_detail['cl_enjoyed']=$leave_balance->leave_balance_details->cl_enjoyed + $request->total_day;
-                    }else if($request->leave_type_name=="Sick Leave"){
-                        $leave_bal_detail['sl_enjoyed']=$leave_balance->leave_balance_details->sl_enjoyed + $request->total_day;
-                    }else if($request->leave_type_name=="Earned Leave"){
-                        $leave_bal_detail['el_enjoyed']=$leave_balance->leave_balance_details->el_enjoyed + $request->total_day;
-                    }else if($request->leave_type_name=="Maternity Leave"){
-                        $leave_bal_detail['ml_enjoyed']=$leave_balance->leave_balance_details->ml_enjoyed + $request->total_day;
-                    }else{
-                        $leave_bal_detail['other_enjoyed']=$leave_balance->leave_balance_details->other_enjoyed + $request->total_day;
+                    $leave_bal_detail = [];
+                    if ($request->leave_type_name == "Casual Leave") {
+                        $leave_bal_detail['cl_enjoyed'] = $leave_balance->leave_balance_details->cl_enjoyed + $request->total_day;
+                    } else if ($request->leave_type_name == "Sick Leave") {
+                        $leave_bal_detail['sl_enjoyed'] = $leave_balance->leave_balance_details->sl_enjoyed + $request->total_day;
+                    } else if ($request->leave_type_name == "Earned Leave") {
+                        $leave_bal_detail['el_enjoyed'] = $leave_balance->leave_balance_details->el_enjoyed + $request->total_day;
+                    } else if ($request->leave_type_name == "Maternity Leave") {
+                        $leave_bal_detail['ml_enjoyed'] = $leave_balance->leave_balance_details->ml_enjoyed + $request->total_day;
+                    } else {
+                        $leave_bal_detail['other_enjoyed'] = $leave_balance->leave_balance_details->other_enjoyed + $request->total_day;
                     }
 
-                    $leave_datail=LeaveBalanceDetail::where('com_id',auth()->user()->com_id)->where('leave_balance_id',$leave_balance->id)->update($leave_bal_detail);
+                    $leave_datail = LeaveBalanceDetail::where('leave_balance_id', $leave_balance->id)->update($leave_bal_detail);
 
                     LeaveEntry::create($leave_entry);
-                }else{
+                } else {
                     LeaveEntry::create($leave_entry);
                 }
             });
 
-            return redirect()->route('leave-entries.index')->with('message','Leave Entry created successfully.');
+            return redirect()->route('leave-entries.index')->with('message', 'Leave Entry created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-
     }
 
     /**
@@ -115,18 +114,18 @@ class LeaveEntryController extends Controller
         $this->authorize('leave-entry-edit');
         $formType = 'edit';
 
-        $employees = Employee::where('is_active', 1)->pluck(DB::raw("CONCAT(emp_name, ' - ', emp_code) AS emp_name"),'id');
-        $leave_types = LeaveType::where('is_active', 1)->pluck('name','id');
-        $leave_entry= LeaveEntry::with('leave_type')->findOrFail($id);
+        $employees = Employee::where('is_active', 1)->pluck('emp_name', 'id');
+        $leave_types = LeaveType::where('is_active', 1)->pluck('name', 'id');
+        $leave_entry = LeaveEntry::with('leave_type')->findOrFail($id);
 
         // dd($leave_entry);
-        $leave_balance = LeaveBalance::where('com_id', auth()->user()->com_id)->where('emp_id', $leave_entry->emp_id)
-        ->where('year', $leave_entry->leave_year)
-        ->with('leave_balance_details','employee')
-        ->firstOrFail();
+        $leave_balance = LeaveBalance::where('emp_id', $leave_entry->emp_id)
+            ->where('year', $leave_entry->leave_year)
+            ->with('leave_balance_details', 'employee')
+            ->firstOrFail();
 
         // dd($leave_balance);
-        return view('hr::employee-leave-entry.create', compact('formType','employees','leave_types','leave_entry','leave_balance'));
+        return view('hr::employee-leave-entry.create', compact('formType', 'employees', 'leave_types', 'leave_entry', 'leave_balance'));
     }
 
     /**
@@ -139,8 +138,8 @@ class LeaveEntryController extends Controller
     {
         $this->authorize('leave-entry-edit');
         try {
-            $message = ['message'=>'Leave Entry updated successfully.'];
-            DB::transaction(function() use($request,$id,&$message){
+            $message = ['message' => 'Leave Entry updated successfully.'];
+            DB::transaction(function () use ($request, $id, &$message) {
                 $leave_entry = $request->except(
                     '_token',
                     'leave_type_name',
@@ -148,35 +147,35 @@ class LeaveEntryController extends Controller
                     'save'
                 );
 
-                $leave_entry_get=LeaveEntry::findOrFail($id);
-                if($leave_entry_get->is_approved!=1){
+                $leave_entry_get = LeaveEntry::findOrFail($id);
+                if ($leave_entry_get->is_approved != 1) {
                     if ($request->has('approve_save')) {
-                        $leave_entry['is_approved']=1;
-                        $leave_entry['approved_com_id']=Auth::user()->id;
+                        $leave_entry['is_approved'] = 1;
+                        $leave_entry['approved_com_id'] = Auth::user()->id;
 
-                        $leave_balance=LeaveBalance::where('com_id', auth()->user()->com_id)->where('emp_id',$request->emp_id)->with('leave_balance_details')->where('year',$request->leave_year)->firstOrFail();
+                        $leave_balance = LeaveBalance::where('emp_id', $request->emp_id)->with('leave_balance_details')->where('year', $request->leave_year)->firstOrFail();
 
-                        $leave_bal_detail=[];
-                        if($request->leave_type_name=="Casual Leave"){
-                            $leave_bal_detail['cl_enjoyed']=$leave_balance->leave_balance_details->cl_enjoyed + $request->total_day;
-                        }else if($request->leave_type_name=="Sick Leave"){
-                            $leave_bal_detail['sl_enjoyed']=$leave_balance->leave_balance_details->sl_enjoyed + $request->total_day;
-                        }else if($request->leave_type_name=="Earned Leave"){
-                            $leave_bal_detail['el_enjoyed']=$leave_balance->leave_balance_details->el_enjoyed + $request->total_day;
-                        }else if($request->leave_type_name=="Maternity Leave"){
-                            $leave_bal_detail['ml_enjoyed']=$leave_balance->leave_balance_details->ml_enjoyed + $request->total_day;
-                        }else{
-                            $leave_bal_detail['other_enjoyed']=$leave_balance->leave_balance_details->other_enjoyed + $request->total_day;
+                        $leave_bal_detail = [];
+                        if ($request->leave_type_name == "Casual Leave") {
+                            $leave_bal_detail['cl_enjoyed'] = $leave_balance->leave_balance_details->cl_enjoyed + $request->total_day;
+                        } else if ($request->leave_type_name == "Sick Leave") {
+                            $leave_bal_detail['sl_enjoyed'] = $leave_balance->leave_balance_details->sl_enjoyed + $request->total_day;
+                        } else if ($request->leave_type_name == "Earned Leave") {
+                            $leave_bal_detail['el_enjoyed'] = $leave_balance->leave_balance_details->el_enjoyed + $request->total_day;
+                        } else if ($request->leave_type_name == "Maternity Leave") {
+                            $leave_bal_detail['ml_enjoyed'] = $leave_balance->leave_balance_details->ml_enjoyed + $request->total_day;
+                        } else {
+                            $leave_bal_detail['other_enjoyed'] = $leave_balance->leave_balance_details->other_enjoyed + $request->total_day;
                         }
 
-                        $leave_datail=LeaveBalanceDetail::where('leave_balance_id',$leave_balance->id)->update($leave_bal_detail);
+                        $leave_datail = LeaveBalanceDetail::where('leave_balance_id', $leave_balance->id)->update($leave_bal_detail);
 
                         $leave_entry_get->update($leave_entry);
-                    }else{
+                    } else {
                         $leave_entry_get->update($leave_entry);
                     }
-                }else{
-                    $message = ['error'=>'This Application Already Approved.'];
+                } else {
+                    $message = ['error' => 'This Application Already Approved.'];
                 }
             });
 
@@ -194,22 +193,22 @@ class LeaveEntryController extends Controller
     public function destroy($id)
     {
         $this->authorize('leave-entry-delete');
-        try{
+        try {
             $message = 0;
             DB::transaction(function () use ($id, &$message) {
-                $leave_entry= LeaveEntry::where('com_id', auth()->user()->com_id)->findOrFail($id);
+                $leave_entry = LeaveEntry::findOrFail($id);
 
                 if ($leave_entry->is_approved != 1) {
                     $leave_entry->delete();
-                    $message = ['message'=>'Leave Application deleted successfully.'];
+                    $message = ['message' => 'Leave Application deleted successfully.'];
                 } else {
-                    $message = ['error'=>'This Application Already Approved.'];
+                    $message = ['error' => 'This Application Already Approved.'];
                 }
             });
 
             return redirect()->route('leave-entries.index')->with($message);
-        } catch(\Exception $e){
-            return redirect()->back()->with('error','Something went wrong');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong');
         }
     }
 
@@ -219,47 +218,46 @@ class LeaveEntryController extends Controller
 
         $employee_id = $request->input('employee_id');
         $year = $request->input('year');
-        $leave_balance = LeaveBalance::where('com_id', auth()->user()->com_id)->where('emp_id', $employee_id)
-        ->where('year', $year)
-        ->with('leave_balance_details','employee')
-        ->first();
+        $leave_balance = LeaveBalance::where('emp_id', $employee_id)
+            ->where('year', $year)
+            ->with('leave_balance_details', 'employee')
+            ->first();
 
         $leave_entry = LeaveEntry::where('emp_id', $employee_id)->with('leave_type')
-        ->where('is_approved', 0)->latest()->first();
+            ->where('is_approved', 0)->latest()->first();
 
-        return ['leave_balance' =>$leave_balance, 'leave_entry'=> $leave_entry];
+        return ['leave_balance' => $leave_balance, 'leave_entry' => $leave_entry];
     }
 
     public function approve($id)
     {
         $this->authorize('leave-entry-approve');
         try {
-            $message = ['message'=>'Approved successfully.'];
-            DB::transaction(function() use($id,&$message){
+            $message = ['message' => 'Approved successfully.'];
+            DB::transaction(function () use ($id, &$message) {
 
-                $leave_entry=LeaveEntry::where('com_id', auth()->user()->com_id)->with('leave_type')->findOrFail($id);
+                $leave_entry = LeaveEntry::with('leave_type')->findOrFail($id);
 
-                    $leave_balance=LeaveBalance::where('com_id', auth()->user()->com_id)->where('emp_id',$leave_entry->emp_id)->with('leave_balance_details')->where('year',$leave_entry->leave_year)->firstOrFail();
+                $leave_balance = LeaveBalance::where('emp_id', $leave_entry->emp_id)->with('leave_balance_details')->where('year', $leave_entry->leave_year)->firstOrFail();
 
-                    $leave_bal_detail=[];
-                    if($leave_entry->leave_type->name=="Casual Leave"){
-                        $leave_bal_detail['cl_enjoyed']=$leave_balance->leave_balance_details->cl_enjoyed + $leave_entry->total_day;
-                    }else if($leave_entry->leave_type->name=="Sick Leave"){
-                        $leave_bal_detail['sl_enjoyed']=$leave_balance->leave_balance_details->sl_enjoyed + $leave_entry->total_day;
-                    }else if($leave_entry->leave_type->name=="Earned Leave"){
-                        $leave_bal_detail['el_enjoyed']=$leave_balance->leave_balance_details->el_enjoyed + $leave_entry->total_day;
-                    }else if($leave_entry->leave_type->name=="Maternity Leave"){
-                        $leave_bal_detail['ml_enjoyed']=$leave_balance->leave_balance_details->ml_enjoyed + $leave_entry->total_day;
-                    }else{
-                        $leave_bal_detail['other_enjoyed']=$leave_balance->leave_balance_details->other_enjoyed + $leave_entry->total_day;
-                    }
+                $leave_bal_detail = [];
+                if ($leave_entry->leave_type->name == "Casual Leave") {
+                    $leave_bal_detail['cl_enjoyed'] = $leave_balance->leave_balance_details->cl_enjoyed + $leave_entry->total_day;
+                } else if ($leave_entry->leave_type->name == "Sick Leave") {
+                    $leave_bal_detail['sl_enjoyed'] = $leave_balance->leave_balance_details->sl_enjoyed + $leave_entry->total_day;
+                } else if ($leave_entry->leave_type->name == "Earned Leave") {
+                    $leave_bal_detail['el_enjoyed'] = $leave_balance->leave_balance_details->el_enjoyed + $leave_entry->total_day;
+                } else if ($leave_entry->leave_type->name == "Maternity Leave") {
+                    $leave_bal_detail['ml_enjoyed'] = $leave_balance->leave_balance_details->ml_enjoyed + $leave_entry->total_day;
+                } else {
+                    $leave_bal_detail['other_enjoyed'] = $leave_balance->leave_balance_details->other_enjoyed + $leave_entry->total_day;
+                }
 
-                    $leave_datail=LeaveBalanceDetail::where('com_id', auth()->user()->com_id)->where('leave_balance_id',$leave_balance->id)->update($leave_bal_detail);
+                $leave_datail = LeaveBalanceDetail::where('leave_balance_id', $leave_balance->id)->update($leave_bal_detail);
 
-                    $leave_entry->is_approved=1;
-                    $leave_entry->approved_com_id=Auth::user()->id;
-                    $leave_entry->save();
-
+                $leave_entry->is_approved = 1;
+                $leave_entry->approved_com_id = Auth::user()->id;
+                $leave_entry->save();
             });
 
             return redirect()->route('leave-entries.index')->with($message);
@@ -272,12 +270,12 @@ class LeaveEntryController extends Controller
     {
         $this->authorize('leave-entry-reject');
         try {
-            $message = ['message'=>'Reject successfully.'];
-            DB::transaction(function() use($request,&$message){
-                $leave_entry=LeaveEntry::where('com_id', auth()->user()->com_id)->findOrFail($request->leave_entry_id);
-                $leave_entry->is_reject=1;
-                $leave_entry->remarks=$request->remarks;
-                $leave_entry->approved_com_id=Auth::user()->id;
+            $message = ['message' => 'Reject successfully.'];
+            DB::transaction(function () use ($request, &$message) {
+                $leave_entry = LeaveEntry::findOrFail($request->leave_entry_id);
+                $leave_entry->is_reject = 1;
+                $leave_entry->remarks = $request->remarks;
+                $leave_entry->approved_com_id = Auth::user()->id;
                 $leave_entry->save();
             });
 

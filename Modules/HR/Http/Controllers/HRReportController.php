@@ -669,6 +669,7 @@ class HRReportController extends Controller
         //                             return [$item->emp_id => $item];
         //                         });
         // dd($reportData);
+        // dd($month);
         if ($month != null) {
 
             $year = date("Y", strtotime($month . "-1"));
@@ -850,7 +851,7 @@ class HRReportController extends Controller
 
                 ->get();
         }
-        //dd($reportData);
+        // dd($reportData);
         $pdf = PDF::loadView(
             'hr::leave-report.print',
             compact('reportData', 'print_date_time', 'search_criteria', 'month', 'year'),

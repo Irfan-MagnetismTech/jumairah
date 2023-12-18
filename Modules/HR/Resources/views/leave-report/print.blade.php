@@ -393,10 +393,6 @@
                                 <td class="text-right">
                                     {{ isset($data['leave_type_wise']['other']) ? $data['leave_type_wise']['other']->sum('total_days') : 0 }}
                                 </td>
-
-
-
-
                             </tr>
                             {{-- <td>{{  }}</td> --}}
                             {{-- {{ dd($data) }} --}}
