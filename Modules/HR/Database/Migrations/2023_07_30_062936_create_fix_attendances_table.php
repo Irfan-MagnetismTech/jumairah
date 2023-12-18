@@ -17,17 +17,17 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('emp_id');
             $table->string('emp_card_id')->nullable();
-            $table->unsignedBigInteger('employee_type_id');
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('employee_type_id')->nullable();;
+            $table->unsignedBigInteger('department_id')->nullable();;
+            $table->unsignedBigInteger('section_id')->nullable();;
             $table->unsignedBigInteger('sub_section_id')->nullable();
-            $table->unsignedBigInteger('designation_id');
-            $table->unsignedBigInteger('shift_id');
+            $table->unsignedBigInteger('designation_id')->nullable();;
+            $table->unsignedBigInteger('shift_id')->nullable();;
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->unsignedBigInteger('floor_id')->nullable();
             $table->unsignedBigInteger('line_id')->nullable();
 
-            $table->date('punch_date');
+            $table->date('punch_date')->nullable();
             $table->time('time_in')->nullable();
             $table->time('time_out')->nullable();
             $table->time('late')->nullable();

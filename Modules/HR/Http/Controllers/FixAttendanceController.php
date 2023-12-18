@@ -50,7 +50,7 @@ class FixAttendanceController extends Controller
     {
         $this->authorize('fix-attendance-create');
         $formType = 'create';
-        $com_id = Auth::user()->com_id;
+        // $com_id = Auth::user()->com_id;
         // $company_info= CompanyInfo::with('companysetting')->where('com_id',$com_id)->latest()->first();
         $holidays = Holiday::whereDate('date', date("Y-m-d"))->where('type', 'h')->latest()->first();
 
@@ -71,13 +71,13 @@ class FixAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        // dd($request->all());
         try {
             $this->authorize('fix-attendance-create');
             DB::transaction(function () use ($request) {
                 foreach ($request->emp_id as $key => $id) {
 
-                    $getFixdata = FixAttendance::where('com_id', auth()->user()->com_id)->where('emp_id', $id)->whereDate('punch_date', $request->table_punch_date[$key])->latest()->first();
+                    $getFixdata = FixAttendance::where('emp_id', $id)->whereDate('punch_date', $request->table_punch_date[$key])->latest()->first();
 
                     $employee = Employee::find($id);
                     if ($getFixdata == null) {
@@ -119,7 +119,7 @@ class FixAttendanceController extends Controller
             $message = ['success' => 'Fix Attendance Created Successfully'];
             return redirect()->route('fix-attendances.index')->with($message);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong');
+            return redirect()->back()->with('error', $e->getMessage());
             // return $message;
         }
     }
@@ -174,11 +174,11 @@ class FixAttendanceController extends Controller
             $this->authorize('fix-attendance-create');
 
             DB::transaction(function () use ($request) {
-                $getFixdata = FixAttendance::where('com_id', auth()->user()->com_id)->where('emp_id', $request->emp_id)->whereDate('punch_date', $request->punch_date)->latest()->first();
+                $getFixdata = FixAttendance::where('emp_id', $request->emp_id)->whereDate('punch_date', $request->punch_date)->latest()->first();
 
-                $employee = Employee::where('employees.com_id', auth()->user()->com_id)->find($request->emp_id);
+                $employee = Employee::find($request->emp_id);
                 // dd($request);
-                $com_id = Auth::user()->com_id;
+                // $com_id = Auth::user()->com_id;
                 if ($getFixdata == null) {
                     $fix_attendance = new FixAttendance();
                     $fix_attendance['emp_id'] = $request->emp_id;
@@ -199,7 +199,7 @@ class FixAttendanceController extends Controller
                     $fix_attendance['time_out'] = $request->time_out;
                     // $fix_attendance['ot_hour']=$request->ot_hour;
                     $fix_attendance['status'] = $request->status;
-                    $fix_attendance['com_id'] = $com_id;
+                    // $fix_attendance['com_id'] = $com_id;
                     $fix_attendance['remarks'] = $request->remarks;
                     $fix_attendance->save();
                 } else {
@@ -210,7 +210,7 @@ class FixAttendanceController extends Controller
                     $getFixdata->time_out = $request->time_out;
                     // $getFixdata->ot_hour = $request->ot_hour;
                     $getFixdata->status = $request->status;
-                    $getFixdata->com_id = $com_id;
+                    // $getFixdata->com_id = $com_id;
                     $getFixdata->action = 0;
                     $getFixdata->remarks = $request->remarks;
                     $getFixdata->save();
@@ -281,7 +281,7 @@ class FixAttendanceController extends Controller
             $today = '';
         }
 
-        $proceed_attendances = ProcessedAttendance::where('employees.com_id', auth()->user()->com_id)->with('employee', 'shift')
+        $proceed_attendances = ProcessedAttendance::with('employee', 'shift')
             ->leftJoin('employees', 'processed_attendances.emp_id', '=', 'employees.id')
             ->when($designation_id, function ($query, $designation_id) {
                 return $query->where('employees.designation_id', $designation_id);
@@ -309,7 +309,7 @@ class FixAttendanceController extends Controller
 
         if (count($proceed_attendances) == 0) {
             // for join with employee_shift_entries table
-            $employees1 = Employee::where('employees.com_id', auth()->user()->com_id)->with('shift')
+            $employees1 = Employee::with('shift')
                 ->leftJoin('employee_shift_entries', 'employees.id', '=', 'employee_shift_entries.employee_id')
                 ->leftJoin('shifts', 'employee_shift_entries.shift_id', '=', 'shifts.id')
                 ->select(
@@ -326,7 +326,7 @@ class FixAttendanceController extends Controller
                 ->whereDate('employee_shift_entries.date', $today)
                 ->latest();
             // for join with shifts table
-            $employees2 = Employee::where('employees.com_id', auth()->user()->com_id)->leftJoin('shifts', 'employees.shift_id', '=', 'shifts.id')
+            $employees2 = Employee::leftJoin('shifts', 'employees.shift_id', '=', 'shifts.id')
                 ->select(
                     'employees.*',
                     'shifts.id as shift_id',

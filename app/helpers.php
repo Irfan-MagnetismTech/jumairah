@@ -37,3 +37,14 @@ if (!function_exists('uploadImage')) {
         return $image_name;
     }
 }
+
+function watermarkImageSettings($size = '')
+{
+    return [
+        'watermark_image_path'       =>  asset(config('company_info.logo')),
+        'show_watermark_image'       => true,
+        'watermark_image_alpha'      => 0.2,
+        'watermark_image_size'       => $size ?? 'D',
+        'watermark_image_position'   => 'P',
+    ];
+}

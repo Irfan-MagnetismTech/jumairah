@@ -3,10 +3,10 @@
 
 <head>
     @php
-        $user = Auth::user();
-        $companyData = DB::table('company_infos')
-            ->where('com_id', $user->com_id)
-            ->first();
+        // $user = Auth::user();
+        // $companyData = DB::table('company_infos')
+        //     ->where('com_id', $user->com_id)
+        //     ->first();
 
         $totalQty = 0;
 
@@ -86,9 +86,9 @@
 
         }
 
-        .delivery-order-details-table{
+        .delivery-order-details-table {
             border-collapse: collapse;
-            width:100%;
+            width: 100%;
         }
 
         #allowances td {
@@ -261,10 +261,11 @@
             text-align: left;
         }
 
-        .search-criteria-container{
+        .search-criteria-container {
             font-size: 12px;
         }
-        .search-criteria-container h6{
+
+        .search-criteria-container h6 {
             font-size: 12px;
             margin: 0;
         }
@@ -288,20 +289,20 @@
             &nbsp;
         </div>
         <div style="width: 24%; float:left;">
-            <img class="float-right" style="height: 50px;"
-                src="{{ asset('images/company/' . $companyData->company_logo) }}" alt="Golden ispat Logo">
+            <img class="float-right" style="height: 50px;" src="{{ asset(config('company_info.logo')) }}"
+                alt="Golden ispat Logo">
         </div>
         <div style="width: 50%; float:left;">
             <div style="margin-top: 20px;">
-                <h1 style="font-size: 20px;  text-align: center">{{ $companyData->company_name }}</h1>
-                <p style="font-size: 12px; text-align: center">{{ $companyData->primary_address }}</p>
-                <p style="font-size: 12px; text-align: center">Phone: {{ $companyData->company_phone_1 }}</p>
+                <h1 style="font-size: 20px;  text-align: center">{{ config('company_info.company_name') }}</h1>
+                <p style="font-size: 12px; text-align: center">{{ config('company_info.company_address') }}</p>
+                <p style="font-size: 12px; text-align: center">Phone: {{ config('company_info.company_phone') }}</p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold;text-transform: uppercase; ">
                     Fix Attendance Report
                     {{-- date('d-m-Y', strtotime($user->from_date)); --}}
                 </p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold; ">
-                    Report From {{$from}} to {{$to}}
+                    Report From {{ $from }} to {{ $to }}
                 </p>
 
             </div>
@@ -312,7 +313,7 @@
             <div class="search-criteria-container">
                 <h6>Search Criteria:</h6>
                 <div>
-                    @foreach ($search_criteria as $key=>$sc)
+                    @foreach ($search_criteria as $key => $sc)
                         <p>{{ $key }} : {{ $sc }}</p>
                     @endforeach
                 </div>
@@ -325,8 +326,8 @@
 
 
 
-    <div class="container" >
-        @if(count($reportData))
+    <div class="container">
+        @if (count($reportData))
             <table id="allowances">
                 <thead>
                     <tr>
@@ -341,7 +342,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $sl=0; ?>
+                    <?php $sl = 0; ?>
                     @foreach ($reportData as $key => $data)
                         <tr>
                             <td>{{ $sl++ }}</td>
@@ -349,7 +350,7 @@
                             <td>{{ $data->employee?->emp_code }}</td>
                             <td>{{ $data->employee->department->name }}</td>
                             <td>{{ $data->employee->designation->name }}</td>
-                            <td>{{ date('Y-m-d', strtotime($data->punch_date))}}</td>
+                            <td>{{ date('Y-m-d', strtotime($data->punch_date)) }}</td>
                             <td>{{ date('h:i A', strtotime($data->time_in)) }}</td>
                             <td>{{ date('h:i A', strtotime($data->time_out)) }}</td>
                         </tr>
@@ -360,7 +361,7 @@
         @else
             {{-- <h1 class="text-center" style="margin-top: 120px;">No results found</h1> --}}
             <div style="padding-top: 150px;">
-                <h1 class="text-center" >No results found</h1>
+                <h1 class="text-center">No results found</h1>
             </div>
         @endif
 
@@ -369,22 +370,26 @@
     <htmlpagefooter name="page-footer">
         <div class=" text-xs justify-between">
             <div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">Prepared By</div>
                     </div>
                 </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">General Manager</div>
                     </div>
                 </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">Director</div>
                     </div>
                 </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">Managing Director</div>
                     </div>
