@@ -1,5 +1,5 @@
 @extends('layouts.backend-layout')
-@section('title', 'name-transfers')
+@section('title', 'apartment-shifting')
 
 @section('breadcrumb-title')
     @if(!empty($nameTransfer))
@@ -593,4 +593,3 @@
 
     </script>
 @endsection
-

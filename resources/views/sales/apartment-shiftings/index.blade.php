@@ -1,5 +1,5 @@
 @extends('layouts.backend-layout')
-@section('title', 'Transfer')
+@section('title', 'apartment-shifting')
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/Datatables/dataTables.bootstrap4.min.css')}}">
@@ -68,6 +68,20 @@
                             <strong><a href="storage/{{$data->attachment}}" target="_blank"> Attachment </a></strong>
                         @endif
                     </td>
+                    @php
+                                    $approvals = \App\Approval\ApprovalLayerDetails::
+                                    whereHas('approvalLayer', function ($q){
+                                        $q->where('name','Apartment Shifting');
+                                    })->whereDoesntHave('approvals',function ($q) use($data){
+                                        $q->where('approvable_id',$data->id)->where('approvable_type',\App\Sells\ApartmentShifting::class);
+                                    })
+                                    ->orderBy('order_by','asc')->first();
+
+                                    $TotalApproval = \App\Approval\ApprovalLayerDetails::
+                                    whereHas('approvalLayer', function ($q){
+                                        $q->where('name','Apartment Shifting');
+                                    })->orderBy('order_by','asc')->get()->count()
+                    @endphp
                     <td>
                         @if($data->approval()->exists())
                             @foreach($data->approval as $approval)
@@ -75,8 +89,11 @@
                                     {{ $approval->status }} - {{$approval->user->employee->designation->name ?? ''}}
                                 </span><br>
                             @endforeach
+                            @if (($data->approval->count() != $TotalApproval))
+                                <span class="badge bg-warning badge-sm">Pending in - {{$approvals->designation->name ?? ''}} - {{$approvals->department->name ?? ''}}</span>
+                            @endif
                         @else
-                        <span class="badge bg-warning badge-sm">{{ 'Pending' }}</span>
+                        <span class="badge bg-warning badge-sm">Pending in - {{$approvals->designation->name ?? ''}} - {{$approvals->department->name ?? ''}}</span>
                         @endif
                     </td>
                     <td>
@@ -91,7 +108,8 @@
                                     })
                                     ->orderBy('order_by','asc')->first();
                                 @endphp
-                                @if(!empty($approval) && ($approval->designation_id == auth()->user()->designation?->id) )
+                                {{-- @if(!empty($approval) && ($approval->designation_id == auth()->user()->designation?->id) ) --}}
+                                @if((!empty($approval) && $approval->designation_id == auth()->user()->designation?->i || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin']))))
                                     <a href="{{ url("apartment-shiftings-approval/$data->id/1") }}" data-toggle="tooltip" title="Approval" class="btn btn-outline-success">Approve</a>
                                 @endif
 
