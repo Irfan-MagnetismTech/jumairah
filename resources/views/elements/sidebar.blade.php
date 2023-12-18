@@ -2590,7 +2590,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="pcoded-hasmenu {{ request()->routeIs('csd.letter.*') ? 'active pcoded-trigger' : null }}">
+                {{-- <li class="pcoded-hasmenu {{ request()->routeIs('csd.letter.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="fas fa-sitemap"></i><b>BC</b></span>
                         <span class="pcoded-mtext">Letters</span>
@@ -2619,7 +2619,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             @endcan
         </ul>
         @hasanyrole('super-admin|admin|Accounts-Manager')

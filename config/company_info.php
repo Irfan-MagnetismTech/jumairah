@@ -10,6 +10,7 @@ return [
         'logo' => "images/jumairah_logo.png",
         'login_logo' => "images/Jumairah_original.png",
         'altText' => 'Jumairah Holdings Limited',
+        'company_fax' => '',
 
         'modules' => [
                 'Administrative'=>'Administrative',

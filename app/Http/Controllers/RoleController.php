@@ -34,12 +34,11 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $formType = "create";
-        $permissions = Permission::orderBy('name')->get();
-        view()->share('formType', $formType);
-        view()->share('permissions', $permissions);
-        return view('roles.create');
+    { 
+        $permissions = Permission::orderBy('name')->get()->groupBy(['module','subject'])
+                    ;
+        // dd($permissions); 
+        return view('roles.create', compact( 'permissions'));
     }
 
     /**
@@ -87,7 +86,7 @@ class RoleController extends Controller
     {
         $formType = "edit";
         $permission = Permission::orderBy('name')->get();
-        $permissions = Permission::orderBy('name')->get();
+        $permissions = Permission::orderBy('name')->get()->groupBy(['module','subject']);
 
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$role->id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
