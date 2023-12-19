@@ -67,18 +67,18 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="{{ request()->routeIs('departments.*') ? 'active' : null }}"><a
+                    {{-- <li class="{{ request()->routeIs('departments.*') ? 'active' : null }}"><a
                             href="{{ route('departments.index') }}"><span class="pcoded-micon"><i
                                     class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Departments
-                            </span><span class="pcoded-mcaret"></span></a></li>
-                    <li class="{{ request()->routeIs('designations.*') ? 'active' : null }}"><a
+                            </span><span class="pcoded-mcaret"></span></a></li> --}}
+                    {{-- <li class="{{ request()->routeIs('designations.*') ? 'active' : null }}"><a
                             href="{{ route('designations.index') }}"><span class="pcoded-micon"><i
                                     class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Designations
-                            </span><span class="pcoded-mcaret"></span></a></li>
-                    <li class="{{ request()->routeIs('employees.*') ? 'active' : null }}"><a
+                            </span><span class="pcoded-mcaret"></span></a></li> --}}
+                    {{-- <li class="{{ request()->routeIs('employees.*') ? 'active' : null }}"><a
                             href="{{ route('employees.index') }}"><span class="pcoded-micon"><i
                                     class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Employee </span><span
-                                class="pcoded-mcaret"></span></a></li>
+                                class="pcoded-mcaret"></span></a></li> --}}
                     <li class="{{ request()->routeIs('sellCollectionHeads.*') ? 'active' : null }}"><a
                             href="{{ route('sellCollectionHeads.index') }}"><span class="pcoded-micon"><i
                                     class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Sale Collection Head
@@ -3126,52 +3126,52 @@
                     </ul>
                 </li> --}}
                 <!--            <li class="pcoded-hasmenu {{ request()->routeIs(['mis-correction', 'mis-summary', 'mis-hr-report']) ? 'active pcoded-trigger' : null }}">
-                                                        <a href="javascript:void(0)">
-                                                            <span class="pcoded-micon"><i class="fas fa-chart-line"></i><b>BC</b></span>
-                                                            <span class="pcoded-mtext">MIS Reports </span>
-                                                            <span class="pcoded-mcaret"></span>
-                                                        </a>
-                                                        <ul class="pcoded-submenu">
+                                                            <a href="javascript:void(0)">
+                                                                <span class="pcoded-micon"><i class="fas fa-chart-line"></i><b>BC</b></span>
+                                                                <span class="pcoded-mtext">MIS Reports </span>
+                                                                <span class="pcoded-mcaret"></span>
+                                                            </a>
+                                                            <ul class="pcoded-submenu">
 
-                                                            <li class="{{ request()->routeIs('budget-cash-flow') ? 'active' : null }}">
-                                                                <a href="{{ route('budget-cash-flow') }}" target="blank">
-                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                    <span class="pcoded-mtext">Budget Cash Flow</span>
-                                                                    <span class="pcoded-mcaret"></span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="{{ request()->routeIs('budget-comparison-statement') ? 'active' : null }}">
-                                                                <a href="{{ route('budget-comparison-statement') }}" target="blank">
-                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                    <span class="pcoded-mtext">Budget Comparison Statement</span>
-                                                                    <span class="pcoded-mcaret"></span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="{{ request()->routeIs('mis-correction') ? 'active' : null }}">
-                                                                <a href="{{ route('mis-correction') }}" target="blank">
-                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                    <span class="pcoded-mtext">MIS Correction</span>
-                                                                    <span class="pcoded-mcaret"></span>
-                                                                </a>
-                                                            </li>
+                                                                <li class="{{ request()->routeIs('budget-cash-flow') ? 'active' : null }}">
+                                                                    <a href="{{ route('budget-cash-flow') }}" target="blank">
+                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                        <span class="pcoded-mtext">Budget Cash Flow</span>
+                                                                        <span class="pcoded-mcaret"></span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="{{ request()->routeIs('budget-comparison-statement') ? 'active' : null }}">
+                                                                    <a href="{{ route('budget-comparison-statement') }}" target="blank">
+                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                        <span class="pcoded-mtext">Budget Comparison Statement</span>
+                                                                        <span class="pcoded-mcaret"></span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="{{ request()->routeIs('mis-correction') ? 'active' : null }}">
+                                                                    <a href="{{ route('mis-correction') }}" target="blank">
+                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                        <span class="pcoded-mtext">MIS Correction</span>
+                                                                        <span class="pcoded-mcaret"></span>
+                                                                    </a>
+                                                                </li>
 
-                                                            <li class="{{ request()->routeIs('mis-summary') ? 'active' : null }}">
-                                                                <a href="{{ route('mis-summary') }}" target="blank">
-                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                    <span class="pcoded-mtext">MIS Summary</span>
-                                                                    <span class="pcoded-mcaret"></span>
-                                                                </a>
-                                                            </li>
+                                                                <li class="{{ request()->routeIs('mis-summary') ? 'active' : null }}">
+                                                                    <a href="{{ route('mis-summary') }}" target="blank">
+                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                        <span class="pcoded-mtext">MIS Summary</span>
+                                                                        <span class="pcoded-mcaret"></span>
+                                                                    </a>
+                                                                </li>
 
-                                                            <li class="{{ request()->routeIs('mis-hr-report') ? 'active' : null }}">
-                                                                <a href="{{ route('mis-hr-report') }}" target="blank">
-                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                    <span class="pcoded-mtext">MIS HR Report</span>
-                                                                    <span class="pcoded-mcaret"></span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>-->
+                                                                <li class="{{ request()->routeIs('mis-hr-report') ? 'active' : null }}">
+                                                                    <a href="{{ route('mis-hr-report') }}" target="blank">
+                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                        <span class="pcoded-mtext">MIS HR Report</span>
+                                                                        <span class="pcoded-mcaret"></span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>-->
 
             </ul>
         @endhasanyrole
