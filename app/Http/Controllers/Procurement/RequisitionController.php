@@ -141,7 +141,7 @@ class RequisitionController extends Controller
             // ->where('department_id', auth()->user()?->department?->id)
             ->pluck('name', 'id');
         }
-        
+
         $requisition->load('requisitionDetails.nestedMaterial.boqSupremeBudgets');
         return view('procurement.requisitions.create', compact('requisition', 'formType', 'ApprovalLayerName'));
     }
@@ -208,8 +208,14 @@ class RequisitionController extends Controller
     public function requisitionApproved(Requisition $requisition, $status)
     {
         try {
+            // $approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($requisition) {
+            //     $q->where('id', $requisition->approval_layer_id);
+            // })->whereDoesntHave('approvals', function ($q) use ($requisition) {
+            //     $q->where('approvable_id', $requisition->id)->where('approvable_type', Requisition::class);
+            // })->orderBy('order_by', 'asc')->first();
+
             $approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($requisition) {
-                $q->where('id', $requisition->approval_layer_id);
+                $q->where([['name', 'Requisition'], ['department_id', $requisition->requisitionBy->department_id]]);
             })->whereDoesntHave('approvals', function ($q) use ($requisition) {
                 $q->where('approvable_id', $requisition->id)->where('approvable_type', Requisition::class);
             })->orderBy('order_by', 'asc')->first();
