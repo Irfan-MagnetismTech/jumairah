@@ -3,10 +3,10 @@
 
 <head>
     @php
-        $user = Auth::user();
-        $companyData = DB::table('company_infos')
-            ->where('com_id', $user->com_id)
-            ->first();
+        // $user = Auth::user();
+        // $companyData = DB::table('company_infos')
+        //     ->where('com_id', $user->com_id)
+        //     ->first();
 
         $totalQty = 0;
 
@@ -86,9 +86,9 @@
 
         }
 
-        .delivery-order-details-table{
+        .delivery-order-details-table {
             border-collapse: collapse;
-            width:100%;
+            width: 100%;
         }
 
         #ot_status_table td {
@@ -261,10 +261,11 @@
             text-align: left;
         }
 
-        .search-criteria-container{
+        .search-criteria-container {
             font-size: 12px;
         }
-        .search-criteria-container h6{
+
+        .search-criteria-container h6 {
             font-size: 12px;
             margin: 0;
         }
@@ -288,21 +289,21 @@
             &nbsp;
         </div>
         <div style="width: 24%; float:left;">
-            <img class="float-right" style="height: 50px;"
-                src="{{ asset('images/company/' . $companyData->company_logo) }}" alt="Golden ispat Logo">
+            <img class="float-right" style="height: 50px;" src="{{ asset(config('company_info.logo')) }}"
+                alt="Golden ispat Logo">
         </div>
         <div style="width: 50%; float:left;">
             <div style="margin-top: 20px;">
-                <h1 style="font-size: 20px;  text-align: center">{{ $companyData->company_name }}</h1>
-                <p style="font-size: 12px; text-align: center">{{ $companyData->primary_address }}</p>
-                <p style="font-size: 12px; text-align: center">Phone: {{ $companyData->company_phone_1 }}</p>
+                <h1 style="font-size: 20px;  text-align: center">{{ config('company_info.company_name') }}</h1>
+                <p style="font-size: 12px; text-align: center">{{ config('company_info.company_address') }}</p>
+                <p style="font-size: 12px; text-align: center">Phone: {{ config('company_info.company_phone') }}</p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold;text-transform: uppercase; ">
                     Salary Sheet
                     {{-- date('d-m-Y', strtotime($user->from_date)); --}}
                 </p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold; ">
                     {{-- Report of {{ date('d-M-Y', strtotime(Carbon\Carbon::now()->format('Y-m-d'))) }} --}}
-                    Report of {{ \Carbon\Carbon::parse($month.'-1')->format('M-Y')   }}
+                    Report of {{ \Carbon\Carbon::parse($month . '-1')->format('M-Y') }}
                 </p>
 
             </div>
@@ -313,7 +314,7 @@
             <div class="search-criteria-container">
                 <h6>Search Criteria:</h6>
                 <div>
-                    @foreach ($search_criteria as $key=>$sc)
+                    @foreach ($search_criteria as $key => $sc)
                         <p>{{ $key }} : {{ $sc }}</p>
                     @endforeach
                 </div>
@@ -328,8 +329,8 @@
     @php
         $total_salary = 0;
     @endphp
-    <div class="container" >
-        @if(count($reportData))
+    <div class="container">
+        @if (count($reportData))
             <table id="ot_status_table">
                 <thead>
                     <tr>
@@ -359,33 +360,32 @@
                 </thead>
                 <tbody>
                     @foreach ($reportData as $key => $data)
-                    <tr>
-                        <td>{{  $data->emp_code }}</td>
-                        <td>{{  $data->emp_name }}</td>
-                        <td>{{  $data->department_name }}</td>
-                        <td>{{  $data->type }}</td>
-                        <td>{{  $data->designation }}</td>
-                        <td>{{  $data->shift_name }}</td>
-                        <td class="text-right">{{  $data->total_working_day }}</td>
-                        <td class="text-right">@money($data->total_working_amount)</td>
-                        <td class="text-right">{{  $data->total_late_day }}</td>
-                        <td class="text-right">{{  $data->total_ot_hour }}</td>
-                        <td class="text-right">@money($data->total_ot_amount)</td>
-                        <td class="text-right">@money($data->adjustment_amount ?? 0)</td>
-                        <td class="text-right">@money($data->house_rent)</td>
-                        <td class="text-right">@money($data->medical_allowance)</td>
-                        <td class="text-right">@money($data->tansport_allowance)</td>
-                        <td class="text-right">@money($data->food_allowance)</td>
-                        <td class="text-right">@money($data->mobile_allowance)</td>
-                        <td class="text-right">@money($data->other_allowance)</td>
-                        <td class="text-right">@money($data->income_tax)</td>
-                        <td class="text-right">@money($data->casual_salary)</td>
-                        <td class="text-right">@money(round($data->total_working_amount + $data->total_ot_amount + $data->adjustment_amount + $data->house_rent + $data->medical_allowance + $data->tansport_allowance + $data->food_allowance + $data->mobile_allowance + $data->other_allowance - $data->income_tax +  $data->casual_salary))</td>
-                        @php
-                            $total_salary+=($data->total_working_amount + $data->total_ot_amount + $data->adjustment_amount + $data->house_rent + $data->medical_allowance + $data->tansport_allowance + $data->food_allowance + $data->mobile_allowance + $data->other_allowance - $data->income_tax +  $data->casual_salary);
-                        @endphp
-                    </tr>
-
+                        <tr>
+                            <td>{{ $data->emp_code }}</td>
+                            <td>{{ $data->emp_name }}</td>
+                            <td>{{ $data->department_name }}</td>
+                            <td>{{ $data->type }}</td>
+                            <td>{{ $data->designation }}</td>
+                            <td>{{ $data->shift_name }}</td>
+                            <td class="text-right">{{ $data->total_working_day }}</td>
+                            <td class="text-right">@money($data->total_working_amount)</td>
+                            <td class="text-right">{{ $data->total_late_day }}</td>
+                            <td class="text-right">{{ $data->total_ot_hour }}</td>
+                            <td class="text-right">@money($data->total_ot_amount)</td>
+                            <td class="text-right">@money($data->adjustment_amount ?? 0)</td>
+                            <td class="text-right">@money($data->house_rent)</td>
+                            <td class="text-right">@money($data->medical_allowance)</td>
+                            <td class="text-right">@money($data->tansport_allowance)</td>
+                            <td class="text-right">@money($data->food_allowance)</td>
+                            <td class="text-right">@money($data->mobile_allowance)</td>
+                            <td class="text-right">@money($data->other_allowance)</td>
+                            <td class="text-right">@money($data->income_tax)</td>
+                            <td class="text-right">@money($data->casual_salary)</td>
+                            <td class="text-right">@money(round($data->total_working_amount + $data->total_ot_amount + $data->adjustment_amount + $data->house_rent + $data->medical_allowance + $data->tansport_allowance + $data->food_allowance + $data->mobile_allowance + $data->other_allowance - $data->income_tax + $data->casual_salary))</td>
+                            @php
+                                $total_salary += $data->total_working_amount + $data->total_ot_amount + $data->adjustment_amount + $data->house_rent + $data->medical_allowance + $data->tansport_allowance + $data->food_allowance + $data->mobile_allowance + $data->other_allowance - $data->income_tax + $data->casual_salary;
+                            @endphp
+                        </tr>
                     @endforeach
                     <tr>
                         <td colspan="20" style="text-align:right">
@@ -400,7 +400,7 @@
         @else
             {{-- <h1 class="text-center" style="margin-top: 120px;">No results found</h1> --}}
             <div style="padding-top: 150px;">
-                <h1 class="text-center" >No results found</h1>
+                <h1 class="text-center">No results found</h1>
             </div>
         @endif
 
@@ -428,22 +428,26 @@
     <htmlpagefooter name="page-footer">
         <div class=" text-xs justify-between">
             <div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">Prepared By</div>
                     </div>
                 </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">General Manager</div>
                     </div>
                 </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">Director</div>
                     </div>
                 </div>
-                <div style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
+                <div
+                    style="width:24%; float:left; margin-left: 5px; border: 1px solid black; padding: 50px 0px 5px 0px;">
                     <div>
                         <div class="text-center">Managing Director</div>
                     </div>

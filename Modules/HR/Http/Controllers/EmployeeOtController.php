@@ -3,15 +3,16 @@
 namespace Modules\HR\Http\Controllers;
 
 use Exception;
+use App\Department;
 use Illuminate\Http\Request;
 use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Modules\HR\Entities\EmployeeOt;
 use Illuminate\Support\Facades\Auth;
+// use Modules\HR\Entities\Department;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\EmployeeOt;
 
 class EmployeeOtController extends Controller
 {
@@ -19,8 +20,8 @@ class EmployeeOtController extends Controller
 
     function index()
     {
-        $departments = Department::where('com_id', auth()->user()->com_id)->pluck('name', 'id');
-        $employees = Employee::where('com_id', auth()->user()->com_id)->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $departments = Department::pluck('name', 'id');
+        $employees = Employee::pluck('emp_name', 'id');
         return view('hr::employee-ot.index', compact('departments', 'employees'));
     }
 
@@ -32,12 +33,11 @@ class EmployeeOtController extends Controller
             $ot_records = collect($request->ot_records);
             $ot_records_employees = $ot_records->pluck('employee_id');
 
-            EmployeeOt::where('com_id', auth()->user()->com_id)->where('date', $request->date)
+            EmployeeOt::where('date', $request->date)
                 ->whereIn('employee_id', [...$ot_records_employees])
                 ->delete();
 
             $ot_records = $ot_records->map(function ($ot_record) {
-                $ot_record['com_id'] = auth()->user()->com_id;
                 $ot_record['created_at'] = now();
                 $ot_record['updated_at'] = now();
 
@@ -113,7 +113,6 @@ class EmployeeOtController extends Controller
             ]);
 
             $otRecords = DB::table('employees')
-                ->where('employees.com_id', auth()->user()->com_id)
                 ->where('employees.department_id', $request->department_id)
                 ->when($request->employee_id, function ($query) use ($request) {
                     return $query->whereIn('employees.id', [...$request->employee_id]);

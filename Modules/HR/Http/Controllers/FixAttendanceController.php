@@ -2,21 +2,21 @@
 
 namespace Modules\HR\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+use Carbon\Carbon;
+use App\Department;
+use App\Designation;
 use Illuminate\Http\Request;
+use Modules\HR\Entities\Shift;
+use Modules\HR\Entities\Holiday;
+use Modules\HR\Entities\Section;
+use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Modules\HR\Entities\ProcessedAttendance;
 use Modules\HR\Entities\FixAttendance;
-use Modules\HR\Entities\Employee;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\Designation;
-use Modules\HR\Entities\Section;
-use Modules\HR\Entities\Shift;
-use Modules\HR\Entities\Holiday;
+use Illuminate\Contracts\Support\Renderable;
+use Modules\HR\Entities\ProcessedAttendance;
 use Modules\SoftwareSettings\Entities\CompanyInfo;
-use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class FixAttendanceController extends Controller
@@ -29,17 +29,17 @@ class FixAttendanceController extends Controller
     public function index()
     {
         $this->authorize('fix-attendance-show');
-        $fix_attendances = FixAttendance::where('com_id', auth()->user()->com_id)->with('employee')->latest()->get();
+        $fix_attendances = FixAttendance::with('employee')->latest()->get();
 
         return view('hr::fix-attendance.index', compact('fix_attendances'));
     }
     public function index_processed()
     {
         $this->authorize('process-attendance');
-        $processed_attendances = ProcessedAttendance::where('com_id', auth()->user()->com_id)->with('employee')->latest()->orderBy('punch_date','desc')->get();
-        $departments = Department::where('com_id', auth()->user()->com_id)->where('status', 'Active')->pluck('name', 'id');
+        $processed_attendances = ProcessedAttendance::with('employee')->latest()->orderBy('punch_date', 'desc')->get();
+        $departments = Department::orderBy('name')->pluck('name', 'id');
 
-        return view('hr::fix-attendance.index_processed', compact('processed_attendances','departments'));
+        return view('hr::fix-attendance.index_processed', compact('processed_attendances', 'departments'));
     }
 
     /**
@@ -50,18 +50,18 @@ class FixAttendanceController extends Controller
     {
         $this->authorize('fix-attendance-create');
         $formType = 'create';
-        $com_id= Auth::user()->com_id;
-        $company_info= CompanyInfo::with('companysetting')->where('com_id',$com_id)->latest()->first();
-        $holidays = Holiday::whereDate('date',date("Y-m-d"))->where('type','h')->latest()->first();
+        // $com_id = Auth::user()->com_id;
+        // $company_info= CompanyInfo::with('companysetting')->where('com_id',$com_id)->latest()->first();
+        $holidays = Holiday::whereDate('date', date("Y-m-d"))->where('type', 'h')->latest()->first();
 
-        $departments = Department::where('com_id', auth()->user()->com_id)->where('status', 'Active')->pluck('name', 'id');
-        $designations = Designation::where('com_id', auth()->user()->com_id)->where('status', 'active')->pluck('name', 'id');
-        $sections = Section::where('com_id', auth()->user()->com_id)->where('status', 'Active')->pluck('name', 'id');
-        $shifts = Shift::where('com_id', auth()->user()->com_id)->where('status', 'Active')->pluck('name', 'id');
-        $employees = Employee::where('com_id', auth()->user()->com_id)->with('employee_salary')->where('is_active', 1)->pluck(DB::raw("CONCAT(emp_name, ' - ', emp_code) AS emp_name"),'id');
+        $departments = Department::orderBy('name')->pluck('name', 'id');
+        $designations = Designation::orderBy('name')->pluck('name', 'id');
+        $sections = Section::where('status', 'Active')->pluck('name', 'id');
+        $shifts = Shift::where('status', 'Active')->pluck('name', 'id');
+        $employees = Employee::with('employee_salary')->where('is_active', 1)->pluck('emp_name', 'id');
 
 
-        return view('hr::fix-attendance.create', compact('formType','employees','departments','designations','holidays','sections','shifts','company_info'));
+        return view('hr::fix-attendance.create', compact('formType', 'employees', 'departments', 'designations', 'holidays', 'sections', 'shifts'));
     }
 
     /**
@@ -71,39 +71,38 @@ class FixAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        try{
+        // dd($request->all());
+        try {
             $this->authorize('fix-attendance-create');
-            DB::transaction(function() use($request){
-                foreach($request->emp_id as $key=>$id){
+            DB::transaction(function () use ($request) {
+                foreach ($request->emp_id as $key => $id) {
 
-                    $getFixdata= FixAttendance::where('com_id', auth()->user()->com_id)->where('emp_id',$id)->whereDate('punch_date',$request->table_punch_date[$key])->latest()->first();
+                    $getFixdata = FixAttendance::where('emp_id', $id)->whereDate('punch_date', $request->table_punch_date[$key])->latest()->first();
 
-                    $employee= Employee::find($id);
-                    if($getFixdata==null){
-                        $fix_attendance= new FixAttendance();
-                        $fix_attendance['emp_id']=$id;
-                        $fix_attendance['emp_card_id']=$employee?->emp_code;
-                        $fix_attendance['employee_type_id']=$employee->employee_type_id;
-                        $fix_attendance['department_id']=$employee->department_id;
-                        $fix_attendance['section_id']=$employee->section_id;
-                        $fix_attendance['sub_section_id']=$employee->sub_section_id;
-                        $fix_attendance['designation_id']=$employee->designation_id;
-                        $fix_attendance['shift_id']=$employee->shift_id;
-                        $fix_attendance['floor_id']=$employee->floor_id;
-                        $fix_attendance['line_id']=$employee->line_id;
-                        $fix_attendance['shift_id']=$request->shift_id[$key];
+                    $employee = Employee::find($id);
+                    if ($getFixdata == null) {
+                        $fix_attendance = new FixAttendance();
+                        $fix_attendance['emp_id'] = $id;
+                        $fix_attendance['emp_card_id'] = $employee?->emp_code;
+                        $fix_attendance['employee_type_id'] = $employee->employee_type_id;
+                        $fix_attendance['department_id'] = $employee->department_id;
+                        $fix_attendance['section_id'] = $employee->section_id;
+                        $fix_attendance['sub_section_id'] = $employee->sub_section_id;
+                        $fix_attendance['designation_id'] = $employee->designation_id;
+                        $fix_attendance['shift_id'] = $employee->shift_id;
+                        $fix_attendance['floor_id'] = $employee->floor_id;
+                        $fix_attendance['line_id'] = $employee->line_id;
+                        $fix_attendance['shift_id'] = $request->shift_id[$key];
 
-                        $fix_attendance['late']=$request->table_late[$key];
-                        $fix_attendance['punch_date']=$request->table_punch_date[$key];
-                        $fix_attendance['time_in']=$request->table_time_in[$key];
-                        $fix_attendance['time_out']=$request->table_time_out[$key];
-                        $fix_attendance['ot_hour']=$request->table_ot_hour[$key];
-                        $fix_attendance['status']=$request->table_status[$key];
-                        $fix_attendance['remarks']=$request->table_remarks[$key];
+                        $fix_attendance['late'] = $request->table_late[$key];
+                        $fix_attendance['punch_date'] = $request->table_punch_date[$key];
+                        $fix_attendance['time_in'] = $request->table_time_in[$key];
+                        $fix_attendance['time_out'] = $request->table_time_out[$key];
+                        $fix_attendance['ot_hour'] = $request->table_ot_hour[$key];
+                        $fix_attendance['status'] = $request->table_status[$key];
+                        $fix_attendance['remarks'] = $request->table_remarks[$key];
                         $fix_attendance->save();
-
-                    }else{
+                    } else {
                         $getFixdata->emp_card_id = $employee?->emp_code;
                         $getFixdata->late = $request->table_late[$key];
                         $getFixdata->punch_date = $request->table_punch_date[$key];
@@ -117,11 +116,10 @@ class FixAttendanceController extends Controller
                 }
             });
 
-            $message=['success'=>'Fix Attendance Created Successfully'];
+            $message = ['success' => 'Fix Attendance Created Successfully'];
             return redirect()->route('fix-attendances.index')->with($message);
-
-        } catch(\Exception $e){
-            return redirect()->back()->with('error','Something went wrong');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
             // return $message;
         }
     }
@@ -171,40 +169,40 @@ class FixAttendanceController extends Controller
     public function singleInsertOrUpdate(Request $request)
     {
         // dd($request);
-        try{
+        try {
 
             $this->authorize('fix-attendance-create');
 
-            DB::transaction(function() use($request){
-                $getFixdata= FixAttendance::where('com_id', auth()->user()->com_id)->where('emp_id',$request->emp_id)->whereDate('punch_date',$request->punch_date)->latest()->first();
+            DB::transaction(function () use ($request) {
+                $getFixdata = FixAttendance::where('emp_id', $request->emp_id)->whereDate('punch_date', $request->punch_date)->latest()->first();
 
-                $employee= Employee::where('employees.com_id', auth()->user()->com_id)->find($request->emp_id);
+                $employee = Employee::find($request->emp_id);
                 // dd($request);
-                $com_id= Auth::user()->com_id;
-                if($getFixdata==null){
-                    $fix_attendance= new FixAttendance();
-                    $fix_attendance['emp_id']=$request->emp_id;
-                    $fix_attendance['emp_card_id']=$employee?->emp_code;
-                    $fix_attendance['employee_type_id']=$employee->employee_type_id;
-                    $fix_attendance['department_id']=$employee->department_id;
-                    $fix_attendance['section_id']=$employee->section_id;
-                    $fix_attendance['sub_section_id']=$employee->sub_section_id;
-                    $fix_attendance['designation_id']=$employee->designation_id;
-                    $fix_attendance['shift_id']=$employee->shift_id;
-                    $fix_attendance['floor_id']=$employee->floor_id;
-                    $fix_attendance['line_id']=$employee->line_id;
-                    $fix_attendance['shift_id']=$request->shift_id;
+                // $com_id = Auth::user()->com_id;
+                if ($getFixdata == null) {
+                    $fix_attendance = new FixAttendance();
+                    $fix_attendance['emp_id'] = $request->emp_id;
+                    $fix_attendance['emp_card_id'] = $employee?->emp_code;
+                    $fix_attendance['employee_type_id'] = $employee->employee_type_id;
+                    $fix_attendance['department_id'] = $employee->department_id;
+                    $fix_attendance['section_id'] = $employee->section_id;
+                    $fix_attendance['sub_section_id'] = $employee->sub_section_id;
+                    $fix_attendance['designation_id'] = $employee->designation_id;
+                    $fix_attendance['shift_id'] = $employee->shift_id;
+                    $fix_attendance['floor_id'] = $employee->floor_id;
+                    $fix_attendance['line_id'] = $employee->line_id;
+                    $fix_attendance['shift_id'] = $request->shift_id;
 
-                    $fix_attendance['late']=$request->late;
-                    $fix_attendance['punch_date']=$request->punch_date;
-                    $fix_attendance['time_in']=$request->time_in;
-                    $fix_attendance['time_out']=$request->time_out;
+                    $fix_attendance['late'] = $request->late;
+                    $fix_attendance['punch_date'] = $request->punch_date;
+                    $fix_attendance['time_in'] = $request->time_in;
+                    $fix_attendance['time_out'] = $request->time_out;
                     // $fix_attendance['ot_hour']=$request->ot_hour;
-                    $fix_attendance['status']=$request->status;
-                    $fix_attendance['com_id']=$com_id;
-                    $fix_attendance['remarks']=$request->remarks;
+                    $fix_attendance['status'] = $request->status;
+                    // $fix_attendance['com_id'] = $com_id;
+                    $fix_attendance['remarks'] = $request->remarks;
                     $fix_attendance->save();
-                }else{
+                } else {
                     $getFixdata->emp_card_id = $employee?->emp_code;
                     $getFixdata->late = $request->late;
                     $getFixdata->punch_date = $request->punch_date;
@@ -212,19 +210,16 @@ class FixAttendanceController extends Controller
                     $getFixdata->time_out = $request->time_out;
                     // $getFixdata->ot_hour = $request->ot_hour;
                     $getFixdata->status = $request->status;
-                    $getFixdata->com_id = $com_id;
-                    $getFixdata->action=0;
+                    // $getFixdata->com_id = $com_id;
+                    $getFixdata->action = 0;
                     $getFixdata->remarks = $request->remarks;
                     $getFixdata->save();
                 }
-
-
             });
-            $message=['success'=>'Fix Attendance Created Successfully'];
+            $message = ['success' => 'Fix Attendance Created Successfully'];
             return $message;
-
-        } catch(\Exception $e){
-            $message=['error','Something went wrong'];
+        } catch (\Exception $e) {
+            $message = ['error', 'Something went wrong'];
             return $message;
         }
 
@@ -232,7 +227,8 @@ class FixAttendanceController extends Controller
     }
 
 
-    function calculateOvertimeHours($time_in, $time_out, $regularHoursPerDay, $overtimeThreshold) {
+    function calculateOvertimeHours($time_in, $time_out, $regularHoursPerDay, $overtimeThreshold)
+    {
         $time_in_stamp = strtotime($time_in);
         $time_out_stamp = strtotime($time_out);
 
@@ -267,87 +263,86 @@ class FixAttendanceController extends Controller
         $this->authorize('show-attendance');
 
         $today = Carbon::today();
-        $proceed_attendances =[];
-        $employees =[];
+        $proceed_attendances = [];
+        $employees = [];
 
-        $designation_id=$request->designation_id;
-        $section_id=$request->section_id;
-        $department_id=$request->department_id;
-        $shift_id=$request->shift_id;
-        $emp_id='';
+        $designation_id = $request->designation_id;
+        $section_id = $request->section_id;
+        $department_id = $request->department_id;
+        $shift_id = $request->shift_id;
+        $emp_id = '';
 
-        if(is_numeric($request->employee_id)){
-            $emp_id=$request->employee_id;
+        if (is_numeric($request->employee_id)) {
+            $emp_id = $request->employee_id;
         }
-        $from_date= $request->from_date;
-        $to_date= $request->to_date;
-        if(!empty($from_date) && !empty($to_date)){
-            $today='';
+        $from_date = $request->from_date;
+        $to_date = $request->to_date;
+        if (!empty($from_date) && !empty($to_date)) {
+            $today = '';
         }
 
-        $proceed_attendances = ProcessedAttendance::where('employees.com_id', auth()->user()->com_id)->with('employee','shift')
-        ->leftJoin('employees', 'processed_attendances.emp_id', '=', 'employees.id')
-        ->when($designation_id, function ($query,$designation_id) {
-            return $query->where('employees.designation_id', $designation_id);
-        })
-        ->when($section_id, function ($query, $section_id) {
-            return $query->where('employees.section_id', $section_id);
-        })
-        ->when($department_id, function ($query, $department_id) {
-            return $query->where('employees.department_id', $department_id);
-        })
-        ->when($shift_id, function ($query, $shift_id) {
-            return $query->where('employees.shift_id', $shift_id);
-        })
-        ->when($from_date && $to_date, function ($query) use ($from_date, $to_date) {
-            return $query->whereBetween('punch_date', [$from_date, $to_date]);
-        })
-        ->when($today, function ($query2) use ($today){
-            return $query2->where('punch_date', $today);
-        })
-        ->when($emp_id, function ($query,$emp_id){
-            return $query->where('processed_attendances.emp_id',$emp_id);
-        })
-        ->orderBy('processed_attendances.id', 'desc')->get();
+        $proceed_attendances = ProcessedAttendance::with('employee', 'shift')
+            ->leftJoin('employees', 'processed_attendances.emp_id', '=', 'employees.id')
+            ->when($designation_id, function ($query, $designation_id) {
+                return $query->where('employees.designation_id', $designation_id);
+            })
+            ->when($section_id, function ($query, $section_id) {
+                return $query->where('employees.section_id', $section_id);
+            })
+            ->when($department_id, function ($query, $department_id) {
+                return $query->where('employees.department_id', $department_id);
+            })
+            ->when($shift_id, function ($query, $shift_id) {
+                return $query->where('employees.shift_id', $shift_id);
+            })
+            ->when($from_date && $to_date, function ($query) use ($from_date, $to_date) {
+                return $query->whereBetween('punch_date', [$from_date, $to_date]);
+            })
+            ->when($today, function ($query2) use ($today) {
+                return $query2->where('punch_date', $today);
+            })
+            ->when($emp_id, function ($query, $emp_id) {
+                return $query->where('processed_attendances.emp_id', $emp_id);
+            })
+            ->orderBy('processed_attendances.id', 'desc')->get();
 
 
-        if(count($proceed_attendances)==0){
+        if (count($proceed_attendances) == 0) {
             // for join with employee_shift_entries table
-            $employees1=Employee::where('employees.com_id', auth()->user()->com_id)->with('shift')
-            ->leftJoin('employee_shift_entries', 'employees.id', '=', 'employee_shift_entries.employee_id')
-            ->leftJoin('shifts', 'employee_shift_entries.shift_id', '=', 'shifts.id')
-            ->select(
-                'employees.*',
-                'shifts.id as shift_id',
-                'shifts.name as shift_name',
-                'shifts.shift_in',
-                'shifts.shift_out',
-                'shifts.shift_late',
-            )
-            ->when($emp_id, function ($query,$emp_id){
-                return $query->where('employees.id',$emp_id);
-            })
-            ->whereDate('employee_shift_entries.date', $today)
-            ->latest();
+            $employees1 = Employee::with('shift')
+                ->leftJoin('employee_shift_entries', 'employees.id', '=', 'employee_shift_entries.employee_id')
+                ->leftJoin('shifts', 'employee_shift_entries.shift_id', '=', 'shifts.id')
+                ->select(
+                    'employees.*',
+                    'shifts.id as shift_id',
+                    'shifts.name as shift_name',
+                    'shifts.shift_in',
+                    'shifts.shift_out',
+                    'shifts.shift_late',
+                )
+                ->when($emp_id, function ($query, $emp_id) {
+                    return $query->where('employees.id', $emp_id);
+                })
+                ->whereDate('employee_shift_entries.date', $today)
+                ->latest();
             // for join with shifts table
-            $employees2=Employee::where('employees.com_id', auth()->user()->com_id)->leftJoin('shifts', 'employees.shift_id', '=', 'shifts.id')
-            ->select(
-                'employees.*',
-                'shifts.id as shift_id',
-                'shifts.name as shift_name',
-                'shifts.shift_in',
-                'shifts.shift_out',
-                'shifts.shift_late',
-            )
-            ->when($emp_id, function ($query,$emp_id){
-                return $query->where('employees.id',$emp_id);
-            })
-            ->latest();
+            $employees2 = Employee::leftJoin('shifts', 'employees.shift_id', '=', 'shifts.id')
+                ->select(
+                    'employees.*',
+                    'shifts.id as shift_id',
+                    'shifts.name as shift_name',
+                    'shifts.shift_in',
+                    'shifts.shift_out',
+                    'shifts.shift_late',
+                )
+                ->when($emp_id, function ($query, $emp_id) {
+                    return $query->where('employees.id', $emp_id);
+                })
+                ->latest();
             $employees = $employees1->union($employees2)->get();
         }
 
-        return ['proceed_attendances'=>$proceed_attendances,'employees'=>$employees];
-
+        return ['proceed_attendances' => $proceed_attendances, 'employees' => $employees];
     }
 
 

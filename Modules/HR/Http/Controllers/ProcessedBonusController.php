@@ -2,22 +2,22 @@
 
 namespace Modules\HR\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+use PDF;
+use App\Department;
 use Illuminate\Http\Request;
+use Modules\HR\Entities\Bonus;
+use Modules\HR\Entities\Employee;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Modules\HR\Entities\Bonus;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\Employee;
 use Modules\HR\Entities\ProcessedBonus;
 use Modules\SupplyChain\Entities\Product;
+use Illuminate\Contracts\Support\Renderable;
 use Modules\SupplyChain\Entities\ProductType;
-use Modules\SupplyChain\Entities\ProductPurchaseRequisition;
 use Modules\SupplyChain\Entities\ProductRequisition;
-use PDF;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Modules\SupplyChain\Entities\ProductPurchaseRequisition;
 
 
 class ProcessedBonusController extends Controller
@@ -30,7 +30,7 @@ class ProcessedBonusController extends Controller
     public function index()
     {
         $this->authorize('process-bonus-show');
-        $processed_bonuses = ProcessedBonus::where('com_id', auth()->user()->com_id)->latest()->get();
+        $processed_bonuses = ProcessedBonus::latest()->get();
         // return view('hr::index');
         return view('hr::bonus-process.index', compact('processed_bonuses'));
     }
@@ -44,7 +44,7 @@ class ProcessedBonusController extends Controller
         $this->authorize('process-bonus-create');
         $formType = 'create';
         $bonuses = Bonus::orderBy('name')->pluck('name', 'id');
-        $departments = Department::where('com_id', auth()->user()->com_id)->orderBy('name')->pluck('name', 'id');
+        $departments = Department::orderBy('name')->pluck('name', 'id');
         $employees = [];
         return view('hr::bonus-process.create', compact('formType', 'bonuses', 'departments', 'employees'));
         // return view('hr::create');
@@ -58,7 +58,7 @@ class ProcessedBonusController extends Controller
     public function store(Request $request)
     {
         $this->authorize('process-bonus-create');
-        try{
+        try {
             $request->validate([
                 'date' => 'required',
                 'bonus_id' => 'required',
@@ -104,9 +104,9 @@ class ProcessedBonusController extends Controller
                         AND (JSON_SEARCH(?, 'one', bs.employee_id) IS NOT NULL or ? is NULL)
                         AND TIMESTAMPDIFF(MONTH, DATE_FORMAT(CONCAT(DATE_FORMAT(em.join_date, '%Y-%m'), '-01'), '%Y-%m-%d'), ?) > bs.applicable_after
                 ", [$processed_bonus->id, Bonus::find($request->bonus_id)?->name, Auth::user()?->com_id, $request->bonus_id, json_encode($request->employee_id), $request->employee_id ? json_encode($request->employee_id) : $request->employee_id, $request->date]);
-                });
-                return redirect()->route('bonus-process.index')->with('message', 'Data has been inserted successfully');
-        }catch(QueryException $e){
+            });
+            return redirect()->route('bonus-process.index')->with('message', 'Data has been inserted successfully');
+        } catch (QueryException $e) {
             return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
@@ -120,7 +120,7 @@ class ProcessedBonusController extends Controller
     {
         $this->authorize('process-bonus-show');
         if ($id) {
-            $processed_bonus = ProcessedBonus::where('com_id', auth()->user()->com_id)->findOrFail($id)->load('processedBonusDetails');
+            $processed_bonus = ProcessedBonus::findOrFail($id)->load('processedBonusDetails');
             return view('hr::bonus-process.details', compact('processed_bonus'));
         } else {
             return redirect()->route('bonus_process.index')->with('warning', 'You are trying to access wrong url');
@@ -138,9 +138,9 @@ class ProcessedBonusController extends Controller
         // return view('hr::edit');
         $formType = 'edit';
         $bonuses = Bonus::orderBy('name')->pluck('name', 'id');
-        $departments = Department::where('com_id', auth()->user()->com_id)->orderBy('name')->pluck('name', 'id');
-        $processed_bonus = ProcessedBonus::where('com_id', auth()->user()->com_id)->findOrFail($id);
-        $employees = Employee::where('com_id', auth()->user()->com_id)->where('department_id', $processed_bonus->processedBonusDetails?->first()?->employee?->department_id)->orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"),'id');
+        $departments = Department::orderBy('name')->pluck('name', 'id');
+        $processed_bonus = ProcessedBonus::findOrFail($id);
+        $employees = Employee::where('department_id', $processed_bonus->processedBonusDetails?->first()?->employee?->department_id)->orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
 
         $processed_bonus->employee_id = json_encode($processed_bonus->processedBonusDetails->pluck('employee_id'));
         // dd($processed_bonus);
@@ -165,7 +165,7 @@ class ProcessedBonusController extends Controller
 
             ]);
 
-            $processed_bonus = ProcessedBonus::where('com_id', auth()->user()->com_id)->findOrFail($id);
+            $processed_bonus = ProcessedBonus::findOrFail($id);
 
             $processed_bonus_info = $request->only('bonus_id', 'date');
 
@@ -207,8 +207,6 @@ class ProcessedBonusController extends Controller
                         AND (JSON_SEARCH(?, 'one', bs.employee_id) IS NOT NULL or ? is NULL)
                         AND TIMESTAMPDIFF(MONTH, DATE_FORMAT(CONCAT(DATE_FORMAT(em.join_date, '%Y-%m'), '-01'), '%Y-%m-%d'), ?) > bs.applicable_after
                 ", [$processed_bonus->id, Bonus::find($request->bonus_id)?->name, Auth::user()?->com_id, $request->bonus_id, json_encode($request->employee_id), $request->employee_id ? json_encode($request->employee_id) : $request->employee_id, $request->date]);
-
-
             });
 
             return redirect()->route('bonus-process.index')->with('message', 'Data has been Updated successfully');
@@ -226,7 +224,7 @@ class ProcessedBonusController extends Controller
     {
         $this->authorize('process-bonus-delete');
         try {
-            $processed_bonus = ProcessedBonus::where('com_id', auth()->user()->com_id)->findOrFail($id);
+            $processed_bonus = ProcessedBonus::findOrFail($id);
             $processed_bonus->processedBonusDetails()->delete();
             $processed_bonus->delete();
             return redirect()->route('bonus-process.index')->with('message', 'Processed Bonus Deleted Successfully');
@@ -234,5 +232,4 @@ class ProcessedBonusController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-
 }

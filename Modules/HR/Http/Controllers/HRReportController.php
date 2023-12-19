@@ -2,41 +2,34 @@
 
 namespace Modules\HR\Http\Controllers;
 
-use App\Helpers\MTLHelper;
-use App\Models\User;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Collection;
-use App\Rules\FromToDateRule;
-use Carbon\Carbon;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Database\QueryException;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Modules\HR\Entities\Department;
-use Modules\HR\Entities\Designation;
-use Modules\HR\Entities\Employee;
-use Modules\HR\Entities\EmployeeIncrement;
-use Modules\HR\Entities\EmployeeType;
-use Modules\HR\Entities\LeaveType;
-use Modules\HR\Entities\ProcessedAttendance;
-// use Modules\HR\Entities\ProcessedSalary;
-use Modules\HR\Entities\ReleasedType;
-use Modules\HR\Entities\Shift;
 use PDF;
-use Illuminate\Validation\Rule;
-use Modules\HR\Entities\Allowance;
-use Modules\HR\Entities\AppointmentLetter;
+use Carbon\Carbon;
+use App\Department;
+use App\Designation;
+use App\Models\User;
+use App\Helpers\MTLHelper;
+use Illuminate\Http\Request;
+use App\Rules\FromToDateRule;
 use Modules\HR\Entities\Bonus;
-use Modules\HR\Entities\FixAttendance;
-use Modules\HR\Entities\JobLocation;
-use Modules\HR\Entities\LeaveBalance;
+use Modules\HR\Entities\Shift;
+use Illuminate\Validation\Rule;
+use Modules\HR\Entities\Employee;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\HR\Entities\Allowance;
+use Modules\HR\Entities\LeaveType;
 use Modules\HR\Entities\LeaveEntry;
+use Modules\HR\Entities\JobLocation;
+use Modules\HR\Entities\EmployeeType;
+use Modules\HR\Entities\LeaveBalance;
+use Modules\HR\Entities\ReleasedType;
+use Modules\HR\Entities\FixAttendance;
 use Modules\HR\Entities\ProcessedBonus;
-use Modules\HR\Entities\ProcessedBonusDetail;
 use Modules\HR\Entities\ProcessedSalary;
+use Modules\HR\Entities\EmployeeIncrement;
+use Illuminate\Contracts\Support\Renderable;
+use Modules\HR\Entities\ProcessedAttendance;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HRReportController extends Controller
 {
@@ -130,7 +123,7 @@ class HRReportController extends Controller
         $this->authorize('employee-list-report');
         $request->validate([
             'from_date' => "nullable",
-            'to_date' => ["required_with:form_date",  new FromToDateRule()]
+            // 'to_date' => ["required_with:form_date",  new FromToDateRule()]
         ]);
 
         $employee_type_id = $request->employee_type_id;
@@ -179,7 +172,6 @@ class HRReportController extends Controller
         //     ->get();
 
         $reportData = Employee::with(['employee_type', 'department', 'designation', 'shift', 'employeeRelease', 'jobLocation'])
-            ->where('com_id', auth()->user()->com_id)
             ->when($employee_type_id, function ($query) use ($employee_type_id) {
                 $query->whereHas('employee_type', function ($query) use ($employee_type_id) {
                     $query->where('id', $employee_type_id);
@@ -238,7 +230,7 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         return view('hr::promotion-increment-list-report.index', compact('formType', 'employee_types', 'designations', 'departments', 'employees'));
     }
 
@@ -247,7 +239,7 @@ class HRReportController extends Controller
         $this->authorize('promotion-increment-list-report');
         $request->validate([
             'from_date' => 'required',
-            'to_date' => ['required',  new FromToDateRule()]
+            // 'to_date' => ['required',  new FromToDateRule()]
         ]);
 
         $employee_type_id = $request->employee_type_id;
@@ -267,8 +259,7 @@ class HRReportController extends Controller
             "Employee" => $employee_id != null ? Employee::find($employee_id)?->emp_name : 'All',
         ];
 
-        $reportData = EmployeeIncrement::where('employee_increments.com_id', auth()->user()->com_id)
-            ->leftJoin('employees', 'employees.id', '=', 'employee_increments.employee_id')
+        $reportData = EmployeeIncrement::leftJoin('employees', 'employees.id', '=', 'employee_increments.employee_id')
             ->leftJoin('employee_types', 'employee_types.id', '=', 'employees.employee_type_id')
             ->leftJoin('departments', 'departments.id', '=', 'employees.department_id')
             ->leftJoin('designations', 'designations.id', '=', 'employees.designation_id')
@@ -290,6 +281,8 @@ class HRReportController extends Controller
                 return $query->whereBetween('employee_increments.date', [$from_date, $to_date]);
             })
             ->get();
+
+        // dd($reportData);
 
 
 
@@ -315,7 +308,7 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         $shifts = Shift::orderBy('name')->pluck('name', 'id');
         $leave_types = LeaveType::orderBy('id')->pluck('name', 'short_name');
         // dd($leave_types);
@@ -400,7 +393,7 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         // $shifts = Shift::orderBy('name')->pluck('name', 'id');
         // $leave_types = LeaveType::orderBy('id')->pluck('name', 'short_name');
         // dd($leave_types);
@@ -502,7 +495,7 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
 
         return view('hr::job-card.index', compact('formType', 'employee_types', 'designations', 'departments', 'employees'));
     }
@@ -530,8 +523,7 @@ class HRReportController extends Controller
         ];
 
 
-        $reportData = ProcessedAttendance::where('processed_attendances.com_id', auth()->user()->com_id)
-            ->leftJoin('employees', 'employees.id', '=', 'processed_attendances.emp_id')
+        $reportData = ProcessedAttendance::leftJoin('employees', 'employees.id', '=', 'processed_attendances.emp_id')
             ->leftJoin('employee_types', 'employee_types.id', '=', 'processed_attendances.employee_type_id')
             ->leftJoin('departments', 'departments.id', '=', 'processed_attendances.department_id')
             ->leftJoin('designations', 'designations.id', '=', 'processed_attendances.designation_id')
@@ -595,7 +587,7 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         // $leave_types = LeaveType::orderBy('name')->pluck('name', 'id');
 
 
@@ -884,7 +876,7 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         return view('hr::ot-sheet.index', compact('formType', 'employee_types', 'designations', 'departments', 'employees'));
     }
 
@@ -923,8 +915,7 @@ class HRReportController extends Controller
         ];
 
 
-        $reportData = ProcessedAttendance::where('processed_attendances.com_id', auth()->user()->com_id)
-            ->leftJoin('employees', 'employees.id', '=', 'processed_attendances.emp_id')
+        $reportData = ProcessedAttendance::leftJoin('employees', 'employees.id', '=', 'processed_attendances.emp_id')
             ->leftJoin('employee_types', 'employee_types.id', '=', 'processed_attendances.employee_type_id')
             ->leftJoin('departments', 'departments.id', '=', 'processed_attendances.department_id')
             ->leftJoin('designations', 'designations.id', '=', 'processed_attendances.designation_id')
@@ -1003,12 +994,13 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         return view('hr::salary-sheet.index', compact('formType', 'employee_types', 'designations', 'departments', 'employees'));
     }
 
     public function salarySheetReport(Request $request)
     {
+
         $this->authorize('slaray-sheet-report');
         $request->validate([
             'month' => 'required',
@@ -1068,6 +1060,9 @@ class HRReportController extends Controller
             ->orderBy('processed_salaries.emp_id')
             ->get();
 
+        // dd($reportData);
+
+
         $pdf = PDF::loadView(
             'hr::salary-sheet.print',
             compact('reportData', 'print_date_time', 'search_criteria', 'month'),
@@ -1092,7 +1087,7 @@ class HRReportController extends Controller
         $employee_types = EmployeeType::orderBy('name')->pluck('name', 'id');
         $designations = Designation::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         $bonuses = Bonus::orderBy('name')->pluck('name', 'id');
         return view('hr::bonus-sheet.index', compact('formType', 'employee_types', 'designations', 'departments', 'employees', 'bonuses'));
     }
@@ -1103,7 +1098,7 @@ class HRReportController extends Controller
 
         $request->validate([
             'from_date' => 'required',
-            'to_date' => ['required',  new FromToDateRule()]
+            // 'to_date' => ['required',  new FromToDateRule()]
         ]);
 
         $employee_type_id = $request->employee_type_id;
@@ -1128,8 +1123,7 @@ class HRReportController extends Controller
         ];
 
 
-        $reportData = ProcessedBonus::where('processed_bonuses.com_id', auth()->user()->com_id)
-            ->rightJoin('processed_bonus_details', 'processed_bonus_details.processed_bonus_id', '=', 'processed_bonuses.id')
+        $reportData = ProcessedBonus::rightJoin('processed_bonus_details', 'processed_bonus_details.processed_bonus_id', '=', 'processed_bonuses.id')
             ->leftJoin('employees', 'employees.id', '=', 'processed_bonus_details.employee_id')
             ->leftJoin('employee_types', 'employee_types.id', '=', 'processed_bonus_details.employee_type_id')
             ->leftJoin('departments', 'departments.id', '=', 'processed_bonus_details.department_id')
@@ -1206,7 +1200,7 @@ class HRReportController extends Controller
 
         $department_id = $request->department_id;
 
-        $employees = Employee::where('com_id', auth()->user()->com_id);
+        $employees = Employee::query();
 
         $employees->when($department_id, function ($q) use ($department_id) {
             return $q->where('department_id', $department_id);
@@ -1268,7 +1262,7 @@ class HRReportController extends Controller
     {
         $this->authorize('allowance-report');
         $formType = 'allowance-report';
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         return view('hr::allowance-report.index', compact('formType', 'employees'));
     }
 
@@ -1319,7 +1313,7 @@ class HRReportController extends Controller
         }
 
         $reportData = $allowances->get();
-        //dd($reportData);
+        // dd($reportData);
 
         $pdf = PDF::loadView(
             'hr::allowance-report.print',
@@ -1340,7 +1334,7 @@ class HRReportController extends Controller
     {
         $this->authorize('fix-attendance-report');
         $formType = 'fix-attendance-report';
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
         return view('hr::fix-attendance-report.index', compact('formType', 'employees', 'departments'));
     }
@@ -1390,7 +1384,7 @@ class HRReportController extends Controller
     {
         $this->authorize('pay-slip-report');
         $formType = 'pay-slip-report';
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
         return view('hr::pay-slip-sheet.index', compact('formType', 'employees', 'departments'));
     }
@@ -1402,7 +1396,7 @@ class HRReportController extends Controller
         $department_id = $request->department_id;
         $type = $request->type;
         $month = $request->month;
-        $dateString = "2023-09";
+        $dateString = $request->month;
         list($getyear, $getmonth) = explode("-", $dateString);
         $totalDays = cal_days_in_month(CAL_GREGORIAN, $getmonth, $getyear);
 
@@ -1415,7 +1409,7 @@ class HRReportController extends Controller
         ];
 
         if ($type == 'salary') {
-            $reportData = Employee::where('employees.com_id', auth()->user()->com_id)->with('processed_salary', 'designation', 'department', 'section', 'shift')
+            $reportData = Employee::with('processed_salary', 'designation', 'department', 'section', 'shift')
                 ->join('processed_salaries', 'processed_salaries.emp_id', '=', 'employees.id')
                 ->when($department_id, function ($query) use ($department_id) {
                     return $query->where('processed_salaries.department_id', $department_id);
@@ -1429,8 +1423,10 @@ class HRReportController extends Controller
                 ->select('employees.*')
                 ->orderBy('processed_salaries.emp_id')
                 ->get();
+
+            // dd($reportData);
         } else {
-            $reportData = Employee::where('employees.com_id', auth()->user()->com_id)->with('processed_bonous', 'designation', 'department', 'section', 'shift')
+            $reportData = Employee::with('processed_bonous', 'designation', 'department', 'section', 'shift')
                 ->join('processed_bonus_details', 'processed_bonus_details.employee_id', '=', 'employees.id')
                 ->join('processed_bonuses', 'processed_bonuses.id', '=', 'processed_bonus_details.processed_bonus_id')
                 ->when($department_id, function ($query) use ($department_id) {
@@ -1520,7 +1516,7 @@ class HRReportController extends Controller
     {
         $this->authorize('employee-summary-report');
         $formType = 'employee-summary';
-        $employees = Employee::orderBy('emp_name')->pluck(DB::raw("CONCAT(emp_name, '  -  ', emp_code) AS emp_name"), 'id');
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
 
         return view('hr::employee-summary-report.index', compact('formType', 'employees'));
     }
@@ -1545,8 +1541,7 @@ class HRReportController extends Controller
         ];
 
         $reportData =
-            ProcessedAttendance::where('processed_attendances.com_id', auth()->user()->com_id)
-            ->leftJoin('employees', 'employees.id', '=', 'processed_attendances.emp_id')
+            ProcessedAttendance::leftJoin('employees', 'employees.id', '=', 'processed_attendances.emp_id')
             ->leftJoin('employee_types', 'employee_types.id', '=', 'processed_attendances.employee_type_id')
             ->leftJoin('departments', 'departments.id', '=', 'processed_attendances.department_id')
             ->leftJoin('designations', 'designations.id', '=', 'processed_attendances.designation_id')

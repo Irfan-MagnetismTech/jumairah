@@ -25,7 +25,7 @@ class AllowanceController extends Controller
     public function index()
     {
         $this->authorize('allowance-show');
-        $allowances = Allowance::where('com_id', auth()->user()->com_id)->with('employee','allowance_type')->latest()->get();
+        $allowances = Allowance::with('employee', 'allowance_type')->latest()->get();
         return view('hr::allowance.index', compact('allowances'));
     }
 
@@ -37,9 +37,9 @@ class AllowanceController extends Controller
     {
         $this->authorize('allowance-create');
         $formType = "create";
-        $employees = Employee::where('is_active', 1)->where('com_id', Auth::user()->com_id)->pluck(DB::raw("CONCAT(emp_name, ' - ', emp_code) AS emp_name"),'id');
-        $allowanceTypes = AllowanceType::pluck('name','id');
-        return view('hr::allowance.create', compact('formType','employees','allowanceTypes'));
+        $employees = Employee::where('is_active', 1)->pluck('emp_name', 'id');
+        $allowanceTypes = AllowanceType::pluck('name', 'id');
+        return view('hr::allowance.create', compact('formType', 'employees', 'allowanceTypes'));
     }
 
     /**
@@ -83,10 +83,10 @@ class AllowanceController extends Controller
     {
         $this->authorize('allowance-edit');
         $formType = "edit";
-        $employees = Employee::where('is_active', 1)->where('com_id', Auth::user()->com_id)->pluck(DB::raw("CONCAT(emp_name, ' - ', emp_code) AS emp_name"),'id');
-        $allowanceTypes = AllowanceType::pluck('name','id');
+        $employees = Employee::where('is_active', 1)->pluck('emp_name', 'id');
+        $allowanceTypes = AllowanceType::pluck('name', 'id');
         $allowance = Allowance::find($id);
-        return view('hr::allowance.create', compact('formType','employees','allowanceTypes','allowance'));
+        return view('hr::allowance.create', compact('formType', 'employees', 'allowanceTypes', 'allowance'));
     }
 
     /**
@@ -101,7 +101,7 @@ class AllowanceController extends Controller
             $this->authorize('allowance-edit');
             $input = $request->all();
             DB::transaction(function () use ($input, $request, $id) {
-                $allowance = Allowance::where('com_id', auth()->user()->com_id)->findOrFail($id);
+                $allowance = Allowance::findOrFail($id);
                 $allowance->update($input);
             });
 
@@ -123,8 +123,8 @@ class AllowanceController extends Controller
             $this->authorize('allowance-delete');
             $message = 0;
             DB::transaction(function () use ($id, &$message) {
-                Allowance::where('com_id', auth()->user()->com_id)->findOrFail($id)->delete();
-                $message = ['message'=>'Allowance information deleted successfully.'];
+                Allowance::findOrFail($id)->delete();
+                $message = ['message' => 'Allowance information deleted successfully.'];
             });
 
             return redirect()->route('allowances.index')->with($message);

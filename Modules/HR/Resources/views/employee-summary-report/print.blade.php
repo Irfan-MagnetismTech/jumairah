@@ -3,10 +3,10 @@
 
 <head>
     @php
-        $user = Auth::user();
-        $companyData = DB::table('company_infos')
-            ->where('com_id', $user->com_id)
-            ->first();
+        // $user = Auth::user();
+        // $companyData = DB::table('company_infos')
+        //     ->where('com_id', $user->com_id)
+        //     ->first();
 
         $totalQty = 0;
 
@@ -289,13 +289,13 @@
         </div>
         <div style="width: 24%; float:left;">
             <img class="float-right" style="height: 50px;"
-                src="{{ asset('images/company/' . $companyData->company_logo) }}" alt="Golden ispat Logo">
+                src="{{ asset(config('company_info.logo')) }}" alt="Golden ispat Logo">
         </div>
         <div style="width: 50%; float:left;">
             <div style="margin-top: 20px;">
-                <h1 style="font-size: 20px;  text-align: center">{{ $companyData->company_name }}</h1>
-                <p style="font-size: 12px; text-align: center">{{ $companyData->primary_address }}</p>
-                <p style="font-size: 12px; text-align: center">Phone: {{ $companyData->company_phone_1 }}</p>
+                <h1 style="font-size: 20px;  text-align: center">{{ config('company_info.company_name') }}</h1>
+                <p style="font-size: 12px; text-align: center">{{ config('company_info.company_address') }}</p>
+                <p style="font-size: 12px; text-align: center">Phone: {{ config('company_info.company_phone') }}</p>
                 <p style="font-size: 12px; text-align: center; font-weight: bold;text-transform: uppercase; ">
                     Yearly Employee Summary Report
                     {{-- date('d-m-Y', strtotime($user->from_date)); --}}

@@ -2,11 +2,12 @@
 
 namespace Modules\HR\Entities;
 
+use App\Designation;
 use Illuminate\Database\Eloquent\Model;
 
 class EmployeeIncrement extends Model
 {
-   
+
     protected $guarded = [];
 
     public function employee()

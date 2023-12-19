@@ -4,7 +4,7 @@
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
 <script src="{{ asset('js/modernizr.js') }}"></script>
-<script src="{{ asset('js/css-scrollbars.js') }}"></script>
+{{-- <script src="{{ asset('js/css-scrollbars.js') }}"></script> --}}
 <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('js/SmoothScroll.js') }}"></script>
 <script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>

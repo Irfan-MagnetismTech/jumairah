@@ -5,6 +5,8 @@ namespace Modules\HR\Http\Controllers;
 use PDF;
 use DateTime;
 use App\Employee;
+use App\Department;
+use App\Designation;
 use Rats\Zkteco\Lib\ZKTeco;
 use Illuminate\Http\Request;
 use Modules\HR\Entities\Bank;
@@ -21,9 +23,7 @@ use Modules\HR\Entities\Division;
 use Modules\HR\Entities\Religion;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Modules\HR\Entities\Department;
 use Modules\HR\Entities\SubSection;
-use Modules\HR\Entities\Designation;
 use Modules\HR\Entities\JobLocation;
 use Modules\HR\Entities\EmployeeType;
 use Modules\HR\Entities\AttendanceRow;
@@ -138,18 +138,23 @@ class EmployeeMasterController extends Controller
         $employee_educations = $request->employee_education;
         $employee_experience = $request->employee_experience;
 
-        $emp_code_initial = Employee::orderBy('id', 'desc')->first()->id ?? 0 . '-' . rand(1000, 9999);;
-        $lastInsertedEmployeeId = DB::table('employees')->orderBy('id', 'desc')->value('id');
+        // $emp_code_initial = Employee::orderBy('id', 'desc')->first()->id ?? 0 . '-' . rand(1000, 9999);;
+        // $lastInsertedEmployeeId = DB::table('employees')->orderBy('id', 'desc')->value('id');
 
+        // $lastInsertedEmployeeId++;
+        // if ($request->department_id == 8) { // If department is head office, then code will MH-00000
+        //     $employee['emp_code'] = "MH" . '-' . $lastInsertedEmployeeId;
+        // } else { // else code will be prefixed by company wise
+        //     $employee['emp_code'] = $emp_code_initial . '-' . $lastInsertedEmployeeId;
+        // }
+
+
+        // generate employee code based on department and last inserted employee id and employee code start with 1000
+        $lastInsertedEmployeeId = DB::table('employees')->orderBy('id', 'desc')->value('id');
         $lastInsertedEmployeeId++;
-        if ($request->department_id == 8) { // If department is head office, then code will MH-00000
-            $employee['emp_code'] = "MH" . '-' . $lastInsertedEmployeeId;
-        } else { // else code will be prefixed by company wise
-            $employee['emp_code'] = $emp_code_initial . '-' . $lastInsertedEmployeeId;
-        }
+        $employee['emp_code'] = $request->department_id . '-' . $lastInsertedEmployeeId;
 
         try {
-
             DB::transaction(function () use (
                 $employee,
                 $employee_detail,

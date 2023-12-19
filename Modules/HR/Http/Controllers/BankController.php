@@ -47,12 +47,12 @@ class BankController extends Controller
             $bank =  Bank::create($input);
 
             // createAccountHelper($bank->name, 1, 8, null);
-            $bank->account()->create([
-                'account_name' => $bank->name,
-                'account_type' => 1,
-                'balance_and_income_line_id' => 8,
-                'parent_account_id' => null,
-            ]);
+            // $bank->account()->create([
+            //     'account_name' => $bank->name,
+            //     'account_type' => 1,
+            //     'balance_and_income_line_id' => 8,
+            //     'parent_account_id' => null,
+            // ]);
             DB::commit();
 
 

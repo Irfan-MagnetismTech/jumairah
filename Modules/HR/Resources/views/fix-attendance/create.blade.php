@@ -790,7 +790,7 @@ Fix Attendance @endsection @section('style')
                 }
 
                 $(`.table_late_${dataId[i]}`).val(lateHours);
-                $(`.table_punch_date_${dataId[i]}`).val(todayDate);
+                //$(`.table_punch_date_${dataId[i]}`).val(todayDate);
                 if (time_in != 0) {
                     $(`.table_time_in_${dataId[i]}`).val(time_in);
                 }

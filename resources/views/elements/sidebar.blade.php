@@ -206,7 +206,7 @@
                 </ul>
             </li>
 
-            <li class="pcoded-hasmenu {{ request()->routeIs('costMemo.*') ? 'active pcoded-trigger' : null }}">
+            {{-- <li class="pcoded-hasmenu {{ request()->routeIs('costMemo.*') ? 'active pcoded-trigger' : null }}">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
                     <span class="pcoded-mtext">Cost Memo</span>
@@ -228,7 +228,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
             @can('iou-create')
                 <li class="pcoded-hasmenu {{ request()->routeIs('ious.*') ? 'active pcoded-trigger' : null }}">
@@ -280,7 +280,7 @@
                 </li>
             @endcan
 
-            @can('admin-yearly-budgets')
+            {{-- @can('admin-yearly-budgets')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('admin-yearly-budgets.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -312,8 +312,8 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
-            @can('admin-monthly-budgets')
+            @endcan --}}
+            {{-- @can('admin-monthly-budgets')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('admin-monthly-budgets.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -345,7 +345,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
         </ul>
 
         @canany(['bd-source-view', 'bd-lead-generation-view', 'project-layout', 'bd-feasibility-locations-view',
@@ -793,7 +793,7 @@
                     </ul>
                 </li>
             @endcan
-            @can('bd-priority-land-view')
+            {{-- @can('bd-priority-land-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('priority_land.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
@@ -818,7 +818,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
 
             @can('bd-inventory-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bd_inventory.*') ? 'active pcoded-trigger' : null }}">
@@ -901,7 +901,7 @@
                 </li>
             @endcan
 
-            @can('bd-monthly-budget-view')
+            {{-- @can('bd-monthly-budget-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bd_budget.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
@@ -926,8 +926,8 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
-            @can('bd-yearly-budget-view')
+            @endcan --}}
+            {{-- @can('bd-yearly-budget-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('bd_yearly_budget.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -953,7 +953,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
 
             {{-- @can('memo-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('memo.*') ? 'active pcoded-trigger' : null }}">
@@ -1633,7 +1633,7 @@
                 </li>
             @endcan
 
-            @can('boqSupremeBudgets-view')
+            {{-- @can('boqSupremeBudgets-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('boqSupremeBudgets.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -1674,7 +1674,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
 
             <li
                 class="pcoded-hasmenu {{ request()->routeIs('boq.MaterialServincing.*') ? 'active pcoded-trigger' : null }}">
@@ -2590,7 +2590,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="pcoded-hasmenu {{ request()->routeIs('csd.letter.*') ? 'active pcoded-trigger' : null }}">
+                {{-- <li class="pcoded-hasmenu {{ request()->routeIs('csd.letter.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="fas fa-sitemap"></i><b>BC</b></span>
                         <span class="pcoded-mtext">Letters</span>
@@ -2619,7 +2619,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             @endcan
         </ul>
         @hasanyrole('super-admin|admin|Accounts-Manager')
