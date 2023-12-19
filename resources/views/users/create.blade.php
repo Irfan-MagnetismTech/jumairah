@@ -85,7 +85,7 @@
                  @error('confirm-password') <p class="text-danger">{{ $errors->first('confirm-password') }}</p> @enderror
              </div>
          </div>
-        
+
          <div class="col-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="name">User Role<span class="text-danger">*</span></label>
@@ -97,7 +97,7 @@
             <div class="col-md-6 col-sm-11 col-xs-11">
                 <div class="input-group input-group-sm input-group-primary input-container">
                     <label class="input-group-addon" for="signature"> Signature</label>
-                    {{ Form::file('signature',['class' => 'form-control', 'accept' => '.png, .jpg, .jpeg,','id' => '',"onchange"=>"document.getElementById('signature_view').src = window.URL.createObjectURL(this.files[0])"]) }} 
+                    {{ Form::file('signature',['class' => 'form-control', 'accept' => '.png, .jpg, .jpeg,','id' => '',"onchange"=>"document.getElementById('signature_view').src = window.URL.createObjectURL(this.files[0])"]) }}
                 </div>
             </div>
             <div class="col-md-2">
@@ -134,18 +134,18 @@
                             @forelse ($user->assignedProject as $key => $value )
                                 <option value="{{$value->cost_center_id}}" selected>{{$value?->costCenter?->name ?? ''}}</option>
                             @empty
-                                
+
                             @endforelse
                             @forelse ($costCenter as $key => $value )
                                 <option value="{{$key}}">{{$value}}</option>
                             @empty
-                                
-                            @endforelse                        
+
+                            @endforelse
                         @else
                             @forelse ($costCenter as $key => $value )
                                 <option value="{{$key}}">{{$value}}</option>
                             @empty
-                                
+
                             @endforelse
                         @endif
                     </select>
@@ -178,7 +178,7 @@
             fetch (url)
                 .then ((resp)=>resp.json())
                 .then (function (einfo) {
-                $("#name").val(einfo.fname + ' ' +einfo.lname);
+                $("#name").val(einfo.emp_name);
                 $("#email").val(einfo.email);
             })
             .catch(function () {
@@ -191,10 +191,16 @@
             dropdown.append('<option selected="true" disabled>Select Name</option>');
             dropdown.prop('selectedIndex', 0);
             const url = '{{url("getDepartmentEmployee")}}/' + $("#department_id").val();
+            let selectedEmployeeId = '{{ isset($user) ? $user->employee_id : '' }}';
             // Populate dropdown with list of provinces
             $.getJSON(url, function (employee) {
                 $.each(employee, function (key, entry) {
-                    dropdown.append($('<option></option>').attr('value', key).text(entry));
+                    // dropdown.append($('<option></option>').attr('value', entry.id).text(entry.emp_name + ' - ' + entry.emp_code));
+                    let option = $('<option></option>').attr('value', entry.id).text(entry.emp_name + ' ~ ' + entry.emp_code);
+            if (entry.id == selectedEmployeeId) {
+                option.attr('selected', 'selected');
+            }
+            dropdown.append(option);
                 })
             });
         }
@@ -205,7 +211,6 @@
             $("#department_id").on('change', function(){
                 getDepartmentEmployee();
             });
-           
             $('.select2').select2({
                 maximumSelectionLength: 5,
                 width: '100%'
@@ -238,7 +243,7 @@
                 $('.select2').select2({});
             }
         })
-        
+
     </script>
 
 @endsection
