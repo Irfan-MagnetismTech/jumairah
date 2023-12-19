@@ -58,7 +58,7 @@ class UserController extends Controller
             ->pluck('name', 'id');
 
         $departments = Department::orderBy('name')->pluck('name', 'id');
-        $employees = Employee::orderBy('fname')->get(['fname', 'lname', 'id'])->pluck('fullName', 'id');
+        $employees = Employee::orderBy('emp_name')->get(['emp_name', 'id', 'emp_code']);
         $costCenter = CostCenter::query()->whereNotNull('project_id')->pluck('name', 'id');
         return view('users.create', compact('formType', 'roles', 'employees', 'departments', 'costCenter'));
     }
@@ -139,7 +139,7 @@ class UserController extends Controller
         $roles = Role::orderBy('name')->pluck('name', 'id');
         $departments = Department::orderBy('name')->pluck('name', 'id');
 
-        $employees = Employee::orderBy('fname')->get(['fname', 'lname', 'id'])->pluck('fullName', 'id');
+        $employees = Employee::orderBy('emp_name')->get(['emp_name', 'id', 'emp_code']);
         $costCenter = CostCenter::query()->whereNotNull('project_id')->pluck('name', 'id');
         return view('users.create', compact('formType', 'roles', 'employees', 'user', 'departments', 'costCenter'));
     }
