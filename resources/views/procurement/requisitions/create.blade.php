@@ -68,7 +68,7 @@
                     {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : 7), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
                 </div>
             </div> --}}
-            {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : 7), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
+            {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : 6), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
 
         {{-- @endunlessrole --}}
         <div class="col-md-6">
@@ -157,14 +157,14 @@
                                     ->whereAncestorOrSelf($requisitiondetail->material_id)
                                     ->orderBy('id', 'desc')
                                     ->first();
-                                
+
                                 if (!empty($requisitiondetail->floor_id)) {
                                     $floorNo = $requisitiondetail->boqFloors->where('project_id', $requisitiondetail->requisition->costCenter->project_id)->first();
                                     $boq_quantity = App\Procurement\BoqSupremeBudget::where('project_id', $requisitiondetail->requisition->costCenter->project_id)
                                         ->where('floor_id', $floorNo->boq_floor_project_id)
                                         ->where('material_id', $boqMaterial->id)
                                         ->first();
-                                
+
                                     $requisition_quantity = App\Procurement\Requisitiondetails::where('floor_id', $requisitiondetail->floor_id)
                                         ->where('material_id', $requisitiondetail->material_id)
                                         ->get()
@@ -173,22 +173,22 @@
                                     $boq_quantity = App\Procurement\BoqSupremeBudget::where('project_id', $requisitiondetail->requisition->costCenter->project_id)
                                         ->where('material_id', $boqMaterial->id)
                                         ->first();
-                                
+
                                     $requisition_quantity = App\Procurement\Requisitiondetails::whereNull('floor_id')
                                         ->where('material_id', $requisitiondetail->material_id)
                                         ->get()
                                         ->sum('quantity');
                                 }
-                                
+
                                 $present_stock_in_stock_history = App\Procurement\StockHistory::where('cost_center_id', $requisitiondetail->requisition->cost_center_id)
                                     ->where('material_id', $requisitiondetail->material_id)
                                     ->latest()
                                     ->get();
-                                
+
                                 $material_receive_project_id = App\Procurement\MaterialReceive::where('cost_center_id', $requisitiondetail->requisition->cost_center_id)
                                     ->groupBy('cost_center_id')
                                     ->first();
-                                
+
                                 if (!empty($material_receive_project_id)) {
                                     $material_receive_details_quantity_sum = App\Procurement\Materialreceiveddetail::with('materialreceive')
                                         ->whereHas('materialreceive', function ($query) use ($material_receive_project_id) {
