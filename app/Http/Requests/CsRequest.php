@@ -40,7 +40,7 @@ class CsRequest extends FormRequest
             'supplier_name'           => ['required', 'array'],
             'supplier_name.*'         => ['required', 'string'],
             'supplier_remarks'        => ['array'],
-            'supplier_remarks.*'      => ['string'],
+            'supplier_remarks.*'      => ['string', 'nullable'],
             'checked_supplier'        => ['required', 'array'],
             'address'                 => ['required', 'array'],
             'address.*'               => ['required', 'string'],
