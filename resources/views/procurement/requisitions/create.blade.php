@@ -68,7 +68,7 @@
                     {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($requisition) ? $requisition->approval_layer_id : 7), ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Select One']) }}
                 </div>
             </div> --}}
-            {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($approvalLayer) ? $approvalLayer->id : null), ['class' => 'form-control', 'autocomplete' => 'off', 'required']) }}
+            {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($ApprovalLayer) ? $ApprovalLayer->id : null), ['class' => 'form-control', 'autocomplete' => 'off', 'required']) }}
 
         {{-- @endunlessrole --}}
         <div class="col-md-6">
