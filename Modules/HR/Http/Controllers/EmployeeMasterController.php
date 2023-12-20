@@ -372,7 +372,7 @@ class EmployeeMasterController extends Controller
 
         try {
             $this->authorize('employee-delete');
-            $employee_info = Employee::where('com_id', auth()->user()->com_id)->findOrFail($id);
+            $employee_info = Employee::findOrFail($id);
             // dd($employee_info);
             $employee_info->employee_detail()->delete();
             $employee_info->employee_address()->delete();
