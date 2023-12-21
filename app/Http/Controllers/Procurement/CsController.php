@@ -15,7 +15,7 @@ use Vonage\SMS\Webhook\DeliveryReceipt;
 use App\Procurement\CsSupplier;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
-
+use Barryvdh\DomPDF\Facade as PDF;
 
 class CsController extends Controller
 {
@@ -208,7 +208,7 @@ class CsController extends Controller
     public function getCsPdf(Cs $comparative_statement)
     {
         // return view('procurement.comparativestatements.pdf', compact('comparative_statement'));
-        return \PDF::loadview('procurement.comparativestatements.pdf', compact('comparative_statement'))->setPaper('a4', 'landscape')->stream('comparative-statement.pdf');
+        return PDF::loadview('procurement.comparativestatements.pdf', compact('comparative_statement'))->setPaper('a4', 'landscape')->stream('comparative-statement.pdf');
     }
 
     /**
@@ -233,16 +233,16 @@ private function getAllDetails( array $request ): array {
 						File::delete(public_path($var->first()?->files));
 					}
 				}else{
-					$file = $var->first()?->files ?? "";  
-				} 
+					$file = $var->first()?->files ?? "";
+				}
 			} elseif (strcmp(request()->method(),'POST') == 0) {
 				// if ( array_key_exists( $supplier_key, $request['files'] ) ) {
                 if (isset($request['files']) && isset($request['files'][$supplier_key])) {
                     $fileName = time() . rand(5, 200) . '.' . $request['files'][$supplier_key]->extension();
 					$request['files'][$supplier_key]->move( public_path( 'CSFiles' ), $fileName );
 					$file = 'CSFiles/' . $fileName;
-				} 
-			}			
+				}
+			}
 			$cs_suppliers[] = [
 				'supplier_id'           => $request['supplier_id'][$supplier_key],
 				'collection_way'        => $request['collection_way'][$supplier_key],

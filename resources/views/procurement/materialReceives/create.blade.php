@@ -1027,7 +1027,8 @@
 
             function getMaterialsAndQuantityByMprNo() {
                 let mpr_no = $("#mpr_no").val();
-                let url = '{{ url('scj/getMaterialsAndQuantityByMprNo') }}/' + mpr_no;
+                let po_no = $("#po_no").val();
+                let url = '{{ url('scj/getMaterialsAndQuantityByMprNo') }}/' + mpr_no + "/" + po_no;
 
                 $.getJSON(url, function(items) {
                     $.each(items, function(key, data) {

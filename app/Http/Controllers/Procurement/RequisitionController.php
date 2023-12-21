@@ -20,6 +20,7 @@ use App\Http\Requests\RequisitionRequest;
 use App\Procurement\BoqSupremeBudget;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\CommonNotification;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class RequisitionController extends Controller
 {
@@ -135,16 +136,18 @@ class RequisitionController extends Controller
     public function edit(Requisition $requisition)
     {
         $formType = "edit";
-        if (auth()->user()->isAdmin()) {
-            $ApprovalLayerName = ApprovalLayer::where('name', 'like', 'Requisition%')->pluck('name', 'id');
-        } else {
-            $ApprovalLayerName = ApprovalLayer::where('name', 'like', "Requisition%")
-            // ->where('department_id', auth()->user()?->department?->id)
-            ->pluck('name', 'id');
-        }
+        // if (auth()->user()->isAdmin()) {
+        //     $ApprovalLayerName = ApprovalLayer::where('name', 'like', 'Requisition%')->pluck('name', 'id');
+        // } else {
+        //     $ApprovalLayerName = ApprovalLayer::where('name', 'like', "Requisition%")
+        //     // ->where('department_id', auth()->user()?->department?->id)
+        //     ->pluck('name', 'id');
+        // }
+
+        $ApprovalLayer = ApprovalLayer::where('name', 'Requisition')->first();
 
         $requisition->load('requisitionDetails.nestedMaterial.boqSupremeBudgets');
-        return view('procurement.requisitions.create', compact('requisition', 'formType', 'ApprovalLayerName'));
+        return view('procurement.requisitions.create', compact('requisition', 'formType', 'ApprovalLayer'));
     }
 
     /**
@@ -203,7 +206,7 @@ class RequisitionController extends Controller
     {
         $requisitions = Requisition::where('id', $id)->latest()->get();
         $requisitions->load('requisitionDetails.nestedMaterial.boqSupremeBudgets');
-        return \PDF::loadview('procurement.requisitions.pdf', compact('requisitions'))->setPaper('A4', 'portrait')->stream('requisition.pdf');
+        return PDF::loadview('procurement.requisitions.pdf', compact('requisitions'))->setPaper('A4', 'portrait')->stream('requisition.pdf');
     }
 
     public function requisitionApproved(Requisition $requisition, $status)

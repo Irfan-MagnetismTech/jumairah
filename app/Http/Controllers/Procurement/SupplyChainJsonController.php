@@ -365,8 +365,8 @@ class SupplyChainJsonController extends Controller
                     'project_id'        => $item->costCenter->name,
                     'po_project_id'     => $item->costCenter->project_id,
                     'cost_center_id'    => $item->costCenter->id,
-                    'receiver_contact'  => $item?->requisitionBy?->employee?->contact ?? "N/A",
-                    'receiver_name'     => $item?->requisitionBy?->employee?->fullName ?? 'N/A',
+                    'receiver_contact'  => $item?->requisitionBy?->employee?->phone_1 ?? "N/A",
+                    'receiver_name'     => $item?->requisitionBy?->employee?->emp_name ?? 'N/A',
                 ]);
             return response()->json($items);
         }
@@ -939,22 +939,30 @@ class SupplyChainJsonController extends Controller
         return response()->json($response);
     }
 
-    public function getMaterialsAndQuantityByMprNo($mpr_no)
+    public function getMaterialsAndQuantityByMprNo($mpr_no, $po_no)
     {
-        $purchase_order_details = Requisitiondetails::with('nestedMaterial')
+
+        $purchase_order_details = PurchaseOrderDetail::with('nestedMaterials')
+            ->whereHas('purchaseorder', function ($query) use ($po_no) {
+                return $query->where('po_no', $po_no);
+            })
+            ->pluck('material_id')->toArray();
+
+        $pr_details = Requisitiondetails::with('nestedMaterial')
             ->whereHas('requisition', function ($query) use ($mpr_no) {
                 return $query->where('mpr_no', $mpr_no);
             })
             ->get();
 
         $response = [];
-        foreach ($purchase_order_details as $item) {
-
-            $response[] = [
-                'material_name'         => $item->nestedMaterial->name,
-                'material_id'           => $item->material_id,
-                'floor_id'              => $item->floor_id
-            ];
+        foreach ($pr_details as $item) {
+            if (in_array($item->material_id, $purchase_order_details)) {
+                $response[] = [
+                    'material_name'         => $item->nestedMaterial->name,
+                    'material_id'           => $item->material_id,
+                    'floor_id'              => $item->floor_id
+                ];
+            }
         }
         return response()->json($response);
     }
@@ -1438,7 +1446,7 @@ class SupplyChainJsonController extends Controller
                 ];
             });
 
-            // dd($project_name);
+        // dd($project_name);
 
         return response()->json($project_name);
     }
