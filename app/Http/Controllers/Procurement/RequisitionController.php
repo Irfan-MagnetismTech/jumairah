@@ -20,6 +20,7 @@ use App\Http\Requests\RequisitionRequest;
 use App\Procurement\BoqSupremeBudget;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\CommonNotification;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class RequisitionController extends Controller
 {
@@ -203,7 +204,7 @@ class RequisitionController extends Controller
     {
         $requisitions = Requisition::where('id', $id)->latest()->get();
         $requisitions->load('requisitionDetails.nestedMaterial.boqSupremeBudgets');
-        return \PDF::loadview('procurement.requisitions.pdf', compact('requisitions'))->setPaper('A4', 'portrait')->stream('requisition.pdf');
+        return PDF::loadview('procurement.requisitions.pdf', compact('requisitions'))->setPaper('A4', 'portrait')->stream('requisition.pdf');
     }
 
     public function requisitionApproved(Requisition $requisition, $status)
