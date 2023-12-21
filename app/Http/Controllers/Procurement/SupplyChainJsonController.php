@@ -365,8 +365,8 @@ class SupplyChainJsonController extends Controller
                     'project_id'        => $item->costCenter->name,
                     'po_project_id'     => $item->costCenter->project_id,
                     'cost_center_id'    => $item->costCenter->id,
-                    'receiver_contact'  => $item?->requisitionBy?->employee?->contact ?? "N/A",
-                    'receiver_name'     => $item?->requisitionBy?->employee?->fullName ?? 'N/A',
+                    'receiver_contact'  => $item?->requisitionBy?->employee?->phone_1 ?? "N/A",
+                    'receiver_name'     => $item?->requisitionBy?->employee?->emp_name ?? 'N/A',
                 ]);
             return response()->json($items);
         }
