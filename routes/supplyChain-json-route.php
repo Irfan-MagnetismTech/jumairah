@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'scj', 'as' => 'scj.'], functi
     Route::post('getPresentStockQuantity', 'Procurement\SupplyChainJsonController@getPresentStockQuantity')->name('getPresentStockQuantity');
     Route::get('getMaterialsAndQuantityByPoNo/{po_no}', 'Procurement\SupplyChainJsonController@getMaterialsAndQuantityByPoNo')->name('getMaterialsAndQuantityByPoNo');
     Route::post('LoadMrr', 'Procurement\SupplyChainJsonController@LoadMrr')->name('LoadMrr');
-    Route::get('getMaterialsAndQuantityByMprNo/{mpr_no}', 'Procurement\SupplyChainJsonController@getMaterialsAndQuantityByMprNo')->name('getMaterialsAndQuantityByMprNo');
+    Route::get('getMaterialsAndQuantityByMprNo/{mpr_no}/{po_no}', 'Procurement\SupplyChainJsonController@getMaterialsAndQuantityByMprNo')->name('getMaterialsAndQuantityByMprNo');
     Route::get('getMrrByProject/{cost_center_id}', 'Procurement\SupplyChainJsonController@getMrrByProject')->name('getMrrByProject');
     Route::post('projectAutoSuggestAfterMRR', 'Procurement\SupplyChainJsonController@projectAutoSuggestAfterMRR')->name('projectAutoSuggestAfterMRR');
     Route::get('loadProjectWiseFloorAfterMrr/{project_id}', 'Procurement\SupplyChainJsonController@loadProjectWiseFloorAfterMrr')->name('loadProjectWiseFloorAfterMrr');
