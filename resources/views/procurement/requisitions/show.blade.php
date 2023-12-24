@@ -29,13 +29,59 @@
             <div class="table-responsive">
                 <table id="dataTable" class="table table-striped table-bordered">
                     <tbody class="text-left">
-                    <tr style="background-color: #0C4A77;color: white"><td> <strong>MPR No.</strong> </td> <td> <strong>{{"MPR-".$requisition->mpr_no}}</strong></td></tr>
-                    <tr><td> <strong>Project Name</strong> </td> <td> {{$requisition->costCenter->name}}</td></tr>
-                    <tr><td> <strong>Note</strong> </td> <td>   {{$requisition->note}}</td></tr>
-                    <tr><td> <strong>Applied Date</strong> </td> <td>  {{$requisition->applied_date}}</td></tr>
-                    <tr><td> <strong>Requisition By</strong> </td> <td>  {{ $requisition->requisitionBy->name}}</td></tr>
-                    <tr><td> <strong>Requisition Remarks</strong> </td> <td>  {{ $requisition->remarks}}</td></tr>
-                    <tr><td> <strong>Status</strong> </td> <td class="text-c-orenge"><strong>{{ $requisition->status}}</strong></td></tr>
+                        <tr style="background-color: #0C4A77;color: white">
+                            <td><strong>MPR No.</strong></td>
+                            <td><strong>MPR-{{ $requisition->mpr_no }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Project Name</strong></td>
+                            <td>{{ $requisition->costCenter->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Note</strong></td>
+                            <td>{{ $requisition->note }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Applied Date</strong></td>
+                            <td>{{ $requisition->applied_date }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Requisition By</strong></td>
+                            <td>{{ $requisition->requisitionBy->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Requisition Remarks</strong></td>
+                            <td>{{ $requisition->remarks }}</td>
+                        </tr>
+                        @php
+                        $approvals = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($requisition) {
+                            $q->where('id', $requisition->approval_layer_id);
+                        })
+                        ->whereDoesntHave('approvals', function ($q) use ($requisition) {
+                            $q->where('approvable_id', $requisition->id)->where('approvable_type', \App\Procurement\Requisition::class);
+                        })
+                        ->orderBy('order_by', 'asc')
+                        ->first();
+
+                        $TotalApproval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($requisition) {
+                            $q->where('id', $requisition->approval_layer_id);
+                        })
+                        ->orderBy('order_by', 'asc')
+                        ->get()
+                        ->count();
+                        @endphp
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td>
+                                <strong>
+                                    @if ($requisition->approval->count() != $TotalApproval)
+                                    <span class="text-c-orenge">Pending</span>
+                                    @else
+                                    <span class="text-c-green">Approved</span>
+                                    @endif
+                                </strong>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

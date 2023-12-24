@@ -64,7 +64,7 @@ class JsonController extends Controller
 
     public function getDepartmentEmployee($departmentId)
     {
-        $employees = Employee::orderBy('fname')->where('department_id', $departmentId)->get(['id','fname', 'lname'])->pluck('fullName', 'id');
+        $employees = Employee::orderBy('emp_name')->where('department_id', $departmentId)->get(['id','emp_name', 'emp_code']);
         return $employees;
     }
 
