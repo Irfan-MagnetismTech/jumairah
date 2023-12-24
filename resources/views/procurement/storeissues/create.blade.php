@@ -67,7 +67,7 @@
                 <th width="200px">Floor Name</th>
                 <th>Material Name <span class="text-danger">*</span></th>
                 <th>Unit</th>
-                <th>MRR<br>Quantity</th>
+                {{-- <th>MRR<br>Quantity</th> --}}
                 <th>Current Stock</th>
                 <th>Ledger Folio No.<span class="text-danger">*</span></th>
                 <th>Issued <br> Quantity<span class="text-danger">*</span></th>
@@ -92,7 +92,7 @@
                             <input type="hidden" name="material_id[]" value="{{old('material_id')[$key]}}" class="form-control form-control-sm text-center material_id" >
                         </td>
                         <td><input type="text" name="unit[]"  value="{{old('unit')[$key]}}" class="form-control text-center text-center form-control-sm unit" readonly tabindex="-1"></td>
-                        <td><input type="text" name="mrr_quantity[]"  value="{{old('mrr_quantity')[$key]}}" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td>
+                        {{-- <td><input type="text" name="mrr_quantity[]"  value="{{old('mrr_quantity')[$key]}}" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td> --}}
                         <td><input type="text" name="ledger_folio_no[]" value="{{old('ledger_folio_no')[$key]}}" class="form-control text-center form-control-sm ledger_folio_no" ></td>
                         <td><input type="number" name="issued_quantity[]" value="{{old('issued_quantity')[$key]}}" class="form-control text-center form-control-sm issued_quantity" ></td>
                         <td> <textarea name="purpose[]" class ='form-control text-center' id ='purpose' rows=1>{{old('purpose')[$key]}}</textarea></td>
@@ -105,6 +105,12 @@
             @else
                 @if(!empty($storeissue))
                     @foreach($storeissue->storeissuedetails as $storeissuedetail)
+                    @php
+                        $current_stock = App\Procurement\StockHistory::where('cost_center_id', $storeissue->cost_center_id)
+                                        ->where('material_id', $storeissuedetail->material_id)
+                                        ->latest()
+                                        ->first();
+                    @endphp
                         <tr>
                             <td>
                                 <input type="text" name="floor_name[]"   value="{{!empty($storeissuedetail->floor_id) ? $storeissuedetail->boqFloor->name : ""}}" id="floor_name" class="form-control text-center form-control-sm">
@@ -115,8 +121,8 @@
                                 <input type="hidden" name="material_id[]" value="{{$storeissuedetail->nestedMaterials->id}}" class="form-control form-control-sm text-center material_id" >
                             </td>
                             <td><input type="text" name="unit[]"  value="{{$storeissuedetail->nestedMaterials->unit->name}}" class="form-control text-center form-control-sm unit" readonly tabindex="-1"></td>
-                            <td><input type="text" name="mrr_quantity[]"  value="{{$storeissuedetail->quantity}}" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td>
-                            <td><input type="text" name="current_stock[]" class="form-control text-center form-control-sm current_stock" readonly tabindex="-1"></td>
+                            {{-- <td><input type="text" name="mrr_quantity[]" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td> --}}
+                            <td><input type="text" name="current_stock[]" class="form-control text-center form-control-sm current_stock" readonly tabindex="-1" value="{{ $current_stock->present_stock }}"></td>
                             <td><input type="text" name="ledger_folio_no[]" value="{{$storeissuedetail->ledger_folio_no}}" class="form-control text-center form-control-sm ledger_folio_no" autocomplete="off" ></td>
                             <td><input type="number" name="issued_quantity[]" value="{{$storeissuedetail->issued_quantity}}" class="form-control text-center form-control-sm issued_quantity"  autocomplete="off"></td>
                             <td> <textarea name="purpose[]" class ='form-control text-center' id ='purpose' rows=1>{{$storeissuedetail->purpose}}</textarea></td>
@@ -157,7 +163,6 @@
                         <input type="text" name="material_name[]" class="form-control text-center form-control-sm material_name" autocomplete="off" required placeholder="Material Name">
                     </td>
                     <td><input type="text" name="unit[]" class="form-control text-center form-control-sm unit" readonly tabindex="-1"></td>
-                    <td><input type="text" name="mrr_quantity[]" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td>
                     <td><input type="text" name="current_stock[]" class="form-control text-center form-control-sm current_stock" readonly tabindex="-1"></td>
                     <td><input type="text" name="ledger_folio_no[]" class="form-control text-center form-control-sm ledger_folio_no" autocomplete="off"></td>
                     <td><input type="number" name="issued_quantity[]" class="form-control text-center form-control-sm issued_quantity" autocomplete="off" required></td>
