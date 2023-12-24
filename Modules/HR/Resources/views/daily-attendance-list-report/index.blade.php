@@ -114,7 +114,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label style="" class="input-group-addon" for="employee_id">Employee</label>
-                {{ Form::select('employee_id', $employees, old('employee_id'), ['class' => 'form-control', 'id' => 'employee_id', 'placeholder' => 'All', 'autocomplete' => 'off', '']) }}
+                {{ Form::select('employee_id', $employees, old('employee_id'), ['class' => 'form-control select2', 'id' => 'employee_id', 'placeholder' => 'All', 'autocomplete' => 'off', '']) }}
                 @error('employee_id')
                     <p class="text-danger">{{ $errors->first('employee_id') }}</p>
                 @enderror

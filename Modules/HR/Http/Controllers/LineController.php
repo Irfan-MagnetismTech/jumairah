@@ -2,11 +2,14 @@
 
 namespace Modules\HR\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Modules\HR\Entities\Line;
+use App\Events\RealTimeMessage;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Notifications\RealTimeNotification;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -20,7 +23,17 @@ class LineController extends Controller
     public function index()
     {
         $this->authorize('line-show');
-        $lines = Line::where('com_id', auth()->user()->com_id)->latest()->get();
+
+        // get users who has role Audit
+
+        $users = User::role('Audit')->get();
+        // dd($users);
+
+        foreach ($users as $user) {
+            $user->notify(new RealTimeNotification(' I am a notification 😄'));
+        }
+
+        $lines = Line::latest()->get();
         return view('hr::line.index', compact('lines'));
     }
 
@@ -43,6 +56,8 @@ class LineController extends Controller
     public function store(Request $request)
     {
 
+
+        // return $request->all();
         try {
             $this->authorize('line-create');
             $input = $request->all();
@@ -116,9 +131,9 @@ class LineController extends Controller
                 // dd($line);
                 if ($line->employees->count() === 0) {
                     $line->delete();
-                    $message = ['message'=>'Line deleted successfully.'];
+                    $message = ['message' => 'Line deleted successfully.'];
                 } else {
-                    $message = ['error'=>'This data has some dependency.'];
+                    $message = ['error' => 'This data has some dependency.'];
                 }
             });
 

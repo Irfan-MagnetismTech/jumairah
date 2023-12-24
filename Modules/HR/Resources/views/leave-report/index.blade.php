@@ -46,12 +46,15 @@
     <div class="row">
 
         <div class="col-md-6 col-sm-12">
-            <div class="input-group input-group-sm input-group-primary d-flex flex-column justify-content-between my-2" style="font-size: 14px;">
+            <div class="input-group input-group-sm input-group-primary d-flex flex-column justify-content-between my-2"
+                style="font-size: 14px;">
                 <div>
-                    <input class="checkbox report-type"  type="radio" name="report_type" id="month-wise-report" value="monthly" checked> Monthly Leave Report
+                    <input class="checkbox report-type" type="radio" name="report_type" id="month-wise-report" value="monthly"
+                        checked> Monthly Leave Report
                 </div>
                 <div>
-                    <input class="checkbox report-type"  type="radio" name="report_type" id="year-wise-report" value="yearly" > Yearly Leave Report
+                    <input class="checkbox report-type" type="radio" name="report_type" id="year-wise-report"
+                        value="yearly"> Yearly Leave Report
                 </div>
             </div>
         </div>
@@ -62,7 +65,8 @@
                     <label style="" class="input-group-addon" for="month">Month <span
                             class="text-danger">*</span></label>
 
-                    <input type="month" class="form-control" name="month" id="month" value="{{ date('Y-m') }}" placeholder="Select Month Here" required/>
+                    <input type="month" class="form-control" name="month" id="month" value="{{ date('Y-m') }}"
+                        placeholder="Select Month Here" required />
 
                 </div>
                 @error('month')
@@ -74,7 +78,8 @@
                     <label style="" class="input-group-addon" for="year">Year <span
                             class="text-danger">*</span></label>
 
-                    <input type="number" class="form-control" name="year" id="year" placeholder="Select year here" min="1900" max="2900" value="{{ date('Y') }}" required/>
+                    <input type="number" class="form-control" name="year" id="year" placeholder="Select year here"
+                        min="1900" max="2900" value="{{ date('Y') }}" required />
 
                 </div>
                 @error('year')
@@ -86,18 +91,23 @@
 
         <div class="col-md-12">
             <hr>
-            <div class="input-group input-group-sm input-group-primary d-flex flex-wrap justify-content-between my-2" style="font-size: 14px;">
+            <div class="input-group input-group-sm input-group-primary d-flex flex-wrap justify-content-between my-2"
+                style="font-size: 14px;">
                 <div>
-                    <input class="checkbox search-type"  type="radio" name="search_type" id="all-employee" value="all" checked> All Employee
+                    <input class="checkbox search-type" type="radio" name="search_type" id="all-employee" value="all"
+                        checked> All Employee
                 </div>
                 <div>
-                    <input class="checkbox search-type"  type="radio" name="search_type" id="department-wise" value="department" > Department Wise
+                    <input class="checkbox search-type" type="radio" name="search_type" id="department-wise"
+                        value="department"> Department Wise
                 </div>
                 <div>
-                    <input class="checkbox search-type"  type="radio" name="search_type" id="section-wise" value="employee-type"> Employee Type Wise
+                    <input class="checkbox search-type" type="radio" name="search_type" id="section-wise"
+                        value="employee-type"> Employee Type Wise
                 </div>
                 <div>
-                    <input class="checkbox search-type"  type="radio" name="search_type" id="designation-wise" value="designation"> Designation Wise
+                    <input class="checkbox search-type" type="radio" name="search_type" id="designation-wise"
+                        value="designation"> Designation Wise
                 </div>
                 {{-- <div>
                     <input class="checkbox search-type"  type="radio" name="search_type" id="shift-wise" value="shift"> Shift Wise
@@ -108,7 +118,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label style="" class="input-group-addon" for="employee_type_id">Employee Type</label>
-                {{Form::select('employee_type_id', $employee_types, old('employee_type_id'),['class' => 'form-control','id' => 'employee_type_id', 'placeholder'=>"All", 'autocomplete'=>"off", ""])}}
+                {{ Form::select('employee_type_id', $employee_types, old('employee_type_id'), ['class' => 'form-control', 'id' => 'employee_type_id', 'placeholder' => 'All', 'autocomplete' => 'off', '']) }}
                 @error('employee_type_id')
                     <p class="text-danger">{{ $errors->first('employee_type_id') }}</p>
                 @enderror
@@ -118,7 +128,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label style="" class="input-group-addon" for="designation_id">Designation</label>
-                {{Form::select('designation_id', $designations, old('designation_id'),['class' => 'form-control','id' => 'designation_id', 'placeholder'=>"All", 'autocomplete'=>"off", ""])}}
+                {{ Form::select('designation_id', $designations, old('designation_id'), ['class' => 'form-control', 'id' => 'designation_id', 'placeholder' => 'All', 'autocomplete' => 'off', '']) }}
                 @error('designation_id')
                     <p class="text-danger">{{ $errors->first('designation_id') }}</p>
                 @enderror
@@ -128,7 +138,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label style="" class="input-group-addon" for="department_id">Department</label>
-                {{Form::select('department_id', $departments, old('department_id'),['class' => 'form-control','id' => 'department_id', 'placeholder'=>"All", 'autocomplete'=>"off", ""])}}
+                {{ Form::select('department_id', $departments, old('department_id'), ['class' => 'form-control', 'id' => 'department_id', 'placeholder' => 'All', 'autocomplete' => 'off', '']) }}
                 @error('department_id')
                     <p class="text-danger">{{ $errors->first('department_id') }}</p>
                 @enderror
@@ -148,7 +158,7 @@
         <div class="col-md-4 col-sm-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label style="" class="input-group-addon" for="employee_id">Employee</label>
-                {{Form::select('employee_id', $employees, old('employee_id'),['class' => 'form-control','id' => 'employee_id', 'placeholder'=>"All", 'autocomplete'=>"off", ""])}}
+                {{ Form::select('employee_id', $employees, old('employee_id'), ['class' => 'form-control select2', 'id' => 'employee_id', 'placeholder' => 'All', 'autocomplete' => 'off', '']) }}
                 @error('employee_id')
                     <p class="text-danger">{{ $errors->first('employee_id') }}</p>
                 @enderror
@@ -286,243 +296,241 @@
 @endsection
 @section('script')
 
-<script>
-    $(document).ready(function() {
-      
-
-        $('#employee_type_id').change(()=>{
-            $.ajax({
-                url: "{{ route('getTypeWiseEmployees') }}",
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    employee_type_id: $('#employee_type_id').val()
-                },
-                success: function(response) {
-                    $('#employee_id').empty();
-                    $('#employee_id').append('<option value="">' + "All" + '</option>');
-                    $.each(response, function(index, value) {
-
-                        $('#employee_id').append('<option value="' + value.id + '">' + value
-                            .text + '</option>');
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus + ': ' + errorThrown);
-                }
-            });
-        });
-
-        $('#designation_id').change(()=>{
-            $.ajax({
-                url: "{{ route('getDesignationWiseEmployees') }}",
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    designation_id: $('#designation_id').val()
-                },
-                success: function(response) {
-                    $('#employee_id').empty();
-                    $('#employee_id').append('<option value="">' + "All" + '</option>');
-                    $.each(response, function(index, value) {
-
-                        $('#employee_id').append('<option value="' + value.id + '">' + value
-                            .text + '</option>');
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus + ': ' + errorThrown);
-                }
-            });
-        });
-
-        $('#department_id').change(()=>{
-            $.ajax({
-                url: "{{ route('getDepartmentWiseEmployees') }}",
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    department_id: $('#department_id').val()
-                },
-                success: function(response) {
-                    $('#employee_id').empty();
-                    $('#employee_id').append('<option value="">' + "All" + '</option>');
-                    $.each(response, function(index, value) {
-
-                        $('#employee_id').append('<option value="' + value.id + '">' + value
-                            .text + '</option>');
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus + ': ' + errorThrown);
-                }
-            });
-        });
-
-        // $('#shift_id').change(()=>{
-        //     $.ajax({
-        //         url: "{{ route('getShiftWiseEmployees') }}",
-        //         type: 'GET',
-        //         dataType: 'json',
-        //         data: {
-        //             _token: '{{ csrf_token() }}',
-        //             shift_id: $('#shift_id').val()
-        //         },
-        //         success: function(response) {
-        //             $('#employee_id').empty();
-        //             $('#employee_id').append('<option value="">' + "All" + '</option>');
-        //             $.each(response, function(index, value) {
-
-        //                 $('#employee_id').append('<option value="' + value.id + '">' + value
-        //                     .text + '</option>');
-        //             });
-        //         },
-        //         error: function(jqXHR, textStatus, errorThrown) {
-        //             console.log(textStatus + ': ' + errorThrown);
-        //         }
-        //     });
-        // });
+    <script>
+        $(document).ready(function() {
 
 
+            $('#employee_type_id').change(() => {
+                $.ajax({
+                    url: "{{ route('getTypeWiseEmployees') }}",
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        employee_type_id: $('#employee_type_id').val()
+                    },
+                    success: function(response) {
+                        $('#employee_id').empty();
+                        $('#employee_id').append('<option value="">' + "All" + '</option>');
+                        $.each(response, function(index, value) {
 
-
-
-
-
-
-        $("#all-employee").prop("checked", true);
-
-        $("#employee_type_id option:selected").prop("selected", false);
-        $('#employee_type_id').prop('disabled', true);
-
-        $("#designation_id option:selected").prop("selected", false);
-        $('#designation_id').prop('disabled', true);
-
-        $("#department_id option:selected").prop("selected", false);
-        $('#department_id').prop('disabled', true);
-
-        // $("#shift_id option:selected").prop("selected", false);
-        // $('#shift_id').prop('disabled', true);
-
-
-        $(document).on('change', '.search-type', function() {
-            let searchType = $(this).val();
-            if(searchType == 'all'){
-
-                $("#employee_type_id option:selected").prop("selected", false);
-                $('#employee_type_id').prop('disabled', true);
-
-                $("#designation_id option:selected").prop("selected", false);
-                $('#designation_id').prop('disabled', true);
-
-                $("#department_id option:selected").prop("selected", false);
-                $('#department_id').prop('disabled', true);
-
-                // $("#shift_id option:selected").prop("selected", false);
-                // $('#shift_id').prop('disabled', true);
-
-
-
-                let employees = {!! json_encode($employees) !!};
-                $('#employee_id').empty();
-                $('#employee_id').append('<option value="">' + "All" + '</option>');
-                $.each(employees, function(index, value) {
-                    $('#employee_id').append('<option value="' + index + '">' + value + '</option>');
+                            $('#employee_id').append('<option value="' + value.id +
+                                '">' + value
+                                .text + '</option>');
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus + ': ' + errorThrown);
+                    }
                 });
-            }
-            else if(searchType == 'department'){
-                $("#employee_type_id option:selected").prop("selected", false);
-                $('#employee_type_id').prop('disabled', true);
+            });
 
-                $("#designation_id option:selected").prop("selected", false);
-                $('#designation_id').prop('disabled', true);
+            $('#designation_id').change(() => {
+                $.ajax({
+                    url: "{{ route('getDesignationWiseEmployees') }}",
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        designation_id: $('#designation_id').val()
+                    },
+                    success: function(response) {
+                        $('#employee_id').empty();
+                        $('#employee_id').append('<option value="">' + "All" + '</option>');
+                        $.each(response, function(index, value) {
 
-                $('#department_id').prop('disabled', false);
+                            $('#employee_id').append('<option value="' + value.id +
+                                '">' + value
+                                .text + '</option>');
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus + ': ' + errorThrown);
+                    }
+                });
+            });
 
-                // $("#shift_id option:selected").prop("selected", false);
-                // $('#shift_id').prop('disabled', true);
+            $('#department_id').change(() => {
+                $.ajax({
+                    url: "{{ route('getDepartmentWiseEmployees') }}",
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        department_id: $('#department_id').val()
+                    },
+                    success: function(response) {
+                        $('#employee_id').empty();
+                        $('#employee_id').append('<option value="">' + "All" + '</option>');
+                        $.each(response, function(index, value) {
 
-                $('#employee_id').empty();
-                $('#employee_id').append('<option value="">' + "All" + '</option>');
-            }
-            else if(searchType == 'designation'){
-                $("#employee_type_id option:selected").prop("selected", false);
-                $('#employee_type_id').prop('disabled', true);
+                            $('#employee_id').append('<option value="' + value.id +
+                                '">' + value
+                                .text + '</option>');
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus + ': ' + errorThrown);
+                    }
+                });
+            });
 
-                $('#designation_id').prop('disabled', false);
+            // $('#shift_id').change(()=>{
+            //     $.ajax({
+            //         url: "{{ route('getShiftWiseEmployees') }}",
+            //         type: 'GET',
+            //         dataType: 'json',
+            //         data: {
+            //             _token: '{{ csrf_token() }}',
+            //             shift_id: $('#shift_id').val()
+            //         },
+            //         success: function(response) {
+            //             $('#employee_id').empty();
+            //             $('#employee_id').append('<option value="">' + "All" + '</option>');
+            //             $.each(response, function(index, value) {
 
-                $("#department_id option:selected").prop("selected", false);
-                $('#department_id').prop('disabled', true);
-
-                // $("#shift_id option:selected").prop("selected", false);
-                // $('#shift_id').prop('disabled', true);
-
-
-
-                $('#employee_id').empty();
-                $('#employee_id').append('<option value="">' + "All" + '</option>');
-            }
-            else if(searchType == 'employee-type'){
-                $('#employee_type_id').prop('disabled', false);
-
-                $("#designation_id option:selected").prop("selected", false);
-                $('#designation_id').prop('disabled', true);
-
-                $("#department_id option:selected").prop("selected", false);
-                $('#department_id').prop('disabled', true);
-
-                // $("#shift_id option:selected").prop("selected", false);
-                // $('#shift_id').prop('disabled', true);
-
-
-
-                $('#employee_id').empty();
-                $('#employee_id').append('<option value="">' + "All" + '</option>');
-            }
+            //                 $('#employee_id').append('<option value="' + value.id + '">' + value
+            //                     .text + '</option>');
+            //             });
+            //         },
+            //         error: function(jqXHR, textStatus, errorThrown) {
+            //             console.log(textStatus + ': ' + errorThrown);
+            //         }
+            //     });
+            // });
 
 
 
+
+
+
+
+
+            $("#all-employee").prop("checked", true);
+
+            $("#employee_type_id option:selected").prop("selected", false);
+            $('#employee_type_id').prop('disabled', true);
+
+            $("#designation_id option:selected").prop("selected", false);
+            $('#designation_id').prop('disabled', true);
+
+            $("#department_id option:selected").prop("selected", false);
+            $('#department_id').prop('disabled', true);
+
+            // $("#shift_id option:selected").prop("selected", false);
+            // $('#shift_id').prop('disabled', true);
+
+
+            $(document).on('change', '.search-type', function() {
+                let searchType = $(this).val();
+                if (searchType == 'all') {
+
+                    $("#employee_type_id option:selected").prop("selected", false);
+                    $('#employee_type_id').prop('disabled', true);
+
+                    $("#designation_id option:selected").prop("selected", false);
+                    $('#designation_id').prop('disabled', true);
+
+                    $("#department_id option:selected").prop("selected", false);
+                    $('#department_id').prop('disabled', true);
+
+                    // $("#shift_id option:selected").prop("selected", false);
+                    // $('#shift_id').prop('disabled', true);
+
+
+
+                    let employees = {!! json_encode($employees) !!};
+                    $('#employee_id').empty();
+                    $('#employee_id').append('<option value="">' + "All" + '</option>');
+                    $.each(employees, function(index, value) {
+                        $('#employee_id').append('<option value="' + index + '">' + value +
+                            '</option>');
+                    });
+                } else if (searchType == 'department') {
+                    $("#employee_type_id option:selected").prop("selected", false);
+                    $('#employee_type_id').prop('disabled', true);
+
+                    $("#designation_id option:selected").prop("selected", false);
+                    $('#designation_id').prop('disabled', true);
+
+                    $('#department_id').prop('disabled', false);
+
+                    // $("#shift_id option:selected").prop("selected", false);
+                    // $('#shift_id').prop('disabled', true);
+
+                    $('#employee_id').empty();
+                    $('#employee_id').append('<option value="">' + "All" + '</option>');
+                } else if (searchType == 'designation') {
+                    $("#employee_type_id option:selected").prop("selected", false);
+                    $('#employee_type_id').prop('disabled', true);
+
+                    $('#designation_id').prop('disabled', false);
+
+                    $("#department_id option:selected").prop("selected", false);
+                    $('#department_id').prop('disabled', true);
+
+                    // $("#shift_id option:selected").prop("selected", false);
+                    // $('#shift_id').prop('disabled', true);
+
+
+
+                    $('#employee_id').empty();
+                    $('#employee_id').append('<option value="">' + "All" + '</option>');
+                } else if (searchType == 'employee-type') {
+                    $('#employee_type_id').prop('disabled', false);
+
+                    $("#designation_id option:selected").prop("selected", false);
+                    $('#designation_id').prop('disabled', true);
+
+                    $("#department_id option:selected").prop("selected", false);
+                    $('#department_id').prop('disabled', true);
+
+                    // $("#shift_id option:selected").prop("selected", false);
+                    // $('#shift_id').prop('disabled', true);
+
+
+
+                    $('#employee_id').empty();
+                    $('#employee_id').append('<option value="">' + "All" + '</option>');
+                }
+
+
+
+
+
+            });
+
+
+
+
+            //Report Type
+
+            $("#month-wise-report").prop("checked", true);
+            $('#year-container').hide();
+            $("#year").prop("disabled", true);
+
+            $(document).on('change', '.report-type', function() {
+                let reportType = $(this).val();
+                let month = {!! json_encode(date('Y-m')) !!};
+                let year = {!! json_encode(date('Y')) !!};
+
+                if (reportType == 'monthly') {
+                    $('#year-container').hide();
+                    $("#year").prop("disabled", true);
+                    $("#month").prop("disabled", false);
+                    $("#month").val(month);
+                    $('#month-container').show();
+                } else {
+                    $('#month-container').hide();
+                    $("#month").prop("disabled", true);
+                    $("#year").prop("disabled", false);
+                    $("#year").val(year);
+                    $('#year-container').show();
+                }
+            });
 
 
         });
-
-
-
-
-        //Report Type
-
-        $("#month-wise-report").prop("checked", true);
-        $('#year-container').hide();
-        $("#year").prop("disabled", true);
-
-        $(document).on('change', '.report-type', function(){
-            let reportType = $(this).val();
-            let month = {!! json_encode(date('Y-m')) !!};
-            let year = {!! json_encode(date('Y')) !!};
-
-            if(reportType == 'monthly'){
-                $('#year-container').hide();
-                $("#year").prop("disabled", true);
-                $("#month").prop("disabled", false);
-                $("#month").val(month);
-                $('#month-container').show();
-            }
-            else{
-                $('#month-container').hide();
-                $("#month").prop("disabled", true);
-                $("#year").prop("disabled", false);
-                $("#year").val(year);
-                $('#year-container').show();
-            }
-        });
-
-
-    });
-
-
-</script>
+    </script>
 
 @endsection

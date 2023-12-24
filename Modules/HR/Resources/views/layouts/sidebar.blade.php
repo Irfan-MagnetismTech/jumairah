@@ -671,8 +671,7 @@
                 @endcan
 
                 @can('process-bonus-show')
-                    <li
-                        class="pcoded-hasmenu {{ request()->routeIs(['bonus-process.*']) ? 'active pcoded-trigger' : null }}">
+                    <li class="pcoded-hasmenu {{ request()->routeIs(['bonus-process.*']) ? 'active pcoded-trigger' : null }}">
                         <a href="javascript:void(0)">
                             <span class="pcoded-micon"><i class="ti-panel"></i><b></b></span>
                             <span class="pcoded-mtext">Bonus Process</span>
@@ -710,7 +709,7 @@
 
     @can('hr-report')
         <li
-            class="pcoded-hasmenu {{ request()->routeIs(['reports.late', 'employeeList', 'promotionIncrementList', 'dailyAttendance', 'attendanceSummary', 'jobCard', 'leaveReport', 'otSheet', 'salarySheet', 'bonusSheet']) ? 'active pcoded-trigger' : null }}">
+            class="pcoded-hasmenu {{ request()->routeIs(['reports.late', 'employeeList', 'promotionIncrementList', 'dailyAttendance', 'attendanceSummary', 'jobCard', 'leaveReport', 'otSheet', 'salarySheet', 'bonusSheet', 'allowanceReportIndex', 'fixAttendanceReportIndex', 'employeeSummary', 'paySlipReportIndex']) ? 'active pcoded-trigger' : null }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-panel"></i><b></b></span>
                 <span class="pcoded-mtext">Reports</span>

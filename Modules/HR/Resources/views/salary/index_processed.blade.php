@@ -196,7 +196,7 @@
                             {{ Form::select('department_id', $departments, old('department_id') ? old('department_id') : null, [
                                 'class' => 'form-control select2 employee_active',
                                 'id' => 'department_id',
-                                'placeholder' => 'Select Bank',
+                                'placeholder' => 'Select Department',
                                 'required',
                             ]) }}
                             @error('department_id')
@@ -211,7 +211,7 @@
                             {{ Form::select('cost_center_id', $costCenters, old('cost_center_id') ? old('cost_center_id') : null, [
                                 'class' => 'form-control select2 employee_active',
                                 'id' => 'cost_center_id',
-                                'placeholder' => 'Select Bank',
+                                'placeholder' => 'Select Cost center',
                                 'required',
                             ]) }}
                             @error('cost_center_id')

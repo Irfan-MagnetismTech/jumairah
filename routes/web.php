@@ -99,5 +99,7 @@ Route::group( ['middleware' => 'auth'], function () {
 	Route::get( '/profitabilityBasicInformation', 'ProfitabilityController@index' )->name( 'profitabilityBasicInformation' );
 
 	Route::get( '/profitabilityData', 'ProfitabilityController@getDataByProject' )->name( 'profitabilityData' );
+    Route::get( '/all-notifications','NotificationController@index' )->name( 'all-notifications' );
+    Route::get( '/mark-all-read','NotificationController@markAllRead' )->name( 'mark-all-read' );
 
 } );

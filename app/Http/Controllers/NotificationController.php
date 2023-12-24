@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use notifications;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -13,7 +15,9 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        dd(auth()->user()->notifications);
+        // dd(auth()->user()->notifications);
+        $allNotifications = auth()->user()->notifications;
+        return view('notifications.index', compact('allNotifications'));
     }
 
     /**
@@ -68,7 +72,10 @@ class NotificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+
+
+
     }
 
     /**
@@ -80,5 +87,15 @@ class NotificationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function markAllRead()
+    {
+        $user = Auth::user();
+        foreach ($user->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+        return redirect()->back();
     }
 }

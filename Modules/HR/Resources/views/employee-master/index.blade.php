@@ -61,7 +61,13 @@
                         <td class="text-left">{{ $data->designation?->name }}</td>
                         <td class="text-left">{{ $data->department?->name }}</td>
                         <!-- <td class="text-left">{{ $data->section?->name }}</td> -->
-                        <td class="text-left">{{ $data->status }}</td>
+                        <td class="text-left">
+                            @if ($data->is_active == 1)
+                                <span class="badge badge-success">Active</span>
+                            @else
+                                <span class="badge badge-danger">Inactive</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="icon-btn">
                                 <nobr>
@@ -114,7 +120,7 @@
             if (firstConfirmation) {
                 const secondConfirmation = confirm(
                     "This action for delete this employee all data. Are you absolutely sure you want to proceed with the deletion?"
-                    );
+                );
 
                 if (secondConfirmation) {
                     // If the user confirms the second confirmation, proceed with the delete request

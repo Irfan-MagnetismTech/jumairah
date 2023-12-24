@@ -1,5 +1,5 @@
 @include('elements.header')
-{{--@include('elements.sidebar-chat')--}}
+{{-- @include('elements.sidebar-chat') --}}
 <div class="pcoded-main-container">
     <div class="pcoded-wrapper">
         @include('elements.sidebar')
@@ -30,7 +30,8 @@
                                             </h4>
                                             @include('elements.flash-message')
                                             @yield('content')
-                                            
+
+
                                         </div> <!-- end card-block -->
                                     </div> <!-- end card -->
                                 </div> <!-- end col-sm-12  -->
@@ -38,8 +39,10 @@
                             @yield('card')
                         </div>
                         <!-- Page-body end -->
+
+
                     </div>
-                    {{--<div id="styleSelector"> </div>--}}
+                    {{-- <div id="styleSelector"> </div> --}}
                 </div>
             </div>
         </div>
