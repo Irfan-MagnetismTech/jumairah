@@ -67,7 +67,7 @@
                 <th width="200px">Floor Name</th>
                 <th>Material Name <span class="text-danger">*</span></th>
                 <th>Unit</th>
-                <th>MRR<br>Quantity</th>
+                {{-- <th>MRR<br>Quantity</th> --}}
                 <th>Current Stock</th>
                 <th>Ledger Folio No.<span class="text-danger">*</span></th>
                 <th>Issued <br> Quantity<span class="text-danger">*</span></th>
@@ -81,7 +81,7 @@
             <tbody>
 
             @if(old('material_id'))
-                @foreach(old('material_id') as $key => $materialOldData) 
+                @foreach(old('material_id') as $key => $materialOldData)
                     <tr>
                         <td>
                             <input type="text" name="floor_name[]"   value="{{old('floor_name')[$key]}}" id="floor_name" class="form-control text-center form-control-sm floor_name">
@@ -92,12 +92,12 @@
                             <input type="hidden" name="material_id[]" value="{{old('material_id')[$key]}}" class="form-control form-control-sm text-center material_id" >
                         </td>
                         <td><input type="text" name="unit[]"  value="{{old('unit')[$key]}}" class="form-control text-center text-center form-control-sm unit" readonly tabindex="-1"></td>
-                        <td><input type="text" name="mrr_quantity[]"  value="{{old('mrr_quantity')[$key]}}" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td>
+                        {{-- <td><input type="text" name="mrr_quantity[]"  value="{{old('mrr_quantity')[$key]}}" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td> --}}
                         <td><input type="text" name="ledger_folio_no[]" value="{{old('ledger_folio_no')[$key]}}" class="form-control text-center form-control-sm ledger_folio_no" ></td>
                         <td><input type="number" name="issued_quantity[]" value="{{old('issued_quantity')[$key]}}" class="form-control text-center form-control-sm issued_quantity" ></td>
                         <td> <textarea name="purpose[]" class ='form-control text-center' id ='purpose' rows=1>{{old('purpose')[$key]}}</textarea></td>
                         <td> <textarea name="notes[]" class ='form-control text-center' id ='notes' rows=1>{{old('notes')[$key]}}</textarea></td>
-                        
+
                         <td><button class="btn btn-danger btn-sm deleteItem" type="button" tabindex="-1"><i class="fa fa-minus"></i></button></td>
 
                     </tr>
@@ -105,6 +105,12 @@
             @else
                 @if(!empty($storeissue))
                     @foreach($storeissue->storeissuedetails as $storeissuedetail)
+                    @php
+                        $current_stock = App\Procurement\StockHistory::where('cost_center_id', $storeissue->cost_center_id)
+                                        ->where('material_id', $storeissuedetail->material_id)
+                                        ->latest()
+                                        ->first();
+                    @endphp
                         <tr>
                             <td>
                                 <input type="text" name="floor_name[]"   value="{{!empty($storeissuedetail->floor_id) ? $storeissuedetail->boqFloor->name : ""}}" id="floor_name" class="form-control text-center form-control-sm">
@@ -115,7 +121,8 @@
                                 <input type="hidden" name="material_id[]" value="{{$storeissuedetail->nestedMaterials->id}}" class="form-control form-control-sm text-center material_id" >
                             </td>
                             <td><input type="text" name="unit[]"  value="{{$storeissuedetail->nestedMaterials->unit->name}}" class="form-control text-center form-control-sm unit" readonly tabindex="-1"></td>
-                            <td><input type="text" name="mrr_quantity[]"  value="{{$storeissuedetail->quantity}}" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td>
+                            {{-- <td><input type="text" name="mrr_quantity[]" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td> --}}
+                            <td><input type="text" name="current_stock[]" class="form-control text-center form-control-sm current_stock" readonly tabindex="-1" value="{{ $current_stock->present_stock }}"></td>
                             <td><input type="text" name="ledger_folio_no[]" value="{{$storeissuedetail->ledger_folio_no}}" class="form-control text-center form-control-sm ledger_folio_no" autocomplete="off" ></td>
                             <td><input type="number" name="issued_quantity[]" value="{{$storeissuedetail->issued_quantity}}" class="form-control text-center form-control-sm issued_quantity"  autocomplete="off"></td>
                             <td> <textarea name="purpose[]" class ='form-control text-center' id ='purpose' rows=1>{{$storeissuedetail->purpose}}</textarea></td>
@@ -156,7 +163,6 @@
                         <input type="text" name="material_name[]" class="form-control text-center form-control-sm material_name" autocomplete="off" required placeholder="Material Name">
                     </td>
                     <td><input type="text" name="unit[]" class="form-control text-center form-control-sm unit" readonly tabindex="-1"></td>
-                    <td><input type="text" name="mrr_quantity[]" class="form-control text-center form-control-sm mrr_quantity" readonly tabindex="-1"></td>
                     <td><input type="text" name="current_stock[]" class="form-control text-center form-control-sm current_stock" readonly tabindex="-1"></td>
                     <td><input type="text" name="ledger_folio_no[]" class="form-control text-center form-control-sm ledger_folio_no" autocomplete="off"></td>
                     <td><input type="number" name="issued_quantity[]" class="form-control text-center form-control-sm issued_quantity" autocomplete="off" required></td>
@@ -167,7 +173,7 @@
             `;
             $('#itemTable tbody').append(row);
         }
-        
+
         var CSRF_TOKEN = "{{csrf_token()}}";
         $(function(){
 
@@ -177,21 +183,21 @@
 
                 let currentFloorId       = $(currentRow).closest('tr').find(".floor_name").val();
                 let currentMaterialId    = $(currentRow).closest('tr').find(".material_id").val();
-                let currentFloorMaterial = `${currentFloorId}-${currentMaterialId}`; 
-                let materialNames        = $(".floor_name").not($(currentRow).closest('tr').find(".floor_name")); 
+                let currentFloorMaterial = `${currentFloorId}-${currentMaterialId}`;
+                let materialNames        = $(".floor_name").not($(currentRow).closest('tr').find(".floor_name"));
 
                 materialNames.each(function(){
                     let floorId       = $(this).closest('tr').find(".floor_name").val();
                     let materialId    = $(this).closest('tr').find(".material_id").val();
-                    let floorMaterial = `${floorId}-${materialId}`; 
+                    let floorMaterial = `${floorId}-${materialId}`;
                     if(floorId){
                         if(floorMaterial == currentFloorMaterial){
-                            alert("Duplicate Found"); 
+                            alert("Duplicate Found");
                             $(this).closest('tr').remove();
                         }
                     }else{
                         if(materialId == currentMaterialId){
-                            alert("Duplicate Found"); 
+                            alert("Duplicate Found");
                             $(this).closest('tr').remove();
                         }
                     }
@@ -225,7 +231,7 @@
 
 
             // Function for autocompletion of projects
-        
+
             $( "#project_name").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
@@ -237,7 +243,7 @@
                             search: request.term
                         },
                         success: function( data ) {
-                            response( data ); 
+                            response( data );
                         }
                     });
                 },
@@ -249,16 +255,16 @@
                     addRow();
                     loadProjectWiseFloorAfterMrr();
                     return false;
-                } 
+                }
             })
 
-            // Function for autocompletion of floor 
+            // Function for autocompletion of floor
 
             function loadProjectWiseFloorAfterMrr(item){
                 let project_id  = $("#project_id").val();
                 if(project_id) {
                     const url  = '{{url("scj/loadProjectWiseFloorAfterMrr")}}/'+ project_id;
-                    let dropdown; 
+                    let dropdown;
 
                     $('.floor_name').each(function (){
                         dropdown = $(this).closest('tr').find('.floor_name');
@@ -312,7 +318,7 @@
                                 let material_id = ui.item.material_id;
                                 $.ajax({
                                     url:'{{route("scj.getMrrDetailsByMaterial")}}',
-                                    
+
                                     type: 'get',
                                     dataType: "json",
                                     data: {
@@ -321,7 +327,7 @@
                                         project_id : project_id,
                                         floor_name : floor_name,
                                         material_id: material_id
-                                        
+
                                     },
                                     success: function( data ) {
                                         $.each(data, function(materials, material){
@@ -331,7 +337,7 @@
                                             $(vm).closest('tr').find('.issued_quantity').attr('max', issued_quantity);
                                         })
                                     }
-                                }); 
+                                });
                                 $.ajax({
                                         url: '{{ route("scj.getPresentStockQuantity") }}',
                                         type: 'post',
@@ -378,7 +384,7 @@
 
                                 $.ajax({
                                     url:'{{route("scj.getMrrDetailsByMaterial")}}',
-                                    
+
                                     type: 'post',
                                     dataType: "json",
                                     data: {
@@ -387,7 +393,7 @@
                                         project_id : project_id,
                                         floor_name : floor_name,
                                         material_id: material_id
-                                        
+
                                     },
                                     success: function( data ) {
                                         $.each(data, function(materials, material){
@@ -395,7 +401,7 @@
                                             $(vm).closest('tr').find('.issued_quantity').attr('max', material.mrr_quantity);
                                         })
                                     }
-                                }); 
+                                });
 
                                 $.ajax({
                                         url: '{{ route("scj.getPresentStockQuantity") }}',
@@ -443,7 +449,7 @@
 
                                 $.ajax({
                                     url:'{{route("scj.getMrrDetailsByMaterial")}}',
-                                    
+
                                     type: 'post',
                                     dataType: "json",
                                     data: {
@@ -452,7 +458,7 @@
                                         project_id : project_id,
                                         floor_name : floor_name,
                                         material_id: material_id
-                                        
+
                                     },
                                     success: function( data ) {
                                         $.each(data, function(materials, material){
@@ -460,7 +466,7 @@
                                             $(vm).closest('tr').find('.issued_quantity').attr('max', material.mrr_quantity);
                                         })
                                     }
-                                }); 
+                                });
 
                                 $.ajax({
                                         url: '{{ route("scj.getPresentStockQuantity") }}',
@@ -501,6 +507,6 @@
         });
 
 
-        
+
     </script>
 @endsection
