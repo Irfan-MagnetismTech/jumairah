@@ -174,7 +174,13 @@ class MaterialReceiveController extends Controller
     public function destroy(MaterialReceive $materialReceife)
     {
         try {
-            $materialReceife->delete();
+            if($materialReceife->transaction()->exists()){
+                return back()->withErrors(["This Data has some Transections. Please Delete them first"]);
+            }
+            else{   
+                $materialReceife->delete();
+            }
+            
             return redirect()->route('materialReceives.index')->with('message', 'Data has been deleted successfully');
         } catch (QueryException $e) {
             return redirect()->route('materialReceives.index')->withErrors($e->getMessage());

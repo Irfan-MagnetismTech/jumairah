@@ -111,7 +111,13 @@ class StoreissueController extends Controller
     public function destroy(Storeissue $storeissue)
     {
         try {
-            $storeissue->delete();
+            if($storeissue->transaction()->exists()){
+                return back()->withErrors(["This Data has some Transections. Please Delete them first"]);
+            }
+            else{  
+                $storeissue->delete();
+            }
+            
             return redirect()->route('storeissues.index')->with('message', 'Data has been deleted successfully');
         } catch (QueryException $e) {
             return redirect()->route('storeissues.index')->withErrors($e->getMessage());

@@ -125,7 +125,14 @@ class ApartmentHandoverController extends Controller
     public function destroy(ApartmentHandover $apartmentHandover)
     {
         try{
-            $apartmentHandover->delete();
+            // dd($apartmentHandover->transaction()->exists());
+            if($apartmentHandover->transaction()->exists()){
+                return back()->withErrors(["This Apartment has some Transections. Please Delete them first"]);
+            }
+            else{ 
+                $apartmentHandover->delete();
+            }
+
             return redirect()->route('apartment-handovers.index')->with('message', 'Data has been deleted successfully');
         }catch(QueryException $e){
             return redirect()->back()->withInput()->withErrors($e->getMessage());

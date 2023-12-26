@@ -89,7 +89,7 @@
                                     @foreach ($receive->approval as $approval)
                                         <span
                                             class="badge @if ($approval->status == 'Approved') bg-primary @else bg-warning @endif bg-warning badge-sm">
-                                            {{ $approval->status }} - {{ $approval->user->employee->department->name ?? '' }}
+                                            {{ $approval->status }} - {{ $approval->user->employee->department->name ?? $approval->user->name }}
                                             - {{ $approval->user->employee->designation->name ?? '' }}
                                         </span><br>
                                     @endforeach
