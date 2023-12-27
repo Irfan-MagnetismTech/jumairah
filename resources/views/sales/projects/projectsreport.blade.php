@@ -24,7 +24,7 @@ Projects Details Summary
         <div class="col-md-1 px-1 my-1 my-md-0" data-toggle="tooltip" title="Output">
             <select name="reportType" id="reportType" class="form-control form-control-sm" required>
                 <option value="list" selected> List </option>
-                <option value="pdf"> PDF </option>
+                {{-- <option value="pdf"> PDF </option> --}}
             </select>
         </div>
         <div class="col-md-2 px-1 my-1 my-md-0" data-toggle="tooltip" title="Project Status">
@@ -80,13 +80,13 @@ Projects Details Summary
                 <th>Cash<br> Outflow</th>
                 <th>Diff<br>(in & out)</th>
                 <th>Yet to <br> Receive</th>                
-                <th>%<br>Construction</th>
+                {{-- <th>%<br>Construction</th> --}}
                 <th>% inflow</th>
                 <th>Project <br> Value</th>
                 <th>Unsold <br> Inventory</th>
-                <th>Expected <br> Profit</th>
+                {{-- <th>Expected <br> Profit</th> --}}
                 <th>Cost</th>
-                <th>%<br>Profit</th>
+                {{-- <th>%<br>Profit</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -121,8 +121,9 @@ Projects Details Summary
                     @money($project->total_sold_value)
                 </td>
                 <td class="text-right">
+                    @php $collectionAmount = 0; @endphp
                     @if($project->sells)
-                    @money($project->sells->sum('sales_collections_sum_received_amount'))
+                    @money($collectionAmount = $project->sells->sum('sales_collections_sum_received_amount'))
                     @endif
                 </td>
                 <td>{{ $project->costCenter->ledgers_sum_dr_amount }}</td>
@@ -132,17 +133,15 @@ Projects Details Summary
                 <td class="text-right">
                     @money($project->total_sold_value - $project->sells->pluck('salesCollections')->collapse()->sum('received_amount'))
                 </td>                
-                <td> -- </td>
-                <td> -- </td>
-                <td class="text-right">@money($project->apartments_sum_total_value) <br> keya; </td>
+                {{-- <td> -- </td> --}}
+                <td>{{ $collectionAmount > 0 ? number_format((($collectionAmount / $project->total_sold_value) * 100), 2)."%" : null}}</td>
+                <td class="text-right">@money($project->apartments_sum_total_value) <br>  </td>
                 <td class="text-right">@money($project->unsold_apartments_sum_total_value)</td>
-                <td>
-                    --
-                </td>
+                {{-- <td> -- </td> --}}
                 <td class="text-right">
                     @money($project->project_cost)
                 </td>
-                <td>--</td>
+                {{-- <td>--</td> --}}
             </tr>
             @empty
             <tr>
@@ -189,13 +188,13 @@ Projects Details Summary
                 <td>
                     @money($projects->sum('apartments_sum_total_value') - $projects->pluck('sells')->collapse()->pluck('salesCollections')->collapse()->sum('received_amount'))
                 </td>                
-                <td></td>
+                {{-- <td></td> --}}
                 <td></td>
                 <td class="text-right">@money($projects->sum('apartments_sum_total_value'))</td>
                 <td class="text-right">@money($projects->sum('unsold_apartments_sum_total_value'))</td>
-                <td> </td>
+                {{-- <td> </td> --}}
                 <td>@money($projects->sum('project_cost'))</td>
-                <td></td>
+                {{-- <td></td> --}}
             </tr>
         </tfoot>
     </table>

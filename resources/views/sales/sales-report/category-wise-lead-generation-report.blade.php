@@ -75,7 +75,7 @@ Category Wise Sales Report
     <div class="col-md-1 px-1 my-1" data-toggle="tooltip" title="Output">
         <select name="reportType" id="reportType" class="form-control form-control-sm" required>
             <option value="list" selected> List </option>
-            <option value="excel"> Excel </option>
+            {{-- <option value="pdf"> PDF </option> --}}
         </select>
     </div>
     <div class="col-md-2 px-1 my-1" id="fromDateArea">
