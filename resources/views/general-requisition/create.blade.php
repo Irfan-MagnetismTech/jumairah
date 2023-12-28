@@ -3,9 +3,9 @@
 
 @section('breadcrumb-title')
     @if($formType == 'edit')
-        Edit Material Purchase Requisition(MPR)
+        Edit General Requisition
     @else
-        Add Material Purchase Requisition(MPR)
+        Add General Requisition
     @endif
 @endsection
 
@@ -20,7 +20,7 @@
 @section('content-grid', null)
 
 @section('content')
-    @if($formType == 'edit') 
+    @if($formType == 'edit')
         {!! Form::open(array('url' => "general-requisitions/$general_requisition->id",'method' => 'PUT', 'class'=>'custom-form')) !!}
     @else
         {!! Form::open(array('url' => "general-requisitions",'method' => 'POST', 'class'=>'custom-form')) !!}
@@ -55,12 +55,14 @@
                     {{Form::text('applied_date', old('applied_date') ? old('applied_date') : (!empty($general_requisition->applied_date) ? $general_requisition->applied_date : null),['class' => 'form-control','id' => 'applied_date','autocomplete'=>"off","required", 'placeholder' => 'Applied Date', 'readonly'])}}
                 </div>
             </div>
-            <div class="col-md-3">
+            {{-- <div class="col-md-3">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon">Approval Type<span class="text-danger">*</span></label>
                     {{Form::select('approval_layer_id',$ApprovalLayerName, old('approval_layer_id') ? old('approval_layer_id') : (!empty($general_requisition) ? $general_requisition->approval_layer_id : null),['class' => 'form-control','autocomplete'=>"off","required", 'placeholder' => 'Select One'])}}
                 </div>
-            </div>
+            </div> --}}
+            {{ Form::hidden('approval_layer_id', old('approval_layer_id') ? old('approval_layer_id') : (!empty($ApprovalLayerName) ? $ApprovalLayerName->id : null), ['class' => 'form-control', 'autocomplete' => 'off', 'required']) }}
+
             <div class="col-md-6">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="note">Note</label>
@@ -101,7 +103,7 @@
                     <tr>
                         <td>
                             <input type="text" name="floor_name[]" value="{{old('floor_name')[$key]}}" id="floor_name" class="form-control text-center form-control-sm floor_name">
-                            <input type="hidden" name="floor_id[]" value="{{old('floor_id')[$key]}}" id="floor_id" class="form-control text-center form-control-sm floor_id">                       
+                            <input type="hidden" name="floor_id[]" value="{{old('floor_id')[$key]}}" id="floor_id" class="form-control text-center form-control-sm floor_id">
                         </td>
                         <td>
                             <input type="text" name="material_id[]" value="{{old('material_id')[$key]}}" class="form-control text-center form-control-sm material_name">
@@ -126,7 +128,7 @@
                         <tr>
                             <td>
                                 <input type="text" name="floor_name[]" value="{{$general_requisitiondetail->boqFloor->name ?? ''}}" id="floor_name" class="form-control text-center form-control-sm floor_name">
-                                <input type="hidden" name="floor_id[]" value="{{$general_requisitiondetail->floor_id}}" id="floor_id" class="form-control text-center form-control-sm floor_id">                       
+                                <input type="hidden" name="floor_id[]" value="{{$general_requisitiondetail->floor_id}}" id="floor_id" class="form-control text-center form-control-sm floor_id">
                             </td>
                             <td>
                                 <input type="text" name="material_name[]"   value="{{$general_requisitiondetail->nestedMaterial->name}}" class="form-control text-center form-control-sm material_name">
@@ -162,10 +164,10 @@
 
         function addRow(){
             let row = `
-                <tr> 
+                <tr>
                     <td>
                            <input type="text" name="floor_name[]" id="floor_name" class="form-control text-center form-control-sm floor_name">
-                           <input type="hidden" name="floor_id[]" id="floor_id" class="form-control text-center form-control-sm floor_id">                       
+                           <input type="hidden" name="floor_id[]" id="floor_id" class="form-control text-center form-control-sm floor_id">
                     </td>
                     <td>
                         <input type="hidden" name="material_id[]" class="material_id">
@@ -204,7 +206,7 @@
             });
 
             // Function for autocompletion of projects
-        
+
             $( "#project_name").autocomplete({
                 source: function( request, response ) {
                     $.ajax({
@@ -216,7 +218,7 @@
                             search: request.term
                         },
                         success: function( data ) {
-                            response( data ); 
+                            response( data );
                         }
                     });
                 },
@@ -227,7 +229,7 @@
                     $("#itemTable").find("tbody").children("tr").remove();
                     addRow();
                     return false;
-                } 
+                }
             })
 
             $(document).on('keyup', ".material_name", function(){
