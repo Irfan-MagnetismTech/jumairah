@@ -50,7 +50,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $generalBill->project->name }}</td>
-                        <td>{{ $generalBill->user->employee->fullName ?? 'N/A' }}</td>
+                        <td>{{ $generalBill->user->employee->emp_name ?? 'N/A' }}</td>
                         <td> {{ $generalBill->date }}</td>
                         <td> @money($generalBill->total_amount)</td>
                         @php
