@@ -41,27 +41,27 @@
     .terms li{
         word-wrap: break-word;
     }
-
-    #rate_table, #rate_table th, #rate_table td,
+    
+    #rate_table, #rate_table th, #rate_table td, 
     #payment_schedule, #payment_schedule th, #payment_schedule td {
         border-spacing: 0;
         padding-bottom: 0;
-        border: 1px solid #000;
-        font-size: 12px;
-        vertical-align: middle;
+        border: 1px solid #000; 
+        font-size: 12px; 
+        vertical-align: middle; 
         border-collapse: collapse;
     }
-
+       
     .wo_pages {
         position: absolute;
         top: 100px;
         right: 15px;
         background: black;
         color: #fff;
-        display:inline-block;
+        display:inline-block; 
         line-height: 18px;
-        font-weight: 14px;
-        padding: 3px 5px;
+        font-weight: 14px; 
+        padding: 3px 5px; 
     }
 
     .page_break { page-break-after: always; }
@@ -87,13 +87,13 @@
         height: 30px;
         width: 100%;
         display: block;
-        font-size: 11px;
+        font-size: 11px;        
     }
 </style>
 <body>
     <header>
         <div id="logo" class="pdflogo">
-            <img src="{{ asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="pdfimg pullRight">
+            <img src="{{ asset('images/ranksfc_log.png')}}" alt="Logo" class="pdfimg pullRight">
         </div>
     </header>
 
@@ -110,13 +110,13 @@
         <h3> {{$workorder->supplier->name}} </h3>
         <P> {{$workorder->supplier->address}}</P>
         <p>Attn: {{$workorder->supplier->contact_person_name}}, Cell:{{$workorder->supplier->contact}}</p><br>
-        <p> <strong>Subject:</strong>
-
+        <p> <strong>Subject:</strong> 
+            
             Work Order for <strong>{{$workorder->workCs->cs_type}}</strong> at Project <strong>"{{$workorder->workCs->project->name}}"</strong> at {{$workorder->workCs->project->location}}.
-        </p><br>
+        </p><br> 
 
         <h4>Dear Mr. Jamal,</h4><br>
-        <p>The Management of <span style="font-weight: bold;"> "JUMAIRAH HOLDINGS LTD."</span> is pleased to inform you that against your offer, you have been awarded the "Word Order"
+        <p>The Management of <span style="font-weight: bold;"> "RANKS FC PROPERTIES LTD."</span> is pleased to inform you that against your offer, you have been awarded the "Word Order" 
             for the ceptioned works under the following terms & conditions and rates (enclosed herewith). The terms & conditions, quotation
             and rates are an integral part of this Work Order.
         </p><br>
@@ -125,12 +125,12 @@
         <p>If you agree with the above, please return the duplicate upon your proper signing in acceptance. </p><br><br>
         <p>Thanking you,</p><br><br>
         <p>Very Truly Yours</p>
-        <p>For <span style="font-weight: bold;">JUMAIRAH HOLDINGS LTD.</span> </p>
+        <p>For <span style="font-weight: bold;">RANKS FC PROPERTIES LTD.</span> </p>
     </div>
     <div class="container" style= "width:100%; margin-top: 50px;">
         <div class="text-left" style="float:left; width:75%;">
             <p style="text-decoration: overline;">(Engr. Biswajit Chowdhury)</p>
-            <p>GM (Construction) & Head of EME</p>
+            <p>GM (Construction) & Head of EME</p> 
         </div>
         <div class="text-center" style="float:left; width:25%;">
             <p style="text-decoration: overline;">Signature of Contractor</p>
@@ -157,18 +157,19 @@
         @if (isset($workorder->workOtherFeature) && isset($workorder->workOtherFeature->safety_feature))
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #)Other Safety Features</p>
         @endif
-    </div>
-
+    </div>    
+    
 <footer>
-    {!! htmlspecialchars(config('company_info.company_address')) !!}
-    Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!} <br>
-    {!! htmlspecialchars(config('company_info.company_email')) !!}
+    Atlas Rangs Plaza (Level 9&10), 7, Sk. Mujib Road,<br>
+    Agrabad C/A, Chattogram, <br>
+    Phone: 2519906-8, 712023-5 <br>
+    www.ranksfc.com
 </footer>
 
 @if (isset($workorder->workrate))
 <div class="page_break"></div>
 <h3 style="text-decoration: underline; margin-top: 100px; margin-bottom: 0; Text-align: center;"> Rate Schedule (R.S) : {{$workorder->workCs->cs_type}} </h3>
-<div class="container terms" style="max-width: 100%; min-width: 100%;">
+<div class="container terms" style="max-width: 100%; min-width: 100%;">   
     {!!$workorder->workrate!!}
 </div>
     {{-- <p class="wo_pages">Form-Con/03/005/P-03 of 06</p> --}}
@@ -186,14 +187,14 @@
         <tr>
             <td></td>
             <td colspan="4">
-                A) Description of Work:-
+                A) Description of Work:- 
                 <p style="font-size: 12px;">Completion of all types of civil works i/c. layout setting, Earth Cutting (upto -7"-6" from Road Level/required depth),
                 leveling & dressing of earth under ground floor slab, Sand Compaction, Dewatering, C.C casting, all staging with scafolding (including Fittings, fixing & Opening with
                 outside safety net fitting) & shuttering, Rebar work & casting (Manual/RMC) of all structural works from Footing / MAT, Gr. floor to roof top and above with all retaining wall, water
                 reservoir & septic tank & all types of brick work, plaster work (inside, outside & ceiling) RCC lintel, RCC Stair railing,
                 RCC verandah railing, RCC False ceiling, sunshade works & all types of groove making, show slab and other ornamental
                 railing, MS door, MS safety grill/railing, canopy work etc.& all kinds of outside ornamental MS work works), sand
-                screening, brick soaking pit, daily floor cleaning after of civil work and staking all rubbish at Ground floor & all types of
+                screening, brick soaking pit, daily floor cleaning after of civil work and staking all rubbish at Ground floor & all types of 
                 major civil materials (MS Rod, Bricks, Stone Chips, Sand) carrying from stock yard (30' radius from project perimeter) to
                 working site within 24 hrs. all complete and doing the works as per specification of the design, drawing, direction, instruction &
                 approval of the Engineer-in-charge.</p><br>
@@ -211,13 +212,13 @@
             <td style="text-align: center"> {!!$workorder->terms->general_terms!!} </td>
         </tr>
 
-    </table>
+    </table> 
     </div>--}}
 
     {{-- <div class="container" style= "width:100%; margin-top: 50px;">
         <div class="text-left" style="float:left; width:75%;">
             <p style="text-decoration: overline;">(Engr. Biswajit Chowdhury)</p>
-            <p>GM (Construction) & Head of EME</p>
+            <p>GM (Construction) & Head of EME</p> 
         </div>
         <div class="text-center" style="float:left; width:25%;">
             <p style="text-decoration: overline;">Signature of Contractor</p>
@@ -247,7 +248,7 @@
 <div class="page_break"></div>
     <h3 style="text-decoration: underline; margin-top: 100px; margin-bottom: 0; Text-align: center;">Technical Specification:</h3>
     <div class="container">
-        <table style="margin-top: 5px; width: 100%" id="payment_schedule">
+        <table style="margin-top: 5px; width: 100%" id="payment_schedule">            
             <tr>
                 <th style="width: 13%">SL No. of R.S</th>
                 <th style="width: 13%">Sl No. <br>of P.S</th>
@@ -259,10 +260,10 @@
                     @foreach ($schedule->workSpecificationLine as $key => $line)
                         <tr>
                             @if($loop->first)
-                            <td rowspan="{{$totalLines}}" style="text-align: center">
-                                {{$schedule->rs_title}}
+                            <td rowspan="{{$totalLines}}" style="text-align: center"> 
+                                {{$schedule->rs_title}}                            
                             </td>
-                            @endif
+                            @endif 
                             <td style="text-align: center"> {{"RS-".$loop->parent->iteration."-PS-".$loop->iteration}} </td>
                             <td style="text-align: center">{{$line->work_status}}</td>
                             <td style="text-align: center">{{$line->payment_ratio}}%</td>
@@ -271,10 +272,10 @@
                 @endforeach
         </table>
     </div>
-@endif
+@endif 
 {{-- end payment Schedule      --}}
 @if (isset($workorder->workOtherFeature) && isset($workorder->workOtherFeature->special_function))
-
+    
 <div class="page_break"></div>
 <h3 style="text-decoration: underline; margin-top: 100px; margin-bottom: 0; Text-align: center;">Other Features Special Function</h3>
 <div class="container terms" style="max-width: 100%">
@@ -291,3 +292,4 @@
 @endif
 </body>
 </html>
+

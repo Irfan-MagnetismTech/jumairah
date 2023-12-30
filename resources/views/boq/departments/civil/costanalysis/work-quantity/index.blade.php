@@ -44,7 +44,7 @@
             <div class="col-md-3 px-1 my-1 my-md-0" data-toggle="tooltip" title="Project Status">
                 <select name="work_id" class="form-control form-control-sm" autocomplete="off">
                     <option value="" disabled selected>Select Work</option>
-                    @foreach ($boqCivilBudgets as $key => $boqCivilBudget)
+                    @foreach ($allWorks as $key => $boqCivilBudget)
                         <option value="{{ $key }}" {{ request('work_id') == $key ? 'selected' : '' }}>
                             {{ $boqCivilBudget['work_items'] ? $boqCivilBudget['work_items']->first()->boqCivilCalcWork->name : 'Work Name Not Available' }}
                         </option>

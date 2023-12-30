@@ -108,9 +108,9 @@
 <body>
 
 <div id="logo" class="pdflogo">
-    <img src="{{ asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="pdfimg">
+    <img src="{{ asset('images/ranksfc_log.png')}}" alt="Logo" class="pdfimg">
     <div class="clearfix"></div>
-    <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
+    <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
 </div>
 
 <div id="pageTitle" style="display: block; width: 100%;">
