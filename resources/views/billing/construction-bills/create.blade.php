@@ -126,7 +126,7 @@
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="title">Bill Title</label>
                     {{Form::text('title', old('title') ? old('title') : (!empty($constructionBill->title) ? $constructionBill->title : null),['class' => 'form-control','id' => 'title','autocomplete'=>"off"])}}
-                    
+
                 </div>
             </div>
             <div class="col-md-6">
@@ -191,19 +191,19 @@
                                                 </td>
                                                 <td><input type="number" name="amount[]" class="form-control form-control-sm text-center amount" min="0"  placeholder="0.00" value="{{$val->amount}}"></td>
                                                 <td><button class="btn btn-danger btn-sm deleteItem" type="button" tabindex="-1"><i class="fa fa-minus"></i></button></td>
-                                            </tr>                            
+                                            </tr>
                                         @endforeach
-                                    @endif 
+                                    @endif
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td>
                                             Total Bill Amount
-                                        </td>                    
+                                        </td>
                                         <td>  {{Form::number('bill_amount', old('bill_amount') ? old('bill_amount') : (!empty($constructionBill->bill_amount) ? $constructionBill->bill_amount : null),['class' => 'form-control bill_amount text-center','id' => 'bill_amount','autocomplete'=>"off",'readonly'])}}</td>
                                         <td>
                                         </td>
-                                    </tr>  
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -331,7 +331,7 @@
                     <td><button class="btn btn-danger btn-sm deleteItem" type="button" tabindex="-1"><i class="fa fa-minus"></i></button></td>
                 </tr>
             `;
-            $('#BillTitleTable tbody').append(row);  
+            $('#BillTitleTable tbody').append(row);
             $('.select2').select2({
                 scrollAfterSelect: true
             });
@@ -434,7 +434,7 @@
                                 $('#cost_center_id').val(ui.item.cost_center_id);
                                 $('#account_id').val(ui.item.account_id);
                                 GetWorkType(ui.item.value);
-                            
+
                                 return false;
                             }
                         });
@@ -471,7 +471,7 @@
                                 $('#project_id').val(ui.item.project_id);
                                 $('#cost_center_id').val(ui.item.cost_center_id);
                                 $('#account_id').val(ui.item.account_id);
-                            
+
                                 return false;
                             }
                         });
@@ -495,7 +495,7 @@
                         }
                     });
             }
-            
+
             $('#bill_received_date').datepicker({
                 format: "dd-mm-yyyy",
                 autoclose: true,

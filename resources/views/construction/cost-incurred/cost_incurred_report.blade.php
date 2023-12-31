@@ -29,7 +29,7 @@
                     @for ($i = 1; $i <= $total_month; $i++)
                         <th colspan="2">{{ $month_array[$i-1] }}</th>
                     @endfor
-                    
+
                     <th colspan="2">Total upto {{ $month_array[$total_month-1] }}</th>
                     <th rowspan="2">Yearly <br/> Targeted <br/> Budget </th>
                     <th rowspan="2">Total Yearly <br/> Achievement</th>
@@ -41,8 +41,8 @@
                         <th >Achivement</th>
                     @endfor
                      <th >Target</th>
-                    <th >Achivement</th> 
-                   
+                    <th >Achivement</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -70,11 +70,11 @@
                     <td>{{ $tentative_budget_total }}</td>
                     <td rowspan="2">
                         @if ($total_cost_as_per_boq && ($total_target/$total_cost_as_per_boq*$total_area_in_sft))
-                            {{ number_format($total_achievements_in_sft/($total_target/$total_cost_as_per_boq*$total_area_in_sft)*100,2) }} %    
+                            {{ number_format($total_achievements_in_sft/($total_target/$total_cost_as_per_boq*$total_area_in_sft)*100,2) }} %
                         @else
                             N/A
                         @endif
-                    </td>               
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -97,7 +97,7 @@
                     <td>3</td>
                     <td>In Percentage (%)</td>
                     @foreach($totalmonthlyAchievements as $key => $totalmonthlyAchievement)
-                        @php 
+                        @php
                             if ($totalmonthlyAchievement['target_in_sft']) {
                                 $percentage = $totalmonthlyAchievement['achievements_in_sft'] / $totalmonthlyAchievement['target_in_sft'] * 100;
                             }else{
@@ -110,7 +110,7 @@
                     <td></td>
                     <td>
                         @if ($total_target_in_sft)
-                            {{ number_format($total_achievements_in_sft / $total_target_in_sft * 100, 2 ) }} %   
+                            {{ number_format($total_achievements_in_sft / $total_target_in_sft * 100, 2 ) }} %
                         @else
                             N/A
                         @endif
