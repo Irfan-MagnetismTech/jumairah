@@ -155,7 +155,7 @@
                 @endforeach
             </tbody>
         </table>
-        <table style="width: 50%; margin-top:20px;">
+        {{-- <table style="width: 50%; margin-top:20px;">
             <thead>
                 <tr>
                     <th>In(%)</th>
@@ -174,7 +174,7 @@
                 </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table> --}}
     </div>
 
     <footer style="position: absolute; bottom: 30px;">

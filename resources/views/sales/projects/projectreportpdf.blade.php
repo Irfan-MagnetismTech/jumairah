@@ -96,9 +96,9 @@
             <th>Car<br>Parking</th>
             <th>Utility</th>
             <th>Reserve<br>Fund</th>
-            <th>Delay<br>Charge</th>
+            {{-- <th>Delay<br>Charge</th> --}}
             <th>Others</th>
-            <th>Modification</th>
+            {{-- <th>Modification</th> --}}
             <th>Total<br>Value</th>
             <th>Payable<br>Till Date</th>
             <th>Paid<br>Amount</th>
@@ -124,9 +124,9 @@
                 <td>@money($apartment->sell->parking_price)</td>
                 <td>@money($apartment->sell->utility_fees)</td>
                 <td>@money($apartment->sell->reserve_fund)</td>
-                <td>Later</td>
+                {{-- <td>Later</td> --}}
                 <td>@money($apartment->sell->others)</td>
-                <td>Later</td>
+                {{-- <td>Later</td> --}}
                 <td>@money($apartment->sell->total_value)</td>
                 <td> @money($apartment->sell->DueTillToday) </td>
                 <td>
@@ -165,9 +165,9 @@
             <td>@money($apartments->sum('sell.parking_price'))</td>
             <td>@money($apartments->sum('sell.utility_fees'))</td>
             <td>@money($apartments->sum('sell.reserve_fund'))</td>
-            <td>Later</td>
+            {{-- <td>Later</td> --}}
             <td>@money($apartments->sum('sell.others'))</td>
-            <td>Later</td>
+            {{-- <td>Later</td> --}}
             <td>@money($apartments->sum('sell.total_value'))</td>
             <td>@money($apartments->sum('sell.dueTillToday'))</td>
             <td> @money($apartments->sum('sales_collections_sum_received_amount')) </td>
