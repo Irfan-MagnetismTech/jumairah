@@ -237,7 +237,7 @@
                     {{Form::textarea('remarks', old('remarks') ? old('remarks') : (!empty($constructionBill->remarks) ? $constructionBill->remarks : null),['class' => 'form-control','id' => 'remarks', 'rows'=>2, 'autocomplete'=>"off"])}}
                 </div>
             </div>
-            <div class="col-md-4 col-xl-4">
+            {{-- <div class="col-md-4 col-xl-4">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="year">Year (forcasted)<span class="text-danger">*</span></label>
                     <select name="year" id="year" class="form-control">
@@ -247,8 +247,8 @@
                         @endfor
                     </select>
                 </div>
-            </div>
-            <div class="col-md-4 col-xl-4">
+            </div> --}}
+            {{-- <div class="col-md-4 col-xl-4">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="month">Month (forcasted)<span class="text-danger">*</span></label>
                     <select name="month" id="month" class="form-control">
@@ -258,8 +258,8 @@
                         @endfor
                     </select>
                 </div>
-            </div>
-            <div class="col-md-4 col-xl-4">
+            </div> --}}
+            {{-- <div class="col-md-4 col-xl-4">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="week">Week (forcasted)<span class="text-danger">*</span></label>
                     <select name="week" id="week" class="form-control">
@@ -269,7 +269,7 @@
                         @endfor
                     </select>
                 </div>
-            </div>
+            </div> --}}
         </div><!-- end row -->
 
 
