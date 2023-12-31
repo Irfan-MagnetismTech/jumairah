@@ -5,7 +5,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/Datatables/dataTables.bootstrap4.min.css')}}">
 @endsection
 
-
+@section('breadcrumb-title')
+        Work Plan
+@endsection
 
 
 @section('breadcrumb-button')

@@ -6,7 +6,9 @@
 @endsection
 
 
-
+@section('breadcrumb-title')
+    Material Plan
+@endsection
 
 @section('breadcrumb-button')
 <a href="{{ url('construction/material-budget-project-list') }}/{{ $year }}/{{ $month }}" class="btn btn-out-dashed btn-sm btn-warning"><i class="ti-list" title="Project List"></i></a>
