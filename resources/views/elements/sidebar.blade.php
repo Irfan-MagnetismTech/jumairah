@@ -2472,13 +2472,13 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('construction.labour-budget-year-List') ? 'active' : null }}">
+                        {{-- <li class="{{ request()->routeIs('construction.labour-budget-year-List') ? 'active' : null }}">
                             <a href="{{ route('construction.labour-budget-year-List') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">Labor Budget</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endcan
