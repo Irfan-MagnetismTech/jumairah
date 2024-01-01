@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Approval\ApprovalLayerDetails;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\Construction\WorkPlanRequest;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class WorkPlanController extends Controller
 {
@@ -114,7 +115,7 @@ class WorkPlanController extends Controller
             $workPlanData['user_id'] = auth()->id();
             $workPlanData['is_saved'] = 1;
             $workPlanData['applied_by'] = auth()->id();
-            
+
             $workPlanDetailData = array();
 
             foreach ($request->work_id as  $key => $data) {
@@ -252,7 +253,7 @@ class WorkPlanController extends Controller
             return $q->where('year', $year)->where('month', $month)->groupBy('work_id');
         })
         ->get();
-        return \PDF::loadview('construction.workplan.pdf', compact('currentYearPlans'))->setPaper('a4', 'landscape')->stream('action-plan.pdf');
+        return PDF::loadview('construction.workplan.pdf', compact('currentYearPlans'))->setPaper('a4', 'landscape')->stream('action-plan.pdf');
     }
 
     /**
@@ -393,7 +394,7 @@ class WorkPlanController extends Controller
                    if($approvalData->layer_key == $check_approval->layer_key && $approvalData->status == 'Approved') {
 
                    }
-                    });   
+                    });
                 return redirect()->route('construction.planDetails', ['year' => $year, 'month' => $month])->with('message', 'Data has been approved successfully');
         }catch(QueryException $e){
             return redirect()->back()->withInput()->withErrors($e->getMessage());

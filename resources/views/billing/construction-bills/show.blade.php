@@ -37,12 +37,12 @@
             </div> --}}
             <div class="container" style= "width:100%; margin-top:8px;">
                 <div class="text-left" style="float:left; width:80%;">
-                    <p>{{$constructionBill->date}}</p> 
+                    <p>{{$constructionBill->date}}</p>
                 </div>
                 <div class="text-center float-right" style="float: right; width:20%;">
                     <p> Bill Sl. No. {{ $constructionBill?->bill_no }} </p>
                 </div>
-        
+
             </div>
                 <p style="text-align: center; margin-top: 40px;padding-left: 30%!important;" class="text-center pl-5"><strong>Supplier Name: {{$constructionBill?->supplier?->name}}</strong></p>
                 <P style="text-align: center;">Project Name: {{$constructionBill?->project?->name}} </P>
@@ -60,7 +60,7 @@
                                 <th style="width: 18%;">Adjusted <br>Amount</th>
                             </tr>
                         </thead>
-                       
+
                         @php
                             $cumulitive_bill = 0;
                             $paid_amount = 0;
@@ -83,7 +83,7 @@
                         @endphp
                         <tbody>
                         @foreach ($All_dates as $key => $value)
-        
+
                             @if (isset($advance[$value]))
                                 @foreach ($advance[$value] as $key2 => $value2)
                                     <tr>
@@ -103,7 +103,7 @@
                             @if(isset($allConstructionBill[$value]))
                                 @foreach ($allConstructionBill[$value] as $key3 => $value3)
                                     <tr>
-                                        <td class="textCenter">{{addOrdinalNumberSuffix($bill_no)}} Bill ( {{$value3->workorderRates->work_level}}) </td>
+                                        <td class="textCenter">{{addOrdinalNumberSuffix($bill_no)}} Bill ( {{$value3?->workorderRates?->work_level ?? ''}}) </td>
                                         <td class="textCenter">Tk.</td>
                                         <td class="textRight" style="padding-right:5px">@money($value3->bill_amount)</td>
                                         @php
@@ -116,7 +116,7 @@
                                         @endphp
                                         <td class="textRight" style="padding-right:5px">@money($cumulitive_bill)</td>
                                         <td class="textRight" style="padding-right:5px">@money($value3->paidBill)</td>
-                                        
+
                                         @if ($loop->last)
                                             <td class="textRight" style="padding-right:5px">0.00</td>
                                         @else
@@ -128,8 +128,8 @@
                                             @else
                                                 <td class="textRight" style="padding-right:5px">0.00</td>
                                             @endif
-                                            
-                                            
+
+
                                         @endif
                                         <td class="textRight" style="padding-right:5px">@money($value3->adjusted_amount)</td>
                                     </tr>
@@ -227,7 +227,7 @@
                         <tr style="width: 100%;" class="hide_all">
                             <td style="width: 90%" class="hide_all">
                                 <strong>Bill payable against this {{ addOrdinalNumberSuffix($bill_no - 1) }} no.bill</strong>
-                                <strong>(After Advance adustment)</strong>      
+                                <strong>(After Advance adustment)</strong>
                             </td>
                             <td class="hide_all"></td>
                             <td style="width: 10%" class="textRight hide_all">@money($cumulitive_bill - $security - $paid_amount - $adjusted_amount - $due_payable)</td>
@@ -237,15 +237,14 @@
                             <td class="hide_all"></td>
                         </tr>
                     </tfoot>
-                    </table>            
+                    </table>
                 </div>
-        
-        
-        
-        
-        
+
+
+
+
+
         </div>
     </div>
 
 @endsection
-

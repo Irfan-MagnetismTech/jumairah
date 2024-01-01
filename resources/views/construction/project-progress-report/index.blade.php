@@ -10,7 +10,7 @@
 @endsection
 
 @section('breadcrumb-button')
-    <a href="{{ url('construction.monthly_progress_report.index') }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
+    <a href="{{ route('construction.monthly_progress_report.create') }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
 @endsection
 
 

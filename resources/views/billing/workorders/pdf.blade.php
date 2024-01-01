@@ -8,6 +8,12 @@
     <title>Work Order PDF</title>
 </head>
 <style>
+
+.breakWords{
+    word-wrap: break-word;
+    white-space: normal;
+    text-align: left;
+}
     .textUpper{
         text-transform: uppercase;
     }
@@ -129,8 +135,8 @@
     </div>
     <div class="container" style= "width:100%; margin-top: 50px;">
         <div class="text-left" style="float:left; width:75%;">
-            <p style="text-decoration: overline;">(Engr. Biswajit Chowdhury)</p>
-            <p>GM (Construction) & Head of EME</p>
+            <p style="text-decoration: overline;">(Engr. KD A)</p>
+            <p>GM (Construction)</p>
         </div>
         <div class="text-center" style="float:left; width:25%;">
             <p style="text-decoration: overline;">Signature of Contractor</p>
@@ -214,7 +220,7 @@
         @foreach ($workorder->workorderRates as $rate)
         <tr>
             <td style="text-align: center"> {{$loop->iteration}} </td>
-            <td style="font-size: 12px;">
+            <td style="font-size: 12px;max-width: 290px!important;" class="breakWords">
                 <strong> {{$rate->work_level}} </strong>
 
                 {{$rate->work_description}}

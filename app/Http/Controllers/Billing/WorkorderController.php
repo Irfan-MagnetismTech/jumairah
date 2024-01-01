@@ -17,6 +17,8 @@ use App\Http\Requests\StoreWorkorderRequest;
 use App\Http\Requests\UpdateWorkorderRequest;
 use App\Services\UniqueNoGenaratorService;
 use Illuminate\Http\Request;
+// use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class WorkorderController extends Controller
 {
@@ -219,7 +221,14 @@ class WorkorderController extends Controller
         $workorder->load('appliedBy.employee');
         $approvals = Approval::query()->with(['user.employee', 'approvalLayerDetails'])->where('approvable_id', $workorder->id)->where('approvable_type', Workorder::class)->get();
 
-        return \PDF::loadview('billing.workorders.pdf', compact('approvals','workorder'))->stream('billing.workorder.pdf');
+        // $pdf = new Dompdf();
+
+        // $pdf->loadHtml(view('billing.workorders.pdf', compact('approvals','workorder')));
+        // //load view
+        // $pdf->setPaper('a4', 'landscape');
+        // $pdf->render();
+        // $pdf->stream();
+        return PDF::loadview('billing.workorders.pdf', compact('approvals','workorder'))->stream('billing.workorder.pdf');
         // return view('billing.workorders.pdf', compact('workorder'));
     }
 
