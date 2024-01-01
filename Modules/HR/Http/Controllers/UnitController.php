@@ -12,6 +12,15 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class UnitController extends Controller
 {
     use AuthorizesRequests;
+
+    function __construct()
+    {
+        $this->middleware('permission:unit-view|unit-create|unit-edit|unit-delete', ['only' => ['index','show', 'getmaterialmovementsPdf', 'movmentOutApproval']]);
+        $this->middleware('permission:unit-create', ['only' => ['create','store']]);
+        $this->middleware('permission:unit-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:unit-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
