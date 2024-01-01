@@ -212,8 +212,8 @@
                     @foreach($BoqEmeCalculationsGbfloor as $BoqEmeCalculationsGbitem)
                         <tr class="balanceLineStyle hide_material second_line_{{$BoqEmeCalculationsGbitem->first()->first()->first()->floor_id}}">
                             <td class="text-left " style="padding-left: 15px!important;">{{$sloop = $floop .'.'.  $loop->iteration}}</td>
-                            <td class="text-left second_layer" id="{{'floor_name_'.$BoqEmeCalculationsGbitem->first()->first()->first()->floor_id ?? 0}}" style="padding-left: 30px!important;">
-                                {{ $BoqEmeCalculationsGbitem->first()->first()->first()->floor->name ?? '- - - -' }}
+                            <td class="text-left second_layer" id="{{'floor_name_'.$BoqEmeCalculationsGbitem->first()->first()->first->floor_id ?? 0}}" style="padding-left: 30px!important;">
+                                {{ $BoqEmeCalculationsGbitem->first()->first()->first()->BoqFloorProject->floor->name ?? '- - - -' }}
                             </td>
                             <td colspan="6"></td>
                         </tr>

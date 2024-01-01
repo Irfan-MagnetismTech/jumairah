@@ -90,6 +90,7 @@
                                             <input type="text" name="floor_name[]" value="{{old('floor_name')[$key]}}" class="form-control form-control-sm floor_name" autocomplete="off">
                                         </td>
                                         <td>
+                                            <input type="hidden" name="boq_eme_rate_id[]" value="{{old('boq_eme_rate_id')[$key]}}" id="boq_eme_rate_id" required>
                                             <input type="hidden" name="material_id[]" value="{{old('material_id')[$key]}}" class="material_id" id="material_id" required>
                                             <input type="text" name="material_name[]" value="{{old('material_name')[$key]}}" class="form-control form-control-sm material_name" autocomplete="off" required>
                                         </td>
