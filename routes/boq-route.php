@@ -153,7 +153,7 @@ Route::middleware( 'auth' )->prefix( 'boq' )->as( 'boq.' )->group( function () {
 						->parameter( 'consumables', 'consumable' );
 
 					Route::get( '/edit/consumables/{head}', [\App\Http\Controllers\Boq\Departments\Civil\Cost\BoqCivilConsumableBudgetController::class, 'editConsumableBudgetWithHead'] )
-						->name( 'consumables.edit' );
+						->name( 'related-material.edit' );
 				} );
 
 				// Cost analysis routes

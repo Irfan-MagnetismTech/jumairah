@@ -498,7 +498,7 @@
                                     @endphp
 
                                     @if ($total > 0)
-                                        <th width="50%">Payable to Ranconfc</th>
+                                        <th width="50%">Payable to {{ asset(config('company_info.company_name')) }}</th>
                                         <th colspan="2" width="50%">{{ number_format(abs($total)) }}</th>
                                     @else
                                         <th width="50%">Payable to Client</th>

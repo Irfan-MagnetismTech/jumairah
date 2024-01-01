@@ -2073,15 +2073,15 @@
                     </ul>
                 </li>
             @endcan
-            @can('scm-material-budget-dashboard')
+            {{-- @can('scm-material-budget-dashboard')
                 <li class="{{ request()->routeIs('scm-material-budget-year-List') ? 'active' : null }}">
                     <a href="{{ route('scm-material-budget-year-List') }}">
                         <span class="pcoded-micon"><i class="fas fa-scroll"></i></span>
                         <span class="pcoded-mtext">Material Budgets</span>
                     </a>
                 </li>
-            @endcan
-            @can('masterrole-view')
+            @endcan --}}
+            {{-- @can('masterrole-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('icmdLaborBudget.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2107,7 +2107,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
             @can('stock-reports')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs(['mir-costcenter-List', 'mir-year-List', 'mir-month-List', 'mir-get-report', 'costcenter_List', 'get_material', 'get_material_ledger']) ? 'active pcoded-trigger' : null }}">
@@ -2347,7 +2347,7 @@
                 </li>
             @endcan
 
-            @can('construction-material-plan-view')
+            {{-- @can('construction-material-plan-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('construction.work_plan.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2372,8 +2372,8 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
-            @can('construction-action-plan-view')
+            @endcan --}}
+            {{-- @can('construction-action-plan-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('construction.material_plan.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2398,7 +2398,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
             @can('work-cs-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('work-cs.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2472,13 +2472,13 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('construction.labour-budget-year-List') ? 'active' : null }}">
+                        {{-- <li class="{{ request()->routeIs('construction.labour-budget-year-List') ? 'active' : null }}">
                             <a href="{{ route('construction.labour-budget-year-List') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">Labor Budget</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endcan

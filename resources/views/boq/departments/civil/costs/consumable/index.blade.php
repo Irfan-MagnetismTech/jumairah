@@ -36,7 +36,7 @@
                         <td class="text-right">@money($consumable->total_amount)</td>
                         <td>
                             <div class="icon-btn">
-                                <a href="{{ route('boq.project.departments.civil.costs.consumables.edit', ['project' => $project, 'consumable' => $consumable]) }}" data-toggle="tooltip" title="Edit" class="btn btn-outline-warning">
+                                <a href="{{ route('boq.project.departments.civil.costs.related-material.edit', ['project' => $project, 'consumable' => $consumable]) }}" data-toggle="tooltip" title="Edit" class="btn btn-outline-warning">
                                     <i class="fas fa-pen"></i>
                                 </a>
                                 <form action="{{ route('boq.project.departments.civil.costs.consumables.destroy', ['project' => $project, 'consumable' => $consumable]) }}" method="POST" class="d-inline">

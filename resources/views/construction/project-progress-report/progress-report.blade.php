@@ -28,7 +28,7 @@
                     <th rowspan="2">Monthly <br>Target Area</th>
                     <th rowspan="2">Monthly <br>Achivement <br>Area</th>
                     <th rowspan="2">Total Buildup Area</th>
-                    <th rowspan="2">Remainning<br> portion (sft)</th>
+                    <th rowspan="2">Remaining<br> portion (sft)</th>
                     <th rowspan="2">% of completion</th>
                     <th rowspan="2">% of remaining (in sft)</th>
                 </tr>

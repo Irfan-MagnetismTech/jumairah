@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Construction\TentativeBudget;
 use App\Construction\TentativeBudgetDetail;
 use DB;
-use App\http\Requests\Construction\TentativeBudgetRequest;
+use App\Http\Requests\Construction\TentativeBudgetRequest;
 use Spatie\Permission\Traits\HasRoles;
 
 class TentativeBudgetController extends Controller

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Boq\Departments\Civil\Cost;
 
 use App\Boq\Configurations\BoqMaterialPriceWastage;
 use App\Boq\Departments\Civil\BoqCivilBudget;
+use App\Boq\Departments\Civil\RevisedSheet\BoqCivilRevisedSheet;
 use App\Http\Controllers\Controller;
 use App\Procurement\NestedMaterial;
 use App\Project;
@@ -148,6 +149,59 @@ class BoqCivilConsumableBudgetController extends Controller
                         ]
                     );
                     /* Update Boq Supreme budget end */
+
+                    /* Update Boq Revised Sheet */
+                    if($request->quantity[$key] != 0){
+                        $isExist = BoqCivilRevisedSheet::where('project_id', $project->id)
+                            ->where('boq_floor_id', $request->cost_head)
+                            ->where('nested_material_id', $nested_material_id)
+                            ->where('budget_for', 'Civil')
+                            ->where('escalation_no', '>=', 1)
+                            ->first();
+
+                        if(!$isExist){
+
+                            //delete previous data
+                            $project->boqRevisedBudgets()->where('budget_for', 'Civil')
+                                ->where('nested_material_id', $nested_material_id)
+                                ->where('boq_floor_id', $request->cost_head)
+                                ->delete();
+
+                            //Get total requisition quantity right now
+                            $totalRequisitionQuantity = $project->requisitionDetails()->where('floor_id', $request->cost_head)
+                                ->where('material_id', $nested_material_id)
+                                ->sum('quantity');
+
+                            $project->boqRevisedBudgets()->updateOrCreate(
+                                [
+                                    'boq_floor_id'           => $request->cost_head,
+                                    'nested_material_id'     => $nested_material_id,
+                                    'budget_for'             => 'Civil',
+                                ],
+                                [
+                                    'project_id'             => $project->id,
+                                    'budget_type'            => self::CONSUMABLE_COST_TYPE,
+                                    'boq_floor_id'           => $request->cost_head,
+                                    'nested_material_id'     => $nested_material_id,
+                                    'escalation_no'          => 0,
+                                    'escalation_date'        => now(),
+                                    'budget_for'             => 'Civil',
+                                    'primary_qty'            => $request->quantity[$key],
+                                    'primary_price'          => $request->rate[$key],
+                                    'primary_amount'         => $request->quantity[$key] * $request->rate[$key],
+                                    'used_qty'               => $totalRequisitionQuantity,
+                                    'current_balance_qty'    => $request->quantity[$key] - $totalRequisitionQuantity,
+                                    'revised_qty'            => 0,
+                                    'revised_price'          => 0,
+                                    'price_after_revised'    => $request->rate[$key],
+                                    'qty_after_revised'      => $request->quantity[$key],
+                                    'amount_after_revised'   => $request->quantity[$key] * $request->rate[$key],
+                                    'increased_or_decreased_amount' => 0,
+                                    'remarks'                => 'Initial Budget',
+                                ]
+                            );
+                        }
+                    }
                 }
             });
 

@@ -129,7 +129,7 @@
                                         {!! Form::close() !!}
                                         @endif
                                     @endif
-                                    <a href="{{ url("construction-bills/$constructionBill->id") }}" data-toggle="tooltip" title="Details" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                                    {{-- <a href="{{ url("construction-bills/$constructionBill->id") }}" data-toggle="tooltip" title="Details" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a> --}}
                                         <a href="{{ url("constructionbillpdf/$constructionBill->id") }}" data-toggle="tooltip" title="PDF" class="btn btn-outline-primary"><i class="fas fa-file"></i></a>
                                 @endif
 

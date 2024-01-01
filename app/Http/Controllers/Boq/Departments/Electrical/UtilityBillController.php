@@ -169,7 +169,7 @@ class UtilityBillController extends Controller
         $canvas->page_text(
             $width / 3,
             $height / 2,
-            'Jumairah Holdings',
+            'Rancon FC',
             null,
             55,
             array(0, 0, 0),

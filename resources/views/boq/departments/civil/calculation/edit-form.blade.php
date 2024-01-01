@@ -176,7 +176,7 @@
                 <td> <i class="btn btn-danger btn-sm fa fa-minus remove-calculation-row"></i> </td>
             </tr>
             `;
-        
+
             $('#calculation_table tbody').append(row);
             }
         @endif
@@ -189,7 +189,7 @@
                     <option value="{{ $boq_reinforcement_measurement->id }}">{{ $boq_reinforcement_measurement->dia }} mm</option>
                 @endforeach
             </select>`;
-        
+
             let row = `
             <tr>
                 <td> <input type="text" name="sub_location_name[]" class="form-control sub_location" placeholder="Sub-location"> </td>
@@ -205,7 +205,7 @@
                 </td>
                 <td> <i class="btn btn-danger btn-sm fa fa-minus remove-calculation-row"></i> </td>
             </tr>`;
-        
+
             $('#calculation_table tbody').append(row);
             }
         @endif
