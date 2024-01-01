@@ -352,13 +352,15 @@
             @endcan --}}
         </ul>
 
-        @canany(['bd-source-view', 'bd-lead-generation-view', 'project-layout', 'bd-feasibility-locations-view',
+        @canany(['mouza-view','bd-source-view', 'bd-Feasibility-particuler-view', 'bd-Feasibility-referene-fees-view','BD-Feasibility-copy','bd-lead-generation-view', 'project-layout', 'bd-feasibility-locations-view',
             'project-view', 'bd-monthly-budget-view', 'bd-yearly-budget-view', 'bd-priority-land-view', 'bd-inventory-view',
             'parking-view', 'apartment-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Business Development (BD)</div>
         @endcanany
 
+
         <ul class="pcoded-item pcoded-left-item">
+            @canany(['mouza-view','bd-source-view', 'bd-Feasibility-particuler-view', 'bd-Feasibility-referene-fees-view','BD-Feasibility-copy'])
             <li
                 class="pcoded-hasmenu {{ request()->routeIs(['feasi_perticular.*']) ? 'active pcoded-trigger' : null }}">
                 <a href="javascript:void(0)">
@@ -489,6 +491,7 @@
                     </ul>
                 @endcan
             </li>
+            @endcanany
 
             @can('bd-lead-generation-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bd_lead.*') ? 'active pcoded-trigger' : null }}">
