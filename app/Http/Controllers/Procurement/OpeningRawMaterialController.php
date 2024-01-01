@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\DB;
 
 class OpeningRawMaterialController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+        $this->middleware('permission:opening-stock-view|opening-stock-create|opening-stock-edit|opening-stock-delete', ['only' => ['index','show', 'getmaterialmovementsPdf', 'movmentOutApproval']]);
+        $this->middleware('permission:opening-stock-create', ['only' => ['create','store']]);
+        $this->middleware('permission:opening-stock-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:opening-stock-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
