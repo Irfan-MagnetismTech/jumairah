@@ -105,7 +105,7 @@
                         </tr>
                         @php
                           $rowSpan = 1;
-                            $total = $BoqEmeCalculationsGbitem->flatten()->sum('total_amount');
+                            $total = $BoqEmeCalculationsGbitem->flatten()->sum('total_material_amount');
                             $rowSpan += count($BoqEmeCalculationsGbitem);
                         @endphp
                         @foreach($BoqEmeCalculationsGbitem as $BoqEmeCalculationsGbmaterial)

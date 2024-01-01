@@ -49,7 +49,7 @@ class BoqElectricalCalculationController extends Controller
 
         $BoqEmeCalculations = $query->get()->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
 
-        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->get();
+        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->having('type', 0)->get();
         $EmeBudgetHeads = EmeBudgetHead::get();
 
         return view('boq.departments.electrical.calculations.index', compact('project', 'BoqEmeCalculations', 'boqEmeRates', 'EmeBudgetHeads'));
@@ -63,7 +63,7 @@ class BoqElectricalCalculationController extends Controller
     public function create(Project $project)
     {
         $formType = "create";
-        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->get();
+        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->having('type', 0)->get();
         $EmeBudgetHeads = EmeBudgetHead::get();
         return view('boq.departments.electrical.calculations.create', compact('project', 'boqEmeRates', 'formType', 'EmeBudgetHeads'));
     }
@@ -150,7 +150,7 @@ class BoqElectricalCalculationController extends Controller
     {
         $formType = 'edit';
         $BoqEmeDatas =  BoqEmeCalculation::findOrFail($BoqEmeCalculationId);
-        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->get();
+        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->having('type', 0)->get();
         $EmeBudgetHeads = EmeBudgetHead::get();
         return view('boq.departments.electrical.calculations.create', compact('project', 'BoqEmeDatas', 'BoqEmeCalculationId', 'formType', 'boqEmeRates', 'EmeBudgetHeads'));
     }
@@ -289,20 +289,20 @@ class BoqElectricalCalculationController extends Controller
 
         $data = BoqEmeCalculation::with(['BoqFloorProject', 'NestedMaterial', 'NestedMaterialSecondLayer', 'BoqEmeRate', 'EmeBudgetHead'])->where('project_id', $project->id)->get();
 
-        $dataFiltered = $data->filter(function ($item) {
+        // $dataFiltered = $data->filter(function ($item) {
 
-            $check_approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
-                $q->where('name', 'BOQ EME ITEM CALCULATION');
-            })->orderBy('order_by', 'desc')->get();
-            $count = $item->approval->count();
-            $data = $item->approval;
-            if ($count == 0) {
-                return false;
-            }
-            return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
-        });
-        $BoqEmeCalculations = $dataFiltered->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
-        $pdf = \PDF::loadview('boq.departments.electrical.calculations.pdf', compact('BoqEmeCalculations', 'project'))->setPaper('A4', 'landscape');
+        //     $check_approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
+        //         $q->where('name', 'BOQ EME ITEM CALCULATION');
+        //     })->orderBy('order_by', 'desc')->get();
+        //     $count = $item->approval->count();
+        //     $data = $item->approval;
+        //     if ($count == 0) {
+        //         return false;
+        //     }
+        //     return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
+        // });
+        $BoqEmeCalculations = $data->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
+        $pdf = PDF::loadview('boq.departments.electrical.calculations.pdf', compact('BoqEmeCalculations', 'project'))->setPaper('A4', 'landscape');
         $pdf->output();
         $canvas = $pdf->getDomPDF()->getCanvas();
 

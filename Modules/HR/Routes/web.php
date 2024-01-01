@@ -84,7 +84,7 @@ Route::prefix('hr')->group(function () {
             'designations' => DesignationController::class,
             'police-stations' => PoliceStationController::class,
             'post-offices' => PostOfficeController::class,
-            'units' => UnitController::class,
+            // 'units' => UnitController::class,
             'shifts' => ShiftController::class,
             'religions' => ReligionController::class,
             'employee-types' => EmployeeTypeController::class,

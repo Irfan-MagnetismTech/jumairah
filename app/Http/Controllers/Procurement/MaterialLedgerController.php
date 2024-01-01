@@ -10,6 +10,7 @@ use App\Procurement\NestedMaterial;
 use App\Http\Controllers\Controller;
 use App\Procurement\BoqSupremeBudget;
 use App\Procurement\Materialmovement;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MaterialLedgerController extends Controller
 {
@@ -21,7 +22,7 @@ class MaterialLedgerController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:stock-reports', ['only' => ['index','projectList', 'Getmaterial', 'GetMaterialLedger', 'GetMaterialLedgerPdf']]);
+        $this->middleware('permission:stock-reports', ['only' => ['index', 'projectList', 'Getmaterial', 'GetMaterialLedger', 'GetMaterialLedgerPdf']]);
     }
 
     /**
@@ -34,112 +35,116 @@ class MaterialLedgerController extends Controller
         return view('procurement.stockledger.index');
     }
 
-    public function projectList(){
+    public function projectList()
+    {
         $datas = StockHistory::with('costCenter')
-        ->orderBy('cost_center_id')
-        ->latest()
-        ->get()
-        ->map(function($item, $key){
-            return [
-                'cost_center_id'=>$item->cost_center_id,
-                'cost_center_name'=>$item->costCenter->name,
-            ];
-        })
-        ->groupBy('cost_center_id')
-        ->toArray();
+            ->orderBy('cost_center_id')
+            ->latest()
+            ->get()
+            ->map(function ($item, $key) {
+                return [
+                    'cost_center_id' => $item->cost_center_id,
+                    'cost_center_name' => $item->costCenter->name,
+                ];
+            })
+            ->groupBy('cost_center_id')
+            ->toArray();
         return view('procurement.stockledger.projectlist', compact('datas'));
     }
 
-    public function Getmaterial($cost_center_id){
+    public function Getmaterial($cost_center_id)
+    {
         $datas = StockHistory::with('nestedMaterial')
-                    ->where('cost_center_id',$cost_center_id)
-                    ->orderBy('material_id')
-                    ->latest()
-                    ->get()
-                    ->map(function($item, $key){
-                        return [
-                            'material_id'=>$item->material_id,
-                            'material_name'=>$item->nestedMaterial->name,
-                        ];
-                    })
-                    ->groupBy('material_id')
-                    ->toArray();
+            ->where('cost_center_id', $cost_center_id)
+            ->orderBy('material_id')
+            ->latest()
+            ->get()
+            ->map(function ($item, $key) {
+                return [
+                    'material_id' => $item->material_id,
+                    'material_name' => $item->nestedMaterial->name,
+                ];
+            })
+            ->groupBy('material_id')
+            ->toArray();
 
-        return view('procurement.stockledger.materiallist', compact('datas','cost_center_id'));
+        return view('procurement.stockledger.materiallist', compact('datas', 'cost_center_id'));
     }
 
-    public function GetMaterialLedger($cost_center_id,$material_id){
-            $receive_from_purchase = StockHistory::query()
-                                                ->with('MaterialReceive')
-                                                ->where('cost_center_id',$cost_center_id)
-                                                ->where('material_id',$material_id)
-                                                ->whereNotNull('material_receive_report_id')
-                                                ->get()
-                                                ->groupBy('date')
-                                                ->map(fn($item) => [
-                                                                'sum'           => $item->sum('quantity'),
-                                                                'item'          => $item
-                                                                ]);
+    public function GetMaterialLedger($cost_center_id, $material_id)
+    {
+        $receive_from_purchase = StockHistory::query()
+            ->with('MaterialReceive')
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->whereNotNull('material_receive_report_id')
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
 
-            $issued_for_work_site = StockHistory::query()
-                                                ->with('storeIssue')
-                                                ->where('cost_center_id',$cost_center_id)
-                                                ->where('material_id',$material_id)
-                                                ->whereNotNull('store_issue_id')
-                                                ->get()
-                                                ->groupBy('date')
-                                                ->map(fn($item) => [
-                                                                    'sum'           => $item->sum('quantity'),
-                                                                    'item'          => $item
-                                                                ]);
-            $data_groups = StockHistory::query()
-                                        ->with('nestedMaterial','costCenter')
-                                        ->where('cost_center_id',$cost_center_id)
-                                        ->where('material_id',$material_id)
-                                        ->orderBy('date', 'desc')
-                                        ->get()
-                                        ->groupBy('date');
+        $issued_for_work_site = StockHistory::query()
+            ->with('storeIssue')
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->whereNotNull('store_issue_id')
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
+        $data_groups = StockHistory::query()
+            ->with('nestedMaterial', 'costCenter')
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->orderBy('date', 'desc')
+            ->get()
+            ->groupBy('date');
 
 
-            $movement_In = StockHistory::with('movementin')
-                                        ->where('stockable_type', MovementIn::class)
-                                        ->where('cost_center_id',$cost_center_id)
-                                        ->where('material_id',$material_id)
-                                        ->get()
-                                        ->groupBy('date')
-                                        ->map(fn($item) => [
-                                                                'sum'           => $item->sum('quantity'),
-                                                                'item'          => $item
-                                                            ]);
-            $movement_out = StockHistory::with('movementout')
-                                        ->where('stockable_type', Materialmovement::class)
-                                        ->where('cost_center_id',$cost_center_id)
-                                        ->where('material_id',$material_id)
-                                        ->get()
-                                        ->groupBy('date')
-                                        ->map(fn($item) => [
-                                                            'sum'           => $item->sum('quantity'),
-                                                            'item'          => $item
-                                                        ]);
+        $movement_In = StockHistory::with('movementin')
+            ->where('stockable_type', MovementIn::class)
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
+        $movement_out = StockHistory::with('movementout')
+            ->where('stockable_type', Materialmovement::class)
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
 
-            $depth = (int) NestedMaterial::withDepth()->find($material_id)->depth;
-            if($depth >= 3){
-                $material_depth = NestedMaterial::find($material_id)->parent->id;
-            }else{
-                $material_depth = $material_id;
-            }
+        $depth = (int) NestedMaterial::withDepth()->find($material_id)->depth;
+        if ($depth >= 3) {
+            $material_depth = NestedMaterial::find($material_id)->parent->id;
+        } else {
+            $material_depth = $material_id;
+        }
 
-            $TotalEstimatedQuantity = BoqSupremeBudget::where('material_id', $material_depth)
-                                                        ->whereHas('costCenter', function ($query) use ($cost_center_id) {
-                                                            return $query->where('id',$cost_center_id);
-                                                        })
-                                                        ->get()
-                                                        ->sum('quantity');
-            // dd($TotalEstimatedQuantity,$data_groups,$receive_from_purchase,$issued_for_work_site,$movement_In,$movement_out);
-        return view('procurement.stockledger.index',compact('cost_center_id','material_id','TotalEstimatedQuantity','movement_In','movement_out','data_groups','issued_for_work_site','receive_from_purchase'));
+        $TotalEstimatedQuantity = BoqSupremeBudget::where('material_id', $material_depth)
+            ->whereHas('costCenter', function ($query) use ($cost_center_id) {
+                return $query->where('id', $cost_center_id);
+            })
+            ->get()
+            ->sum('quantity');
+        // dd($TotalEstimatedQuantity,$data_groups,$receive_from_purchase,$issued_for_work_site,$movement_In,$movement_out);
+        return view('procurement.stockledger.index', compact('cost_center_id', 'material_id', 'TotalEstimatedQuantity', 'movement_In', 'movement_out', 'data_groups', 'issued_for_work_site', 'receive_from_purchase'));
     }
 
-    public function GetMaterialLedgers(Request $request){
+    public function GetMaterialLedgers(Request $request)
+    {
         $reportType = $request->reportType;
         $project_name = $request->project_name;
         $project_id = $request->project_id;
@@ -167,59 +172,60 @@ class MaterialLedgerController extends Controller
         }
     }
 
-    public function GetMaterialLedgerPdf($cost_center_id,$material_id){
+    public function GetMaterialLedgerPdf($cost_center_id, $material_id)
+    {
         $receive_from_purchase = StockHistory::query()
-                                            ->with('MaterialReceive')
-                                            ->where('cost_center_id',$cost_center_id)
-                                            ->where('material_id',$material_id)
-                                            ->whereNotNull('material_receive_report_id')
-                                            ->get()
-                                            ->groupBy('date')
-                                            ->map(fn($item) => [
-                                                        'sum'           => $item->sum('quantity'),
-                                                        'item'          => $item
-                                                    ]);
+            ->with('MaterialReceive')
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->whereNotNull('material_receive_report_id')
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
 
         $issued_for_work_site = StockHistory::query()
-                                            ->with('storeIssue')
-                                            ->where('cost_center_id',$cost_center_id)
-                                            ->where('material_id',$material_id)
-                                            ->whereNotNull('store_issue_id')
-                                            ->get()
-                                            ->groupBy('date')
-                                            ->map(fn($item) => [
-                                                        'sum'           => $item->sum('quantity'),
-                                                        'item'          => $item
-                                                    ]);
+            ->with('storeIssue')
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->whereNotNull('store_issue_id')
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
         $data_groups = StockHistory::query()
-                                    ->with('nestedMaterial')
-                                    ->where('cost_center_id',$cost_center_id)
-                                    ->where('material_id',$material_id)
-                                    ->get()
-                                    ->groupBy('date')
-                                    ->orderBy('date', 'desc');
+            ->with('nestedMaterial')
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->orderBy('date', 'desc')
+            ->get()
+            ->groupBy('date');
 
         $movement_In = StockHistory::with('movementin')
-                                    ->where('stockable_type', MovementIn::class)
-                                    ->where('cost_center_id',$cost_center_id)
-                                    ->where('material_id',$material_id)
-                                    ->get()
-                                    ->groupBy('date')
-                                    ->map(fn($item) => [
-                                                'sum'           => $item->sum('quantity'),
-                                                'item'          => $item
-                                            ]);
+            ->where('stockable_type', MovementIn::class)
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
 
         $movement_out = StockHistory::with('movementout')
-                                    ->where('stockable_type', Materialmovement::class)
-                                    ->where('cost_center_id',$cost_center_id)
-                                    ->where('material_id',$material_id)
-                                    ->get()
-                                    ->groupBy('date')
-                                    ->map(fn($item) => [
-                                                'sum'           => $item->sum('quantity'),
-                                                'item'          => $item
-                                            ]);
+            ->where('stockable_type', Materialmovement::class)
+            ->where('cost_center_id', $cost_center_id)
+            ->where('material_id', $material_id)
+            ->get()
+            ->groupBy('date')
+            ->map(fn ($item) => [
+                'sum'           => $item->sum('quantity'),
+                'item'          => $item
+            ]);
 
         // $TotalEstimatedQuantity = BoqSupremeBudget::where('material_id', $material_id)
         //         ->whereHas('costCenter', function ($query) use ($cost_center_id) {
@@ -228,22 +234,22 @@ class MaterialLedgerController extends Controller
         //         ->get()
         //         ->sum('quantity');
         $depth = (int) NestedMaterial::withDepth()->find($material_id)->depth;
-        if($depth >= 3){
+        if ($depth >= 3) {
             $material_depth = NestedMaterial::find($material_id)->parent->id;
-        }else{
+        } else {
             $material_depth = $material_id;
         }
 
         $TotalEstimatedQuantity = BoqSupremeBudget::where('material_id', $material_depth)
-                                                    ->whereHas('costCenter', function ($query) use ($cost_center_id) {
-                                                        return $query->where('id',$cost_center_id);
-                                                    })
-                                                    ->get()
-                                                    ->sum('quantity');
+            ->whereHas('costCenter', function ($query) use ($cost_center_id) {
+                return $query->where('id', $cost_center_id);
+            })
+            ->get()
+            ->sum('quantity');
 
-                // return view('procurement.stockledger.pdf',compact('cost_center_id','material_id','TotalEstimatedQuantity','movement_In','movement_out','data_groups','issued_for_work_site','receive_from_purchase'));
-        return \PDF::loadview('procurement.stockledger.pdf',compact('cost_center_id','material_id','TotalEstimatedQuantity','movement_In','movement_out','data_groups','issued_for_work_site','receive_from_purchase'))
-                ->setPaper('8.5x14', 'landscape')
-                ->stream('material_ledger.pdf');
+        // return view('procurement.stockledger.pdf',compact('cost_center_id','material_id','TotalEstimatedQuantity','movement_In','movement_out','data_groups','issued_for_work_site','receive_from_purchase'));
+        return PDF::loadview('procurement.stockledger.pdf', compact('cost_center_id', 'material_id', 'TotalEstimatedQuantity', 'movement_In', 'movement_out', 'data_groups', 'issued_for_work_site', 'receive_from_purchase'))
+            ->setPaper('8.5x14', 'landscape')
+            ->stream('material_ledger.pdf');
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Boq\Departments\Eme\BoqEmeBudget;
 use App\Boq\Departments\Eme\EmeBudgetHead;
 use App\Http\Requests\Boq\Eme\BoqEmeBudgetRequest;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class BoqEmeBudgetController extends Controller
 {
@@ -220,21 +221,21 @@ class BoqEmeBudgetController extends Controller
     public function pdf(Project $project)
     {
 
-        $data = BoqEmeBudget::query()->where('project_id', $project->id)->get();
+        $dataFiltered = BoqEmeBudget::query()->where('project_id', $project->id)->get();
 
-        $dataFiltered = $data->filter(function ($item) {
+        // $dataFiltered = $data->filter(function ($item) {
 
-            $check_approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
-                $q->where('name', 'BOQ EME BUDGET');
-            })->orderBy('order_by', 'desc')->get();
-            $count = $item->approval->count();
-            $data = $item->approval;
-            if ($count == 0) {
-                return false;
-            }
-            return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
-        });
-        $pdf = \PDF::loadview('boq.departments.electrical.budget.pdf', compact('dataFiltered', 'project'))->setPaper('A4', 'portrait');
+        //     $check_approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
+        //         $q->where('name', 'BOQ EME BUDGET');
+        //     })->orderBy('order_by', 'desc')->get();
+        //     $count = $item->approval->count();
+        //     $data = $item->approval;
+        //     if ($count == 0) {
+        //         return false;
+        //     }
+        //     return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
+        // });
+        $pdf = PDF::loadview('boq.departments.electrical.budget.pdf', compact('dataFiltered', 'project'))->setPaper('A4', 'portrait');
         $pdf->output();
         $canvas = $pdf->getDomPDF()->getCanvas();
 

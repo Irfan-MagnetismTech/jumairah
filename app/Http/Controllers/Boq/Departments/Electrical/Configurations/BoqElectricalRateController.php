@@ -36,7 +36,14 @@ class BoqElectricalRateController extends Controller
         $formType = 'create';
         $boq_works        = BoqWork::whereNull('parent_id')->get()->toTree();
         $leyer1NestedMaterial = NestedMaterial::with('descendants')->where('parent_id', null)->orderBy('id')->pluck('name', 'id');
-        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'leyer1NestedMaterial', 'formType', 'boq_works'));
+        $emeMaterial = NestedMaterial::where('name', 'ELECTRICAL MATERIALS')->first();
+        $secondMaterial = $materials = NestedMaterial::with('descendants')
+        ->where('parent_id', $emeMaterial->id)
+        ->orderBy('id')
+        ->pluck('name', 'id');
+
+        // dd($secondMaterial);
+        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'leyer1NestedMaterial', 'formType', 'boq_works', 'emeMaterial', 'secondMaterial'));
     }
 
     /**
@@ -106,7 +113,12 @@ class BoqElectricalRateController extends Controller
         $parent_data = BoqWork::ancestorsOf($BoqEmeDatas->boq_work_id)->pluck('name', 'id');
         $leyer1NestedMaterial = NestedMaterial::with('descendants')->whereNull('parent_id')->orderBy('id')->pluck('name', 'id');
         $leyer2NestedMaterial = NestedMaterial::with('descendants')->where('parent_id', $BoqEmeDatas->NestedMaterialSecondLayer->parent_id)->orderBy('id')->pluck('name', 'id');
-        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'formType', 'BoqEmeDatas', 'leyer1NestedMaterial', 'leyer2NestedMaterial', 'BoqEmeRateId', 'boq_works', 'parent_data'));
+        $emeMaterial = NestedMaterial::where('name', 'ELECTRICAL MATERIALS')->first();
+        $secondMaterial = $materials = NestedMaterial::with('descendants')
+        ->where('parent_id', $emeMaterial->id)
+        ->orderBy('id')
+        ->pluck('name', 'id');
+        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'formType', 'BoqEmeDatas', 'leyer1NestedMaterial', 'leyer2NestedMaterial', 'BoqEmeRateId', 'boq_works', 'parent_data', 'emeMaterial', 'secondMaterial'));
     }
 
     /**

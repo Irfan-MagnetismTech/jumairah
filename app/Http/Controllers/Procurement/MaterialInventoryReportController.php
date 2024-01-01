@@ -9,6 +9,7 @@ use App\Procurement\BoqSupremeBudget;
 use App\Procurement\NestedMaterial;
 use App\Procurement\MovementIn;
 use App\Procurement\Materialmovement;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MaterialInventoryReportController extends Controller
 {
@@ -18,7 +19,7 @@ class MaterialInventoryReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     function __construct()
     {
         $this->middleware('permission:stock-reports', ['only' => ['projectList','yearList', 'monthList', 'GetReportAll', 'GetReport', 'mirPdf']]);
@@ -145,7 +146,7 @@ public function GetReportAll($cost_center_id){
                             return $TotalEstimatedQuantity;
                         }
                 });
-                
+
     // $TotalEstimatedQuantity = BoqSupremeBudget::whereIn('material_id', $material_id)
     //                         ->whereHas('costCenter', function ($query) use ($cost_center_id) {
     //                             return $query->where('id',$cost_center_id);
@@ -192,9 +193,9 @@ public function GetReportAll($cost_center_id){
             ->orderBy('nested_materials.parent_id')
             ->get()
             ->groupBy('material_id');
-          
-    
-           
+
+
+
     $qr =[
         'cost_center_id' => $cost_center_id
     ];
@@ -301,7 +302,7 @@ public function GetReport(Request $request){
         //                         return $item->sum('quantity');
         //                     });
 
-        
+
         $TotalEstimatedQuantity = StockHistory::query()
         ->with('nestedMaterial')
         ->where('cost_center_id',$cost_center_id)
@@ -328,7 +329,7 @@ public function GetReport(Request $request){
                 return $TotalEstimatedQuantity;
             }
     });
-    
+
 
         /*for Net Cumulative Received start */
 
@@ -343,8 +344,8 @@ public function GetReport(Request $request){
             ->orderBy('nested_materials.parent_id')
             ->get()
             ->groupBy('material_id');
-            
-        
+
+
         $qr =[
             'cost_center_id' => $cost_center_id,
             'from_date'   => $fromdate,
@@ -354,7 +355,7 @@ public function GetReport(Request $request){
 }
 
 
-    
+
 
 public function mirPdf(Request $request){
     $cost_center_id = $request->attn['cost_center_id'];
@@ -454,7 +455,7 @@ public function mirPdf(Request $request){
                 //         ->map(function($item){
                 //             return $item->sum('quantity');
                 //         });
-                
+
                 $TotalEstimatedQuantity = StockHistory::query()
                                                     ->with('nestedMaterial')
                                                     ->where('cost_center_id',$cost_center_id)
@@ -487,11 +488,11 @@ public function mirPdf(Request $request){
                                                             return $TotalEstimatedQuantity;
                                                         }
                                                     });
-                
-                
-                
-                
-                
+
+
+
+
+
                 /*for Net Cumulative Received start */
 
 
@@ -504,8 +505,8 @@ public function mirPdf(Request $request){
                                     ->orderBy('nested_materials.parent_id')
                                     ->get()
                                     ->groupBy('material_id');
-              
- 
+
+
     }else{
         $opening_inventory =  StockHistory::query()
                                             ->where('cost_center_id',$cost_center_id)
@@ -594,8 +595,8 @@ public function mirPdf(Request $request){
                                                     return $TotalEstimatedQuantity;
                                                 }
                                         });
-    
-        
+
+
         /*for Net Cumulative Received start */
         $total_sale = StockHistory::query()
                                     ->where('cost_center_id',$cost_center_id)
@@ -637,14 +638,14 @@ public function mirPdf(Request $request){
                                         ->groupBy('material_id');
                 $todate = null;
                 $fromdate = null;
-                                
-              
+
+
     }
     // return view('procurement.material-inventory-report.pdf',compact('total_movementout','total_movementin','TotalEstimatedQuantity','cumulitive_receive','cumulitive_issue','todate','fromdate','totals','cost_center_id','opening_inventory','total_purchase','total_sale'));
-    return \PDF::loadview('procurement.material-inventory-report.pdf',compact('total_movementout','total_movementin','TotalEstimatedQuantity','cumulitive_receive','cumulitive_issue','todate','fromdate','totals','cost_center_id','opening_inventory','total_purchase','total_sale'))
+    return PDF::loadview('procurement.material-inventory-report.pdf',compact('total_movementout','total_movementin','TotalEstimatedQuantity','cumulitive_receive','cumulitive_issue','todate','fromdate','totals','cost_center_id','opening_inventory','total_purchase','total_sale'))
                 ->setPaper('legal', 'landscape')
                 ->stream('mir.pdf');
-                
+
 }
 private function formatDate(string $date): string
 {

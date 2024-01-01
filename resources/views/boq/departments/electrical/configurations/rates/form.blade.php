@@ -20,14 +20,17 @@
                         <!-- Select work -->
                         <div class="col-md-12 col-xl-12">
                             <div class="input-group input-group-sm input-group-primary">
-                                <label class="input-group-addon" for="parent_id0">1st layer</label>
-                                {{Form::select('parent_id[]', $leyer1NestedMaterial, old('parent_id[0]') ? old('parent_id[0]') : (!empty($BoqEmeDatas) ? $BoqEmeDatas->NestedMaterialSecondLayer->parent_id : null),['class' => 'form-control material','id' => 'parent_id0', 'placeholder'=>"Select 1st layer material Name", 'autocomplete'=>"off"])}}
+                                {{-- <label class="input-group-addon" for="parent_id0">1st layer</label>
+                                {{Form::select('parent_id[]', $leyer1NestedMaterial, old('parent_id[0]') ? old('parent_id[0]') : (!empty($BoqEmeDatas) ? $BoqEmeDatas->NestedMaterialSecondLayer->parent_id : null),['class' => 'form-control material','id' => 'parent_id0', 'placeholder'=>"Select 1st layer material Name", 'autocomplete'=>"off"])}} --}}
+                                <input type="text" class="form-control material" name="parent_id0" readonly value="{{ $emeMaterial->name }}">
                             </div>
                         </div>
                         <div class="col-md-12 col-xl-12">
                             <div class="input-group input-group-sm input-group-primary">
                                 <label class="input-group-addon" for="parent_id_second">2nd layer</label>
-                                {{Form::select('parent_id_second', !empty($BoqEmeDatas->parent_id_second) ? $leyer2NestedMaterial : [],old('parent_id_second') ? old('parent_id_second') : (!empty($BoqEmeDatas) ? $BoqEmeDatas->parent_id_second : null),['class' => 'form-control material','id' => 'parent_id_second', 'placeholder'=>"Select 2nd layer material Name", 'autocomplete'=>"off"])}}
+                                {{-- {{Form::select('parent_id_second', !empty($BoqEmeDatas->parent_id_second) ? $leyer2NestedMaterial : [],old('parent_id_second') ? old('parent_id_second') : (!empty($BoqEmeDatas) ? $BoqEmeDatas->parent_id_second : null),['class' => 'form-control material','id' => 'parent_id_second', 'placeholder'=>"Select 2nd layer material Name", 'autocomplete'=>"off"])}} --}}
+
+                                {{Form::select('parent_id_second', $secondMaterial,old('parent_id_second') ? old('parent_id_second') : (!empty($BoqEmeDatas) ? $BoqEmeDatas->parent_id_second : null),['class' => 'form-control material','id' => 'parent_id_second'])}}
                             </div>
                         </div>
 
@@ -262,7 +265,7 @@
 
         // function for searching third layer material
                 $(document).on('keyup','.material_name',function(events){
-                    let secondLayerMaterial = $("#parent_id_second").val();
+                    let secondLayerMaterial = $("#parent_id_second option:selected").val();
                     $(this).autocomplete({
                         source: function(request, response) {
                             $.ajax({
