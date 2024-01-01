@@ -1729,10 +1729,12 @@
                         <span class="pcoded-mcaret"></span>
                     </a>
                     <ul class="pcoded-submenu">
+                        @can('nestedmaterial-view')
                         <li class="{{ request()->routeIs('units.*') ? 'active' : null }}"><a
                                 href="{{ route('units.index') }}"><span class="pcoded-micon"><i
                                         class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Units </span><span
                                     class="pcoded-mcaret"></span></a></li>
+                        @endcan
                         {{-- <li class="{{ request()->routeIs('materialcategories.*') ? 'active' : null }}"><a href="{{ route('materialcategories.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Material Categories </span><span class="pcoded-mcaret"></span></a></li> --}}
                         {{-- <li class="pcoded-hasmenu {{ request()->routeIs('warehouses.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
