@@ -41,17 +41,29 @@ class BoqCivilWorkQuantityController extends Controller
         ->get()
         ->sortBy('boqCivilCalcProjectFloor.floor.floor_type.serial_no');
 
-    if ($work_id = request('work_id')) {
-        $boqCivilBudgets = $query->where('work_id', $work_id)
-            ->groupBy('work_id')
+        $allWorks = $query->groupBy('boqCivilCalcWork.name')
             ->map(function ($group) {
                 return [
                     "work_items" => $group,
                     "total_quantity" => $group->sum('total'),
                 ];
             });
-    } else {
-        $boqCivilBudgets = $query->groupBy('work_id')
+
+        $work_id = request('work_id');
+
+        if ($work_id) {
+            $boqCivilBudgets = $query->filter(function ($item) use ($work_id) {
+                return $item->boqCivilCalcWork->name == $work_id;
+            })
+                ->groupBy('boqCivilCalcWork.name')
+                ->map(function ($group) {
+                    return [
+                        "work_items" => $group,
+                        "total_quantity" => $group->sum('total'),
+                    ];
+                });
+        } else {
+        $boqCivilBudgets = $query->groupBy('boqCivilCalcWork.name')
             ->map(function ($group) {
                 return [
                     "work_items" => $group,
@@ -60,7 +72,9 @@ class BoqCivilWorkQuantityController extends Controller
             });
     }
 
-        return view('boq.departments.civil.costanalysis.work-quantity.index', compact('project', 'boqCivilBudgets'));
+   //dd($boqCivilBudgets);
+
+        return view('boq.departments.civil.costanalysis.work-quantity.index', compact('project', 'allWorks', 'boqCivilBudgets'));
     }
 
     public function workQuantityPdf(Project $project){

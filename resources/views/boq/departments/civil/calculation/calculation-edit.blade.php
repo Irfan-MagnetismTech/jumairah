@@ -677,13 +677,13 @@
                                                     <a href="{{ url('/') }}/nestedmaterials/${item.material.id}/edit">${item.material.name}</a>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control nested_material_price_list" id="nested_material_price_list" value="${(item?.civil_budget?.rate) ? (item?.civil_budget?.rate) : item?.material?.material_price_wastage?.price}" name="nested_material_price_list[]" required>
+                                                    <input type="text" class="form-control nested_material_price_list" id="nested_material_price_list" value="${(item?.civil_budget !== null) ? (item?.civil_budget?.rate) : item?.material?.material_price_wastage?.price}" name="nested_material_price_list[]" required>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control nested_material_ratio_list" value="${(item?.civil_budget?.formula_percentage) ?(item?.civil_budget?.formula_percentage) : item?.percentage_value}" id="nested_material_ratio_list" name="nested_material_ratio_list[]" required>
+                                                    <input type="text" class="form-control nested_material_ratio_list" value="${(item?.civil_budget !== null) ? (item?.civil_budget?.formula_percentage) : item?.percentage_value}" id="nested_material_ratio_list" name="nested_material_ratio_list[]" required>
                                                 </td>
                                                <td>
-                                                    <input type="number" step=".01" class="form-control nested_material_wastage_list" value="${(item?.civil_budget?.wastage) ? (item?.civil_budget?.wastage) : item?.wastage }" id="nested_material_wastage_list" name="nested_material_wastage_list[]" required>
+                                                    <input type="number" step=".01" class="form-control nested_material_wastage_list" value="${(item?.civil_budget !== null) ? (item?.civil_budget?.wastage) : item?.wastage }" id="nested_material_wastage_list" name="nested_material_wastage_list[]" required>
                                                     <input type="hidden" class="form-control is_additional_material" value="0" id="is_additional_material" name="is_additional_material[]" required>
                                                 </td>
 

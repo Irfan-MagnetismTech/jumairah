@@ -267,11 +267,20 @@ class BoqCivilJsonController extends Controller {
 
             $boqFloorProject = BoqFloorProject::where( 'boq_floor_project_id', $request->floor_id )->first();
             $date = Carbon::parse( $request->till_date )->format( 'Y-m-d' );
-            $totalRequisitionQty = Requisitiondetails::where( 'project_id', $project->id )
-                ->where( 'material_id', $request->material_id )
-                ->where( 'floor_id', $boqFloorProject->floor_id )
-                ->whereDate( 'required_date', '<=', $date )
-                ->sum( 'quantity' );
+
+            if(!empty($boqFloorProject)){
+                $totalRequisitionQty = Requisitiondetails::where( 'project_id', $project->id )
+                    ->where( 'material_id', $request->material_id )
+                    ->where( 'floor_id', $boqFloorProject->floor_id )
+                    ->whereDate( 'required_date', '<=', $date )
+                    ->sum( 'quantity' );
+            } else {
+                $totalRequisitionQty = Requisitiondetails::where( 'project_id', $project->id )
+                    ->where( 'material_id', $request->material_id )
+                    ->where( 'floor_id', $request->floor_id )
+                    ->whereDate( 'required_date', '<=', $date )
+                    ->sum( 'quantity' );
+            }
 
             $supremeBudget = BoqSupremeBudget::where( 'project_id', $project->id )
                 ->where( 'material_id', $request->material_id )

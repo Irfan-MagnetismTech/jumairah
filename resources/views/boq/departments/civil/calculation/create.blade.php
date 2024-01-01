@@ -481,6 +481,9 @@
         const FLOOR_COPY_URL = "{{ route('boq.project.departments.civil.get_floor_for_copy', $project) }}";
         const BOQ_WORK_BY_LOCATION_TYPE_URL = "{{ route('boq.project.departments.civil.get_work_by_location_type', $project) }}";
         const GET_UNITS = "{{ route('boq.project.departments.civil.get_units', $project) }}";
+
+        let isCopyData = false;
+        let copyMaterialList = [];
         /* ======================================== GOLBAL VARIABLES END   ======================================== */
 
         let PREVIOUS_GROUP_WISE_MATERIAL = null;
@@ -637,6 +640,11 @@
             WORK_MATERIAL_LIST = work?.boq_material_formulas;
 
             $.each(work?.boq_material_formulas, function(index, item) {
+                //check item.material.id is exist or not in copyMaterialList
+                let filteredItems = copyMaterialList?.find(item =>
+                    item.nested_material_id && work?.boq_material_formulas?.some(workItem => workItem.material.id === item.nested_material_id)
+                );
+
                 list += `<tr>
                                                 <td>
                                                     <input type="checkbox" checked style="display: none" class="material_checkbox" name="nested_material_id_list[]" ${(Object.values(previous_materials).includes(item.nested_material_id)) ? 'checked' : ''} value="${item.nested_material_id}">
@@ -646,13 +654,13 @@
                                                     <a href="{{ url('/') }}/nestedmaterials/${item.material.id}/edit">${item.material.name}</a>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control nested_material_price_list" id="nested_material_price_list" value="${(item?.civil_budget?.rate) ? (item?.civil_budget?.rate) : item?.material?.material_price_wastage?.price}" name="nested_material_price_list[]" required>
+                                                    <input type="text" class="form-control nested_material_price_list" id="nested_material_price_list" value="${(item?.civil_budget !== null) ? (item?.civil_budget?.rate) : item?.material?.material_price_wastage?.price}" name="nested_material_price_list[]" required>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control nested_material_ratio_list" value="${(item?.civil_budget?.formula_percentage) ?(item?.civil_budget?.formula_percentage) : item?.percentage_value}" id="nested_material_ratio_list" name="nested_material_ratio_list[]" required>
+                                                            <input type="text" class="form-control nested_material_ratio_list" value="${(filteredItems && filteredItems?.nested_material_id === item?.material?.id) ? filteredItems?.formula_percentage : (item?.civil_budget !== null) ? (item?.civil_budget?.formula_percentage) : item?.percentage_value}" id="nested_material_ratio_list" name="nested_material_ratio_list[]" required>
                                                 </td>
                                                <td>
-                                                    <input type="number" step=".01" class="form-control nested_material_wastage_list" value="${(item?.civil_budget?.wastage) ? (item?.civil_budget?.wastage) : item?.wastage }" id="nested_material_wastage_list" name="nested_material_wastage_list[]" required>
+                                                    <input type="number" step=".01" class="form-control nested_material_wastage_list" value="${((filteredItems && filteredItems?.nested_material_id === item?.material?.id)) ? filteredItems?.wastage : (item?.civil_budget !== null) ? (item?.civil_budget?.wastage) : item?.wastage }" id="nested_material_wastage_list" name="nested_material_wastage_list[]" required>
                                                     <input type="hidden" class="form-control is_additional_material" value="0" id="is_additional_material" name="is_additional_material[]" required>
                                                 </td>
 
@@ -660,29 +668,29 @@
                                             </tr>`;
             });
 
-            $.each(work?.additional_materials, function(index, item) {
-
-                list += `<tr>
-                                                <td>
-                                                    <input class="material_checkbox" name="nested_material_id_list[]" ${(Object.values(previous_materials).includes(item.nested_material_id)) ? 'checked' : ''} value="${item.nested_material_id}" type="checkbox">
-                                                </td>
-                                                <td>
-                                                    <span style="color: black">${item?.nested_material?.name}</span>
-                                                </td>
-                                        <td>
-                                            <input type="text" class="form-control nested_material_price_list" id="nested_material_price_list" value="${(item?.rate)}" name="nested_material_price_list[]" required>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control nested_material_ratio_list" value="${(item?.formula_percentage)}" id="nested_material_ratio_list" name="nested_material_ratio_list[]" required>
-                                                </td>
-                                               <td>
-                                                    <input type="number" step=".01" class="form-control nested_material_wastage_list" value="${(item?.wastage)}" id="nested_material_wastage_list" name="nested_material_wastage_list[]" required>
-                                                    <input type="hidden" class="form-control is_additional_material" value="${(item?.is_additional_material)}" id="is_additional_material" name="is_additional_material[]" required>
-                                                </td>
-
-
-                                            </tr>`;
-            });
+            // $.each(work?.additional_materials, function(index, item) {
+            //
+            //     list += `<tr>
+            //                                     <td>
+            //                                         <input class="material_checkbox" name="nested_material_id_list[]" ${(Object.values(previous_materials).includes(item.nested_material_id)) ? 'checked' : ''} value="${item.nested_material_id}" type="checkbox">
+            //                                     </td>
+            //                                     <td>
+            //                                         <span style="color: black">${item?.nested_material?.name}</span>
+            //                                     </td>
+            //                             <td>
+            //                                 <input type="text" class="form-control nested_material_price_list" id="nested_material_price_list" value="${(item?.rate)}" name="nested_material_price_list[]" required>
+            //                                     </td>
+            //                                     <td>
+            //                                         <input type="text" class="form-control nested_material_ratio_list" value="${(item?.formula_percentage)}" id="nested_material_ratio_list" name="nested_material_ratio_list[]" required>
+            //                                     </td>
+            //                                    <td>
+            //                                         <input type="number" step=".01" class="form-control nested_material_wastage_list" value="${(item?.wastage)}" id="nested_material_wastage_list" name="nested_material_wastage_list[]" required>
+            //                                         <input type="hidden" class="form-control is_additional_material" value="${(item?.is_additional_material)}" id="is_additional_material" name="is_additional_material[]" required>
+            //                                     </td>
+            //
+            //
+            //                                 </tr>`;
+            // });
 
             if(work?.boq_work_unit === null){
                 $('#workUnitSpan').text('');
@@ -739,6 +747,7 @@
 
         async function getSubWorkByWork(workId, trId) {
             try {
+                copyMaterialList = [];
                 let boqFloorId = $('.boq_floor_id').val();
                 let formData = {
                     _token: "{{ csrf_token() }}",
@@ -1225,7 +1234,68 @@
         $(document).on('change', '.no_or_dia_select', () => calculate());
 
         $(document).on('click', '#copy-from-btn', () => getFloorForCopy());
+
+        {{--async function getCopyFloorWorkDetails(formData,data2) {--}}
+        {{--    let response = await axios.post(BOQ_WORK_BY_WORK_ID_URL, {--}}
+        {{--        _token: "{{ csrf_token() }}",--}}
+        {{--        work_id: formData.work_id,--}}
+        {{--        boq_floor_id: formData.boq_floor_id,--}}
+        {{--        budget_type: formData.budget_type,--}}
+        {{--        project_id: formData.project_id,--}}
+        {{--    });--}}
+        {{--    workDetails = await response.data;--}}
+        {{--    setUnit();--}}
+        {{--    getWorkMaterialList(workDetails,data2);--}}
+        {{--}--}}
+
+        async function getCopyFloorDataWorkDetails(formData,data2) {
+            let response = await axios.post(BOQ_WORK_BY_WORK_ID_URL, {
+                _token: "{{ csrf_token() }}",
+                work_id: formData.work_id,
+                boq_floor_id: formData.boq_floor_id,
+                budget_type: formData.budget_type,
+                project_id: formData.project_id,
+            });
+            workDetails = await response.data;
+            setUnit();
+            getWorkMaterialList(workDetails,data2);
+            //getPreviousCalculations(workDetails);
+        }
+
+        async function processCopiedFloorData(workId) {
+            try {
+                //copyMaterialList = [];
+                let boqFloorId = $('.boq_floor_id').val();
+                let formData = {
+                    _token: "{{ csrf_token() }}",
+                    work_id: workId,
+                    boq_floor_id: boqFloorId,
+                    budget_type: CALCULATION_TYPE,
+                    project_id: PROJECT,
+                };
+                const response = await axios.post(BOQ_SUB_WORK_BY_WORK_ID_URL, formData);
+                const data = await response.data;
+
+                const response2 = await axios.post(PREVIOUS_MATERIAL_LIST_URL, formData);
+                const data2 = await response2.data;
+
+                getWorkMaterialList(data,data2);
+
+                if (isObjectEmpty(data)) {
+                    getCopyFloorDataWorkDetails(formData,data2);
+                    lastWorkId = workId;
+                } else {
+                    lastWorkId = -1;
+                }
+            } catch (error) {
+                console.log("Get Sub work", error);
+            } finally {}
+        }
+
         $(document).on('click', '#copy-paste', function() {
+            isCopyData = true;
+            let lastWorkIdValue = $('.work_id:last').val();
+            processCopiedFloorData(lastWorkIdValue)
             getPreviousCalculations(workDetails, $('.copy_from_floor').val());
             $('#default-Modal').modal('hide');
         });
@@ -1291,7 +1361,7 @@
                 calculate();
                 return;
             }
-
+            copyMaterialList = [];
             data?.boq_civil_calc_groups?.forEach(function(item) {
                 const groupName = appendCalculationGroup(item);
                 const length = item?.boq_civil_calc_details?.length ?? 0;
@@ -1300,13 +1370,29 @@
                     appendCalculationChild(groupName, null, child, (iteration === length), isReinforcement);
                     iteration++;
                 });
+                item?.boq_civil_calc_group_materials?.forEach(function (groupMaterial){
+                    let materialExists = copyMaterialList.some(obj => obj?.nested_material_id === groupMaterial?.material_id);
+                    if (!materialExists) {
+                        let obj = {
+                            'nested_material_id': groupMaterial?.material_id,
+                            'formula_percentage': groupMaterial?.material_ratio,
+                            'wastage': groupMaterial?.material_wastage,
+                        };
+                        copyMaterialList.push(obj);
+                    }
+                });
             });
-
             setUnit(data?.unit_id?.toString() ?? '');
 
             $('#secondary-total-fx').val(data?.secondary_total_fx ?? '');
             calculate();
             changeCalculationType();
+
+            //new code
+            // let workId = $('.work_id').val();
+            // let trId = parseInt($(this).closest('div').attr('id').split('-')[1]);
+            // getSubWorkByWork(workId, trId);
+            //new code
         }
 
         function prepareCalculationData() {

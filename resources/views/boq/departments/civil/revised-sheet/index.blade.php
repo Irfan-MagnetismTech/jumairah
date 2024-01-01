@@ -48,7 +48,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $revised_sheet?->escalation_no }}</td>
                     <td>{{ $revised_sheet?->material?->name ?? '---' }}</td>
-                    <td>{{ $revised_sheet?->floorProject?->floor?->name ?? '---' }}</td>
+                    <td>{{ $revised_sheet?->floorProject?->floor?->name ?? $revised_sheet?->boq_floor_id }}</td>
                     <td>{{ $revised_sheet?->till_date ?? '---' }}</td>
                     <td>@money($revised_sheet?->increased_or_decreased_amount)</td>
                     @can('boq-civil')

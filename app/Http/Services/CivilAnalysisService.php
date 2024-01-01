@@ -16,15 +16,29 @@ class CivilAnalysisService
      */
     private function getAncestorsTillType($work_id, $work_type_id, $ancestors = []): Collection
     {
+        // Find the BoqWork with the current $work_id
         $work = BoqWork::find($work_id);
-        if ($work_id == $work_type_id)
-        {
+
+        // Check if the work is null (reached the top of the hierarchy)
+        if ($work === null) {
+            // Handle the case where the work is not found or is null
+            // You can return an empty collection or throw an exception, depending on your requirements.
+            return collect([]);
+        }
+
+        // Check if the current $work_id is equal to the target $work_type_id
+        if ($work_id == $work_type_id) {
+            // If they are equal, return the reversed collection of ancestors
             return collect($ancestors)->reverse();
         }
+
+        // Add the current $work to the ancestors array
         $ancestors[] = $work;
 
+        // Recursively call the function with the parent_id of the current $work
         return $this->getAncestorsTillType($work->parent_id, $work_type_id, $ancestors);
     }
+
 
     /**
      * Get Material Statement Work Wise.
@@ -147,11 +161,11 @@ class CivilAnalysisService
         {
             foreach ($material_statement as $work_type_id => $works)
             {
-                $boq_floor_id = $works->first()->first()->boq_floor_id;
+                $boq_floor_id = $works?->first()?->first()->boq_floor_id;
                 foreach ($works as $work_id => $work)
                 {
-                    $ancestors = $this->getAncestorsTillType($work_id, $work_type_id)
-                        ->filter(fn($item) => $item->id != $work_id);
+                    $ancestors = $this?->getAncestorsTillType($work_id, $work_type_id)
+                        ->filter(fn($item) => $item?->id != $work_id);
                     $calcs = $calculations->where('work_id', $work_id)
                         ->where('boq_floor_id', $boq_floor_id)
                         ->first();
