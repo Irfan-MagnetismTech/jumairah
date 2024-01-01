@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Boq\Departments\Eme\BoqEmeBudget;
 use App\Boq\Departments\Eme\EmeBudgetHead;
 use App\Http\Requests\Boq\Eme\BoqEmeBudgetRequest;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class BoqEmeBudgetController extends Controller
 {
@@ -234,7 +235,7 @@ class BoqEmeBudgetController extends Controller
             }
             return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
         });
-        $pdf = \PDF::loadview('boq.departments.electrical.budget.pdf', compact('dataFiltered', 'project'))->setPaper('A4', 'portrait');
+        $pdf = PDF::loadview('boq.departments.electrical.budget.pdf', compact('dataFiltered', 'project'))->setPaper('A4', 'portrait');
         $pdf->output();
         $canvas = $pdf->getDomPDF()->getCanvas();
 

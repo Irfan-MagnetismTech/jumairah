@@ -302,7 +302,7 @@ class BoqElectricalCalculationController extends Controller
             return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
         });
         $BoqEmeCalculations = $dataFiltered->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
-        $pdf = \PDF::loadview('boq.departments.electrical.calculations.pdf', compact('BoqEmeCalculations', 'project'))->setPaper('A4', 'landscape');
+        $pdf = PDF::loadview('boq.departments.electrical.calculations.pdf', compact('BoqEmeCalculations', 'project'))->setPaper('A4', 'landscape');
         $pdf->output();
         $canvas = $pdf->getDomPDF()->getCanvas();
 
