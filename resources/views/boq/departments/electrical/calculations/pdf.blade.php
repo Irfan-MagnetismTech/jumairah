@@ -219,7 +219,7 @@
                         </tr>
                         @php
                           $rowSpan = 1;
-                            $total = $BoqEmeCalculationsGbitem->flatten()->sum('total_amount');
+                            $total = $BoqEmeCalculationsGbitem->flatten()->sum('total_material_amount');
                             $rowSpan += count($BoqEmeCalculationsGbitem);
                             if(count($BoqEmeCalculationsGbitem) < 2){
                                 $rowSpan -= 1;
