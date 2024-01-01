@@ -39,7 +39,11 @@
                 <tr>
                     <td>{{$loop->iteration }}</td>
                     <td>
+                            @if ($data->boq_work_id == null)
                             {{$data->NestedMaterialSecondLayer->name }}
+                            @else
+                            {{ $data->boqWork->name }}
+                            @endif
                     </td>
                     <td>
                         @if($data->type)
