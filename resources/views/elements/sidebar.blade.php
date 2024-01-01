@@ -1717,9 +1717,9 @@
         @endcanany
         <ul class="pcoded-item pcoded-left-item">
 
-            @can('supplier-view')
+
                 <li
-                    class="pcoded-hasmenu {{ request()->routeIs(['units.*', 'materialcategories.*']) ? 'active pcoded-trigger' : null }}">
+                    class="pcoded-hasmenu {{ request()->routeIs(['units.*', 'materialcategories.*','nestedmaterials.*','opening-material.*','suppliers.*']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
                         <span class="pcoded-mtext">Configurations</span>
@@ -1766,6 +1766,7 @@
                                 </ul>
                             </li>
                         @endcan
+                        @can('opening-stock-view')
                         <li
                             class="pcoded-hasmenu {{ request()->routeIs('opening-material.*') ? 'active pcoded-trigger' : null }}">
                             <a href="javascript:void(0)">
@@ -1790,6 +1791,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('supplier-view')
                         <li
                             class="pcoded-hasmenu {{ request()->routeIs('suppliers.*') ? 'active pcoded-trigger' : null }}">
                             <a href="javascript:void(0)">
@@ -1815,9 +1818,9 @@
 
                             </ul>
                         </li>
+                        @endcan
                     </ul>
                 </li>
-            @endcan
 
             @can('requisition-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('requisitions.*') ? 'active pcoded-trigger' : null }}">
