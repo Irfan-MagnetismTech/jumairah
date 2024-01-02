@@ -34,7 +34,7 @@
                     </li>
                 </ul>
 
-                <ul class="pcoded-submenu">
+                {{-- <ul class="pcoded-submenu">
 
                     <li class="{{ request()->routeIs('boq.project.departments.electrical.configurations.cs_supplier_eval_option.*') ? 'active pcoded-trigger' : null }}">
                         <a href="{{ route('boq.project.departments.electrical.configurations.cs_supplier_eval_option.create', ['project' => $project ]) }}">
@@ -43,7 +43,7 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                </ul>
+                </ul> --}}
             </li>
             @endcan
             @can('boq-eme-budget-view')
