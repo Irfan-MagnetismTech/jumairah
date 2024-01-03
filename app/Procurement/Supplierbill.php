@@ -20,7 +20,7 @@ class Supplierbill extends Model
 
     protected static $logOnlyDirty = true;
     protected static $logAttributes = ['*'];
-    protected $fillable = ['cost_center_id','purpose', 'register_serial_no', 'bill_no', 'date','applied_by','status', 'carrying_charge', 'labour_charge', 'discount', 'final_total'];
+    protected $fillable = ['cost_center_id','purpose', 'register_serial_no', 'bill_no', 'date','applied_by','status', 'carrying_charge', 'labour_charge', 'discount', 'final_total','supplier_id'];
 
     public function costCenter()
     {
@@ -97,5 +97,9 @@ class Supplierbill extends Model
     public function scopeRequestedSupplier($query)
     {
         return $query->where('is_requested',1);
+    }
+
+    public function supplier(){
+        return $this->belongsTo(Supplier::class,'supplier_id', 'id');
     }
 }

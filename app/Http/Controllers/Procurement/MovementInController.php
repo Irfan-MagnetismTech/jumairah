@@ -163,6 +163,7 @@ class MovementInController extends Controller
     }
 
     public function movmentInApproval(MovementIn $movementIn, $status){
+        $outData = Materialmovement::find($movementIn->materialmovement_id);
         try{
 
             $approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use($movementIn){
@@ -177,7 +178,7 @@ class MovementInController extends Controller
                 'user_id' => auth()->id(),
                 'status' => $status,
             ];
-            DB::transaction(function() use($movementIn){
+            DB::transaction(function() use($movementIn,$outData){
 
                 foreach($movementIn->movementInDetails as $details){
                     $stock_history_out = StockHistory::where('cost_center_id', $details->movementRequisition->from_costcenter_id)
@@ -189,6 +190,7 @@ class MovementInController extends Controller
                             'previous_stock' => $stock_history_out->present_stock,
                             'quantity' => $details->mti_quantity,
                             'present_stock' => $stock_history_out->present_stock - $details->mti_quantity,
+                            'date' => date('Y-m-d', strtotime($outData->transfer_date)),
                             'average_cost' => $stock_history_out->average_cost,
                             'after_discount_po' => $stock_history_out->after_discount_po,
                         ];
@@ -201,6 +203,7 @@ class MovementInController extends Controller
                                 'previous_stock'    =>  $stock_history_In->present_stock,
                                 'quantity'          =>  $details->mti_quantity,
                                 'present_stock'     =>  $stock_history_In->present_stock + $details->mti_quantity,
+                                'date' => date('Y-m-d', strtotime($movementIn->receive_date)),
                                 'average_cost'      =>  $stock_history_out->average_cost,
                                 'after_discount_po' =>  $stock_history_out->after_discount_po,
                             ];
@@ -210,6 +213,7 @@ class MovementInController extends Controller
                                 'material_id'       => $details->material_id,
                                 'previous_stock'    => 0,
                                 'quantity'          => $details->mti_quantity,
+                                'date' => date('Y-m-d', strtotime($movementIn->receive_date)),
                                 'present_stock'     => $details->mti_quantity,
                                 'average_cost'      => $stock_history_out->average_cost,
                                 'after_discount_po' => $stock_history_out->after_discount_po ,

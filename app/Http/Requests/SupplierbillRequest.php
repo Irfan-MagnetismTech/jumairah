@@ -31,7 +31,7 @@ class SupplierbillRequest extends FormRequest
             'date' => "required|date|date_format:d-m-Y",
             'po_no' => "required|array",
             'mpr_no' => "required|array",
-            'supplier_id' => "required|array",
+            'supplier_id' => "required",
             'register_serial_no' => "required",
             'amount' => "required|array"
         ];

@@ -51,7 +51,7 @@ class SupplierbillController extends Controller
     public function store(SupplierbillRequest $request)
     {
         try {
-            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total');
+            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total','supplier_id');
             $supplierbillData['applied_by'] = auth()->id();
             $supplierbillData['status'] = "Pending";
             $supplierbillDataDetails = array();
@@ -96,7 +96,7 @@ class SupplierbillController extends Controller
     public function update(SupplierbillRequest $request, Supplierbill $supplierbill)
     {
         try {
-            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total');
+            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total','supplier_id');
             $supplierbillData['status'] = "Pending";
 
             $supplierbillDataDetails = array();

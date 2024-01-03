@@ -27,7 +27,7 @@
     @endif
         <input type="hidden" name="requisition_id" value="{{(!empty($supplierbill->id) ? $supplierbill->id : null)}}">
         <div class="row">
-            <div class="col-md-3 col-xl-3">
+            <div class="col-md-4 col-xl-4">
                 <div class="input-group input-group-sm input-group-primary">
                     <label style="!IMPORTANT background-color:#116A7B" class="input-group-addon" for="project_id">Project Name<span class="text-danger">*</span></label>
                     {{Form::text('project_name', old('project_name') ? old('project_name') : (!empty($supplierbill) ? $supplierbill->costCenter->name : null),['class' => 'form-control','id' => 'project_name','placeholder'=>"Enter Project Name" ,'autocomplete'=>"off","required"])}}
@@ -35,22 +35,29 @@
                     {{Form::hidden('cost_center_id', old('cost_center_id') ? old('cost_center_id') : (!empty($supplierbill) ? $supplierbill->cost_center_id : null),['class' => 'form-control','id' => 'cost_center_id', 'autocomplete'=>"off"])}}
                 </div>
             </div>
-            <div class="col-md-3 col-xl-3">
+            <div class="col-md-4 col-xl-4">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon pr-5" for="register_serial_no">Bill Register Serial No<span class="text-danger">*</span></label>
                     {{Form::text('register_serial_no', old('register_serial_no') ? old('register_serial_no') : (!empty($supplierbill->register_serial_no) ? $supplierbill->register_serial_no : null),['class' => 'form-control','id' => 'register_serial_no','autocomplete'=>"off","required"])}}
                 </div>
             </div>
-            <div class="col-md-3 col-xl-3">
+            <div class="col-md-4 col-xl-4">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon pr-5" for="bill_no">Bill No</label>
                     {{Form::text('bill_no', old('bill_no') ? old('bill_no') : (!empty($supplierbill->bill_no) ? $supplierbill->bill_no : null),['class' => 'form-control','id' => 'bill_no','autocomplete'=>"off","required", 'readonly'])}}
                 </div>
             </div>
-            <div class="col-md-3 col-xl-3">
+            <div class="col-md-4 col-xl-4">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="date">Date<span class="text-danger">*</span></label>
                     {{Form::text('date', old('date') ? old('date') : (!empty($supplierbill->date) ? $supplierbill->date : null),['class' => 'form-control','id' => 'date','autocomplete'=>"off","required", 'readonly'])}}
+                </div>
+            </div>
+            <div class="col-md-4 col-xl-4">
+                <div class="input-group input-group-sm input-group-primary">
+                    <label class="input-group-addon" for="date">Supplier Name<span class="text-danger">*</span></label>
+                    {{Form::text('supplier_name', old('supplier_name') ? old('supplier_name') : (!empty($supplierbill->supplier->name) ? $supplierbill->supplier->name : null),['class' => 'form-control','id' => 'supplier_name','autocomplete'=>"off","required"])}}
+                    {{Form::hidden('supplier_id', old('supplier_id') ? old('supplier_id') : (!empty($supplierbill->supplier_id) ? $supplierbill->supplier_id : null),['class' => 'form-control','id' => 'supplier_id','autocomplete'=>"off","required", 'readonly'])}}
                 </div>
             </div>
 
@@ -73,7 +80,7 @@
                     <th>Select MRR<span class="text-danger">*</span></th>
                     <th>PO No</th>
                     <th>MPR No</th>
-                    <th>Supplier's Name</th>
+                    {{-- <th>Supplier's Name</th> --}}
                     <th>Remarks</th>
                     <th>Amount<span class="text-danger">*</span></th>
                     <th><i class="btn btn-primary btn-sm fa fa-plus" id="addItem" onclick="addItemDtl()"> </i></th>
@@ -93,10 +100,10 @@
                         <td>
                             <input type="number" name="mpr_no[]" value="{{ old("mpr_no.{$key}") }}" id="mpr_no" class="form-control form-control-sm text-center mpr_no" readonly tabindex="-1">
                         </td>
-                        <td>
+                        {{-- <td>
                             <input type="text" name="supplier_name[]" value="{{ old("supplier_name.{$key}") }}" id="supplier_name" class="form-control supplier_name text-center" readonly readonly tabindex="-1">
                             <input type="hidden" name="supplier_id[]" value="{{ old("supplier_id.{$key}") }}" id="supplier_id" class="form-control supplier_id text-center" readonly readonly tabindex="-1">
-                        </td>
+                        </td> --}}
                         <td>
                             <textarea type="text" rows="1" name="remarks[]" value="{{ old("remarks.{$key}") }}" class="form-control remarks text-center"></textarea>
                         </td>
@@ -124,10 +131,10 @@
                                 <td>
                                     <input type="number" name="mpr_no[]" value="{{$officebilldetail->mpr_no}}" id="mpr_no" class="form-control form-control-sm text-center mpr_no" readonly tabindex="-1">
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <input type="text" name="supplier_name[]" value="{{$officebilldetail->supplier->name}}" id="supplier_name" class="form-control supplier_name text-center" readonly readonly>
                                     <input type="hidden" name="supplier_id[]" value="{{$officebilldetail->supplier_id}}" id="supplier_id" class="form-control supplier_id text-center" readonly readonly>
-                                </td>
+                                </td> --}}
                                 <td>
                                     <textarea type="text" rows="1" name="remarks[]" value="{{$officebilldetail->remarks}}" class="form-control remarks text-center">{{$officebilldetail->remarks}}</textarea>
                                 </td>
@@ -147,27 +154,27 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5" class="text-right"> Sub Total </td>
+                    <td colspan="4" class="text-right"> Sub Total </td>
                     <td>{{ Form::number('sub_total', old('sub_total', $supplierbill->sub_total ?? null), ['class' => 'form-control form-control-sm sub_total text-center', 'id' => 'sub_total', 'placeholder' => '0.00 ', 'readonly']) }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="text-right"> Carrying Cost </td>
+                    <td colspan="4" class="text-right"> Carrying Cost </td>
                     <td>{{ Form::number('carrying_charge', old('carrying_charge', $supplierbill->carrying_charge ?? null), ['class' => 'form-control form-control-sm carrying_charge text-center', 'id' => 'carrying_charge', 'placeholder' => '0.00 ']) }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="text-right"> Labour Charge </td>
+                    <td colspan="4" class="text-right"> Labour Charge </td>
                     <td>{{ Form::number('labour_charge', old('labour_charge', $supplierbill->labour_charge ?? null), ['class' => 'form-control form-control-sm labour_charge text-center', 'id' => 'labour_charge', 'placeholder' => '0.00 ']) }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="text-right"> Discount </td>
+                    <td colspan="4" class="text-right"> Discount </td>
                     <td>{{ Form::number('discount', old('discount', $supplierbill->discount ?? null), ['class' => 'form-control form-control-sm discount text-center', 'id' => 'discount', 'placeholder' => '0.00 ']) }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="5" class="text-right"> Total Amount </td>
+                    <td colspan="4" class="text-right"> Total Amount </td>
                     <td>
                         {{ Form::number('final_total', old('final_total', $supplierbill->final_total ?? null), ['class' => 'form-control  form-control-sm final_total text-center', 'id' => 'final_total', 'placeholder' => '0.00 ', 'readonly']) }}
                     </td>
@@ -195,7 +202,7 @@
 
         // Function for adding new material row
         function addItemDtl() {
-            var Row = `
+         /*   var Row = `
                 <tr>
                     <td>
                         <input type="number" name="mrr_no[]"  class="form-control mrr_no" id="mrr_no">
@@ -212,6 +219,22 @@
                     <td class="text-center"><button class="btn btn-danger btn-sm deleteItem" onclick="removQRow(this)" id="" type="button"><i class="fa fa-minus"></i></button></td>
                 </tr>
             `;
+            */
+              var Row = `
+                <tr>
+                    <td>
+                        <input type="number" name="mrr_no[]"  class="form-control mrr_no" id="mrr_no">
+                        <input type="hidden" class="form-control text-center mrr_id" id="mrr_id">
+                    </td>
+                    <td><input type="text" name="po_no[]" class="form-control po_no text-center" id="po_no" readonly tabindex="-1"></td>
+                    <td><input type="number" name="mpr_no[]" class="form-control form-control-sm mpr_no text-center" id="mpr_no" readonly tabindex="-1"></td>
+
+                    <td><textarea type="text" rows="1" name="remarks[]" class="form-control remarks text-center" autocomplete="off" required></textarea></td>
+                    <td><input type="number" name="amount[]" class="form-control amount text-center" min="0" step="0.01" placeholder = "0" autocomplete="off" readonly></td>
+                    <td class="text-center"><button class="btn btn-danger btn-sm deleteItem" onclick="removQRow(this)" id="" type="button"><i class="fa fa-minus"></i></button></td>
+                </tr>
+            `;
+
             var tableItem = $('#purchaseTable').append(Row);
             totalOperation();
         }
@@ -248,7 +271,8 @@
         // function for getting materials and quantity by mpr
         function getMrrByProject() {
                 let cost_center_id = $("#cost_center_id").val();
-                let url = '{{ url('scj/getMrrByProject') }}/' + cost_center_id;
+                let supplier_id = $("#supplier_id").val();
+                let url = '{{ url('scj/getMrrByProjectAndSupplier') }}/' + cost_center_id + '/' + supplier_id;
 
                 $.getJSON(url, function(items) {
                     $.each(items, function(key, data) {
@@ -272,18 +296,20 @@
 
             $(document).on('keyup', ".mrr_no", function(){
                 let cost_center_id = $("#cost_center_id").val();
+                let supplier_id = $("#supplier_id").val();
 
                 if(cost_center_id){
                     $(this).autocomplete({
                         source: function(request, response) {
                         $.ajax({
-                            url: "{{ route('scj.LoadMrr') }}",
+                            url: "{{ route('scj.loadMrrBasedOnSupplier') }}",
                             type: 'post',
                             dataType: "json",
                             data: {
                                 _token: CSRF_TOKEN,
                                 search: request.term,
-                                cost_center_id : cost_center_id
+                                cost_center_id : cost_center_id,
+                                supplier_id:supplier_id
                             },
                             success: function(data) {
                                 response(data);
@@ -352,8 +378,8 @@
                     console.log(details.amount);
                     row.closest('tr').find(".po_no").val(details[0].po_no);
                     row.closest('tr').find(".mpr_no").val(details[0].purchaseorder_for_po.mpr.mpr_no);
-                    row.closest('tr').find(".supplier_name").val(details[0].purchaseorder_for_po.supplier.name);
-                    row.closest('tr').find(".supplier_id").val(details[0].purchaseorder_for_po.supplier.id);
+                    // row.closest('tr').find(".supplier_name").val(details[0].purchaseorder_for_po.supplier.name);
+                    // row.closest('tr').find(".supplier_id").val(details[0].purchaseorder_for_po.supplier.id);
                     row.closest('tr').find(".amount").val(details.amount.toFixed(2));
                     totalOperation();
                     calculateFinalTotal();
@@ -383,7 +409,7 @@
                         $('#project_name').val(ui.item.label);
                         $('#project_id').val(ui.item.project_id);
                         $('#cost_center_id').val(ui.item.value);
-                        getMrrByProject();
+                        // getMrrByProject();
                         return false;
                     }
                 })
@@ -418,8 +444,8 @@
                 .then(function(details) {
                     row.closest('tr').find("#po_no").val(details.po_no);
                     row.closest('tr').find("#mpr_no").val(details.purchaseorder_for_po.mpr.mpr_no);
-                    row.closest('tr').find("#supplier_name").val(details.purchaseorder_for_po.supplier.name);
-                    row.closest('tr').find("#supplier_id").val(details.purchaseorder_for_po.supplier.id);
+                   /* row.closest('tr').find("#supplier_name").val(details.purchaseorder_for_po.supplier.name);
+                    row.closest('tr').find("#supplier_id").val(details.purchaseorder_for_po.supplier.id); */
                 })
         }
         // $("body").on("contextmenu",function(e){
@@ -430,6 +456,32 @@
                 e.preventDefault();
                 return false;
             }
+            });
+
+
+            $(document).on('keyup', "#supplier_name", function() {
+                $(this).autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "{{ route('supplierAutoSuggest') }}",
+                            type: 'post',
+                            dataType: "json",
+                            data: {
+                                _token: CSRF_TOKEN,
+                                search: request.term
+                            },
+                            success: function(data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    select: function(event, ui) {
+                        $('#supplier_name').val(ui.item.label);
+                        $('#supplier_id').val(ui.item.value);
+                        getMrrByProject();
+                        return false;
+                    }
+                });
             });
     </script>
     <style>
