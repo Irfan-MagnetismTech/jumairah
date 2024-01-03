@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-md-3 col-xl-3">
                 <div class="input-group input-group-sm input-group-primary">
-                    <label class="input-group-addon" for="project_id">Project Name<span class="text-danger">*</span></label>
+                    <label style="!IMPORTANT background-color:#116A7B" class="input-group-addon" for="project_id">Project Name<span class="text-danger">*</span></label>
                     {{Form::text('project_name', old('project_name') ? old('project_name') : (!empty($supplierbill) ? $supplierbill->costCenter->name : null),['class' => 'form-control','id' => 'project_name','placeholder'=>"Enter Project Name" ,'autocomplete'=>"off","required"])}}
                     {{Form::hidden('project_id', old('project_id') ? old('project_id') : (!empty($supplierbill) ? $supplierbill->costCenter->project_id: null),['class' => 'form-control','id' => 'project_id', 'autocomplete'=>"off"])}}
                     {{Form::hidden('cost_center_id', old('cost_center_id') ? old('cost_center_id') : (!empty($supplierbill) ? $supplierbill->cost_center_id : null),['class' => 'form-control','id' => 'cost_center_id', 'autocomplete'=>"off"])}}
@@ -321,7 +321,7 @@
                                 if (data.length > 0) {
                                         response( data );
                                 } else {
-                                    response([{ 
+                                    response([{
                                         label: 'No results found.',
                                         val: -1,
                                         floor_id: null
@@ -436,7 +436,6 @@
     .custom-form .input-group-addon {
             min-width: 110px !important;
             max-width: 110px !important;
-            background-color: #227447 !important;
             padding-left: 4px !important;
             padding-right: 123px !important;
         }
