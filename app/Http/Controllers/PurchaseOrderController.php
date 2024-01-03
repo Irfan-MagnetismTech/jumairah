@@ -268,17 +268,17 @@ class PurchaseOrderController extends Controller
                             PoReportMonthWise::where('date', $to_days_date)
                                 ->update($poReportMonthwiseData);
 
-                            $po_no['po_no'] = $this->uniqueNoGenarate->generateUniqueNo(PurchaseOrder::class, 'PO', 'cost_center_id', $requisition_data->cost_center_id, 'po_no');
+                            // $po_no['po_no'] = $this->uniqueNoGenarate->generateUniqueNo(PurchaseOrder::class, 'PO', 'cost_center_id', $requisition_data->cost_center_id, 'po_no');
                             // $po_no['po_no'] = "PO-" . $to_days_date . "-" . $costCenter_short_name . $PoReportProjectWiseData['project_wise_po'] . "-PO-" . $poReportMonthwiseData['month_wise_po'];
-                            $purchaseOrder->update($po_no);
+                            // $purchaseOrder->update($po_no);
                         } else {
                             $poReportMonthwiseData['date'] = $to_days_date;
                             $poReportMonthwiseData['month_wise_po'] = 1;
                             PoReportMonthWise::create($poReportMonthwiseData);
 
                             // $po_no['po_no'] = "PO-" . $to_days_date . "-" . $costCenter_short_name . $PoReportProjectWiseData['project_wise_po'] . "-PO-" . $poReportMonthwiseData['month_wise_po'];
-                            $po_no['po_no'] = $this->uniqueNoGenarate->generateUniqueNo(PurchaseOrder::class, 'PO', 'cost_center_id', $requisition_data->cost_center_id, 'po_no');
-                            $purchaseOrder->update($po_no);
+                            // $po_no['po_no'] = $this->uniqueNoGenarate->generateUniqueNo(PurchaseOrder::class, 'PO', 'cost_center_id', $requisition_data->cost_center_id, 'po_no');
+                            // $purchaseOrder->update($po_no);
                         }
                         //po generating end0
                 return redirect()->route('purchaseOrders.index')->with('message', "$purchaseOrder->id approved.");
