@@ -16,16 +16,22 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\Services\UniqueNoGenaratorService;
 
 class PurchaseOrderController extends Controller
 {
+
     use HasRoles;
+
+    private $uniqueNoGenarate;
+
     function __construct()
     {
         $this->middleware('permission:purchase-order-view|movement-create|purchase-order-edit|purchase-order-delete', ['only' => ['index', 'show']]);
         $this->middleware('permission:purchase-order-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:purchase-order-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:purchase-order-delete', ['only' => ['destroy']]);
+        $this->uniqueNoGenarate = new UniqueNoGenaratorService();
     }
 
     public function index()
@@ -262,14 +268,16 @@ class PurchaseOrderController extends Controller
                             PoReportMonthWise::where('date', $to_days_date)
                                 ->update($poReportMonthwiseData);
 
-                            $po_no['po_no'] = "PO-" . $to_days_date . "-" . $costCenter_short_name . $PoReportProjectWiseData['project_wise_po'] . "-PO-" . $poReportMonthwiseData['month_wise_po'];
+                            $po_no['po_no'] = $this->uniqueNoGenarate->generateUniqueNo(PurchaseOrder::class, 'PO', 'cost_center_id', $requisition_data->cost_center_id, 'po_no');
+                            // $po_no['po_no'] = "PO-" . $to_days_date . "-" . $costCenter_short_name . $PoReportProjectWiseData['project_wise_po'] . "-PO-" . $poReportMonthwiseData['month_wise_po'];
                             $purchaseOrder->update($po_no);
                         } else {
                             $poReportMonthwiseData['date'] = $to_days_date;
                             $poReportMonthwiseData['month_wise_po'] = 1;
                             PoReportMonthWise::create($poReportMonthwiseData);
 
-                            $po_no['po_no'] = "PO-" . $to_days_date . "-" . $costCenter_short_name . $PoReportProjectWiseData['project_wise_po'] . "-PO-" . $poReportMonthwiseData['month_wise_po'];
+                            // $po_no['po_no'] = "PO-" . $to_days_date . "-" . $costCenter_short_name . $PoReportProjectWiseData['project_wise_po'] . "-PO-" . $poReportMonthwiseData['month_wise_po'];
+                            $po_no['po_no'] = $this->uniqueNoGenarate->generateUniqueNo(PurchaseOrder::class, 'PO', 'cost_center_id', $requisition_data->cost_center_id, 'po_no');
                             $purchaseOrder->update($po_no);
                         }
                         //po generating end0
