@@ -187,12 +187,12 @@ class MovementInController extends Controller
                         $stock_data_out = [
                             'cost_center_id' => $details->movementRequisition->from_costcenter_id,
                             'material_id' => $details->material_id,
-                            'previous_stock' => $stock_history_out->present_stock,
+                            'previous_stock' => $stock_history_out?->present_stock ?? 0,
                             'quantity' => $details->mti_quantity,
-                            'present_stock' => $stock_history_out->present_stock - $details->mti_quantity,
+                            'present_stock' => ($stock_history_out?->present_stock ?? 0) - $details->mti_quantity,
                             'date' => date('Y-m-d', strtotime($outData->transfer_date)),
-                            'average_cost' => $stock_history_out->average_cost,
-                            'after_discount_po' => $stock_history_out->after_discount_po,
+                            'average_cost' => $stock_history_out?->average_cost ?? 0,
+                            'after_discount_po' => $stock_history_out?->after_discount_po ?? 0,
                         ];
                         $stock_history_In = StockHistory::where('cost_center_id', $details->movementRequisition->to_costcenter_id)
                         ->where('material_id', $details->material_id)->latest('id')->first();
@@ -200,12 +200,12 @@ class MovementInController extends Controller
                             $stock_data_In = [
                                 'cost_center_id'    => $details->movementRequisition->to_costcenter_id,
                                 'material_id'       => $details->material_id,
-                                'previous_stock'    =>  $stock_history_In->present_stock,
+                                'previous_stock'    =>  $stock_history_In?->present_stock ?? 0,
                                 'quantity'          =>  $details->mti_quantity,
-                                'present_stock'     =>  $stock_history_In->present_stock + $details->mti_quantity,
+                                'present_stock'     =>  ($stock_history_In?->present_stock ?? 0) + $details->mti_quantity,
                                 'date' => date('Y-m-d', strtotime($movementIn->receive_date)),
-                                'average_cost'      =>  $stock_history_out->average_cost,
-                                'after_discount_po' =>  $stock_history_out->after_discount_po,
+                                'average_cost'      =>  $stock_history_out?->average_cost ?? 0,
+                                'after_discount_po' =>  $stock_history_out?->after_discount_po,
                             ];
                         }else{
                             $stock_data_In = [
@@ -215,12 +215,12 @@ class MovementInController extends Controller
                                 'quantity'          => $details->mti_quantity,
                                 'date' => date('Y-m-d', strtotime($movementIn->receive_date)),
                                 'present_stock'     => $details->mti_quantity,
-                                'average_cost'      => $stock_history_out->average_cost,
-                                'after_discount_po' => $stock_history_out->after_discount_po ,
+                                'average_cost'      => $stock_history_out?->average_cost ?? 0,
+                                'after_discount_po' => $stock_history_out?->after_discount_po ?? 0,
                             ];
                         }
                         // dump($stock_data_out, $stock_data_In);
-                        $movementIn->stocks()->create($stock_data_out);
+                        $outData->stocks()->create($stock_data_out);
                         $movementIn->stocks()->create($stock_data_In);
                     ////  Stock history calculation end
                 }

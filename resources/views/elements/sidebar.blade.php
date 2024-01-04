@@ -2148,22 +2148,22 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        {{-- @can('vendors-outstanding-statement')
+                        @can('vendors-outstanding-statement')
                             <li class="{{ request()->routeIs('vendors_outstanding_statement') ? 'active' : null }}">
                                 <a href="{{ route('vendors_outstanding_statement') }}">
                                     <span class="pcoded-micon"><i class="fas fa-scroll"></i></span>
                                     <span class="pcoded-mtext">Vendor's Outstanding</span>
                                 </a>
                             </li>
-                        @endcan --}}
-                        @can('pending-bill')
+                        @endcan
+                        {{-- @can('pending-bill')
                             <li class="{{ request()->routeIs('pending-bills') ? 'active' : null }}">
                                 <a href="{{ route('pending-bills') }}">
                                     <span class="pcoded-micon"><i class="fas fa-scroll"></i></span>
                                     <span class="pcoded-mtext">Pending Bills</span>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
                     </ul>
                 </li>
             @endcan

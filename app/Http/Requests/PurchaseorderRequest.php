@@ -26,6 +26,7 @@ class PurchaseorderRequest extends FormRequest
         return [
             'date'=>"required|date|date_format:d-m-Y",
             'mpr_no'=>"required",
+            'po_no'=>"required|unique:purchase_orders,po_no,".$this->id,
             'cs_id'=>"required",
             'supplier_id'=>"required",
             'final_total'=>"required",

@@ -55,10 +55,10 @@ class PurchaseOrderController extends Controller
     public function store(PurchaseorderRequest $request)
     {
         try {
-            $purchaseorderData = $request->only('date', 'mpr_no', 'cs_id', 'supplier_id', 'final_total', 'carrying_charge', 'labour_charge', 'discount', 'source_tax', 'source_vat', 'carrying', 'remarks', 'receiver_contact', 'receiver_name');
+            $purchaseorderData = $request->only('date', 'mpr_no', 'cs_id', 'supplier_id', 'final_total', 'carrying_charge', 'labour_charge', 'discount', 'source_tax', 'source_vat', 'carrying', 'remarks', 'receiver_contact', 'receiver_name','po_no');
 
             $POpurchaseOrderData['cost_center_id'] = $request['cost_center_id'];
-            $purchaseorderData['po_no'] = "-";
+            // $purchaseorderData['po_no'] = "-";
 
             $purchaseorderDetailData = array();
             foreach ($request->material_id as  $key => $data) {
@@ -108,7 +108,7 @@ class PurchaseOrderController extends Controller
     public function update(PurchaseorderRequest $request, PurchaseOrder $purchaseOrder)
     {
         try {
-            $purchaseorderData = $request->only('date', 'mpr_no', 'cs_id', 'supplier_id', 'final_total', 'carrying_charge', 'labour_charge', 'discount', 'source_tax', 'carrying', 'source_vat', 'remarks', 'receiver_contact', 'receiver_name');
+            $purchaseorderData = $request->only('date', 'mpr_no', 'cs_id', 'supplier_id', 'final_total', 'carrying_charge', 'labour_charge', 'discount', 'source_tax', 'carrying', 'source_vat', 'remarks', 'receiver_contact', 'receiver_name','po_no');
 
             $purchaseorderDetailData = array();
             foreach ($request->material_id as  $key => $data) {
