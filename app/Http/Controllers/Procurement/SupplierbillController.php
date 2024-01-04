@@ -64,7 +64,7 @@ class SupplierbillController extends Controller
                         'mrr_no' => $request->mrr_no[$key],
                         'po_no' => $request->po_no[$key],
                         'mpr_no' => $request->mpr_no[$key],
-                        'supplier_id' => $request->supplier_id[$key],
+                        // 'supplier_id' => $request->supplier_id[$key],
                         'amount' => $request->amount[$key],
                         'remarks' => $request->remarks[$key],
                     ];
@@ -105,7 +105,7 @@ class SupplierbillController extends Controller
                     'mrr_no' => $request->mrr_no[$key],
                     'po_no' => $request->po_no[$key],
                     'mpr_no' => $request->mpr_no[$key],
-                    'supplier_id' => $request->supplier_id[$key],
+                    // 'supplier_id' => $request->supplier_id[$key],
                     'amount' => $request->amount[$key],
                     'remarks' => $request->remarks[$key],
                 ];
