@@ -136,8 +136,8 @@
                                             {!! Form::close() !!}
                                         @endif
                                     @endif
-                                    <a href="{{ route('material-movements-pdf', $data->id) }}" data-toggle="tooltip"
-                                        title="PDF" class="btn btn-outline-primary"><i class="fas fa-file-pdf"></i></a>
+                                    {{-- <a href="{{ route('material-movements-pdf', $data->id) }}" data-toggle="tooltip"
+                                        title="PDF" class="btn btn-outline-primary"><i class="fas fa-file-pdf"></i></a> --}}
                                     <a href="{{ url("movementInLog/$data->id/log") }}" data-toggle="tooltip" title="Logs"
                                         class="btn btn-dark"><i class="fas fa-history"></i></a>
 
