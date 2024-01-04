@@ -6,6 +6,7 @@ use App\Approval\Approval;
 use App\Procurement\Materialmovementdetail ;
 use App\Procurement\StockHistory ;
 use App\Project;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -16,7 +17,7 @@ class Materialmovement extends Model
 
     protected static $logOnlyDirty = true;
     protected static $logAttributes = ['*'];
-    
+
     protected $fillable = ['transfer_date','mto_no','entry_by'];
 
     public function movementdetails(){
@@ -44,6 +45,6 @@ class Materialmovement extends Model
     public function getTransferDateAttribute($input)
     {
         return Carbon::createFromFormat('Y-m-d', $input)->format('d-m-Y');
-    } 
+    }
 
 }

@@ -115,9 +115,9 @@
                                         <a href="{{ url("materialmovment/approved/$data->id/1") }}" data-toggle="tooltip"
                                             title="Approve Requisition" class="btn btn-success"><i class="fa fa-check"
                                                 aria-hidden="true"></i></a>
-                                        <a href="{{ url("materialmovment/approved/$data->id/0") }}" data-toggle="tooltip"
+                                        {{-- <a href="{{ url("materialmovment/approved/$data->id/0") }}" data-toggle="tooltip"
                                             title="Reject Requisition" class="btn btn-danger"><i class="fa fa-times"
-                                                aria-hidden="true"></i></a>
+                                                aria-hidden="true"></i></a> --}}
                                     @endif
                                     @if (
                                         $data->approval()->doesntExist() ||

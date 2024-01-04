@@ -1007,6 +1007,34 @@ class SupplyChainJsonController extends Controller
     }
 
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     */
+    public function loadMrrBasedOnSupplier(Request $request)
+    {
+
+        $search = $request->search;
+        $cost_center_id = $request->cost_center_id;
+        $supplier_id = $request->supplier_id;
+        $approval_layer = ApprovalLayer::where('name', 'Material Receive Report')->get();
+        $approval_layer_details = $approval_layer[0]->approvalLeyarDetails->last();
+
+        $items = MaterialReceive::with('approval')
+            ->whereHas('approval', function ($query) use ($approval_layer_details) {
+                return $query->where('layer_key', $approval_layer_details->layer_key)->where('status', 1);
+            })
+            ->where('mrr_no', 'LIKE', "%${search}%")
+            ->where('cost_center_id', $cost_center_id)
+            ->whereHas("purchaseorder", function ($query) use ($supplier_id) {
+                return $query->where('supplier_id', $supplier_id);
+            })
+            ->get(['id', 'mrr_no'])
+            ->map(fn ($item) => ['value' => $item->id, 'label' => $item->mrr_no]);
+
+        return response()->json($items);
+    }
+
+
     public function getMaterialsAndQuantityByMpr($mpr_no)
     {
 
@@ -1036,6 +1064,18 @@ class SupplyChainJsonController extends Controller
     public function getMrrByProject($cost_center_id)
     {
         $items = MaterialReceive::where('cost_center_id', $cost_center_id)
+            ->get(['id', 'mrr_no'])
+            ->map(fn ($item) => ['value' => $item->id, 'label' => $item->mrr_no]);;
+
+        return response()->json($items);
+    }
+
+    public function getMrrByProjectAndSupplier($cost_center_id,$supplier_id)
+    {
+        $items = MaterialReceive::where('cost_center_id', $cost_center_id)
+            ->whereHas("purchaseorder", function ($query) use ($supplier_id) {
+                return $query->where('supplier_id', $supplier_id);
+            })
             ->get(['id', 'mrr_no'])
             ->map(fn ($item) => ['value' => $item->id, 'label' => $item->mrr_no]);;
 

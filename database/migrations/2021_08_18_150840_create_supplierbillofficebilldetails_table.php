@@ -19,13 +19,13 @@ class CreateSupplierbillofficebilldetailsTable extends Migration
             $table->integer('mrr_no');
             $table->string('po_no',100);
             $table->integer('mpr_no');
-            $table->foreignId('supplier_id');
+            $table->foreignId('supplier_id')->nullable();
             $table->integer('amount');
             $table->string('remarks', 250);
             $table->foreign('supplierbill_id')->on('supplierbills')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
-        
+
     }
 
     /**

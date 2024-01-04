@@ -177,10 +177,10 @@ class MaterialReceiveController extends Controller
             if($materialReceife->transaction()->exists()){
                 return back()->withErrors(["This Data has some Transections. Please Delete them first"]);
             }
-            else{   
+            else{
                 $materialReceife->delete();
             }
-            
+
             return redirect()->route('materialReceives.index')->with('message', 'Data has been deleted successfully');
         } catch (QueryException $e) {
             return redirect()->route('materialReceives.index')->withErrors($e->getMessage());

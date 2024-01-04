@@ -23,12 +23,12 @@
 @section('content')
     <form action="" method="get">
         <div class="row px-2">
-            <div class="col-md-1 px-1 my-1 my-md-0" data-toggle="tooltip" title="Output">
+            {{-- <div class="col-md-1 px-1 my-1 my-md-0" data-toggle="tooltip" title="Output">
                 <select name="reportType" id="reportType" class="form-control form-control-sm" required>
                     <option value="list" selected> List </option>
                     <option value="pdf"> PDF </option>
                 </select>
-            </div>
+            </div> --}}
             <div class="col-md-3 px-1 my-1 my-md-0">
                 <input type="text" id="project_name" name="project_name" class="form-control form-control-sm"
                     value="" placeholder="Enter Project Name" autocomplete="off">
@@ -86,7 +86,7 @@
                     @foreach ($boq_supreme_budget as $value)
                         <?php
                         // dd($value->material_id, $value->floor_id, $project_id);
-                        
+
                         $boqRate = \App\Boq\Departments\Civil\BoqCivilBudget::where('project_id', $project_id)
                             ->whereRelation('boqFloor', 'boq_floor_id', $value->floor_id)
                             ->where('nested_material_id', $value->material_id)

@@ -2156,14 +2156,14 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('pending-bill')
+                        {{-- @can('pending-bill')
                             <li class="{{ request()->routeIs('pending-bills') ? 'active' : null }}">
                                 <a href="{{ route('pending-bills') }}">
                                     <span class="pcoded-micon"><i class="fas fa-scroll"></i></span>
                                     <span class="pcoded-mtext">Pending Bills</span>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
                     </ul>
                 </li>
             @endcan
