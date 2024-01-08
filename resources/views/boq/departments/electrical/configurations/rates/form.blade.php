@@ -118,14 +118,14 @@
                         <div class="col-xl-12 col-md-12" id="works-table">
                             <div class="input-group input-group-sm input-group-primary" id="work-0">
                                 <label class="input-group-addon" for="work_id">Select Work<span class="text-danger">*</span></label>
-                                <select class="form-control workparent_id" id="work_id" name="parentwork_id[]">
+                                <select class="form-control workparent_id" id="work_id" name="parentwork_id" required>
                                     <option value="">Select Work</option>
                                     @foreach ($boq_works as $boq_floor_type)
-                                    <option value="{{ $boq_floor_type->id }}" @if (isset($parent_data) && ($parent_data->take(1)->keys()->first() == $boq_floor_type->id)) selected @endif>{{ $boq_floor_type->name }}</option>
+                                    <option value="{{ $boq_floor_type->id }}" @if (isset($BoqEmeDatas) && ($BoqEmeDatas->emeWork->id == $boq_floor_type->id)) selected @endif>{{ $boq_floor_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            @if ($formType == 'edit')
+                            {{-- @if ($formType == 'edit')
                                 @php
                                     $work_data = [];
                                 @endphp
@@ -133,7 +133,7 @@
                                 @if(!($loop->first))
                                     <div class="input-group input-group-sm input-group-primary" id="work-{{ $loop->index }}">
                                         <label class="input-group-addon" for="work_id">Select Work<span class="text-danger">*</span></label>
-                                        <select class="form-control workparent_id" name="parentwork_id[]">
+                                        <select class="form-control workparent_id" name="parentwork_id">
                                             <option value="">Select Work</option>
                                             @foreach($work_data as $key1 => $value1)
                                             <option value="{{ $key1 }}" @if($key == $key1) selected @endif>{{ $value1 }}</option>
@@ -147,7 +147,7 @@
                                     @endphp
                                 @endif
                                 @endforeach
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                                 <thead>
                                     <tr class="electrical_calc_head">
                                         <th>Work Item <span class="text-danger">*</span></th>
-                                        <th class="labour_rate_th"> Labour Rate</th>
+                                        <th class="labour_rate_th"> Labour Rate <span class="text-danger">*</span></th>
                                         @if ($formType == 'create')
                                             <th><i class="btn btn-primary btn-sm fa fa-plus add-work-calculation-row"></i></th>
                                         @endif
@@ -184,11 +184,19 @@
                                     @if ($formType == 'edit' && ($BoqEmeDatas->type))
                                             <tr>
                                                 <tr>
-                                                    <td>
+                                                    {{-- <td>
                                                         <input type="hidden" name="work_id[]" value="{{ $BoqEmeDatas->boq_work_id }}" class="work_id">
                                                         <input type="text" name="work_name[]" value="{{ $BoqEmeDatas->boqWork->name }}" class="form-control text-center form-control-sm work_name" autocomplete="off" placeholder="Work Name" tabindex="-1">
+                                                    </td> --}}
+                                                    <td>
+                                                        <input list="options" name="work_id[]"  class="form-control text-center form-control-sm" value="{{ $BoqEmeDatas->boq_work_name }}" required>
+                                                        <datalist id="options">
+                                                            @foreach ($options as $option)
+                                                                <option value="{{ $option }}">
+                                                            @endforeach
+                                                        </datalist>
                                                     </td>
-                                                    <td> <input type="number" name="work_labour_rate[]" class="form-control text-center labour_rate" value="{{ $BoqEmeDatas->labour_rate }}" placeholder="Labour Rate"> </td>
+                                                    <td> <input type="number" name="work_labour_rate[]" class="form-control text-center labour_rate" value="{{ $BoqEmeDatas->labour_rate }}" placeholder="Labour Rate" required> </td>
                                                     @if ($formType == 'create')
                                                     <td> <i class="btn btn-danger btn-sm fa fa-minus remove-work-calculation-row"></i> </td>
                                                     @endif
@@ -212,8 +220,8 @@
 @section('script')
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        const BOQ_SUB_WORK_BY_WORK_ID_URL = "{{ route('boq.project.departments.electrical.configurations.rates.get_boq_sub_work_by_work_id', $project->id) }}";
-        const BOQ_WORK_BY_WORK_ID_URL = "{{ route('boq.project.departments.electrical.configurations.rates.get_boq_work_by_work_id', $project->id) }}";
+        // const BOQ_SUB_WORK_BY_WORK_ID_URL = "{{ route('boq.project.departments.electrical.configurations.rates.get_boq_sub_work_by_work_id', $project->id) }}";
+        // const BOQ_WORK_BY_WORK_ID_URL = "{{ route('boq.project.departments.electrical.configurations.rates.get_boq_work_by_work_id', $project->id) }}";
         let lastWorkId = -1;
         const CSRF_TOKEN = "{{ csrf_token() }}";
         $(function() {
@@ -253,10 +261,14 @@
             let row = `
                 <tr>
                     <td>
-                        <input type="hidden" name="work_id[]" class="work_id">
-                        <input type="text" name="work_name[]" class="form-control text-center form-control-sm work_name" autocomplete="off" placeholder="Work Name" tabindex="-1">
+                        <input list="options" name="work_id[]"  class="form-control text-center form-control-sm" placeholder="Work Name" required>
+                        <datalist id="options">
+                            @foreach ($options as $option)
+                                <option value="{{ $option }}">
+                            @endforeach
+                        </datalist>
                     </td>
-                    <td> <input type="number" name="work_labour_rate[]" class="form-control text-center labour_rate" placeholder="Labour Rate"> </td>
+                    <td> <input type="number" name="work_labour_rate[]" class="form-control text-center labour_rate" placeholder="Labour Rate" required> </td>
                     <td> <i class="btn btn-danger btn-sm fa fa-minus remove-work-calculation-row"></i> </td>
                 </tr>
                 `;
@@ -292,31 +304,31 @@
                     });
                 });
 
-                $(document).on('keyup','.work_name',function(events){
-                    let parent_id = $('.workparent_id:last').val();
-                    $(this).autocomplete({
-                        source: function(request, response) {
-                            $.ajax({
-                                url: "{{route('boq.project.departments.electrical.configurations.rates.boqWorkAutoSuggest',$project->id)}}",
-                                type: 'post',
-                                dataType: "json",
-                                data: {
-                                    _token: CSRF_TOKEN,
-                                    search: request.term,
-                                    parent_id
-                                },
-                                success: function( data ) {
-                                    response( data );
-                                }
-                            });
-                        },
-                        select: function(event, ui) {
-                            $(this).closest('tr').find('.work_name').val(ui.item.label);
-                            $(this).closest('tr').find('.work_id').val(ui.item.value);
-                            return false;
-                        }
-                    });
-                });
+                // $(document).on('keyup','.work_name',function(events){
+                //     let parent_id = $('.workparent_id:last').val();
+                //     $(this).autocomplete({
+                //         source: function(request, response) {
+                //             $.ajax({
+                //                 url: "{{route('boq.project.departments.electrical.configurations.rates.boqWorkAutoSuggest',$project->id)}}",
+                //                 type: 'post',
+                //                 dataType: "json",
+                //                 data: {
+                //                     _token: CSRF_TOKEN,
+                //                     search: request.term,
+                //                     // parent_id
+                //                 },
+                //                 success: function( data ) {
+                //                     response( data );
+                //                 }
+                //             });
+                //         },
+                //         select: function(event, ui) {
+                //             $(this).closest('tr').find('.work_name').val(ui.item.label);
+                //             $(this).closest('tr').find('.work_id').val(ui.item.value);
+                //             return false;
+                //         }
+                //     });
+                // });
 
 
 
@@ -349,63 +361,63 @@
             }
         });
 
-        async function getSubWorkByWork(workId, trId) {
-            try {
-                let formData = {
-                    _token: "{{ csrf_token() }}",
-                    work_id: workId,
-                };
-                console.log(formData);
-                const response = await axios.post(BOQ_SUB_WORK_BY_WORK_ID_URL, formData);
-                const data = await response.data;
-                appendSubWork(workId, trId, data);
+        // async function getSubWorkByWork(workId, trId) {
+        //     try {
+        //         let formData = {
+        //             _token: "{{ csrf_token() }}",
+        //             work_id: workId,
+        //         };
+        //         console.log(formData);
+        //         const response = await axios.post(BOQ_SUB_WORK_BY_WORK_ID_URL, formData);
+        //         const data = await response.data;
+        //         appendSubWork(workId, trId, data);
 
-                if (isObjectEmpty(data)) {
-                    lastWorkId = workId;
-                } else {
-                    lastWorkId = -1;
-                }
-            } catch (error) {
-                console.log("Get Sub work", error);
-                alert("Something went wrong. Please try again later.");
-            } finally {}
-        }
+        //         if (isObjectEmpty(data)) {
+        //             lastWorkId = workId;
+        //         } else {
+        //             lastWorkId = -1;
+        //         }
+        //     } catch (error) {
+        //         console.log("Get Sub work", error);
+        //         alert("Something went wrong. Please try again later.");
+        //     } finally {}
+        // }
 
 
-        $('#works-table').on('change', '.workparent_id', function() {
-            let workId = $(this).val();
-            let trId = parseInt($(this).closest('div').attr('id').split('-')[1]);
-            console.log(workId,trId);
-            getSubWorkByWork(workId, trId);
-        });
+        // $('#works-table').on('change', '.workparent_id', function() {
+        //     let workId = $(this).val();
+        //     let trId = parseInt($(this).closest('div').attr('id').split('-')[1]);
+        //     console.log(workId,trId);
+        //     getSubWorkByWork(workId, trId);
+        // });
 
-        function appendSubWork(workId, trId, subWorks) {
-            var rowCount = $('#works-table div').length;
+        // function appendSubWork(workId, trId, subWorks) {
+        //     var rowCount = $('#works-table div').length;
 
-            for (let i = trId + 1; i <= rowCount; i++) {
-                $('#work-' + i).remove();
-            }
+        //     for (let i = trId + 1; i <= rowCount; i++) {
+        //         $('#work-' + i).remove();
+        //     }
 
-            let options = "";
+        //     let options = "";
 
-            for (let i = 0; i < subWorks.length; i++) {
-                options += `<option value="${subWorks[i].id}">${subWorks[i].name}</option>`;
-            }
+        //     for (let i = 0; i < subWorks.length; i++) {
+        //         options += `<option value="${subWorks[i].id}">${subWorks[i].name}</option>`;
+        //     }
 
-            let row = `<div class="input-group input-group-sm input-group-primary" id="work-${trId + 1}">
-                        <label class="input-group-addon" for="work_id">Select Work<span class="text-danger">*</span></label>
-                        <select class="form-control workparent_id" name="parentwork_id[]">
-                            <option value="">Select Work</option>
-                            ${options}
-                        </select>
-                    </div> `;
+        //     let row = `<div class="input-group input-group-sm input-group-primary" id="work-${trId + 1}">
+        //                 <label class="input-group-addon" for="work_id">Select Work<span class="text-danger">*</span></label>
+        //                 <select class="form-control workparent_id" name="parentwork_id[]">
+        //                     <option value="">Select Work</option>
+        //                     ${options}
+        //                 </select>
+        //             </div> `;
 
-            if (!isObjectEmpty(subWorks)) {
-                $('#works-table').append(row);
-            }
-        }
-        function isObjectEmpty(obj) {
-            return Object.keys(obj).length === 0;
-        }
+        //     if (!isObjectEmpty(subWorks)) {
+        //         $('#works-table').append(row);
+        //     }
+        // }
+        // function isObjectEmpty(obj) {
+        //     return Object.keys(obj).length === 0;
+        // }
     </script>
 @endsection

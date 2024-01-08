@@ -26,6 +26,7 @@ class BoqEmeRateRequest extends FormRequest
         $type = request()->type;
         if($type){
             return [
+            'parentwork_id'        => 'required',
             'work_id'              => 'array|required',
             'work_id.*'            => 'required',
             'work_labour_rate'     => 'array|required',

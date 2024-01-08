@@ -39,15 +39,15 @@
                 <tr>
                     <td>{{$loop->iteration }}</td>
                     <td>
-                            @if ($data->boq_work_id == null)
+                            @if ($data->boq_work_name == null)
                             {{$data->NestedMaterialSecondLayer->name }}
                             @else
-                            {{ $data->boqWork->name }}
+                            {{ $data->emeWork->name }}
                             @endif
                     </td>
                     <td>
                         @if($data->type)
-                        {{$data->boqWork->name}}
+                        {{$data->boq_work_name}}
                         @else
                         {{$data->NestedMaterial->name }}
                         @endif
