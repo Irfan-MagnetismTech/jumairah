@@ -29,6 +29,8 @@ class BoqEmeRateRequest extends FormRequest
             'parentwork_id'        => 'required',
             'work_id'              => 'array|required',
             'work_id.*'            => 'required',
+            'labor_unit'           => 'array|required',
+            'labor_unit.*'         => 'required',
             'work_labour_rate'     => 'array|required',
             'work_labour_rate.*'   => 'required',
             ];

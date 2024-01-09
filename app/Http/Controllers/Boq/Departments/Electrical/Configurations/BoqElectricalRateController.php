@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Boq\Departments\Electrical\Configurations;
 
 use App\Project;
+use App\Procurement\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Boq\Configurations\BoqWork;
@@ -10,8 +11,8 @@ use App\Procurement\NestedMaterial;
 use App\Http\Controllers\Controller;
 use App\Boq\Departments\Eme\BoqEmeItem;
 use App\Boq\Departments\Eme\BoqEmeRate;
-use App\Boq\Departments\Eme\EmeLaborHead;
 use Illuminate\Database\QueryException;
+use App\Boq\Departments\Eme\EmeLaborHead;
 use App\Http\Requests\Boq\Eme\BoqEmeRateRequest;
 
 class BoqElectricalRateController extends Controller
@@ -37,7 +38,8 @@ class BoqElectricalRateController extends Controller
         $optionList = BoqEmeRate::whereNotNull('boq_work_name')->pluck('boq_work_name');
         $options = $optionList->toArray();
         $formType = 'create';
-        $boq_works        = EmeLaborHead::latest()->get();
+        $units = Unit::orderBy( 'id' )->pluck( 'name', 'id' );
+        $boq_works = EmeLaborHead::latest()->get();
         $leyer1NestedMaterial = NestedMaterial::with('descendants')->where('parent_id', null)->orderBy('id')->pluck('name', 'id');
         $emeMaterial = NestedMaterial::where('name', 'ELECTRICAL MATERIALS')->first();
         $secondMaterial = $materials = NestedMaterial::with('descendants')
@@ -45,7 +47,7 @@ class BoqElectricalRateController extends Controller
             ->orderBy('id')
             ->pluck('name', 'id');
 
-        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'leyer1NestedMaterial', 'formType', 'boq_works', 'emeMaterial', 'secondMaterial', 'options'));
+        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'leyer1NestedMaterial', 'formType', 'boq_works', 'emeMaterial', 'secondMaterial', 'options', 'units'));
     }
 
     /**
@@ -62,9 +64,10 @@ class BoqElectricalRateController extends Controller
                 foreach ($request->work_id as  $key => $data) {
                     $BoqEmeRateData[] = [
                         'parent_id_second'  =>  $request->parentwork_id,
-                        'boq_work_name'       =>  $request->work_id[$key],
+                        'boq_work_name'     =>  $request->work_id[$key],
+                        'labor_unit'        =>  $request->labor_unit[$key],
                         'labour_rate'       =>  $request->work_labour_rate[$key],
-                        'type'              => 1,
+                        'type'              =>  1,
                         'created_at'        =>  now(),
                         'updated_at'        =>  now()
                     ];
@@ -75,6 +78,7 @@ class BoqElectricalRateController extends Controller
                         'parent_id_second'  =>  $request->parent_id_second,
                         'material_id'       =>  $request->material_id[$key],
                         'labour_rate'       =>  $request->labour_rate[$key],
+                        'labor_unit'        =>  null,
                         'created_at'        =>  now(),
                         'updated_at'        =>  now()
                     ];
@@ -112,6 +116,7 @@ class BoqElectricalRateController extends Controller
     {
         $optionList = BoqEmeRate::whereNotNull('boq_work_name')->pluck('boq_work_name');
         $options = $optionList->toArray();
+        $units = Unit::orderBy( 'id' )->pluck( 'name', 'id' );
         $formType = 'edit';
         $boq_works  = EmeLaborHead::latest()->get();
         $BoqEmeDatas =  BoqEmeRate::findOrFail($BoqEmeRateId);
@@ -123,7 +128,7 @@ class BoqElectricalRateController extends Controller
             ->where('parent_id', $emeMaterial->id)
             ->orderBy('id')
             ->pluck('name', 'id');
-        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'formType', 'BoqEmeDatas', 'leyer1NestedMaterial', 'leyer2NestedMaterial', 'BoqEmeRateId', 'boq_works', 'emeMaterial', 'secondMaterial', 'options'));
+        return view('boq.departments.electrical.configurations.rates.create', compact('project', 'formType', 'BoqEmeDatas', 'leyer1NestedMaterial', 'leyer2NestedMaterial', 'BoqEmeRateId', 'boq_works', 'emeMaterial', 'secondMaterial', 'options', 'units'));
     }
 
     /**
@@ -142,11 +147,12 @@ class BoqElectricalRateController extends Controller
             if ($request->type) {
                 foreach ($request->work_id as  $key => $data) {
                     $BoqEmeRateData = [
-                        'boq_work_name'       =>  $request->work_id[$key],
+                        'boq_work_name'     =>  $request->work_id[$key],
                         'labour_rate'       =>  $request->work_labour_rate[$key],
                         'parent_id_second'  =>  $request->parentwork_id,
-                        'material_id'       => null,
-                        'type'              => 1,
+                        'labor_unit'        =>  $request->labor_unit[$key],
+                        'material_id'       =>  null,
+                        'type'              =>  1,
                         'created_at'        =>  now(),
                         'updated_at'        =>  now()
                     ];
@@ -155,7 +161,8 @@ class BoqElectricalRateController extends Controller
                 foreach ($request->material_id as  $key => $data) {
                     $BoqEmeRateData = [
                         'parent_id_second'  =>  $request->parent_id_second,
-                        'boq_work_name'       =>  null,
+                        'boq_work_name'     =>  null,
+                        'labor_unit'        =>  null,
                         'material_id'       =>  $request->material_id[$key],
                         'labour_rate'       =>  $request->labour_rate[$key],
                         'created_at'        =>  now(),

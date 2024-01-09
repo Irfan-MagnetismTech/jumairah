@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-12 col-xl-12">
                             <div class="input-group input-group-sm input-group-primary">
-                                <label class="input-group-addon" for="parent_id_second">2nd layer</label>
+                                <label class="input-group-addon" for="parent_id_second">2nd layer<span class="text-danger">*</span></label>
                                 {{-- {{Form::select('parent_id_second', !empty($BoqEmeDatas->parent_id_second) ? $leyer2NestedMaterial : [],old('parent_id_second') ? old('parent_id_second') : (!empty($BoqEmeDatas) ? $BoqEmeDatas->parent_id_second : null),['class' => 'form-control material','id' => 'parent_id_second', 'placeholder'=>"Select 2nd layer material Name", 'autocomplete'=>"off"])}} --}}
 
                                 {{Form::select('parent_id_second', $secondMaterial,old('parent_id_second') ? old('parent_id_second') : (!empty($BoqEmeDatas) ? $BoqEmeDatas->parent_id_second : null),['class' => 'form-control material','id' => 'parent_id_second'])}}
@@ -118,7 +118,7 @@
                         <div class="col-xl-12 col-md-12" id="works-table">
                             <div class="input-group input-group-sm input-group-primary" id="work-0">
                                 <label class="input-group-addon" for="work_id">Select Work<span class="text-danger">*</span></label>
-                                <select class="form-control workparent_id" id="work_id" name="parentwork_id" required>
+                                <select class="form-control workparent_id" id="work_id" name="parentwork_id">
                                     <option value="">Select Work</option>
                                     @foreach ($boq_works as $boq_floor_type)
                                     <option value="{{ $boq_floor_type->id }}" @if (isset($BoqEmeDatas) && ($BoqEmeDatas->emeWork->id == $boq_floor_type->id)) selected @endif>{{ $boq_floor_type->name }}</option>
@@ -173,6 +173,7 @@
                                 <thead>
                                     <tr class="electrical_calc_head">
                                         <th>Work Item <span class="text-danger">*</span></th>
+                                        <th>Unit <span class="text-danger">*</span></th>
                                         <th class="labour_rate_th"> Labour Rate <span class="text-danger">*</span></th>
                                         @if ($formType == 'create')
                                             <th><i class="btn btn-primary btn-sm fa fa-plus add-work-calculation-row"></i></th>
@@ -195,6 +196,14 @@
                                                                 <option value="{{ $option }}">
                                                             @endforeach
                                                         </datalist>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="labor_unit[]" required>
+                                                            <option value="">Select Unit</option>
+                                                            @foreach ($units as $key => $unit)
+                                                            <option value="{{ $key }}" @if (isset($BoqEmeDatas) && ($BoqEmeDatas->laborUnit->id == $key)) selected @endif>{{ $unit }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </td>
                                                     <td> <input type="number" name="work_labour_rate[]" class="form-control text-center labour_rate" value="{{ $BoqEmeDatas->labour_rate }}" placeholder="Labour Rate" required> </td>
                                                     @if ($formType == 'create')
@@ -267,6 +276,14 @@
                                 <option value="{{ $option }}">
                             @endforeach
                         </datalist>
+                    </td>
+                    <td>
+                        <select class="form-control" name="labor_unit[]" required>
+                            <option value="">Select Unit</option>
+                            @foreach ($units as $key => $unit)
+                                <option value="{{ $key }}">{{ $unit }}</option>
+                            @endforeach
+                        </select>
                     </td>
                     <td> <input type="number" name="work_labour_rate[]" class="form-control text-center labour_rate" placeholder="Labour Rate" required> </td>
                     <td> <i class="btn btn-danger btn-sm fa fa-minus remove-work-calculation-row"></i> </td>
