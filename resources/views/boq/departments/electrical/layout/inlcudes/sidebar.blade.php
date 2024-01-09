@@ -24,6 +24,15 @@
                     </li>
                 </ul>
                 <ul class="pcoded-submenu">
+                    <li class="{{ request()->routeIs('boq.project.departments.electrical.configurations.eme-labor-head.*') ? 'active pcoded-trigger' : null }}">
+                        <a href="{{ route('boq.project.departments.electrical.configurations.eme-labor-head.create', ['project' => $project ]) }}">
+                            <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                            <span class="pcoded-mtext"> Labor Head </span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="pcoded-submenu">
 
                     <li class="{{ request()->routeIs('boq.project.departments.electrical.configurations.rates.*') ? 'active pcoded-trigger' : null }}">
                         <a href="{{ route('boq.project.departments.electrical.configurations.rates.create', ['project' => $project ]) }}">
@@ -33,7 +42,6 @@
                         </a>
                     </li>
                 </ul>
-
                 {{-- <ul class="pcoded-submenu">
 
                     <li class="{{ request()->routeIs('boq.project.departments.electrical.configurations.cs_supplier_eval_option.*') ? 'active pcoded-trigger' : null }}">
