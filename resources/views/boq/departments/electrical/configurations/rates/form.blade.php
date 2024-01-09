@@ -79,7 +79,7 @@
                                                 <tr>
                                                     <td>
                                                         <input type="hidden" name="material_id[]" value="{{ $BoqEmeDatas->material_id }}" class="material_id" id="material_id">
-                                                        <input type="text" name="material_name[]" value="{{ $BoqEmeDatas->NestedMaterial->name }}" class="form-control text-center form-control-sm material_name" autocomplete="off" placeholder="Material Name" tabindex="-1">
+                                                        <input type="text" name="material_name[]" value="{{ $BoqEmeDatas->NestedMaterial->name }}" class="form-control text-center form-control-sm material_name" autocomplete="off" placeholder="Material Name" tabindex="-1" required>
                                                     </td>
                                                     <td>
                                                         <input type="text" name="unit[]" value="{{ $BoqEmeDatas->NestedMaterial->unit->name }}" class="form-control text-center form-control-sm unit" autocomplete="off" placeholder="Unit" tabindex="-1" readonly>
@@ -198,7 +198,7 @@
                                                         </datalist>
                                                     </td>
                                                     <td>
-                                                        <select class="form-control" name="labor_unit[]" required>
+                                                        <select class="form-control labor_unit" name="labor_unit[]" required>
                                                             <option value="">Select Unit</option>
                                                             @foreach ($units as $key => $unit)
                                                             <option value="{{ $key }}" @if (isset($BoqEmeDatas) && ($BoqEmeDatas->laborUnit->id == $key)) selected @endif>{{ $unit }}</option>
@@ -318,6 +318,17 @@
                             $(this).closest('tr').find('.unit').val(ui.item.unit_name);
                             return false;
                         }
+                    });
+                });
+
+                $(document).ready(function() {
+                    $('#parent_id_second').on('change', function() {
+                        $('.material_name').val('');
+                    });
+
+                    $('#work_id').on('change', function() {
+                        $('input[name="work_id[]"]').val('');
+                        $('.labor_unit').val('');
                     });
                 });
 
