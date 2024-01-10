@@ -18,7 +18,7 @@
             @foreach($months as $month)
         <div class="col-md-3">
             <a href='{{ url("get-report/{$cost_center_id}/{$year}/{$month}") }}'>
-                <div class="card text-white" style="background-color: #227447;">
+                <div class="card text-white" style="background-color: #116A7B;">
                     <div class="card-body text-center" >
                         {{ DateTime::createFromFormat('!m', $month)->format('F') }}
                     </div>

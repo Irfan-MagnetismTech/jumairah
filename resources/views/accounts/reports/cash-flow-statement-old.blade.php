@@ -48,7 +48,7 @@
     <div class="table-responsive">
         <table style="width: 100%">
             <thead>
-            <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+            <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                 <td rowspan=""> Particulars </td>
 {{--                <td rowspan="2"> Opening Balance </td>--}}
 {{--                <td colspan="2"> Transactions </td>--}}
@@ -115,7 +115,7 @@
                 <th style=""><u>Cash Flow for FY Ended  - 2022</u></th>
                 <th class="text-right"><u>@money(1740000)</u></th>
             </tr>
-{{--            <tr style="text-align: center; background:#227447; color: white; font-weight: bold">--}}
+{{--            <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">--}}
 {{--                <td> Debit </td>--}}
 {{--                <td> Credit </td>--}}
 {{--            </tr>--}}

@@ -55,7 +55,7 @@
                     <td>{{$parking->total_parking}}</td>
                     <td class="text-left">
                         @foreach($parking->parkingDetails as $parkingDetail)
-                            <span class="label  parkingBadge tableBadge text-center" style="font-size: 11px;background-color: #065840;">{{$parkingDetail->parking_name}}<br>{{$parkingDetail->parking_owner}}</span>
+                            <span class="label  parkingBadge tableBadge text-center" style="font-size: 11px;background-color: #116A7B;">{{$parkingDetail->parking_name}}<br>{{$parkingDetail->parking_owner}}</span>
                         @endforeach
                     </td>
                     <td>

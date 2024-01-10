@@ -11,7 +11,7 @@
         <div class="col-md-3">
 {{--            <a href="{{ url('boqSupremeBudgets') }}/{{$project[0]->project_id}}">--}}
             <a href="{{ url('supreme-budget-show') }}/{{$budgetfor}}/{{$project[0]->project_id}}">
-                <div class="card text-white" style="background-color: #227447;">
+                <div class="card text-white" style="background-color: #116A7B;">
                     <div class="card-body text-center" >
                         {{ $project[0]->costCenter->name }}
                     </div>

@@ -108,7 +108,7 @@ Fixed Asset Statement
 <div class="table-responsive">
     <table style="width: 100%">
         <thead>
-            <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+            <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                 <td rowspan="2"> Particulars </td>
                 <td rowspan="" colspan="2"> Voucher Ref. </td>
                 <td rowspan="2"> Dep Rate </td>
@@ -117,7 +117,7 @@ Fixed Asset Statement
                 <td rowspan="" colspan="4"> Depreciation </td>
                 <td rowspan="2"> WDV </td>
             </tr>
-            <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+            <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                 <td> No </td>
                 <td> Date </td>
                 <td> Opening </td>

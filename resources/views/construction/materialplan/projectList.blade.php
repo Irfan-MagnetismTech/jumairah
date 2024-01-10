@@ -22,7 +22,7 @@
             @foreach($projects as $key => $value)
             <div class="col-md-6">
                     <a href="{{ url('construction/material-budget-details') }}/{{ $value->year }}/{{$value->month}}/{{ $value->project_id }}">
-                    <div class="card col-md-12 text-white text-center" style="background-color: #227447;">
+                    <div class="card col-md-12 text-white text-center" style="background-color: #116A7B;">
                         <div class="card-body">
                             <i class="fas fa-file-excel"></i> &nbsp;&nbsp;
                             {{ $value->projects->name }}

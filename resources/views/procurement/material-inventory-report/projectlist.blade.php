@@ -22,7 +22,7 @@
             @foreach($datas as $data)
         <div class="col-md-3">
             <a href="{{ url('get-report') }}/{{ $data[0]['cost_center_id'] }}">
-                <div class="card text-white" style="background-color: #227447">
+                <div class="card text-white" style="background-color: #116A7B">
                     <div class="card-body text-center">
                         <h6>{{ $data[0]['cost_center_name'] }}</h6>
                     </div>

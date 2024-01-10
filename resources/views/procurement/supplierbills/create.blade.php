@@ -436,7 +436,7 @@
     .custom-form .input-group-addon {
             min-width: 110px !important;
             max-width: 110px !important;
-            background-color: #227447 !important;
+            background-color: #116A7B !important;
             padding-left: 4px !important;
             padding-right: 123px !important;
         }

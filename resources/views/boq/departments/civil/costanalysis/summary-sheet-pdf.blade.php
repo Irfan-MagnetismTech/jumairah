@@ -38,7 +38,7 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: center;
-            background-color: #227447;
+            background-color: #116A7B;
             color: white;
         }
 

@@ -35,7 +35,7 @@
             padding-top: 15px;
             padding-bottom: 5px;
             text-align: center;
-            background-color: #227447;
+            background-color: #116A7B;
             color: white;
             line-height: 5px;
         }

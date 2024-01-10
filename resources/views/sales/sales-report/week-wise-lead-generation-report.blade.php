@@ -94,7 +94,7 @@ Category Wise Sales Report
 <div class="table-responsive">
     <table style="width: 100%" id="categoryWiseTable">
         <thead>
-            <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+            <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                 <td>Category</td>
                 <td>#</td>
                 <td>Customer Name </td>

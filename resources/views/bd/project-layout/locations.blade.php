@@ -6,7 +6,7 @@
             @foreach($bd_lead_locations as $bd_lead_location)
                 <div class="col-md-3">
                     <a href="{{url('project-layout-create',$bd_lead_location)}}">
-                        <div class="card text-white" style="background-color: #227447;">
+                        <div class="card text-white" style="background-color: #116A7B;">
                             <div class="card-body text-center" >
                                 {{ $bd_lead_location->land_location }}
                                 <p class="m-0">
