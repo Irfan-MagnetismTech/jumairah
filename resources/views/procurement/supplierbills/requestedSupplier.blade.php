@@ -76,7 +76,7 @@
                     <td>
                         <div class="icon-btn">
                             <nobr>
-                            <a href="{{ url("supplierBillReject/$val[id]") }}" data-toggle="tooltip" title="Reject" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            {{-- <a href="{{ url("supplierBillReject/$val[id]") }}" data-toggle="tooltip" title="Reject" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a> --}}
                             </nobr>
                         </div> 
                     </td>

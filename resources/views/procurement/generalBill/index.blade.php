@@ -115,9 +115,9 @@
                                         <a href="{{ url("generalBill/approved/$generalBill->id/1") }}"
                                             data-toggle="tooltip" title="Approve Bill" class="btn btn-success"><i
                                                 class="fa fa-check" aria-hidden="true"></i></a>
-                                        <a href="{{ url("generalBill/approved/$generalBill->id/0") }}"
+                                        {{-- <a href="{{ url("generalBill/approved/$generalBill->id/0") }}"
                                             data-toggle="tooltip" title="Reject Bill" class="btn btn-danger"><i
-                                                class="fa fa-times" aria-hidden="true"></i></a>
+                                                class="fa fa-times" aria-hidden="true"></i></a> --}}
                                     @endif
 
                                     @if (
