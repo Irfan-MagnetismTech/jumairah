@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'construction', 'as' => 'const
     Route::get('pdf/{year}/{month}', 'Construction\WorkPlanController@pdf')->name('pdf');
     Route::post('workPlan/DraftSave', 'Construction\WorkPlanController@DraftSave')->name('workPlan.DraftSave');
     Route::get('work_plan/approved/{work_plan}/{status}/{year}/{month}','Construction\WorkPlanController@Approve')->name('workPlan.Approved');
-    
+
     Route::get('material-plan-year-List}', 'Construction\MaterialPlanController@yearList')->name('material-plan-year-List');
     Route::get('material-plan-month-List/{year}', 'Construction\MaterialPlanController@monthList')->name('material-plan-month-List');
     Route::get('material-budget-project-list/{year}/{month}', 'Construction\MaterialPlanController@projectList')->name('material-budget-project-list');

@@ -51,7 +51,7 @@ class SupplierbillController extends Controller
     public function store(SupplierbillRequest $request)
     {
         try {
-            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total');
+            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total','supplier_id');
             $supplierbillData['applied_by'] = auth()->id();
             $supplierbillData['status'] = "Pending";
             $supplierbillDataDetails = array();
@@ -64,7 +64,7 @@ class SupplierbillController extends Controller
                         'mrr_no' => $request->mrr_no[$key],
                         'po_no' => $request->po_no[$key],
                         'mpr_no' => $request->mpr_no[$key],
-                        'supplier_id' => $request->supplier_id[$key],
+                        // 'supplier_id' => $request->supplier_id[$key],
                         'amount' => $request->amount[$key],
                         'remarks' => $request->remarks[$key],
                     ];
@@ -96,7 +96,7 @@ class SupplierbillController extends Controller
     public function update(SupplierbillRequest $request, Supplierbill $supplierbill)
     {
         try {
-            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total');
+            $supplierbillData = $request->only('date', 'register_serial_no', 'bill_no', 'purpose', 'cost_center_id', 'carrying_charge', 'labour_charge', 'discount', 'final_total','supplier_id');
             $supplierbillData['status'] = "Pending";
 
             $supplierbillDataDetails = array();
@@ -105,7 +105,7 @@ class SupplierbillController extends Controller
                     'mrr_no' => $request->mrr_no[$key],
                     'po_no' => $request->po_no[$key],
                     'mpr_no' => $request->mpr_no[$key],
-                    'supplier_id' => $request->supplier_id[$key],
+                    // 'supplier_id' => $request->supplier_id[$key],
                     'amount' => $request->amount[$key],
                     'remarks' => $request->remarks[$key],
                 ];

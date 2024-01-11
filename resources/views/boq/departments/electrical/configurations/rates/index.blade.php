@@ -28,6 +28,7 @@
                 <th>SL</th>
                 <th style="width: 250px;word-wrap:break-word">Item Name</th>
                 <th style="width: 250px;word-wrap:break-word">Material Name / Work Name</th>
+                <th style="width: 250px;word-wrap:break-word">Unit</th>
                 <th style="width: 250px;word-wrap:break-word">Rate</th>
                 <th>Action</th>
             </tr>
@@ -39,13 +40,24 @@
                 <tr>
                     <td>{{$loop->iteration }}</td>
                     <td>
+                            @if ($data->boq_work_name == null)
                             {{$data->NestedMaterialSecondLayer->name }}
+                            @else
+                            {{ $data->emeWork->name }}
+                            @endif
                     </td>
                     <td>
                         @if($data->type)
-                        {{$data->boqWork->name}}
+                        {{$data->boq_work_name}}
                         @else
                         {{$data->NestedMaterial->name }}
+                        @endif
+                    </td>
+                    <td>
+                        @if($data->type)
+                        {{$data->laborUnit->name}}
+                        @else
+                        {{$data->NestedMaterial->unit->name }}
                         @endif
                     </td>
                     <td>{{$data->labour_rate }}</td>

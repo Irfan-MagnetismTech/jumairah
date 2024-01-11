@@ -11,6 +11,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MaterialmovementController extends Controller
 {
@@ -62,7 +63,7 @@ class MaterialmovementController extends Controller
                     'movement_requision_id' =>$request->movement_requisition_id[$key],
                     'gate_pass'         =>$request->gate_pass[$key],
                     'material_id'       =>$request->material_id[$key],
-                    'quantity'          =>$request->mtrf_quantity[$key],
+                    'quantity'          =>$request->mto_quantity[$key],
                     'remarks'           =>$request->remarks[$key],
                     'fixed_asset_id'    =>$request->tag[$key],
                 ];
@@ -122,7 +123,7 @@ class MaterialmovementController extends Controller
                     'movement_requision_id' =>$request->movement_requisition_id[$key],
                     'gate_pass'         =>$request->gate_pass[$key],
                     'material_id'       =>$request->material_id[$key],
-                    'quantity'          =>$request->mtrf_quantity[$key],
+                    'quantity'          =>$request->mto_quantity[$key],
                     'remarks'           =>$request->remarks[$key],
                     'fixed_asset_id'    =>$request->tag[$key],
                 ];
@@ -164,7 +165,7 @@ class MaterialmovementController extends Controller
     {
         $movements = $material_movement->movementdetails()->get();
 
-        return \PDF::loadview('procurement.materialmovements.pdf', compact(
+        return PDF::loadview('procurement.materialmovements.pdf', compact(
             'material_movement',
             'movements'
             ))

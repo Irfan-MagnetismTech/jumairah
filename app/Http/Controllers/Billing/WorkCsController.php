@@ -16,6 +16,8 @@ use App\Http\Requests\StoreWorkCsRequest;
 use App\Http\Requests\UpdateWorkCsRequest;
 use App\Procurement\Unit;
 use App\Services\UniqueNoGenaratorService;
+// use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class WorkCsController extends Controller
 {
@@ -241,8 +243,16 @@ class WorkCsController extends Controller
         $approvals = Approval::query()->with(['user.employee', 'approvalLayerDetails'])->where('approvable_id', $workCs->id)->where('approvable_type', WorkCs::class)->get();
 
         // dd($workCs);
-        return \PDF::loadview('billing.work-cs.pdf', compact('workCs', 'approvals'))->setPaper('a4', 'landscape')->stream('billing.work-cs.pdf');
-        return view('billing.work-cs.pdf', compact('workCs', 'approvals'));
+        // $pdf = new Dompdf();
+
+        // $pdf->loadHtml(view('billing.work-cs.pdf', compact('workCs', 'approvals')));
+        // //load view
+        // $pdf->setPaper('a4', 'landscape');
+        // $pdf->render();
+        // $pdf->stream();
+
+        return PDF::loadview('billing.work-cs.pdf', compact('workCs', 'approvals'))->setPaper('a4', 'landscape')->stream('billing.work-cs.pdf');
+        // return view('billing.work-cs.pdf', compact('workCs', 'approvals'));
     }
 
 

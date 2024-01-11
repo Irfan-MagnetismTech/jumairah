@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Procurement\BoqSupremeBudgetController;
 use Boq\Departments\Civil\BoqCivilMaterialSpecificationController;
+use Boq\Configurations\BoqSanitaryProjectWiseMaterialPriceController;
+use Boq\Departments\Electrical\Configurations\EMELaborHeadController;
 use App\Http\Controllers\Boq\Departments\Civil\BoqCivilJsonController;
 use Boq\Configurations\BoqElectricalProjectWiseMaterialPriceController;
 use Boq\Departments\Civil\BoqCivilGlobalMaterialSpecificationController;
 use App\Http\Controllers\Boq\Departments\Sanitary\SanitaryAllocationController;
 use App\Http\Controllers\Boq\Departments\Sanitary\ProjectWiseMaterialController;
-use App\Http\Controllers\Procurement\BoqSupremeBudgetController;
-use Boq\Configurations\BoqSanitaryProjectWiseMaterialPriceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -153,7 +154,7 @@ Route::middleware( 'auth' )->prefix( 'boq' )->as( 'boq.' )->group( function () {
 						->parameter( 'consumables', 'consumable' );
 
 					Route::get( '/edit/consumables/{head}', [\App\Http\Controllers\Boq\Departments\Civil\Cost\BoqCivilConsumableBudgetController::class, 'editConsumableBudgetWithHead'] )
-						->name( 'consumables.edit' );
+						->name( 'related-material.edit' );
 				} );
 
 				// Cost analysis routes
@@ -319,6 +320,7 @@ Route::middleware( 'auth' )->prefix( 'boq' )->as( 'boq.' )->group( function () {
 						Route::post( 'getDecendentsBasedOnParent', [BoqCivilJsonController::class, 'getDecendentsBasedOnParent'] )->name( 'getDecendentsBasedOnParent' );
 					} );
 					Route::resource( '/eme-budget-head', \Boq\Departments\Electrical\Configurations\EmeBudgetHeadController::class );
+					Route::resource( '/eme-labor-head',  \Boq\Departments\Electrical\Configurations\EmeLaborHeadController::class );
 
 					/********************* cs supplier eval  ********************/
 					Route::resource( '/cs_supplier_eval_option', \Boq\Departments\Electrical\Configurations\BoqEmeCsSupplierEvaluationFieldController::class );

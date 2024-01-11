@@ -33,27 +33,26 @@ class BoqElectricalCalculationController extends Controller
         $this->middleware('permission:boq-eme-budget-details-delete', ['only' => ['destroy']]);
     }
 
-    public function index(Project $project)
-    {
-        $budgetHeadId = request()->budget_head_id;
-        $itemId = request()->item_id;
+    public function index(Project $project){
+    $budgetHeadId = request()->budget_head_id;
+    $itemId = request()->item_id;
 
-        $query = BoqEmeCalculation::with(['BoqFloorProject', 'NestedMaterial', 'NestedMaterialSecondLayer', 'BoqEmeRate', 'EmeBudgetHead'])
-            ->where('project_id', $project->id);
+    $query = BoqEmeCalculation::with(['BoqFloorProject', 'NestedMaterial', 'NestedMaterialSecondLayer', 'BoqEmeRate', 'EmeBudgetHead'])
+        ->where('project_id', $project->id);
 
-        if (!empty($itemId)) {
-            $query->where([['item_id', $itemId], ['budget_head_id', $budgetHeadId]]);
-        } elseif (!empty($budgetHeadId)) {
-            $query->where([['budget_head_id', $budgetHeadId]]);
-        }
+    if (!empty($itemId)) {
+        $query->where([ ['item_id', $itemId], ['budget_head_id', $budgetHeadId]]);
+    }elseif(!empty($budgetHeadId)){
+        $query->where([['budget_head_id', $budgetHeadId]]);
+    }
 
-        $BoqEmeCalculations = $query->get()->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
+    $BoqEmeCalculations = $query->get()->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
 
-        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->get();
+        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->having('type', 0)->get();
         $EmeBudgetHeads = EmeBudgetHead::get();
 
-        return view('boq.departments.electrical.calculations.index', compact('project', 'BoqEmeCalculations', 'boqEmeRates', 'EmeBudgetHeads'));
-    }
+    return view('boq.departments.electrical.calculations.index', compact('project', 'BoqEmeCalculations', 'boqEmeRates', 'EmeBudgetHeads'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +62,7 @@ class BoqElectricalCalculationController extends Controller
     public function create(Project $project)
     {
         $formType = "create";
-        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->get();
+        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->having('type', 0)->get();
         $EmeBudgetHeads = EmeBudgetHead::get();
         return view('boq.departments.electrical.calculations.create', compact('project', 'boqEmeRates', 'formType', 'EmeBudgetHeads'));
     }
@@ -109,7 +108,7 @@ class BoqElectricalCalculationController extends Controller
             DB::transaction(function () use ($BoqEmeCalculation, $materialbudgetdetails_data, $project, $request) {
                 BoqEmeCalculation::insert($BoqEmeCalculation);
 
-                foreach ($materialbudgetdetails_data as $key => $value) {
+                foreach($materialbudgetdetails_data as $key => $value){
                     $model = BoqSupremeBudget::where([['budget_for', "EME"], ['project_id', $project->id], ['floor_id', $materialbudgetdetails_data[$key]['floor_id']], ['material_id', $materialbudgetdetails_data[$key]['material_id']]])->first();
 
                     BoqEmeRate::where('id', $request->boq_eme_rate_id[$key])->update(['labour_rate' => $request->material_rate[$key]]);
@@ -117,7 +116,7 @@ class BoqElectricalCalculationController extends Controller
                     if ($model) {
                         $quantity = $model['quantity'] + $materialbudgetdetails_data[$key]['quantity'];
                         $model->update(['quantity' => $quantity]);
-                    } else {
+                    }else{
                         BoqSupremeBudget::insert($materialbudgetdetails_data[$key]);
                     }
                 }
@@ -150,7 +149,7 @@ class BoqElectricalCalculationController extends Controller
     {
         $formType = 'edit';
         $BoqEmeDatas =  BoqEmeCalculation::findOrFail($BoqEmeCalculationId);
-        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->get();
+        $boqEmeRates = BoqEmeRate::groupBy('parent_id_second')->having('type', 0)->get();
         $EmeBudgetHeads = EmeBudgetHead::get();
         return view('boq.departments.electrical.calculations.create', compact('project', 'BoqEmeDatas', 'BoqEmeCalculationId', 'formType', 'boqEmeRates', 'EmeBudgetHeads'));
     }
@@ -227,10 +226,10 @@ class BoqElectricalCalculationController extends Controller
             $quantity = $BoqSupremeBudget['quantity'] - $BoqEmeDatas['quantity'];
 
             if ($BoqSupremeBudget) {
-                $quantity = $BoqSupremeBudget['quantity'] - $BoqEmeDatas['quantity'];
+            $quantity = $BoqSupremeBudget['quantity'] - $BoqEmeDatas['quantity'];
                 if ($quantity > 0) {
                     $BoqSupremeBudget->update(['quantity' => $quantity]);
-                } else {
+                }else {
                     $BoqSupremeBudget->delete();
                 }
             }
@@ -289,20 +288,20 @@ class BoqElectricalCalculationController extends Controller
 
         $data = BoqEmeCalculation::with(['BoqFloorProject', 'NestedMaterial', 'NestedMaterialSecondLayer', 'BoqEmeRate', 'EmeBudgetHead'])->where('project_id', $project->id)->get();
 
-        $dataFiltered = $data->filter(function ($item) {
+        // $dataFiltered = $data->filter(function ($item) {
 
-            $check_approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
-                $q->where('name', 'BOQ EME ITEM CALCULATION');
-            })->orderBy('order_by', 'desc')->get();
-            $count = $item->approval->count();
-            $data = $item->approval;
-            if ($count == 0) {
-                return false;
-            }
-            return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
-        });
-        $BoqEmeCalculations = $dataFiltered->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
-        $pdf = \PDF::loadview('boq.departments.electrical.calculations.pdf', compact('BoqEmeCalculations', 'project'))->setPaper('A4', 'landscape');
+        //     $check_approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
+        //         $q->where('name', 'BOQ EME ITEM CALCULATION');
+        //     })->orderBy('order_by', 'desc')->get();
+        //     $count = $item->approval->count();
+        //     $data = $item->approval;
+        //     if ($count == 0) {
+        //         return false;
+        //     }
+        //     return (($data->last()->layer_key) == ($check_approval[0]->layer_key));
+        // });
+        $BoqEmeCalculations = $data->groupBy(['budget_head_id', 'floor_id', 'item_id', 'material_id']);
+        $pdf = PDF::loadview('boq.departments.electrical.calculations.pdf', compact('BoqEmeCalculations', 'project'))->setPaper('A4', 'landscape');
         $pdf->output();
         $canvas = $pdf->getDomPDF()->getCanvas();
 
@@ -314,7 +313,7 @@ class BoqElectricalCalculationController extends Controller
         $canvas->page_text(
             $width / 3,
             $height / 2,
-            'Jumairah Holdings',
+            'Rancon FC',
             null,
             55,
             array(0, 0, 0),

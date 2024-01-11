@@ -12,6 +12,7 @@ use App\Procurement\Requisition;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class GeneralRequisitionController extends Controller
 {
@@ -34,9 +35,10 @@ class GeneralRequisitionController extends Controller
     public function create()
     {
         $formType     = "create";
-        $ApprovalLayerName = ApprovalLayer::where('name','like','General Requisition%')
-        // ->where('department_id',auth()->user()->department?->id)
-        ->pluck('name','id');
+        // $ApprovalLayerName = ApprovalLayer::where('name','like','General Requisition%')
+        // // ->where('department_id',auth()->user()->department?->id)
+        // ->pluck('name','id');
+        $ApprovalLayerName = ApprovalLayer::where('name', 'General Requisition')->first();
         return view('general-requisition.create', compact('formType', 'ApprovalLayerName'));
     }
 
@@ -97,9 +99,10 @@ class GeneralRequisitionController extends Controller
     {
         $formType = "edit";
         $general_requisition->load('requisitionDetails.nestedMaterial.boqSupremeBudgets');
-        $ApprovalLayerName = ApprovalLayer::where('name','like','General Requisition%')
-        // ->where('department_id',auth()->user()?->department?->id)
-        ->pluck('name','id');
+        // $ApprovalLayerName = ApprovalLayer::where('name','like','General Requisition%')
+        // // ->where('department_id',auth()->user()?->department?->id)
+        // ->pluck('name','id');
+        $ApprovalLayerName = ApprovalLayer::where('name', 'General Requisition')->first();
         return view('general-requisition.create', compact('general_requisition','formType', 'ApprovalLayerName'));
     }
 
@@ -153,7 +156,7 @@ class GeneralRequisitionController extends Controller
     {
         $requisitions = Requisition::where('id', $id)->latest()->get();
         $requisitions->load('requisitionDetails.nestedMaterial.boqSupremeBudgets');
-        return \PDF::loadview('general-requisition.pdf', compact('requisitions'))->setPaper('A4', 'portrait')->stream('requisition.pdf');
+        return PDF::loadview('general-requisition.pdf', compact('requisitions'))->setPaper('A4', 'portrait')->stream('requisition.pdf');
     }
 
     public function generalRequisitionApproved(Requisition $requisition, $status)

@@ -111,7 +111,13 @@ class StoreissueController extends Controller
     public function destroy(Storeissue $storeissue)
     {
         try {
-            $storeissue->delete();
+            if($storeissue->transaction()->exists()){
+                return back()->withErrors(["This Data has some Transections. Please Delete them first"]);
+            }
+            else{
+                $storeissue->delete();
+            }
+
             return redirect()->route('storeissues.index')->with('message', 'Data has been deleted successfully');
         } catch (QueryException $e) {
             return redirect()->route('storeissues.index')->withErrors($e->getMessage());
@@ -181,6 +187,7 @@ class StoreissueController extends Controller
                                 'material_id' => $key,
                                 'previous_stock' => $stock_history_data[$key]->present_stock,
                                 'quantity' => $totalQuantity,
+                                'date' => date('Y-m-d', strtotime($storeissue->date)),
                                 'present_stock' => $present_stock,
                                 'average_cost' => $stock_history_data[$key]->average_cost,
                                 'after_discount_po' => $stock_history_data[$key]->after_discount_po

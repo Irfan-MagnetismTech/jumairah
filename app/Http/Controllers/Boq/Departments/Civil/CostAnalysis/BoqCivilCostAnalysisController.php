@@ -249,10 +249,11 @@ class BoqCivilCostAnalysisController extends Controller
                 ->groupBy('boq_floor_id')
                 ->where('budget_type', '!=', 'other')
                 ->with('boqCivilCalcProjectFloor.boqCommonFloor')
-                ->get();
+                ->get()
+                ->sortBy('boqCivilCalcProjectFloor.boqCommonFloor.floor_type.serial_no');
 
 
-            $percentage_sheet_floor_wise = $percentage_sheet_floor_wise->sortBy('boq_floor_type_id');
+            //$percentage_sheet_floor_wise = $percentage_sheet_floor_wise->sortBy('boq_floor_type_id');
 
             $other_related_costs = $project->boqCivilBudgets()
                 ->where('budget_type', 'other')
@@ -285,44 +286,6 @@ class BoqCivilCostAnalysisController extends Controller
 
             $total_areas = $project->boqFloorProjects()->sum('area');
 
-//            $material_statements = $project->boqCivilBudgets()->where('budget_type','!=','labour')
-//                ->where('quantity','!=',0)
-//                ->groupBy('nested_material_id')
-//                ->selectRaw('*, SUM(total_quantity) as gross_total_quantity')
-//                ->with('nestedMaterial.unit')
-//                ->get();
-//
-//            $material_statements = $material_statements->sortBy('nestedMaterial.name');
-//
-//            $material_list = $material_statements;
-//
-//            // $material_statements if request nested_material_id is not null
-//            if($request->nested_material_id){
-//                $material_statements = $material_statements->where('nested_material_id', $request->nested_material_id);
-//            }
-//
-//            $floor_wise_group = $material_statements->map(function ($material) use ($project) {
-//                $floors = $project->boqCivilBudgets()
-//                    ->where('nested_material_id', $material->nested_material_id)
-//                    //->whereNotIn('budget_type', ['labour', 'other])
-//                    ->where('budget_type','!=','labour')
-//                    ->where('quantity', '>', 0)
-//                    ->groupBy('boq_floor_id')
-//                    ->selectRaw('*, SUM(total_quantity) as gross_total_quantity')
-//                    ->with('boqCivilCalcProjectFloor.boqCommonFloor')
-//                    ->get();
-//
-//                return [
-//                    'material_id' => $material?->nestedMaterial?->id,
-//                    'material_name' => $material?->nestedMaterial?->name,
-//                    'material_unit' => $material?->nestedMaterial?->unit?->name,
-//                    'floors' => $floors,
-//                    'total_quantity' => $floors->sum('gross_total_quantity'),
-//                ];
-//            });
-//
-//            $material_statements = collect($floor_wise_group)->sortBy('floor_id')->values()->all();
-
             $material_statements = $project->boqSupremeBudgets()->where('budget_type','!=','labour')
                 ->where('quantity','!=',0)
                 ->groupBy('material_id')
@@ -330,27 +293,27 @@ class BoqCivilCostAnalysisController extends Controller
                 ->with('nestedMaterial.unit')
                 ->get();
 
-
-            //dd($material_statements);
-
             $material_statements = $material_statements->sortBy('nestedMaterial.name');
 
             $material_list = $material_statements;
 
-            // $material_statements if request nested_material_id is not null
             if($request->nested_material_id){
                 $material_statements = $material_statements->where('material_id', $request->nested_material_id);
             }
 
-            $floor_wise_group = $material_statements->map(function ($material) use ($project) {
+            $floor_wise_group = $material_statements->map(function ($material) use ($project, $request) {
                 $floors = $project->boqSupremeBudgets()
                     ->where('material_id', $material->material_id)
                     ->where('budget_type','!=','labour')
                     ->where('quantity', '>', 0)
                     ->groupBy('floor_id')
+                    ->with('boqCivilCalcProjectFloor.boqCommonFloor.floor_type')
                     ->selectRaw('*, SUM(quantity) as gross_total_quantity')
-                    ->with('boqCivilCalcProjectFloor.boqCommonFloor')
-                    ->get();
+                    ->get()
+                    ->sortBy('boqCivilCalcProjectFloor.boqCommonFloor.floor_type.serial_no')
+                    ->sortBy('boqCivilCalcProjectFloor.boqCommonFloor.id');
+
+                //dd($floors);
 
                 return [
                     'material_id' => $material?->nestedMaterial?->id,
@@ -362,7 +325,9 @@ class BoqCivilCostAnalysisController extends Controller
                 ];
             });
 
-            $material_statements = collect($floor_wise_group)->sortBy('floor_id')->values()->all();
+            //dd($floor_wise_group);
+
+            $material_statements = collect($floor_wise_group)->values()->all();
 
             return view('boq.departments.civil.costanalysis.summary-sheet', compact('project','total_areas','material_statements','material_list'));
         }
@@ -498,10 +463,11 @@ class BoqCivilCostAnalysisController extends Controller
                 ->groupBy('boq_floor_id')
                 ->where('budget_type', '!=', 'other')
                 ->with('boqCivilCalcProjectFloor.boqCommonFloor')
-                ->get();
+                ->get()
+                ->sortBy('boqCivilCalcProjectFloor.boqCommonFloor.floor_type.serial_no');
 
 
-            $percentage_sheet_floor_wise = $percentage_sheet_floor_wise->sortBy('boq_floor_type_id');
+            //$percentage_sheet_floor_wise = $percentage_sheet_floor_wise->sortBy('boq_floor_type_id');
 
             $other_related_costs = $project->boqCivilBudgets()
                 ->where('budget_type', 'other')
@@ -802,6 +768,7 @@ class BoqCivilCostAnalysisController extends Controller
                 ->where('budget_type','!=','other')
                 ->where('quantity','!=',0)
                 ->groupBy('nested_material_id')
+                ->with('boqCivilCalcProjectFloor.boqCommonFloor.floor_type')
                 ->selectRaw('*, SUM(total_quantity) as gross_total_quantity')
                 ->with('nestedMaterial.unit')
                 ->get();
@@ -823,7 +790,9 @@ class BoqCivilCostAnalysisController extends Controller
                     ->groupBy('boq_floor_id')
                     ->selectRaw('*, SUM(total_quantity) as gross_total_quantity')
                     ->with('boqCivilCalcProjectFloor.boqCommonFloor')
-                    ->get();
+                    ->get()
+                    ->sortBy('boqCivilCalcProjectFloor.boqCommonFloor.floor_type.serial_no')
+                    ->sortBy('boqCivilCalcProjectFloor.boqCommonFloor.id');
 
                 return [
                     'material_id' => $material?->nestedMaterial?->id,
@@ -834,7 +803,7 @@ class BoqCivilCostAnalysisController extends Controller
                 ];
             });
 
-            $material_statements = collect($floor_wise_group)->sortBy('floor_id')->values()->all();
+            $material_statements = collect($floor_wise_group)->values()->all();
 
             $pdf = new PDF();
             return PDF::loadview('boq.departments.civil.costanalysis.summary-sheet-pdf', compact(

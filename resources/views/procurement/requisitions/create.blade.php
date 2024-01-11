@@ -73,8 +73,7 @@
         {{-- @endunlessrole --}}
         <div class="col-md-6">
             <div class="input-group input-group-sm input-group-primary">
-                <label class="input-group-addon" for="note">Note (Purpose,Brand, <br>Origin, Other
-                    specifications)</label>
+                <label class="input-group-addon" for="note">Note</label>
                 {{ Form::textarea('note', old('note') ? old('note') : (!empty($requisition) ? $requisition->note : null), ['class' => 'form-control', 'id' => 'note', 'rows' => 2, 'autocomplete' => 'off', 'placeholder' => 'Note']) }}
             </div>
         </div>

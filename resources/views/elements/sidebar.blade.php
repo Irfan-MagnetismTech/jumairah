@@ -32,130 +32,135 @@
                 </li>
             @endhasanyrole
             {{-- @endrole --}}
-            <li
-                class="pcoded-hasmenu {{ request()->routeIs(['branches.*', 'apsections.*', 'teams.*', 'departments.*', 'designations.*', 'employees.*', 'sellCollectionHeads.*']) ? 'active pcoded-trigger' : null }}">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
-                    <span class="pcoded-mtext">Configurations</span>
-                    {{-- <span class="pcoded-badge label label-warning">NEW</span> --}}
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    {{-- <li class="{{request()->routeIs('branches.*') ? "active" : null}}"><a href="{{ route('branches.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Branches </span><span class="pcoded-mcaret"></span></a></li> --}}
-                    {{-- <li class="{{request()->routeIs('apsections.*') ? "active" : null}}"><a href="{{ route('apsections.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Sections </span><span class="pcoded-mcaret"></span></a></li> --}}
-                    {{-- <li class="{{request()->routeIs('teams.*') ? "active" : null}}"><a href="{{ route('teams.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Teams </span><span class="pcoded-mcaret"></span></a></li> --}}
-                    <li class="pcoded-hasmenu {{ request()->routeIs('teams.*') ? 'active pcoded-trigger' : null }}">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                            <span class="pcoded-mtext">Team Details</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class="{{ request()->routeIs('teams.create') ? 'active' : null }}">
-                                <a href="{{ route('teams.create') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">New Team </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="{{ request()->routeIs('teams.index') ? 'active' : null }}">
-                                <a href="{{ route('teams.index') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">Teams List </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    {{-- <li class="{{ request()->routeIs('departments.*') ? 'active' : null }}"><a
-                            href="{{ route('departments.index') }}"><span class="pcoded-micon"><i
-                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Departments
-                            </span><span class="pcoded-mcaret"></span></a></li> --}}
-                    {{-- <li class="{{ request()->routeIs('designations.*') ? 'active' : null }}"><a
-                            href="{{ route('designations.index') }}"><span class="pcoded-micon"><i
-                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Designations
-                            </span><span class="pcoded-mcaret"></span></a></li> --}}
-                    {{-- <li class="{{ request()->routeIs('employees.*') ? 'active' : null }}"><a
-                            href="{{ route('employees.index') }}"><span class="pcoded-micon"><i
-                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Employee </span><span
-                                class="pcoded-mcaret"></span></a></li> --}}
-                    <li class="{{ request()->routeIs('sellCollectionHeads.*') ? 'active' : null }}"><a
-                            href="{{ route('sellCollectionHeads.index') }}"><span class="pcoded-micon"><i
-                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Sale Collection Head
-                            </span><span class="pcoded-mcaret"></span></a></li>
-                    <li class="{{ request()->routeIs('to_do_lists.*') ? 'active' : null }}"><a
-                            href="{{ route('to_do_lists.index') }}"><span class="pcoded-micon"><i
-                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> To Do List
-                            </span><span class="pcoded-mcaret"></span></a></li>
-                    <li class="{{ request()->routeIs('budget-head.*') ? 'active' : null }}"><a
-                            href="{{ route('budget-head.index') }}"><span class="pcoded-micon"><i
-                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Budget Head
-                            </span><span class="pcoded-mcaret"></span></a></li>
-
-                    @can('approval-view')
+            @can('sales-configuration')
+                <li
+                    class="pcoded-hasmenu {{ request()->routeIs(['branches.*', 'apsections.*', 'teams.*', 'departments.*', 'designations.*', 'employees.*', 'sellCollectionHeads.*']) ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
+                        <span class="pcoded-mtext">Configurations</span>
+                        {{-- <span class="pcoded-badge label label-warning">NEW</span> --}}
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        {{-- <li class="{{request()->routeIs('branches.*') ? "active" : null}}"><a href="{{ route('branches.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Branches </span><span class="pcoded-mcaret"></span></a></li> --}}
+                        {{-- <li class="{{request()->routeIs('apsections.*') ? "active" : null}}"><a href="{{ route('apsections.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Sections </span><span class="pcoded-mcaret"></span></a></li> --}}
+                        {{-- <li class="{{request()->routeIs('teams.*') ? "active" : null}}"><a href="{{ route('teams.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Teams </span><span class="pcoded-mcaret"></span></a></li> --}}
                         <li class="pcoded-hasmenu {{ request()->routeIs('teams.*') ? 'active pcoded-trigger' : null }}">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                                <span class="pcoded-mtext">Approval Layer</span>
+                                <span class="pcoded-mtext">Team Details</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                             <ul class="pcoded-submenu">
-                                @role('super-admin')
-                                    <li class="{{ request()->routeIs('leayer-name.*') ? 'active' : null }}">
-                                        <a href="{{ route('leayer-name.index') }}">
-                                            <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
-                                            <span class="pcoded-mtext"> Layer Subject</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                @endrole
-                                <li class="{{ request()->routeIs('approval-layer.create') ? 'active' : null }}">
-                                    <a href="{{ route('approval-layer.create') }}">
+                                <li class="{{ request()->routeIs('teams.create') ? 'active' : null }}">
+                                    <a href="{{ route('teams.create') }}">
                                         <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext">New Layer </span>
+                                        <span class="pcoded-mtext">New Team </span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="{{ request()->routeIs('approval-layer.index') ? 'active' : null }}">
-                                    <a href="{{ route('approval-layer.index') }}">
+                                <li class="{{ request()->routeIs('teams.index') ? 'active' : null }}">
+                                    <a href="{{ route('teams.index') }}">
                                         <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext"> Layer List</span>
+                                        <span class="pcoded-mtext">Teams List </span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                    @endcan
-                </ul>
-            </li>
-        </ul>
-        <div class="pcoded-navigation-label text-uppercase bg-primary">General</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li
-                class="pcoded-hasmenu {{ request()->routeIs('general-requisitions.*') ? 'active pcoded-trigger' : null }}">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
-                    <span class="pcoded-mtext">General Requisitions</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="{{ request()->routeIs('general-requisitions.create') ? 'active' : null }}">
-                        <a href="{{ route('general-requisitions.create') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">New Requisition </span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="{{ request()->routeIs('general-requisitions.index') ? 'active' : null }}">
-                        <a href="{{ route('general-requisitions.index') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Requisitions List </span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                        {{-- <li class="{{ request()->routeIs('departments.*') ? 'active' : null }}"><a
+                            href="{{ route('departments.index') }}"><span class="pcoded-micon"><i
+                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Departments
+                            </span><span class="pcoded-mcaret"></span></a></li> --}}
+                        {{-- <li class="{{ request()->routeIs('designations.*') ? 'active' : null }}"><a
+                            href="{{ route('designations.index') }}"><span class="pcoded-micon"><i
+                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Designations
+                            </span><span class="pcoded-mcaret"></span></a></li> --}}
+                        {{-- <li class="{{ request()->routeIs('employees.*') ? 'active' : null }}"><a
+                            href="{{ route('employees.index') }}"><span class="pcoded-micon"><i
+                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Employee </span><span
+                                class="pcoded-mcaret"></span></a></li> --}}
+                        <li class="{{ request()->routeIs('sellCollectionHeads.*') ? 'active' : null }}"><a
+                                href="{{ route('sellCollectionHeads.index') }}"><span class="pcoded-micon"><i
+                                        class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Sale Collection Head
+                                </span><span class="pcoded-mcaret"></span></a></li>
+                        <li class="{{ request()->routeIs('to_do_lists.*') ? 'active' : null }}"><a
+                                href="{{ route('to_do_lists.index') }}"><span class="pcoded-micon"><i
+                                        class="icon-pie-chart"></i></span><span class="pcoded-mtext"> To Do List
+                                </span><span class="pcoded-mcaret"></span></a></li>
+                        {{-- <li class="{{ request()->routeIs('budget-head.*') ? 'active' : null }}"><a
+                            href="{{ route('budget-head.index') }}"><span class="pcoded-micon"><i
+                                    class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Budget Head
+                            </span><span class="pcoded-mcaret"></span></a></li> --}}
 
+                        @can('approval-view')
+                            <li class="pcoded-hasmenu {{ request()->routeIs('teams.*') ? 'active pcoded-trigger' : null }}">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
+                                    <span class="pcoded-mtext">Approval Layer</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    @role('super-admin')
+                                        <li class="{{ request()->routeIs('leayer-name.*') ? 'active' : null }}">
+                                            <a href="{{ route('leayer-name.index') }}">
+                                                <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                                                <span class="pcoded-mtext"> Layer Subject</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    @endrole
+                                    <li class="{{ request()->routeIs('approval-layer.create') ? 'active' : null }}">
+                                        <a href="{{ route('approval-layer.create') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext">New Layer </span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('approval-layer.index') ? 'active' : null }}">
+                                        <a href="{{ route('approval-layer.index') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext"> Layer List</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
+        </ul>
+        @can('general')
+            <div class="pcoded-navigation-label text-uppercase bg-primary">General</div>
+        @endcan
+        <ul class="pcoded-item pcoded-left-item">
+            @can('general-requisitions-view')
+                <li
+                    class="pcoded-hasmenu {{ request()->routeIs('general-requisitions.*') ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
+                        <span class="pcoded-mtext">General Requisitions</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->routeIs('general-requisitions.create') ? 'active' : null }}">
+                            <a href="{{ route('general-requisitions.create') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">New Requisition </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->routeIs('general-requisitions.index') ? 'active' : null }}">
+                            <a href="{{ route('general-requisitions.index') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Requisitions List </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
             @can('bill-register-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bill-register.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -182,30 +187,31 @@
                 </li>
             @endcan
 
-            <li class="pcoded-hasmenu {{ request()->routeIs('generalBill.*') ? 'active pcoded-trigger' : null }}">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
-                    <span class="pcoded-mtext">General Bill</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="{{ request()->routeIs('costMemo.create') ? 'active' : null }}">
-                        <a href="{{ route('generalBill.create') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">New general bill</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="{{ request()->routeIs('generalBill.index') ? 'active' : null }}">
-                        <a href="{{ route('generalBill.index') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">General Bill List</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
+            @can('general-bill-view')
+                <li class="pcoded-hasmenu {{ request()->routeIs('generalBill.*') ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
+                        <span class="pcoded-mtext">General Bill</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->routeIs('costMemo.create') ? 'active' : null }}">
+                            <a href="{{ route('generalBill.create') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">New general bill</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->routeIs('generalBill.index') ? 'active' : null }}">
+                            <a href="{{ route('generalBill.index') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">General Bill List</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
             {{-- <li class="pcoded-hasmenu {{ request()->routeIs('costMemo.*') ? 'active pcoded-trigger' : null }}">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
@@ -348,13 +354,15 @@
             @endcan --}}
         </ul>
 
-        @canany(['bd-source-view', 'bd-lead-generation-view', 'project-layout', 'bd-feasibility-locations-view',
+        @canany(['mouza-view','bd-source-view', 'bd-Feasibility-particuler-view', 'bd-Feasibility-referene-fees-view','BD-Feasibility-copy','bd-lead-generation-view', 'project-layout', 'bd-feasibility-locations-view',
             'project-view', 'bd-monthly-budget-view', 'bd-yearly-budget-view', 'bd-priority-land-view', 'bd-inventory-view',
             'parking-view', 'apartment-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Business Development (BD)</div>
         @endcanany
 
+
         <ul class="pcoded-item pcoded-left-item">
+            @canany(['mouza-view','bd-source-view', 'bd-Feasibility-particuler-view', 'bd-Feasibility-referene-fees-view','BD-Feasibility-copy'])
             <li
                 class="pcoded-hasmenu {{ request()->routeIs(['feasi_perticular.*']) ? 'active pcoded-trigger' : null }}">
                 <a href="javascript:void(0)">
@@ -473,16 +481,19 @@
                         </li>
                     </ul>
                 @endcan
-                <ul class="pcoded-submenu">
-                    <li class="{{ request()->routeIs('feasibility-copy') ? 'active' : null }}">
-                        <a href="{{ route('feasibility-copy') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Feasibility Copy</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
+                @can('BD-Feasibility-copy')
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->routeIs('feasibility-copy') ? 'active' : null }}">
+                            <a href="{{ route('feasibility-copy') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Feasibility Copy</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                @endcan
             </li>
+            @endcanany
 
             @can('bd-lead-generation-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bd_lead.*') ? 'active pcoded-trigger' : null }}">
@@ -563,207 +574,208 @@
                     </a>
                 </li>
             @endcan --}}
-            <li
-                class="pcoded-hasmenu {{ request()->routeIs(['fees_cost.*', 'finance.*', 'paymentSchedule', 'rnc_percent.*', 'rnc_calculation.*', 'feasibility-entry.locations', 'fees_cost.*', 'boq_fees_cost.create', 'boq_ref_fees_cost.create', 'ctc.*', 'revenue.*']) ? 'active pcoded-trigger' : null }}">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
-                    <span class="pcoded-mtext">Feasibility</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    @can('bd-Feasibility-Fees-Cost-view')
-                        <li class="{{ request()->routeIs('feasibility-entry.locations') ? 'active' : null }}">
-                            <a href="{{ route('feasibility-entry.locations') }}">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Feasibility Basic Entry</span>
+            @can('BD-Feasibility')
+                <li
+                    class="pcoded-hasmenu {{ request()->routeIs(['fees_cost.*', 'finance.*', 'paymentSchedule', 'rnc_percent.*', 'rnc_calculation.*', 'feasibility-entry.locations', 'fees_cost.*', 'boq_fees_cost.create', 'boq_ref_fees_cost.create', 'ctc.*', 'revenue.*']) ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
+                        <span class="pcoded-mtext">Feasibility</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        @can('bd-Feasibility-Fees-Cost-view')
+                            <li class="{{ request()->routeIs('feasibility-entry.locations') ? 'active' : null }}">
+                                <a href="{{ route('feasibility-entry.locations') }}">
+                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                    <span class="pcoded-mtext">Feasibility Basic Entry</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                            <li
+                                class="pcoded-hasmenu {{ request()->routeIs('fees_cost.*') ? 'active pcoded-trigger' : null }}">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
+                                    <span class="pcoded-mtext">Fees & Cost</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    <li class="{{ request()->routeIs('fees_cost.create') ? 'active' : null }}">
+                                        <a href="{{ route('fees_cost.create') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext">New Permission Fees</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+
+                                    <li class="{{ request()->routeIs('boq_fees_cost.create') ? 'active' : null }}">
+                                        <a href="{{ route('boq_fees_cost.create') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext">New Boq and Other Fees</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+
+                                    <li class="{{ request()->routeIs('boq_ref_fees_cost.create') ? 'active' : null }}">
+                                        <a href="{{ route('boq_ref_fees_cost.create') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext">New Ref Fees and Other Fees</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+
+                                    <li class="{{ request()->routeIs('fees_cost.index') ? 'active' : null }}">
+                                        <a href="{{ route('fees_cost.index') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext">Fees & Cost List </span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endcan
+                        @can('bd-Feasibility-CTC-view')
+                            <li class="pcoded-hasmenu {{ request()->routeIs('ctc.*') ? 'active pcoded-trigger' : null }}">
+                                <a href="javascript:void(0)">
+                                    <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
+                                    <span class="pcoded-mtext">Cost of Company(CTC)</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                                <ul class="pcoded-submenu">
+                                    <li class="{{ request()->routeIs('ctc.create') ? 'active' : null }}">
+                                        <a href="{{ route('ctc.create') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext">New CTC</span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('ctc.index') ? 'active' : null }}">
+                                        <a href="{{ route('ctc.index') }}">
+                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                            <span class="pcoded-mtext">CTC List </span>
+                                            <span class="pcoded-mcaret"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endcan
+
+
+                        <li class="pcoded-hasmenu {{ request()->routeIs('revenue.*') ? 'active pcoded-trigger' : null }}">
+                            <a href="javascript:void(0)">
+                                <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
+                                <span class="pcoded-mtext">Revenue</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
+                            <ul class="pcoded-submenu">
+                                <li class="{{ request()->routeIs('revenue.create') ? 'active' : null }}">
+                                    <a href="{{ route('revenue.create') }}">
+                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                        <span class="pcoded-mtext">New Revenue</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="{{ request()->routeIs('revenue.index') ? 'active' : null }}">
+                                    <a href="{{ route('revenue.index') }}">
+                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                        <span class="pcoded-mtext">Revenue List </span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+
                         <li
-                            class="pcoded-hasmenu {{ request()->routeIs('fees_cost.*') ? 'active pcoded-trigger' : null }}">
+                            class="pcoded-hasmenu {{ request()->routeIs('finance.*', 'paymentSchedule', 'rnc_percent.*', 'rnc_calculation.*') ? 'active pcoded-trigger' : null }}">
                             <a href="javascript:void(0)">
                                 <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                                <span class="pcoded-mtext">Fees & Cost</span>
+                                <span class="pcoded-mtext">Finance</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                             <ul class="pcoded-submenu">
-                                <li class="{{ request()->routeIs('fees_cost.create') ? 'active' : null }}">
-                                    <a href="{{ route('fees_cost.create') }}">
+                                <li
+                                    class="pcoded-hasmenu {{ request()->routeIs('rnc_percent.*') ? 'active pcoded-trigger' : null }}">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
+                                        <span class="pcoded-mtext">Revenue & Cost Percent</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="{{ request()->routeIs('rnc_percent.create') ? 'active' : null }}">
+                                            <a href="{{ route('rnc_percent.create') }}">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">New</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('rnc_percent.index') ? 'active' : null }}">
+                                            <a href="{{ route('rnc_percent.index') }}">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">List </span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li
+                                    class="pcoded-hasmenu {{ request()->routeIs('rnc_calculation.*') ? 'active pcoded-trigger' : null }}">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
+                                        <span class="pcoded-mtext">Revenue & Cost Calculation</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="{{ request()->routeIs('rnc_calculation.create') ? 'active' : null }}">
+                                            <a href="{{ route('rnc_calculation.create') }}">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">New</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('rnc_calculation.index') ? 'active' : null }}">
+                                            <a href="{{ route('rnc_calculation.index') }}">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext">List </span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="{{ request()->routeIs('finance.create') ? 'active' : null }}">
+                                    <a href="{{ route('finance.create') }}">
                                         <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext">New Permission Fees</span>
+                                        <span class="pcoded-mtext">Add Finance</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="{{ request()->routeIs('finance.index') ? 'active' : null }}">
+                                    <a href="{{ route('finance.index') }}">
+                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                        <span class="pcoded-mtext">Finance List </span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
 
-                                <li class="{{ request()->routeIs('boq_fees_cost.create') ? 'active' : null }}">
-                                    <a href="{{ route('boq_fees_cost.create') }}">
-                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext">New Boq and Other Fees</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-
-                                <li class="{{ request()->routeIs('boq_ref_fees_cost.create') ? 'active' : null }}">
-                                    <a href="{{ route('boq_ref_fees_cost.create') }}">
-                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext">New Ref Fees and Other Fees</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-
-                                <li class="{{ request()->routeIs('fees_cost.index') ? 'active' : null }}">
-                                    <a href="{{ route('fees_cost.index') }}">
-                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext">Fees & Cost List </span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endcan
-                    @can('bd-Feasibility-CTC-view')
-                        <li class="pcoded-hasmenu {{ request()->routeIs('ctc.*') ? 'active pcoded-trigger' : null }}">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                                <span class="pcoded-mtext">Cost of Company(CTC)</span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                            <ul class="pcoded-submenu">
-                                <li class="{{ request()->routeIs('ctc.create') ? 'active' : null }}">
-                                    <a href="{{ route('ctc.create') }}">
-                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext">New CTC</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                                <li class="{{ request()->routeIs('ctc.index') ? 'active' : null }}">
-                                    <a href="{{ route('ctc.index') }}">
-                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                        <span class="pcoded-mtext">CTC List </span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endcan
-
-
-                    <li
-                        class="pcoded-hasmenu {{ request()->routeIs('revenue.*') ? 'active pcoded-trigger' : null }}">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                            <span class="pcoded-mtext">Revenue</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class="{{ request()->routeIs('revenue.create') ? 'active' : null }}">
-                                <a href="{{ route('revenue.create') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">New Revenue</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="{{ request()->routeIs('revenue.index') ? 'active' : null }}">
-                                <a href="{{ route('revenue.index') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">Revenue List </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li
-                        class="pcoded-hasmenu {{ request()->routeIs('finance.*', 'paymentSchedule', 'rnc_percent.*', 'rnc_calculation.*') ? 'active pcoded-trigger' : null }}">
-                        <a href="javascript:void(0)">
-                            <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                            <span class="pcoded-mtext">Finance</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li
-                                class="pcoded-hasmenu {{ request()->routeIs('rnc_percent.*') ? 'active pcoded-trigger' : null }}">
-                                <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                                    <span class="pcoded-mtext">Revenue & Cost Percent</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                                <ul class="pcoded-submenu">
-                                    <li class="{{ request()->routeIs('rnc_percent.create') ? 'active' : null }}">
-                                        <a href="{{ route('rnc_percent.create') }}">
-                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                            <span class="pcoded-mtext">New</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->routeIs('rnc_percent.index') ? 'active' : null }}">
-                                        <a href="{{ route('rnc_percent.index') }}">
-                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                            <span class="pcoded-mtext">List </span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li
-                                class="pcoded-hasmenu {{ request()->routeIs('rnc_calculation.*') ? 'active pcoded-trigger' : null }}">
-                                <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                                    <span class="pcoded-mtext">Revenue & Cost Calculation</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                                <ul class="pcoded-submenu">
-                                    <li class="{{ request()->routeIs('rnc_calculation.create') ? 'active' : null }}">
-                                        <a href="{{ route('rnc_calculation.create') }}">
-                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                            <span class="pcoded-mtext">New</span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                    <li class="{{ request()->routeIs('rnc_calculation.index') ? 'active' : null }}">
-                                        <a href="{{ route('rnc_calculation.index') }}">
-                                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                            <span class="pcoded-mtext">List </span>
-                                            <span class="pcoded-mcaret"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="{{ request()->routeIs('finance.create') ? 'active' : null }}">
-                                <a href="{{ route('finance.create') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">Add Finance</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="{{ request()->routeIs('finance.index') ? 'active' : null }}">
-                                <a href="{{ route('finance.index') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">Finance List </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-
-                            {{-- <li class="{{ request()->routeIs('paymentSchedule') ? 'active' : null }}">
+                                {{-- <li class="{{ request()->routeIs('paymentSchedule') ? 'active' : null }}">
                                 <a href="{{ route('paymentSchedule') }}">
                                     <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                     <span class="pcoded-mtext">Payment Schedule</span>
                                     <span class="pcoded-mcaret"></span>
                                 </a>
                             </li> --}}
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
 
 
-                    <li class="{{ request()->routeIs('feasibility-entry.index') ? 'active' : null }}">
-                        <a href="{{ route('feasibility-entry.index') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Main Feasibility </span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                        <li class="{{ request()->routeIs('feasibility-entry.index') ? 'active' : null }}">
+                            <a href="{{ route('feasibility-entry.index') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Main Feasibility </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
 
             @can('project-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('projects.*') ? 'active pcoded-trigger' : null }}">
@@ -1675,32 +1687,32 @@
                     </ul>
                 </li>
             @endcan --}}
-
-            <li
-                class="pcoded-hasmenu {{ request()->routeIs('boq.MaterialServincing.*') ? 'active pcoded-trigger' : null }}">
-                <a href="javascript:void(0)">
-                    <span class="pcoded-micon"><i class="fas fa-search-dollar"></i><b>BC</b></span>
-                    <span class="pcoded-mtext">Material Servicing</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="{{ request()->routeIs('boq.MaterialServincing.create') ? 'active' : null }}">
-                        <a href="{{ route('boq.MaterialServincing.create') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">New Servicing </span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="{{ request()->routeIs('boq.MaterialServincing.index') ? 'active' : null }}">
-                        <a href="{{ route('boq.MaterialServincing.index') }}">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Servicing List</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
+            @can('material-servicing-view')
+                <li
+                    class="pcoded-hasmenu {{ request()->routeIs('boq.MaterialServincing.*') ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="fas fa-search-dollar"></i><b>BC</b></span>
+                        <span class="pcoded-mtext">Material Servicing</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ request()->routeIs('boq.MaterialServincing.create') ? 'active' : null }}">
+                            <a href="{{ route('boq.MaterialServincing.create') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">New Servicing </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->routeIs('boq.MaterialServincing.index') ? 'active' : null }}">
+                            <a href="{{ route('boq.MaterialServincing.index') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Servicing List</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
         </ul>
         @canany(['supplier-view', 'nestedmaterial-view', 'requisition-view', 'comparative-statement-view',
             'purchase-order-view', 'materialReceiv-view', 'supplierbill-view', 'pending-bill', 'storeissue-view',
@@ -1710,19 +1722,21 @@
         @endcanany
         <ul class="pcoded-item pcoded-left-item">
 
-            @can('supplier-view')
+
                 <li
-                    class="pcoded-hasmenu {{ request()->routeIs(['units.*', 'materialcategories.*']) ? 'active pcoded-trigger' : null }}">
+                    class="pcoded-hasmenu {{ request()->routeIs(['units.*', 'materialcategories.*','nestedmaterials.*','opening-material.*','suppliers.*']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="ti-settings"></i><b>P</b></span>
                         <span class="pcoded-mtext">Configurations</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                     <ul class="pcoded-submenu">
+                        @can('nestedmaterial-view')
                         <li class="{{ request()->routeIs('units.*') ? 'active' : null }}"><a
                                 href="{{ route('units.index') }}"><span class="pcoded-micon"><i
                                         class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Units </span><span
                                     class="pcoded-mcaret"></span></a></li>
+                        @endcan
                         {{-- <li class="{{ request()->routeIs('materialcategories.*') ? 'active' : null }}"><a href="{{ route('materialcategories.index') }}"><span class="pcoded-micon"><i class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Material Categories </span><span class="pcoded-mcaret"></span></a></li> --}}
                         {{-- <li class="pcoded-hasmenu {{ request()->routeIs('warehouses.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -1759,6 +1773,7 @@
                                 </ul>
                             </li>
                         @endcan
+                        @can('opening-stock-view')
                         <li
                             class="pcoded-hasmenu {{ request()->routeIs('opening-material.*') ? 'active pcoded-trigger' : null }}">
                             <a href="javascript:void(0)">
@@ -1783,6 +1798,8 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
+                        @can('supplier-view')
                         <li
                             class="pcoded-hasmenu {{ request()->routeIs('suppliers.*') ? 'active pcoded-trigger' : null }}">
                             <a href="javascript:void(0)">
@@ -1808,9 +1825,9 @@
 
                             </ul>
                         </li>
+                        @endcan
                     </ul>
                 </li>
-            @endcan
 
             @can('requisition-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('requisitions.*') ? 'active pcoded-trigger' : null }}">
@@ -2066,15 +2083,15 @@
                     </ul>
                 </li>
             @endcan
-            @can('scm-material-budget-dashboard')
+            {{-- @can('scm-material-budget-dashboard')
                 <li class="{{ request()->routeIs('scm-material-budget-year-List') ? 'active' : null }}">
                     <a href="{{ route('scm-material-budget-year-List') }}">
                         <span class="pcoded-micon"><i class="fas fa-scroll"></i></span>
                         <span class="pcoded-mtext">Material Budgets</span>
                     </a>
                 </li>
-            @endcan
-            @can('masterrole-view')
+            @endcan --}}
+            {{-- @can('masterrole-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('icmdLaborBudget.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2100,7 +2117,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
             @can('stock-reports')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs(['mir-costcenter-List', 'mir-year-List', 'mir-month-List', 'mir-get-report', 'costcenter_List', 'get_material', 'get_material_ledger']) ? 'active pcoded-trigger' : null }}">
@@ -2139,14 +2156,14 @@
                                 </a>
                             </li>
                         @endcan
-                        @can('pending-bill')
+                        {{-- @can('pending-bill')
                             <li class="{{ request()->routeIs('pending-bills') ? 'active' : null }}">
                                 <a href="{{ route('pending-bills') }}">
                                     <span class="pcoded-micon"><i class="fas fa-scroll"></i></span>
                                     <span class="pcoded-mtext">Pending Bills</span>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
                     </ul>
                 </li>
             @endcan
@@ -2340,7 +2357,7 @@
                 </li>
             @endcan
 
-            @can('construction-material-plan-view')
+            {{-- @can('construction-material-plan-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('construction.work_plan.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2365,8 +2382,8 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
-            @can('construction-action-plan-view')
+            @endcan --}}
+            {{-- @can('construction-action-plan-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('construction.material_plan.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2391,7 +2408,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
             @can('work-cs-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('work-cs.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -2465,13 +2482,13 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('construction.labour-budget-year-List') ? 'active' : null }}">
+                        {{-- <li class="{{ request()->routeIs('construction.labour-budget-year-List') ? 'active' : null }}">
                             <a href="{{ route('construction.labour-budget-year-List') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext">Labor Budget</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endcan
@@ -3126,60 +3143,60 @@
                     </ul>
                 </li> --}}
                 <!--            <li class="pcoded-hasmenu {{ request()->routeIs(['mis-correction', 'mis-summary', 'mis-hr-report']) ? 'active pcoded-trigger' : null }}">
-                                                            <a href="javascript:void(0)">
-                                                                <span class="pcoded-micon"><i class="fas fa-chart-line"></i><b>BC</b></span>
-                                                                <span class="pcoded-mtext">MIS Reports </span>
-                                                                <span class="pcoded-mcaret"></span>
-                                                            </a>
-                                                            <ul class="pcoded-submenu">
+                                                                        <a href="javascript:void(0)">
+                                                                            <span class="pcoded-micon"><i class="fas fa-chart-line"></i><b>BC</b></span>
+                                                                            <span class="pcoded-mtext">MIS Reports </span>
+                                                                            <span class="pcoded-mcaret"></span>
+                                                                        </a>
+                                                                        <ul class="pcoded-submenu">
 
-                                                                <li class="{{ request()->routeIs('budget-cash-flow') ? 'active' : null }}">
-                                                                    <a href="{{ route('budget-cash-flow') }}" target="blank">
-                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                        <span class="pcoded-mtext">Budget Cash Flow</span>
-                                                                        <span class="pcoded-mcaret"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="{{ request()->routeIs('budget-comparison-statement') ? 'active' : null }}">
-                                                                    <a href="{{ route('budget-comparison-statement') }}" target="blank">
-                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                        <span class="pcoded-mtext">Budget Comparison Statement</span>
-                                                                        <span class="pcoded-mcaret"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="{{ request()->routeIs('mis-correction') ? 'active' : null }}">
-                                                                    <a href="{{ route('mis-correction') }}" target="blank">
-                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                        <span class="pcoded-mtext">MIS Correction</span>
-                                                                        <span class="pcoded-mcaret"></span>
-                                                                    </a>
-                                                                </li>
+                                                                            <li class="{{ request()->routeIs('budget-cash-flow') ? 'active' : null }}">
+                                                                                <a href="{{ route('budget-cash-flow') }}" target="blank">
+                                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                                    <span class="pcoded-mtext">Budget Cash Flow</span>
+                                                                                    <span class="pcoded-mcaret"></span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="{{ request()->routeIs('budget-comparison-statement') ? 'active' : null }}">
+                                                                                <a href="{{ route('budget-comparison-statement') }}" target="blank">
+                                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                                    <span class="pcoded-mtext">Budget Comparison Statement</span>
+                                                                                    <span class="pcoded-mcaret"></span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="{{ request()->routeIs('mis-correction') ? 'active' : null }}">
+                                                                                <a href="{{ route('mis-correction') }}" target="blank">
+                                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                                    <span class="pcoded-mtext">MIS Correction</span>
+                                                                                    <span class="pcoded-mcaret"></span>
+                                                                                </a>
+                                                                            </li>
 
-                                                                <li class="{{ request()->routeIs('mis-summary') ? 'active' : null }}">
-                                                                    <a href="{{ route('mis-summary') }}" target="blank">
-                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                        <span class="pcoded-mtext">MIS Summary</span>
-                                                                        <span class="pcoded-mcaret"></span>
-                                                                    </a>
-                                                                </li>
+                                                                            <li class="{{ request()->routeIs('mis-summary') ? 'active' : null }}">
+                                                                                <a href="{{ route('mis-summary') }}" target="blank">
+                                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                                    <span class="pcoded-mtext">MIS Summary</span>
+                                                                                    <span class="pcoded-mcaret"></span>
+                                                                                </a>
+                                                                            </li>
 
-                                                                <li class="{{ request()->routeIs('mis-hr-report') ? 'active' : null }}">
-                                                                    <a href="{{ route('mis-hr-report') }}" target="blank">
-                                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                                        <span class="pcoded-mtext">MIS HR Report</span>
-                                                                        <span class="pcoded-mcaret"></span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </li>-->
+                                                                            <li class="{{ request()->routeIs('mis-hr-report') ? 'active' : null }}">
+                                                                                <a href="{{ route('mis-hr-report') }}" target="blank">
+                                                                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                                                    <span class="pcoded-mtext">MIS HR Report</span>
+                                                                                    <span class="pcoded-mcaret"></span>
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>-->
 
             </ul>
         @endhasanyrole
 
 
-        {{-- @can('hr') --}}
-        @include('hr::layouts.sidebar')
-        {{-- @endcan --}}
+        @can('hr')
+            @include('hr::layouts.sidebar')
+        @endcan
 
 
         <div class="p-5"></div>

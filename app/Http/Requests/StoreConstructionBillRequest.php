@@ -33,9 +33,9 @@ class StoreConstructionBillRequest extends FormRequest
                 'supplier_id'       => 'required',
                 'bill_amount'       => 'required',
                 'percentage'        => 'required',
-                'year'              => 'required',
-                'month'             => 'required',
-                'week'              => 'required',
+                // 'year'              => 'required',
+                // 'month'             => 'required',
+                // 'week'              => 'required',
             ];
         }else{
             return [
@@ -47,9 +47,9 @@ class StoreConstructionBillRequest extends FormRequest
                 'supplier_id'       => 'required',
                 'bill_amount'       => 'required',
                 'percentage'        => 'required',
-                'year'              => 'required',
-                'month'             => 'required',
-                'week'              => 'required',
+                // 'year'              => 'required',
+                // 'month'             => 'required',
+                // 'week'              => 'required',
             ];
         }
     }
@@ -57,7 +57,7 @@ class StoreConstructionBillRequest extends FormRequest
 
     public function messages()
     {
-        
+
         return [
             'work_order_no.required'        => 'Work Order is Required',
             'workorder_id.required'         => 'Work Order is Required',
@@ -68,9 +68,9 @@ class StoreConstructionBillRequest extends FormRequest
             'supplier_id.required'          => 'Suppliers is required',
             'bill_amount.required'          => 'Bill Amount is Required',
             'percentage.required'           => 'Percentage is required',
-            'year.required'                 => 'Year is required',
-            'month.required'                => 'Month is required',
-            'week.required'                 => 'Week is Required',
+            // 'year.required'                 => 'Year is required',
+            // 'month.required'                => 'Month is required',
+            // 'week.required'                 => 'Week is Required',
         ];
     }
 }

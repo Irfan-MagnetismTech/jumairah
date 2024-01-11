@@ -12,6 +12,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Construction\MaterialPlanDraftRequest;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MaterialPlanController extends Controller
 {
@@ -282,7 +283,7 @@ class MaterialPlanController extends Controller
             return $q->where('year', $year)->where('month', $month)->where('project_id', $project_id)->groupBy('material_plan_id');
         })
         ->get();
-        return \PDF::loadview('construction.materialplan.pdf', compact('currentYearPlans'))->setPaper('a4', 'landscape')->stream('material-budget.pdf');
+        return PDF::loadview('construction.materialplan.pdf', compact('currentYearPlans'))->setPaper('a4', 'landscape')->stream('material-budget.pdf');
     }
 
 

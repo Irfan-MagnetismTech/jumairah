@@ -53,7 +53,7 @@
                                     @endphp
                                     <td style="text-align: center;font-size: 10px" class="bg-white" rowspan="{{ $row_span }}">
                                         <strong>
-                                            <a href="{{ route('boq.project.departments.civil.costs.consumables.edit', ['project' => $project, 'head' => $key]) }}">{{ $key ?? '---' }}</a>
+                                            <a href="{{ route('boq.project.departments.civil.costs.related-material.edit', ['project' => $project, 'head' => $key]) }}">{{ $key ?? '---' }}</a>
                                         </strong>
                                     </td>
                                 @endif

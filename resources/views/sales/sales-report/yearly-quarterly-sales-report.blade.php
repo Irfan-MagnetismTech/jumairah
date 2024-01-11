@@ -154,7 +154,7 @@ Yearly Quarterly Sales Report
             @endforeach
         </tbody>
     </table>
-    <table style="width: 50%; margin-top:20px;">
+    {{-- <table style="width: 50%; margin-top:20px;">
         <thead>
             <tr>
                 <th>In(%)</th>
@@ -173,7 +173,7 @@ Yearly Quarterly Sales Report
             </tr>
             @endforeach
         </tbody>
-    </table>
+    </table> --}}
 </div>
 
 @endsection

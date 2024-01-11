@@ -113,6 +113,11 @@
                                     {{ isset($revised_data) && $floor->boq_floor_id === $revised_data?->boq_floor_id ? 'selected' : '' }}>
                                     {{ $floor?->boqCivilCalcProjectFloor?->boqCommonFloor?->name }}</option>
                             @endforeach
+                            <option {{ isset($revised_data) && $revised_data->boq_floor_id == 'Construction equipment (Re-useable)' ? 'selected' : '' }} value="Construction equipment (Re-useable)">Construction equipment (Re-useable)</option>
+                            <option {{ isset($revised_data) && $revised_data->boq_floor_id == 'Consumable materials' ? 'selected' : '' }} value="Consumable materials">Consumable materials</option>
+                            <option {{ isset($revised_data) && $revised_data->boq_floor_id == 'Other Related Work' ? 'selected' : '' }} value="Other Related Work">Other Related Work</option>
+                            <option {{ isset($revised_data) && $revised_data->boq_floor_id == 'Safety staging & Canopy materials' ? 'selected' : '' }} value="Safety staging & Canopy materials">Safety staging & Canopy materials</option>
+                            <option {{ isset($revised_data) && $revised_data->boq_floor_id == 'Steel shuttering materials (Re-useable)' ? 'selected' : '' }} value="Steel shuttering materials (Re-useable)">Steel shuttering materials (Re-useable)</option>
                         </select>
                     </td>
                     <td width="10%"> <input type="number" readonly

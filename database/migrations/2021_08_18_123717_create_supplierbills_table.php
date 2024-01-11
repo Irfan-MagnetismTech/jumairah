@@ -16,6 +16,7 @@ class CreateSupplierbillsTable extends Migration
         Schema::create('supplierbills', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cost_center_id');
+            $table->unsignedBigInteger('supplier_id');
             $table->text('purpose');
             $table->date('date');
             $table->bigInteger('register_serial_no');

@@ -114,9 +114,9 @@
                                         <a href="{{ url("movementIns/approved/$data->id/1") }}" data-toggle="tooltip"
                                             title="Approve MTI" class="btn btn-success"><i class="fa fa-check"
                                                 aria-hidden="true"></i></a>
-                                        <a href="{{ url("movementIns/approved/$data->id/0") }}" data-toggle="tooltip"
+                                        {{-- <a href="{{ url("movementIns/approved/$data->id/0") }}" data-toggle="tooltip"
                                             title="Reject MTI" class="btn btn-danger"><i class="fa fa-times"
-                                                aria-hidden="true"></i></a>
+                                                aria-hidden="true"></i></a> --}}
                                     @endif
 
                                     @if (
@@ -136,8 +136,8 @@
                                             {!! Form::close() !!}
                                         @endif
                                     @endif
-                                    <a href="{{ route('material-movements-pdf', $data->id) }}" data-toggle="tooltip"
-                                        title="PDF" class="btn btn-outline-primary"><i class="fas fa-file-pdf"></i></a>
+                                    {{-- <a href="{{ route('material-movements-pdf', $data->id) }}" data-toggle="tooltip"
+                                        title="PDF" class="btn btn-outline-primary"><i class="fas fa-file-pdf"></i></a> --}}
                                     <a href="{{ url("movementInLog/$data->id/log") }}" data-toggle="tooltip" title="Logs"
                                         class="btn btn-dark"><i class="fas fa-history"></i></a>
 

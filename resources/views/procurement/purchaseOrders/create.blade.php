@@ -21,6 +21,19 @@
     <div class="row">
         <div class="col-md-4">
             <div class="input-group input-group-sm input-group-primary">
+                <label class="input-group-addon" for="po_no">Purchase Order No: <span class="text-danger">*</span></label>
+                @if(empty($purchaseOrder))
+                {{ Form::text('po_no', old('po_no', $purchaseOrder->po_no ?? null), ['class' => 'form-control', 'id' => 'po_no', 'autocomplete' => 'off', 'required']) }}
+                @else
+                {{ Form::text('po_no', old('po_no', $purchaseOrder->po_no ?? null), ['class' => 'form-control', 'id' => 'po_no','autocomplete' => 'off', 'required', 'readonly']) }}
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="date">Purchase Date<span class="text-danger">*</span></label>
                 @if(empty($purchaseOrder))
                 {{ Form::text('date', old('date', $purchaseOrder->date ?? null), ['class' => 'form-control', 'id' => 'date', 'autocomplete' => 'off', 'required']) }}
@@ -345,7 +358,7 @@
                     let max_quantity = requisition_quantity - purchase_order_quantity;
 
                     $(data).closest('tr').find(".unit").val(material.value);
-                    
+
                     $(data).closest('tr').find(".quantity").attr('max', max_quantity);
                     return false;
                 }).then(function(){

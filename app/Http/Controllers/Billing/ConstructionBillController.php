@@ -20,6 +20,8 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\QueryException;
 use Maatwebsite\Excel\Concerns\ToArray;
 use App\Http\Requests\StoreConstructionBillRequest;
+// use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ConstructionBillController extends Controller
 {
@@ -471,8 +473,15 @@ class ConstructionBillController extends Controller
         $approvals = Approval::query()->with(['user.employee', 'approvalLayerDetails'])->where('approvable_id', $constructionBill->id)->where('approvable_type', ConstructionBill::class)->get();
 
         $All_dates = array_unique($All_dates);
+        // $pdf = new Dompdf();
+
+        // $pdf->loadHtml(view('billing.construction-bills.pdf', compact('title_name','title_id','constructionBill', 'allConstructionBill', 'advance', 'All_dates','approvals')));
+        // //load view
+        // $pdf->setPaper('a4', 'landscape');
+        // $pdf->render();
+        // $pdf->stream();
         //return view('billing.construction-bills.pdf', compact('constructionBill', 'allConstructionBill', 'advance', 'All_dates'));
-        return \PDF::loadview('billing.construction-bills.pdf', compact('title_name','title_id','constructionBill', 'allConstructionBill', 'advance', 'All_dates','approvals'))->stream('billing.workorder.pdf');
+        return PDF::loadview('billing.construction-bills.pdf', compact('title_name','title_id','constructionBill', 'allConstructionBill', 'advance', 'All_dates','approvals'))->stream('billing.workorder.pdf');
     }
 
     public function constructionBillapproval(ConstructionBill $constructionBill, $status)

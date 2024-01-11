@@ -17,6 +17,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Approval\ApprovalLayerDetails;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class FinalCostingController extends Controller
 {
@@ -156,7 +157,7 @@ class FinalCostingController extends Controller
         $csd_final_costing_demand = CsdFinalCostingDemand::where('csd_final_costing_id', $costing_id)->get();
         $csd_final_costing_refund = CsdFinalCostingRefund::where('csd_final_costing_id', $costing_id)->get();
         $payment_received = CsdFinalCosting::with('sellCollections.salesCollectionDetails')->where('sell_id', $project->sell_id)->first();
-        return \PDF::loadview('csd.costing.pdf', compact('payment_received', 'costing', 'client',  'project', 'csd_final_costing_demand', 'csd_final_costing_refund'))->setPaper('a4', 'landscape')->stream('final-costing.pdf');
+        return PDF::loadview('csd.costing.pdf', compact('payment_received', 'costing', 'client',  'project', 'csd_final_costing_demand', 'csd_final_costing_refund'))->setPaper('a4', 'landscape')->stream('final-costing.pdf');
     }
 
 

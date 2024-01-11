@@ -159,9 +159,9 @@
     <div>
     <div>
         <div id="logo" class="pdflogo" id="fixed_header">
-            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
+            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
             <div class="clearfix"></div>
-            <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
+            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
         </div>
 
         <div id="pageTitle" style="display: block; width: 100%;">
@@ -212,14 +212,14 @@
                     @foreach($BoqEmeCalculationsGbfloor as $BoqEmeCalculationsGbitem)
                         <tr class="balanceLineStyle hide_material second_line_{{$BoqEmeCalculationsGbitem->first()->first()->first()->floor_id}}">
                             <td class="text-left " style="padding-left: 15px!important;">{{$sloop = $floop .'.'.  $loop->iteration}}</td>
-                            <td class="text-left second_layer" id="{{'floor_name_'.$BoqEmeCalculationsGbitem->first()->first()->first()->floor_id ?? 0}}" style="padding-left: 30px!important;">
-                                {{ $BoqEmeCalculationsGbitem->first()->first()->first()->floor->name ?? '- - - -' }}
+                            <td class="text-left second_layer" id="{{'floor_name_'.$BoqEmeCalculationsGbitem->first()->first()->first->floor_id ?? 0}}" style="padding-left: 30px!important;">
+                                {{ $BoqEmeCalculationsGbitem->first()->first()->first()->BoqFloorProject->floor->name ?? '- - - -' }}
                             </td>
                             <td colspan="6"></td>
                         </tr>
                         @php
                           $rowSpan = 1;
-                            $total = $BoqEmeCalculationsGbitem->flatten()->sum('total_amount');
+                            $total = $BoqEmeCalculationsGbitem->flatten()->sum('total_material_amount');
                             $rowSpan += count($BoqEmeCalculationsGbitem);
                             if(count($BoqEmeCalculationsGbitem) < 2){
                                 $rowSpan -= 1;

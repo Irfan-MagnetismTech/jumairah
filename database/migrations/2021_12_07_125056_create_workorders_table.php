@@ -25,6 +25,7 @@ class CreateWorkordersTable extends Migration
             $table->text('involvement')->nullable();
             $table->string('remarks')->nullable();
             $table->bigInteger('prepared_by')->nullable();
+            $table->integer('is_saved')->nullable()->comment('0 => not saved , 1 => saved');
             $table->timestamps();
         });
     }

@@ -48,7 +48,7 @@
         <div class="col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="date">Date<span class="text-danger">*</span></label>
-                {{ Form::text('date',old('date') ? old('date') : (!empty($materialReceived->date) ? $materialReceived->date : null),['class' => 'form-control', 'id' => 'date', 'autocomplete' => 'off', 'readonly']) }}
+                {{ Form::text('date',old('date') ? old('date') : (!empty($materialReceived->date) ? $materialReceived->date : null),['class' => 'form-control', 'id' => 'date', 'autocomplete' => 'off', 'readonly', 'required']) }}
             </div>
         </div>
     </div>
@@ -191,7 +191,7 @@
                             @foreach ($materialReceived->materialreceivedetails as $materialreceivedetail)
                             {{-- @dd($materialreceivedetail->challan_no); --}}
                                 <tr>
-                                    <td>
+                                    {{-- <td>
                                         <select class="form-control form-control-sm material_name" name="material_id[]"
                                             >
                                             <option selected disabled>Select Floor </option>
@@ -202,7 +202,13 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </td>
+                                    </td> --}}
+                                        <td>
+                                            <input type="text" name="floor_name[]" value="{{ $materialreceivedetail->boqFloor->name }}"
+                                                id="floor_name" class="form-control text-center form-control-sm floor_name">
+                                            <input type="hidden" name="floor_id[]" value="{{ $materialreceivedetail->floor_id }}" id="floor_id"
+                                                class="form-control text-center form-control-sm floor_id">
+                                        </td>
                                     <td>
                                         <input type="text" name="material_name[]"
                                             value="{{ $materialreceivedetail->nestedMaterials->name }}"
