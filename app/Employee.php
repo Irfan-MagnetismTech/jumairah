@@ -9,6 +9,7 @@ use Modules\HR\Entities\Line;
 use Modules\HR\Entities\Unit;
 use Modules\HR\Entities\Floor;
 use Modules\HR\Entities\Shift;
+use Modules\HR\Entities\Gender;
 use Modules\HR\Entities\Section;
 use Modules\HR\Entities\Religion;
 use Modules\HR\Entities\EmployeeOt;
@@ -66,11 +67,7 @@ class Employee extends Model
         return $this->belongsTo(Thana::class, 'per_thana_id');
     }
 
-    public function requisitionApproval()
-    {
-        //        return $this->hasOne(RequisitionApproval::class, 'department_id');
-        return $this->hasOne(RequisitionApproval::class, 'department_id');
-    }
+  
     public function team()
     {
         return $this->belongsTo(Team::class, 'team_id')->withDefault();
@@ -107,15 +104,13 @@ class Employee extends Model
     {
         return $this->hasOne(EmployeeFamilyInfo::class, 'employee_id', 'id');
     }
-    public function employee_salary()
-    {
-        return $this->hasOne(EmployeeSalary::class, 'employee_id', 'id');
-    }
+
 
     public function employee_nominee_info()
     {
         return $this->hasMany(EmployeeNomineeInfo::class, 'employee_id', 'id');
     }
+
 
 
     public function jobLocation()
@@ -162,6 +157,11 @@ class Employee extends Model
     public function religion()
     {
         return $this->belongsTo(Religion::class, 'religion_id', 'id');
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class, 'gender_id', 'id');
     }
 
     public function leave_balance_emp()

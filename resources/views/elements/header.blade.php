@@ -40,6 +40,12 @@
             font-size: 13px !important;
             border: 1px solid #efefef !important;
         }
+
+
+        #notification-list-popup {
+            max-height: 300px;
+            overflow-y: scroll;
+        }
     </style>
 </head>
 
@@ -106,7 +112,7 @@
                                     <i class="ti-bell" style="font-size: 24px"></i>
                                     <span class="badge bg-c-pink" style="top: 5px" id="notificationCount">
                                         {{ count(auth()->user()->unreadNotifications) }}
-                            
+
                                     </span>
                                 </a>
                                 <ul class="show-notification" id="notification-list-popup">

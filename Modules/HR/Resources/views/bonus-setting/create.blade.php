@@ -65,10 +65,15 @@
                 <label style="min-width: 22% !important; max-width:22% !important;" class="input-group-addon"
                     for="name">Employee<span class="text-danger">*</span></label>
                 {{ Form::select(
-                    'employee_id',
+                    'employee_id[]',
                     $employees,
                     old('employee_id') ? old('employee_id') : (!empty($bonusSetting->employee_id) ? $bonusSetting->employee_id : ''),
-                    ['class' => 'form-control employee_id select2', 'id' => 'employee_id', 'placeholder' => 'Select Employee'],
+                    [
+                        'class' => 'form-control employee_id select2',
+                        'id' => 'employee_id',
+                        // 'placeholder' => 'Select Employee',
+                        'multiple' => 'multiple',
+                    ],
                 ) }}
                 @error('employee_id')
                     <p class="text-danger">{{ $errors->first('employee_id') }}</p>
@@ -157,6 +162,7 @@
                 {{ Form::select(
                     'applicable_after',
                     [
+                        0 => 'Immediately',
                         1 => 'One Month',
                         2 => 'Two Month',
                         3 => 'Three Month',
@@ -205,7 +211,7 @@
                 dataType: 'json',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    department_id: $('#department_id').val()??''
+                    department_id: $('#department_id').val() ?? ''
                 },
                 success: function(response) {
                     $('#employee_id').empty();

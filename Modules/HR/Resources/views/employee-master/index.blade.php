@@ -71,6 +71,16 @@
                         <td>
                             <div class="icon-btn">
                                 <nobr>
+                                    <a target="_blank"
+                                        href="{{ route('employee-masters.profile', ['id' => $data->id, 'view_type' => 'html']) }}"
+                                        data-toggle="tooltip" title="View Profile" class="btn btn-outline-primary">
+                                        <i class="fas fa-user"></i>
+                                    </a>
+                                    <a target="_blank"
+                                        href="{{ route('employee-masters.profile', ['id' => $data->id, 'view_type' => 'pdf']) }}"
+                                        data-toggle="tooltip" title="Print Profile" class="btn btn-outline-success">
+                                        <i class="fas fa-print"></i>
+                                    </a>
                                     <a href="{{ route('employee-masters.edit', $data->id) }}" data-toggle="tooltip"
                                         title="Edit" class="btn btn-outline-warning"><i class="fas fa-pen"></i></a>
                                     <form action="{{ url("hr/employee-masters/$data->id") }}" method="POST"

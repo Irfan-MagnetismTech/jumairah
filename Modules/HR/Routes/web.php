@@ -114,6 +114,9 @@ Route::prefix('hr')->group(function () {
     });
 
 
+    Route::get('employee-masters/profile/{id}', [EmployeeMasterController::class, 'profile'])->name('employee-masters.profile');
+
+
     Route::post('/fetch-divisions', [DistrictController::class, 'fetchDivisions'])->name('fetchDivisions');
     Route::post('/fetch-districts', [DistrictController::class, 'fetchDistricts'])->name('fetchDistricts');
     Route::post('/fetch-police-stations', [PoliceStationController::class, 'fetchPoliceStation'])->name('fetchPoliceStation');

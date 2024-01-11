@@ -114,7 +114,15 @@ class EmployeeSalaryController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $this->authorize('employee-salary-delete');
+        $employee_salary = EmployeeSalary::findOrFail($id);
+        try {
+            $employee_salary->delete();
+            return redirect()->route('employee-salaries.index')->with('message', 'Employee Salary Deleted successfully.');
+        } catch (QueryException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function getEmployeeTypeSalary(Request $request)

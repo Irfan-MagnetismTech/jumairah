@@ -42,6 +42,7 @@
                     <th>#SL</th>
                     <th>Name</th>
                     <th>Bangla</th>
+                    <th>Status</th>
                     @canany(['floor-edit', 'floor-delete'])
                         <th>Action</th>
                     @endcanany

@@ -133,7 +133,7 @@
                 @endcan
 
                 @can('floor-show')
-                    <li class="{{ request()->routeIs('floors.*') ? 'active' : null }}">
+                    {{-- <li class="{{ request()->routeIs('floors.*') ? 'active' : null }}">
                         <a href="{{ route('floors.index') }}">
                             <span class="pcoded-micon">
                                 <i class="ti-angle-right"></i>
@@ -141,7 +141,7 @@
                             <span class="pcoded-mtext">Floors</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endcan
 
                 @can('line-show')

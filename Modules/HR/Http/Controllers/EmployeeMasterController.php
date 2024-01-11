@@ -497,4 +497,54 @@ class EmployeeMasterController extends Controller
             return response()->json(['message' => "finger id already exists in selected device. Please choose another number after $last_finger_id"], 500);
         }
     }
+
+    public function profile(Request $request, $employee_id)
+    {
+        $this->authorize('employee-show');
+
+        $employeeData =  Employee::with(
+            'employee_address',
+            'employee_bank_info',
+            'employee_detail',
+            'employee_education',
+            'employee_experience',
+            'employee_family_info',
+            'employee_nominee_info',
+            'department',
+            'designation',
+            'jobLocation',
+            'employee_type',
+            'shift',
+            'religion',
+            'gender',
+            'employee_detail.grade',
+            'employee_address.district',
+            'employee_address.division',
+            'employee_address.police_station',
+            'employee_address.post_office',
+            'employee_bank_info.bank',
+            'employee_bank_info.branch',
+            'employee_bank_info.paymode',
+            'section',
+            'sub_section',
+            'unit',
+            'floor',
+            'line',
+        )->find($employee_id);
+
+        if ($request->view_type == 'html') {
+            return view('hr::employee-master.profile-html', compact('employeeData'));
+        } else if ($request->view_type == 'pdf') {
+
+            $pdf = PDF::loadView('hr::employee-master.profile-pdf', compact('employeeData'),  [], [
+                ...watermarkImageSettings(),
+                // 'watermark'     => auth()->user()->company->company_name,
+                // 'show_watermark'   => true,
+                'title' => 'Employee Profile',
+                'format' => 'A4-P',
+            ]);
+
+            return $pdf->stream('employee-profile.pdf');
+        }
+    }
 }

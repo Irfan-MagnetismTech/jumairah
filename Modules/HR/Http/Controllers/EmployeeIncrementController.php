@@ -2,18 +2,18 @@
 
 namespace Modules\HR\Http\Controllers;
 
+use App\Designation;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use Modules\HR\Entities\Employee;
-use Modules\HR\Entities\Designation;
-use Modules\HR\Entities\EmployeeType;
 use Modules\HR\Entities\Section;
-use Modules\HR\Entities\EmployeeIncrement;
-use Modules\HR\Entities\EmployeeSalary;
+use Modules\HR\Entities\Employee;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
+use Modules\HR\Entities\EmployeeType;
 use Illuminate\Database\QueryException;
+use Modules\HR\Entities\EmployeeSalary;
+use Modules\HR\Entities\EmployeeIncrement;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EmployeeIncrementController extends Controller

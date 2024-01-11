@@ -30,7 +30,7 @@ class LineController extends Controller
         // dd($users);
 
         foreach ($users as $user) {
-            $user->notify(new RealTimeNotification(' I am a notification 😄'));
+            $user->notify(new RealTimeNotification(' I am a notification new 😄'));
         }
 
         $lines = Line::latest()->get();

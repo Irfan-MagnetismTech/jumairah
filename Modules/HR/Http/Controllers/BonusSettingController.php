@@ -25,6 +25,7 @@ class BonusSettingController extends Controller
     {
         $this->authorize('bonus-setting-show');
         $bonusSettings = BonusSetting::with('employee', 'bonus')->latest()->get();
+        // dd($bonusSettings);
         return view('hr::bonus-setting.index', compact('bonusSettings'));
     }
 
@@ -50,21 +51,28 @@ class BonusSettingController extends Controller
     public function store(Request $request)
     {
 
+
         try {
             $this->authorize('bonus-setting-create');
             $input = $request->except('department_id');
             $input['bonus_id'] = json_encode($input['bonus_id']);
-            DB::transaction(function () use ($input, $request) {
-                if (BonusSetting::where('employee_id', $input['employee_id'])->count() > 0) {
-                    $bonusSettings = BonusSetting::where('employee_id', $input['employee_id'])->first();
+
+            DB::beginTransaction();
+
+            foreach ($request->employee_id as $employee_id) {
+                $input['employee_id'] = $employee_id;
+                if (BonusSetting::where('employee_id', $employee_id)->count() > 0) {
+                    $bonusSettings = BonusSetting::where('employee_id', $employee_id)->first();
                     $bonusSettings->update($input);
                 } else {
                     BonusSetting::create($input);
                 }
-            });
+            }
 
+            DB::commit();
             return redirect()->route('bonus-settings.index')->with('message', 'Bonus Setting information created successfully.');
         } catch (QueryException $e) {
+            DB::rollBack();
             return redirect()->route('bonus-settings.index')->withInput()->withErrors($e->getMessage());
         }
     }

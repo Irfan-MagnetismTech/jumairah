@@ -67,8 +67,9 @@ class ProcessedBonusController extends Controller
             ]);
 
             $processed_bonus_info = $request->only('bonus_id', 'date');
+            // dd($request);
 
-            DB::transaction(function () use ($processed_bonus_info, $request) {
+            // DB::transaction(function () use ($processed_bonus_info, $request) {
                 $processed_bonus = ProcessedBonus::create($processed_bonus_info);
 
                 DB::insert("
@@ -104,7 +105,7 @@ class ProcessedBonusController extends Controller
                         AND (JSON_SEARCH(?, 'one', bs.employee_id) IS NOT NULL or ? is NULL)
                         AND TIMESTAMPDIFF(MONTH, DATE_FORMAT(CONCAT(DATE_FORMAT(em.join_date, '%Y-%m'), '-01'), '%Y-%m-%d'), ?) > bs.applicable_after
                 ", [$processed_bonus->id, Bonus::find($request->bonus_id)?->name, Auth::user()?->com_id, $request->bonus_id, json_encode($request->employee_id), $request->employee_id ? json_encode($request->employee_id) : $request->employee_id, $request->date]);
-            });
+            // });
             return redirect()->route('bonus-process.index')->with('message', 'Data has been inserted successfully');
         } catch (QueryException $e) {
             return redirect()->back()->withInput()->withErrors($e->getMessage());
