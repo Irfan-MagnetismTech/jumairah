@@ -234,13 +234,13 @@ Feasibility Dashboard
 {{-- 1st --}}
 <div class="row custom-form">
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5> LAND INPUTS</h5>
         </div>
     </div>
 
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5>RESULT SUMMARY</h5>
         </div>
     </div>
@@ -487,13 +487,13 @@ Feasibility Dashboard
 {{-- 2nd --}}
 <div class="row custom-form">
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5> ADDITIONAL INPUTS</h5>
         </div>
     </div>
 
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5>CALCULATED INFORMATION</h5>
         </div>
     </div>
@@ -753,13 +753,13 @@ Feasibility Dashboard
 {{-- 3rd --}}
 <div class="row custom-form">
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5>CONSTRUCTION COST (BDT /SFT)</h5>
         </div>
     </div>
 
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5>COSTS SUMMARY (BDT CRORE)</h5>
         </div>
     </div>
@@ -969,13 +969,13 @@ Feasibility Dashboard
 {{-- 4th --}}
 <div class="row custom-form">
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5>OTHER COST AND REVENUE INPUTS</h5>
         </div>
     </div>
 
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5>REVENUE SUMMARY (BDT CRORE)</h5>
         </div>
     </div>
@@ -1104,7 +1104,7 @@ Feasibility Dashboard
 {{-- 4th --}}
 <div class="row custom-form">
     <div class="col-xl-6 col-md-6">
-        <div class="tableHeading" style="background-color: #227447;">
+        <div class="tableHeading" style="background-color: #116A7B;">
             <h5>TOTAL BUILTUP AREA (SFT)</h5>
         </div>
     </div>

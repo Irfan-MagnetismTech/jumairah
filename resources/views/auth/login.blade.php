@@ -162,7 +162,7 @@
                             </div>--}}
                             <div class="">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-color btn-md btn-block waves-effect text-center" style="background: #227447; color: #fff; border-radius: 15px; line-height: 16px;">Login</button>
+                                    <button type="submit" class="btn btn-color btn-md btn-block waves-effect text-center" style="background: #116A7B; color: #fff; border-radius: 15px; line-height: 16px;">Login</button>
                                 </div>
                             </div>
 

@@ -18,7 +18,7 @@
             <div class="col-md-3">
                 <a href="{{ url('bd-budget-list') }}/ {{ $year[0]->year }}">
                 
-                    <div class="card text-white" style="background-color: #227447">
+                    <div class="card text-white" style="background-color: #116A7B">
                         <div class="card-body text-center">
                             <h1>{{ $year[0]->year }}</h1>
                         </div>

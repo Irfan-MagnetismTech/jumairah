@@ -68,7 +68,7 @@
             width: 100%;
             height: 100%;
             cursor: pointer;
-            color: #227447;
+            color: #116A7B;
         }
 
         .child-delete-btn {
@@ -93,8 +93,8 @@
         }
 
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            background-color: #227447;
-            border: 1px solid #227447;
+            background-color: #116A7B;
+            border: 1px solid #116A7B;
             color: #fff;
         }
 

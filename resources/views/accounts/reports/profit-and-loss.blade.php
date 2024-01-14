@@ -137,7 +137,7 @@
             <tr>
                 <td style="vertical-align: top;" colspan="3">
                     <table style="width: 100%">
-                        <thead style="background:#227447; color: white; font-weight: bold; font-size: 14px">
+                        <thead style="background:#116A7B; color: white; font-weight: bold; font-size: 14px">
                             <tr>
                                 <td colspan="3" class="base_header text-center">Expenses</td>
                             </tr>
@@ -262,7 +262,7 @@
                 </td>
                 <td style="vertical-align: top" colspan="3">
                     <table style="width: 100%">
-                        <thead style="background:#227447; color: white; font-weight: bold; font-size: 14px">
+                        <thead style="background:#116A7B; color: white; font-weight: bold; font-size: 14px">
                             <tr>
                                 <td colspan="3" class="base_header text-center">Income</td>
                             </tr>

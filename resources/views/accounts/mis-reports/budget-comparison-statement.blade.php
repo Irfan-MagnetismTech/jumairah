@@ -71,7 +71,7 @@
     <div class="table-responsive">
         <table style="width: 100%">
             <thead>
-            <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+            <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                 <td rowspan=""> Particulars </td>
                 <td rowspan=""> Budget </td>
                 <td colspan=""> Actual </td>

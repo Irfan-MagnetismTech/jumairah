@@ -30,7 +30,7 @@
         }
 
         th {
-            background-color: #227447;
+            background-color: #116A7B;
             color: white;
         }
 
@@ -105,13 +105,13 @@
     <div>
         <table style="width: 100%">
             <thead>
-                <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+                <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                     <td rowspan="2"> Particulars </td>
                     <td rowspan="2"> Opening Balance </td>
                     <td colspan="2"> Transactions </td>
                     <td rowspan="2"> Closing Balance </td>
                 </tr>
-                <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+                <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                     <td> Debit </td>
                     <td> Credit </td>
                 </tr>

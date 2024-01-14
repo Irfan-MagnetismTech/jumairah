@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="{{ url('scm-material-budget-project-list') }}/{{$year}}/{{$month}}">
-                <div class="card text-white" style="background-color: #227447">
+                <div class="card text-white" style="background-color: #116A7B">
                     <div class="card-body text-center">
                         <h4>Entry rate</h4>
                     </div>
@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="{{ url('scm-material-budget-dashboard')}}/{{$year}}/{{$month}}">
-                <div class="card text-white" style="background-color: #227447">
+                <div class="card text-white" style="background-color: #116A7B">
                     <div class="card-body text-center">
                         <h4>Budget Dashboard</h4>
                     </div>
@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="{{ url('scm-material-payment-dashboard')}}/{{$year}}/{{$month}}">
-                <div class="card text-white" style="background-color: #227447">
+                <div class="card text-white" style="background-color: #116A7B">
                     <div class="card-body text-center">
                         <h4>Payment Dashboard</h4>
                     </div>

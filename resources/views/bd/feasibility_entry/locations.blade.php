@@ -6,7 +6,7 @@
             @foreach($locations as $key => $location)
                 <div class="col-md-3">
                     <a href="{{url('feasibility-entry/create',['location_id' => $location])}}">
-                        <div class="card text-white" style="background-color: #227447;">
+                        <div class="card text-white" style="background-color: #116A7B;">
                             <div class="card-body text-center" >
                                 {{ $location->land_location }}
                                 <p class="m-0">

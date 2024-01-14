@@ -23,7 +23,7 @@
         <div class="col-md-3">
             <a href="{{ url('csd/apartment-List') }}/{{ $project[0]->project_id }}">
 
-                <div class="card text-white" style="background-color: #227447">
+                <div class="card text-white" style="background-color: #116A7B">
                     <div class="card-body text-center">
                         <h6>{{ $project[0]->projects->name }}</h6>
                     </div>

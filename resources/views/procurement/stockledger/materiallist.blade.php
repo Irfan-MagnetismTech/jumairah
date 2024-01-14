@@ -21,7 +21,7 @@
             @foreach($datas as $data)
         <div class="col-md-3">
             <a href="{{ url('get-material-ledger') }}/{{ $cost_center_id }}/{{ $data[0]['material_id'] }}">
-                <div class="card text-white" style="background-color: #227447">
+                <div class="card text-white" style="background-color: #116A7B">
                     <div class="card-body text-center">
                         <h6>{{ $data[0]['material_name'] }}</h6>
                     </div>

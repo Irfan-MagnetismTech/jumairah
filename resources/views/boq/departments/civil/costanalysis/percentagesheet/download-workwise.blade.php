@@ -35,7 +35,7 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: center;
-            background-color: #227447;
+            background-color: #116A7B;
             color: white;
         }
         .tableHead{
@@ -169,7 +169,7 @@
                                     </span>
                 </td>
             </tr>
-            <tr style="background-color: #227447;color: #fff;font-weight: bold">
+            <tr style="background-color: #116A7B;color: #fff;font-weight: bold">
                 <td colspan="5">TOTAL COST WITH RESPECT TO CONSTRUCTION AREA</td>
                 <td colspan="" class="grand_total"><span class="numSpan">@money($total_cost)</span></td>
                 <td colspan="" class="grand_total"><span class="numSpan">@money($total_cost_per_sft + ($other_related_costs/$total_areas))</span></td>

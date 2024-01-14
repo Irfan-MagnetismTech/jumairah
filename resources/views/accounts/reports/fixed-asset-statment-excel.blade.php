@@ -30,7 +30,7 @@
         }
 
         th {
-            background-color: #227447;
+            background-color: #116A7B;
             color: white;
         }
 
@@ -105,7 +105,7 @@
     <div>
         <table style="width: 100%">
             <thead>
-                <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+                <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                     <th> Particulars </th>
                     <th colspan="2"> Voucher Ref. </th>
                     <th> Dep Rate </th>
@@ -114,7 +114,7 @@
                     <th colspan="4"> Depreciation </th>
                     <th> WDV </th>
                 </tr>
-                <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+                <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                     <td></td>
                     <td> No </td>
                     <td> Date </td>

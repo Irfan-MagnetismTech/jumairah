@@ -42,19 +42,19 @@ Material Allocations Plan
                             <th class="material_rate_th" rowspan="2"> Apartment <br> Type</th>
                             <th class="material_rate_th" rowspan="2"> No </th>
                             <th class="material_rate_th" colspan="2">
-                                <input type="text" class="form-control text-center" name="master" value="Master Bath" style="background-color: #227447; color: white">
+                                <input type="text" class="form-control text-center" name="master" value="Master Bath" style="background-color: #116A7B; color: white">
                             </th>
                             <th class="material_rate_th" colspan="2">
-                                <input type="text" class="form-control text-center" name="child" value="Child Bath" style="background-color: #227447; color: white">
+                                <input type="text" class="form-control text-center" name="child" value="Child Bath" style="background-color: #116A7B; color: white">
                             </th>
                             <th class="material_rate_th" colspan="2">
-                                <input type="text" class="form-control text-center" name="common" value="Common Bath" style="background-color: #227447; color: white">
+                                <input type="text" class="form-control text-center" name="common" value="Common Bath" style="background-color: #116A7B; color: white">
                             </th>
                             <th class="material_rate_th" colspan="2">
-                                <input type="text" class="form-control text-center" name="smalltoilet" value="S. Toilet Bath" style="background-color: #227447; color: white">
+                                <input type="text" class="form-control text-center" name="smalltoilet" value="S. Toilet Bath" style="background-color: #116A7B; color: white">
                             </th>
                             <th class="material_rate_th" colspan="2">
-                                <input type="text" class="form-control text-center" name="kitchen" value="Kitchen" style="background-color: #227447; color: white">
+                                <input type="text" class="form-control text-center" name="kitchen" value="Kitchen" style="background-color: #116A7B; color: white">
                             </th>
                         </tr>
                         <tr>

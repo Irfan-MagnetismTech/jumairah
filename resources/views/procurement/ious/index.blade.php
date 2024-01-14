@@ -98,7 +98,7 @@
                             @endphp
                             @if((!empty($approval) && $approval->designation_id == auth()->user()->designation?->id && $approval->department_id == auth()->user()->department_id) || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin'])))
                                 <a href="{{ url("iou/approved/$iou->id/1") }}" data-toggle="tooltip" title="Approve Iou" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
-                                <a href="{{ url("iou/approved/$iou->id/0") }}" data-toggle="tooltip" title="Reject Iou" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                {{-- <a href="{{ url("iou/approved/$iou->id/0") }}" data-toggle="tooltip" title="Reject Iou" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a> --}}
                             @endif
                             @if($iou->approval()->doesntExist() || auth()->user()->hasAnyRole(['admin','super-admin']))
                                 <a href="{{ url("ious/$iou->id/edit") }}" data-toggle="tooltip" title="Edit" class="btn btn-outline-warning"><i class="fas fa-pen"></i></a>

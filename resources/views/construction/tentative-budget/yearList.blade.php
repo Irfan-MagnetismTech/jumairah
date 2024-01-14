@@ -18,7 +18,7 @@
             @foreach($years as $year)
         <div class="col-md-3">
             <a href="{{ url('construction/tentative-budget-details') }}/{{ $year }}">
-                <div class="card text-white" style="background-color: #227447;">
+                <div class="card text-white" style="background-color: #116A7B;">
                     <div class="card-body text-center" >
                         {{ $year }}
                     </div>

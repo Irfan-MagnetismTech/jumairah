@@ -20,7 +20,7 @@
     <div class="col-lg-6 table-responsive">
         <table id="" class="table table-striped table-bordered text-center">
             <thead>
-                <tr class="bg-success" style="background-color: #227447 !important;">
+                <tr class="bg-success" style="background-color: #116A7B !important;">
                     <td colspan="{{$project->types+1}}">
                         <strong style="font-size: 14px">{{ $project->name}} (Residential)</strong> <br> {{ $project->location}}</td>
                 </tr>
@@ -98,7 +98,7 @@
         <table id="dataTable" class="table table-bordered text-center">
             <thead>
             <tr class="bg-info">
-                <td  style="font-size: 14px;background-color: #227447 !important;" colspan="{{count($project->parkings)}}"><strong >Parking of {{$project->name}} </strong> </td>
+                <td  style="font-size: 14px;background-color: #116A7B !important;" colspan="{{count($project->parkings)}}"><strong >Parking of {{$project->name}} </strong> </td>
             </tr>
             </thead>
             @forelse($project->parkings as $parking)
@@ -135,7 +135,7 @@
     <div class="col-md-12">
         <table id="dataTable" class="table table-striped table-bordered text-center">
             <thead>
-            <tr class="bg-success" style="background-color: #227447 !important;">
+            <tr class="bg-success" style="background-color: #116A7B !important;">
                 <td colspan="{{$maxValue > 0 ? $maxValue+1 : 2}}">
                     <strong style="font-size: 14px">{{ $project->name}} (Commercial)</strong> <br> {{ $project->location}}
                 </td>

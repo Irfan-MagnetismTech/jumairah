@@ -92,7 +92,7 @@
 <div class="container" style="margin-top: 10px; clear: both; display: block; width: 97%;">
     <table id="table" width="100%">
         <thead>
-            <tr style="text-align: center; background:#227447; color: white; font-weight: bold">
+            <tr style="text-align: center; background:#116A7B; color: white; font-weight: bold">
                 <td>#</td>
                 <td>Customer Name</td>
                 <td>Project Name</td>
