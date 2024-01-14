@@ -1312,6 +1312,16 @@ class SupplyChainJsonController extends Controller
         }
         return $option_view;
     }
+
+    public function getEmeWorks(Request $request)
+    {
+        $parent_id = $request->work_parent_id;
+        return $parent_id; // work parent
+        $works = BoqEmeRate::where('parent_id_second', $parent_id)->where('type', 1)->get();
+
+        return $works;
+    }
+
     public function ConstructionTentativeBudgetProjectAutoSuggestWithBoq(Request $request)
     {
         $search = $request->search;
