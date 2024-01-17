@@ -17,6 +17,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Approval\ApprovalLayerDetails;
+use App\Sells\Sell;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class FinalCostingController extends Controller
@@ -289,5 +290,11 @@ class FinalCostingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function clientList()
+    {
+        $sales = Sell::with('sellClients','apartment.project')->get();
+        return view('csd.costing.clientList', compact('sales'));
     }
 }

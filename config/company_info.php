@@ -20,6 +20,7 @@ return [
                 'SCM'           =>'SCM',
                 'Construction'  =>'Construction',
                 'Sales'         =>'Sales',
+                'Customer Care' =>'Customer Care',
                 'HR'            =>'HR',
                 'Accounts'      =>'Accounts',
                 ]

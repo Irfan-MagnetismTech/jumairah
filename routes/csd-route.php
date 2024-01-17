@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'csd', 'as' => 'csd.'], functi
     Route::get('send-mail/{id}', 'CSD\CsdLetterController@sendMail')->name('send-mail');
     Route::get('mail-records', 'CSD\CsdLetterController@mailRecords')->name('mail-records');
 
+    Route::get('sales-client-list', 'CSD\FinalCostingController@clientList')->name('sales-client-list');
+
     
         Route::resources([
         'materials'                   => 'CSD\CsdMaterialController',            

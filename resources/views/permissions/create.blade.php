@@ -52,6 +52,8 @@
                 <thead>
                     <tr>
                         <th>#SL</th>
+                        <th>Module</th>
+                        <th>Subject</th>
                         <th>Permission Name</th>
                         <th>Action</th>
                     </tr>
@@ -59,6 +61,8 @@
                 <tfoot>
                     <tr>
                         <th>#SL</th>
+                        <th>Module</th>
+                        <th>Subject</th>
                         <th>Permission Name</th>
                         <th>Action</th>
                     </tr>
@@ -67,6 +71,8 @@
                 @foreach($permissions as $key => $data)
                     <tr>
                         <td>{{$loop->iteration}}</td>
+                        <td class="text-left">{{$data->module}}</td>
+                        <td class="text-left">{{$data->subject}}</td>
                         <td class="text-left">{{$data->name}}</td>
                         <td>
                             <div class="icon-btn">

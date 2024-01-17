@@ -22,6 +22,7 @@ use App\Boq\Departments\Eme\BoqEmeWorkOrder;
 use App\Procurement\IouReportProjectWise;
 use App\Procurement\IouReportMonthWise;
 use App\CostCenter;
+use App\Notifications\RealTimeNotification;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class IouController extends Controller
@@ -106,6 +107,7 @@ class IouController extends Controller
             DB::transaction(function () use ($iouData, $iouDetailData, $request) {
                 $iou = Iou::create($iouData);
                 $iou->ioudetails()->createMany($iouDetailData);
+                $iou->notify(new RealTimeNotification('Iou create'));
             });
 
             return redirect()->route('ious.index')->with('message', 'Data has been inserted successfully');

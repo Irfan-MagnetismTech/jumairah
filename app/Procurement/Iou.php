@@ -13,11 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Boq\Departments\Eme\BoqEmeWorkOrder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 class Iou extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use Notifiable;
 
     protected static $logOnlyDirty = true;
     protected static $logAttributes = ['*'];
