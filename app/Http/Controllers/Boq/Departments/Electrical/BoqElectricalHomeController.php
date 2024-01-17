@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Boq\Departments\Electrical;
 
 use App\Boq\Departments\Eme\BoqEmeBudget;
 use App\Boq\Departments\Eme\BoqEmeCalculation;
+use App\Boq\Departments\Eme\EmeLaborBudget;
 use App\Http\Controllers\Controller;
 use App\Procurement\NestedMaterial;
 use App\Project;
@@ -20,6 +21,7 @@ class BoqElectricalHomeController extends Controller
     public function __invoke(Request $request, Project $project)
     {
         $budgets = BoqEmeBudget::where('project_id', $project->id)->get();
+        $laborBudget = EmeLaborBudget::where('project_id', $project->id)->get('total_labor_amount');
         $BoqEmeCalculationDetails = BoqEmeCalculation::where('project_id', $project->id)->get();
         $BoqEmeCalculationItemData = $BoqEmeCalculationDetails->groupBy('item_id')
             ->map(function ($items, $key) {
@@ -29,6 +31,6 @@ class BoqElectricalHomeController extends Controller
                 $items['total_labour_amount']   = $items->sum('total_labour_amount');
                 return $items;
             });
-        return view('boq.departments.electrical.home', compact('project', 'budgets','BoqEmeCalculationItemData', 'BoqEmeCalculationDetails'));
+        return view('boq.departments.electrical.home', compact('project', 'budgets','BoqEmeCalculationItemData', 'BoqEmeCalculationDetails', 'laborBudget'));
     }
 }

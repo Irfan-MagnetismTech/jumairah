@@ -96,6 +96,13 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
+                    <li class="{{ request()->routeIs('boq.project.departments.electrical.eme-labor-budgets.*')  ? 'active pcoded-trigger' : null }}">
+                        <a href="{{ route('boq.project.departments.electrical.eme-labor-budgets.index', ['project' => $project ]) }}">
+                            <span class="pcoded-micon"><i class="icon-pie-chart"></i></span>
+                            <span class="pcoded-mtext"> Labor Budget </span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             @endcan
