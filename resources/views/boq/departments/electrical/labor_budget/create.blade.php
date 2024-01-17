@@ -6,11 +6,11 @@
     @section('title', 'Create Labor Budget')
 @endif
 @section('breadcrumb-title')
-@if ($formType == 'edit') Edit @else Create @endif Labor Budget
+@if ($formType == 'edit') Edit @else Create @endif EME Labor Budget
 @endsection
 
 @section('breadcrumb-button')
-    @include('components.buttons.breadcrumb-button', ['route' => route('boq.project.departments.electrical.labor-budgets.index',['project' => $project]), 'type' => 'index'])
+    @include('components.buttons.breadcrumb-button', ['route' => route('boq.project.departments.electrical.eme-labor-budgets.index',['project' => $project]), 'type' => 'index'])
 @endsection
 
 @section('sub-title')
@@ -121,13 +121,13 @@
         <div class="col-md-12">
             @if ($formType == 'edit')
 
-            <form action="{{ route('boq.project.departments.electrical.labor-budgets.update',['project' => $project,'labor-budget' => $laborBudgetId]) }}" method="POST" class="custom-form">
+            <form action="{{ route('boq.project.departments.electrical.eme-labor-budgets.update',['project' => $project,'labor-budget' => $laborBudgetId]) }}" method="POST" class="custom-form">
                 @method('put')
-                @include('boq.departments.electrical.labor_budget.form')
+                {{-- @include('boq.departments.electrical.labor_budget.form') --}}
                 @include('components.buttons.submit-button', ['label' => 'Update Budget'])
             </form>
             @else
-                <form action="{{ route('boq.project.departments.electrical.labor-budgets.store',['project' => $project]) }}" method="POST" class="custom-form">
+                <form action="{{ route('boq.project.departments.electrical.eme-labor-budgets.store',['project' => $project]) }}" method="POST" class="custom-form">
                     @include('boq.departments.electrical.labor_budget.form')
                     @include('components.buttons.submit-button', ['label' => 'Create Budget'])
                 </form>

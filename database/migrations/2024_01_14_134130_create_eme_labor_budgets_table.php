@@ -17,7 +17,11 @@ class CreateEmeLaborBudgetsTable extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->foreignId('boq_eme_rate_id')->constrained()->onDelete('cascade');
-            $table->decimal('rate', 20, 2);
+            $table->decimal('labor_rate', 20, 2);
+            $table->decimal('quantity', 20, 2);
+            $table->decimal('total_labor_amount', 20, 2);
+            $table->decimal('remarks', 20, 2);
+            $table->foreignId('applied_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

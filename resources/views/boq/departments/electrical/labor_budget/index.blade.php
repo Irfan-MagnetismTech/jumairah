@@ -1,17 +1,17 @@
 @extends('boq.departments.electrical.layout.app')
-@section('title', 'BOQ - Rate List')
+@section('title', 'EME Labor Budget List')
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{asset('css/Datatables/dataTables.bootstrap4.min.css')}}">
 @endsection
 
 @section('breadcrumb-title')
-    List of Rate
+    Labor Budget List
 @endsection
 
 @section('breadcrumb-button')
     @can('project-create')
-        <a href="{{ route('boq.project.departments.electrical.configurations.rates.create',['project' => $project]) }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
+        <a href="{{ route('boq.project.departments.electrical.eme-labor-budgets.create',['project' => $project]) }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
     @endcan
 @endsection
 
@@ -26,10 +26,12 @@
             <thead>
             <tr>
                 <th>SL</th>
-                <th style="width: 250px;word-wrap:break-word">Item Name</th>
-                <th style="width: 250px;word-wrap:break-word">Material Name / Work Name</th>
+                <th style="width: 250px;word-wrap:break-word">Work Head</th>
+                <th style="width: 250px;word-wrap:break-word">Work Name</th>
                 <th style="width: 250px;word-wrap:break-word">Unit</th>
-                <th style="width: 250px;word-wrap:break-word">Rate</th>
+                <th style="width: 250px;word-wrap:break-word">Quantity</th>
+                <th style="width: 250px;word-wrap:break-word">Labor Rate</th>
+                <th style="width: 250px;word-wrap:break-word">Total Rate</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -39,12 +41,9 @@
                 @foreach($BoqEmeRateData as $data)
                 <tr>
                     <td>{{$loop->iteration }}</td>
+                    <td>{{$data->boqEmeRate->emeWork->name }}</td>
                     <td>
-                            @if ($data->boq_work_name == null)
-                            {{$data->NestedMaterialSecondLayer->name }}
-                            @else
-                            {{ $data->emeWork->name }}
-                            @endif
+                            {{ $data->boqEmeRate->boq_work_name }}
                     </td>
                     <td>
                         @if($data->type)
