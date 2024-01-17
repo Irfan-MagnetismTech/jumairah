@@ -16,8 +16,8 @@
 @endsection
 
 @section('sub-title')
-    Total: {{ count($BoqEmeRateData) }}
-    @endsection
+    Total: {{ count($emeLaborBudget) }}
+@endsection
 
     @section('content')
             <!-- put search form here.. -->
@@ -38,30 +38,19 @@
             <tfoot>
             </tfoot>
             <tbody>
-                @foreach($BoqEmeRateData as $data)
+                @foreach($emeLaborBudget as $data)
                 <tr>
                     <td>{{$loop->iteration }}</td>
                     <td>{{$data->boqEmeRate->emeWork->name }}</td>
                     <td>
                             {{ $data->boqEmeRate->boq_work_name }}
                     </td>
+                    <td>{{$data->boqEmeRate->laborUnit->name }}</td>
+                    <td>{{$data->quantity }}</td>
+                    <td>{{$data->labor_rate }}</td>
+                    <td>{{ $data->total_labor_amount }}</td>
                     <td>
-                        @if($data->type)
-                        {{$data->boq_work_name}}
-                        @else
-                        {{$data->NestedMaterial->name }}
-                        @endif
-                    </td>
-                    <td>
-                        @if($data->type)
-                        {{$data->laborUnit->name}}
-                        @else
-                        {{$data->NestedMaterial->unit->name }}
-                        @endif
-                    </td>
-                    <td>{{$data->labour_rate }}</td>
-                    <td>
-                        @include('components.buttons.action-button', ['actions' => ['edit', 'delete'], 'route' => 'boq.project.departments.electrical.configurations.rates', 'route_key' => ['project' => $project,'rate' => $data]])
+                        @include('components.buttons.action-button', ['actions' => ['edit', 'delete'], 'route' => 'boq.project.departments.electrical.eme-labor-budgets', 'route_key' => ['project' => $project,'eme_labor_budget' => $data]])
                     </td>
                 </tr>
                 @endforeach

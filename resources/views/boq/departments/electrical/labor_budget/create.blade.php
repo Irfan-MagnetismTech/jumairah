@@ -121,9 +121,9 @@
         <div class="col-md-12">
             @if ($formType == 'edit')
 
-            <form action="{{ route('boq.project.departments.electrical.eme-labor-budgets.update',['project' => $project,'labor-budget' => $laborBudgetId]) }}" method="POST" class="custom-form">
+            <form action="{{ route('boq.project.departments.electrical.eme-labor-budgets.update',['project' => $project,'eme_labor_budget' => $EmeLaborBudgetId]) }}" method="POST" class="custom-form">
                 @method('put')
-                {{-- @include('boq.departments.electrical.labor_budget.form') --}}
+                @include('boq.departments.electrical.labor_budget.form')
                 @include('components.buttons.submit-button', ['label' => 'Update Budget'])
             </form>
             @else

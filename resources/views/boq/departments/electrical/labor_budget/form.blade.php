@@ -10,7 +10,7 @@
                 <input type="hidden" name="id" value="{{ isset($BoqEmeDatas) ? $BoqEmeDatas->id :null }}">
             </div>
             @php
-                $BoqEmeData1 = $BoqEmeDatas->budget_head_id ?? '';
+                $EmeLaborBudget1 = $EmeLaborBudget->boqEmeRate->parent_id_second ?? '';
             @endphp
             <div class="card-body">
                 <div class="row">
@@ -21,7 +21,7 @@
                             <select class="form-control item_id" id="item_id" name="item_id" required>
                                 <option value="">Select Work Head</option>
                                 @foreach ($parentWorks as $parentWork)
-                                <option value="{{ $parentWork->parent_id_second }}" @if ($BoqEmeData1 == $parentWork->parent_id_second) selected @endif>{{ $parentWork->emeWork->name }}</option>
+                                <option value="{{ $parentWork->parent_id_second }}" @if ($EmeLaborBudget1 == $parentWork->parent_id_second) selected @endif>{{ $parentWork->emeWork->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -71,7 +71,7 @@
                                             <input type="hidden" name="boq_eme_rate_id[]" value="{{old('boq_eme_rate_id')[$key]}}" id="boq_eme_rate_id" required>
                                             <input type="text" name="work_name[]" value="{{old('work_name')[$key]}}" class="form-control form-control-sm work_name" autocomplete="off" required>
                                         </td>
-                                        <td><input type="text" name="unit_id[]" value="{{old('unit_id')[$key]}}" class="form-control form-control-sm unit" readonly tabindex="-1"></td>
+                                        <td><input type="text" name="unit_id[]" value="{{old('unit_id')[$key]}}" class="form-control form-control-sm unit_id" readonly tabindex="-1"></td>
                                         <td><input type="number" name="quantity[]" value="{{old('quantity')[$key]}}" class="form-control form-control-sm  text-center quantity" step="0.01" placeholder="0.00" autocomplete="off" required></td>
                                         <td><input type="number" name="labor_rate[]" value="{{old('labor_rate')[$key]}}" class="form-control form-control-sm  text-center labor_rate" step="0.01" placeholder="0.00" autocomplete="off" required></td>
                                         <td><input type="number" name="total_labor_amount[]" value="{{old('total_labor_amount')[$key]}}" class="form-control form-control-sm  text-center total_labor_amount" readonly step="0.01" placeholder="0.00" autocomplete="off" required></td>
@@ -81,7 +81,20 @@
                                         @endif
                                     </tr>
                                 @endforeach
-                            
+                            @else
+                                @if(!empty($EmeLaborBudget))
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" name="boq_eme_rate_id[]" value="{{$EmeLaborBudget->boq_eme_rate_id }}" id="boq_eme_rate_id" required>
+                                            <input type="text" name="work_name[]" value="{{$EmeLaborBudget->boqEmeRate->boq_work_name }}" class="form-control form-control-sm work_name" autocomplete="off" required>
+                                        </td>
+                                        <td><input type="text" name="unit_id[]" value="{{$EmeLaborBudget->boqEmeRate->laborUnit->name }}" class="form-control form-control-sm unit_id" readonly tabindex="-1"></td>
+                                        <td><input type="number" name="quantity[]" value="{{$EmeLaborBudget->quantity }}" class="form-control form-control-sm  text-center quantity" step="0.01" placeholder="0.00" autocomplete="off" required></td>
+                                        <td><input type="number" name="labor_rate[]" value="{{$EmeLaborBudget->labor_rate}}" class="form-control form-control-sm  text-center labor_rate" step="0.01" placeholder="0.00" autocomplete="off" required tabindex="-1"></td>
+                                        <td><input type="number" name="total_labor_amount[]" value="{{$EmeLaborBudget->total_labor_amount}}" class="form-control form-control-sm  text-center total_labor_amount" readonly step="0.01" placeholder="0.00" autocomplete="off" required tabindex="-1"></td>
+                                        <td><input type="text" name="remarks[]" value="{{$EmeLaborBudget->remarks }}" class="form-control form-control-sm  text-center remarks" placeholder="Remarks" autocomplete="off"></td>
+                                    </tr>
+                                    @endif
                                 @endif
                         </tbody>
                             </tbody>

@@ -14,6 +14,7 @@ class EmeLaborBudget extends Model
         'project_id',
         'boq_eme_rate_id',
         'labor_rate',
+        'quantity',
         'total_labor_amount',
         'remarks',
         'applied_by'

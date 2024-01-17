@@ -18,10 +18,10 @@ class EmeLaborBudgetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Project $project)
     {
-        $data = EmeLaborBudget::all();
-        return view('boq.departments.electrical.labor_budget.index', compact('data'));
+        $emeLaborBudget = EmeLaborBudget::all();
+        return view('boq.departments.electrical.labor_budget.index', compact('project', 'emeLaborBudget'));
     }
 
     /**
@@ -86,9 +86,12 @@ class EmeLaborBudgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project, $EmeLaborBudgetId)
     {
-        //
+        $formType = 'edit';
+        $EmeLaborBudget =  EmeLaborBudget::findOrFail($EmeLaborBudgetId);
+        $parentWorks = BoqEmeRate::groupBy('parent_id_second')->having('type', 1)->get();
+        return view('boq.departments.electrical.labor_budget.create', compact('project', 'parentWorks', 'EmeLaborBudget', 'formType', 'EmeLaborBudgetId'));
     }
 
     /**
@@ -98,9 +101,32 @@ class EmeLaborBudgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Project $project, $EmeLaborBudgetId)
     {
-        //
+        try {
+            $EmeLaborBudget =  EmeLaborBudget::findOrFail($EmeLaborBudgetId);
+            $data = array();
+            foreach ($request->boq_eme_rate_id as  $key => $data) {
+                $data = [
+                    'project_id'            =>  $project->id,
+                    'boq_eme_rate_id'       =>  $request->boq_eme_rate_id[$key],
+                    'labor_rate'            =>  $request->labor_rate[$key],
+                    'quantity'              =>  $request->quantity[$key],
+                    'total_labor_amount'    =>  $request->total_labor_amount[$key],
+                    'remarks'               =>  $request->remarks[$key],
+                    'applied_by'            =>  auth()->id(),
+                    'created_at'            =>  now()
+                ];
+            }
+
+            DB::transaction(function () use ($data, $EmeLaborBudget) {
+                $EmeLaborBudget->update($data);
+            });
+
+            return redirect()->route('boq.project.departments.electrical.eme-labor-budgets.index', $project)->with('message', 'Data has been updated successfully');
+        } catch (QueryException $e) {
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -109,8 +135,17 @@ class EmeLaborBudgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project, $EmeLaborBudgetId)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $EmeLaborBudget =  EmeLaborBudget::findOrFail($EmeLaborBudgetId);
+            $EmeLaborBudget->delete();
+            DB::commit();
+            return redirect()->route('boq.project.departments.electrical.eme-labor-budgets.index', $project)->with('message', 'Data has been Deleted successfully');
+        } catch (QueryException $e) {
+            DB::rollback();
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
+        }
     }
 }
