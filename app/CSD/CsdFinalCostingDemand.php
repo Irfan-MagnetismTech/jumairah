@@ -2,6 +2,7 @@
 
 namespace App\CSD;
 
+use App\Procurement\NestedMaterial;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ class CsdFinalCostingDemand extends Model
 
     public function csdMaterials()
     {
-        return $this->belongsTo(CsdMaterial::class, 'material_id', 'id');
+        return $this->belongsTo(NestedMaterial::class, 'material_id', 'id');
     }
 
     public function csdFinalCosting()

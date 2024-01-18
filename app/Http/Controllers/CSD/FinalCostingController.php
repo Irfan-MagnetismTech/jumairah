@@ -74,7 +74,7 @@ class FinalCostingController extends Controller
                 $final_costing_demand[] = [
 
                     'material_id'       =>  $request->material_id[$key],
-                    'unit_id'           =>  $request->unit_id[$key],
+                    // 'unit_id'           =>  $request->unit_id[$key],
                     'demand_rate'       =>  $request->demand_rate[$key],
                     'quantity'          =>  $request->quantity[$key],
                     'amount'            =>  $request->amount[$key]
@@ -86,7 +86,7 @@ class FinalCostingController extends Controller
                 $final_costing_refund[] = [
 
                     'material_id_refund'        =>  $request->material_id_refund[$key],
-                    'unit_id_refund'            =>  $request->unit_id_refund[$key],
+                    // 'unit_id_refund'            =>  $request->unit_id_refund[$key],
                     'refund_rate'               =>  $request->refund_rate[$key],
                     'quantity_refund'           =>  $request->quantity_refund[$key],
                     'amount_refund'             =>  $request->amount_refund[$key]
@@ -196,7 +196,7 @@ class FinalCostingController extends Controller
                 $final_costing_demand[] = [
 
                     'material_id'       =>  $request->material_id[$key],
-                    'unit_id'           =>  $request->unit_id[$key],
+                    // 'unit_id'           =>  $request->unit_id[$key],
                     'demand_rate'       =>  $request->demand_rate[$key],
                     'quantity'          =>  $request->quantity[$key],
                     'amount'            =>  $request->amount[$key]
@@ -208,7 +208,7 @@ class FinalCostingController extends Controller
                 $final_costing_refund[] = [
 
                     'material_id_refund'        =>  $request->material_id_refund[$key],
-                    'unit_id_refund'            =>  $request->unit_id_refund[$key],
+                    // 'unit_id_refund'            =>  $request->unit_id_refund[$key],
                     'refund_rate'               =>  $request->refund_rate[$key],
                     'quantity_refund'           =>  $request->quantity_refund[$key],
                     'amount_refund'             =>  $request->amount_refund[$key]

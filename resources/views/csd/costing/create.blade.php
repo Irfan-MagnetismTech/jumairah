@@ -74,7 +74,7 @@
                                         </td>
                                         <td>
                                             <input type="text" name="unit_name[]" value="{{old('unit_name')[$key]}}" class="text-center form-control form-control-sm unit_name" tabindex="-1" autocomplete="off" id="unit_name" readonly>
-                                            <input type="hidden" name="unit_id[]" value="{{old('unit_id')[$key]}}" class="text-center form-control form-control-sm unit_id" tabindex="-1" autocomplete="off" id="unit_id">
+                                            {{-- <input type="hidden" name="unit_id[]" value="{{old('unit_id')[$key]}}" class="text-center form-control form-control-sm unit_id" tabindex="-1" autocomplete="off" id="unit_id"> --}}
                                         </td>
                                         <td><input type="text" name="demand_rate[]" value="{{old('demand_rate')[$key]}}" class="text-center form-control form-control-sm demand_rate" tabindex="-1" autocomplete="off" id="demand_rate" readonly></td>
                                         <td><input type="text" name="quantity[]" value="{{old('quantity')[$key]}}" class="text-center form-control form-control-sm quantity" tabindex="-1" autocomplete="off" id="quantity"></td>
@@ -97,7 +97,7 @@
                                         </td>
                                         <td>
                                             <input type="text" name="unit_name[]" value="{{ $csdFinalCosting->csdMaterials->unit->name }}" class="text-center form-control form-control-sm unit_name" tabindex="-1" autocomplete="off" id="unit_name" readonly>
-                                            <input type="hidden" name="unit_id[]" value="{{ $csdFinalCosting->csdMaterials->unit->id }}" class="form-control form-control-sm unit_id" tabindex="-1" autocomplete="off" id="unit_id">
+                                            {{-- <input type="hidden" name="unit_id[]" value="{{ $csdFinalCosting->csdMaterials->unit->id }}" class="form-control form-control-sm unit_id" tabindex="-1" autocomplete="off" id="unit_id"> --}}
                                         </td>
                                         <td><input type="text" name="demand_rate[]" value="{{ $csdFinalCosting->demand_rate }}" class="text-center form-control form-control-sm demand_rate" tabindex="-1" autocomplete="off" id="demand_rate" readonly></td>
                                         <td><input type="text" name="quantity[]" value="{{ $csdFinalCosting->quantity }}" class="text-center form-control form-control-sm quantity" tabindex="-1" autocomplete="off" id="quantity"></td>
@@ -154,7 +154,7 @@
                                         </td>
                                         <td>
                                             <input type="text" name="unit_name_refund[]" value="{{old('unit_name_refund')[$key]}}" class="text-center form-control form-control-sm unit_name_refund" tabindex="-1" autocomplete="off" id="unit_name_refund" readonly>
-                                            <input type="hidden" name="unit_id_refund[]" value="{{old('unit_id_refund')[$key]}}" class="text-center form-control form-control-sm unit_id_refund" tabindex="-1" autocomplete="off" id="unit_id_refund">
+                                            {{-- <input type="hidden" name="unit_id_refund[]" value="{{old('unit_id_refund')[$key]}}" class="text-center form-control form-control-sm unit_id_refund" tabindex="-1" autocomplete="off" id="unit_id_refund"> --}}
                                         </td>
                                         <td><input type="text" name="refund_rate[]" value="{{old('refund_rate')[$key]}}" class="text-center form-control form-control-sm refund_rate" tabindex="-1" autocomplete="off" id="refund_rate" readonly></td>
 
@@ -179,7 +179,7 @@
                                         </td>
                                         <td>
                                             <input type="text" name="unit_name_refund[]" value="{{ $csdFinalCosting->csdMaterials->unit->name }}" class="text-center form-control form-control-sm unit_name_refund" tabindex="-1" autocomplete="off" id="unit_name_refund" readonly>
-                                            <input type="hidden" name="unit_id_refund[]" value="{{ $csdFinalCosting->csdMaterials->unit->id }}" class="text-center form-control form-control-sm unit_id_refund" tabindex="-1" autocomplete="off" id="unit_id_refund">
+                                            {{-- <input type="hidden" name="unit_id_refund[]" value="{{ $csdFinalCosting->csdMaterials->unit->id }}" class="text-center form-control form-control-sm unit_id_refund" tabindex="-1" autocomplete="off" id="unit_id_refund"> --}}
                                         </td>
                                         <td><input type="text" name="refund_rate[]" value="{{ $csdFinalCosting->refund_rate }}" class="text-center form-control form-control-sm refund_rate" tabindex="-1" autocomplete="off" id="refund_rate" readonly></td>
                                         <td><input type="text" name="quantity_refund[]" value="{{ $csdFinalCosting->quantity_refund }}" class="text-center form-control form-control-sm quantity_refund" tabindex="-1" autocomplete="off" id="quantity_refund"></td>
@@ -232,7 +232,6 @@
                 </td>
                 <td>
                     <input type="text" name="unit_name[]" class="text-center form-control form-control-sm unit_name" tabindex="-1" autocomplete="off" id="unit_name" readonly>
-                    <input type="hidden" name="unit_id[]" class="text-center form-control form-control-sm unit_id" tabindex="-1" autocomplete="off" id="unit_id">
                 </td>
                 <td><input type="text" name="demand_rate[]" class="text-center form-control form-control-sm demand_rate" tabindex="-1" autocomplete="off" id="demand_rate" readonly></td>
                 <td><input type="text" name="quantity[]" class="text-center form-control form-control-sm quantity" tabindex="-1" autocomplete="off" id="quantity"></td>
@@ -259,7 +258,6 @@
                 </td>
                 <td>
                     <input type="text" name="unit_name_refund[]" class="text-center form-control form-control-sm unit_name_refund" tabindex="-1" autocomplete="off" id="unit_name_refund" readonly>
-                    <input type="hidden" name="unit_id_refund[]" class="text-center form-control form-control-sm unit_id_refund" tabindex="-1" autocomplete="off" id="unit_id_refund">
                 </td>
                 <td><input type="text" name="refund_rate[]" class="text-center form-control form-control-sm refund_rate" tabindex="-1" autocomplete="off" id="refund_rate" readonly></td>
                 <td><input type="text" name="quantity_refund[]" class="text-center form-control form-control-sm quantity_refund" tabindex="-1" autocomplete="off" id="quantity_refund"></td>
@@ -435,7 +433,7 @@
                     $(this).closest('#material_name').val(ui.item.label);
                     $(this).closest('tr').find("#material_id").val(ui.item.material_id);
                     $(this).closest('tr').find("#unit_name").val(ui.item.unit_name);
-                    $(this).closest('tr').find("#unit_id").val(ui.item.unit_id);
+                    // $(this).closest('tr').find("#unit_id").val(ui.item.unit_id);
                     $(this).closest('tr').find("#demand_rate").val(ui.item.demand_rate);
 
                     return false;
@@ -465,7 +463,7 @@
                     $(this).closest('#material_name_refund').val(ui.item.label);
                     $(this).closest('tr').find("#material_id_refund").val(ui.item.material_id);
                     $(this).closest('tr').find("#unit_name_refund").val(ui.item.unit_name);
-                    $(this).closest('tr').find("#unit_id_refund").val(ui.item.unit_id);
+                    // $(this).closest('tr').find("#unit_id_refund").val(ui.item.unit_id);
                     $(this).closest('tr').find("#refund_rate").val(ui.item.refund_rate);
 
                     return false;

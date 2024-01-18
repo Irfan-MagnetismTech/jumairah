@@ -44,7 +44,13 @@ class ProcurementAutoSuggestController extends Controller
     {
         $search = $request->search;
 
-            $items = CsdMaterial::with('materialRate')->where('name', 'LIKE', "%$search%")->get();
+        // $items = CsdMaterial::with('materialRate')->where('name', 'LIKE', "%$search%")->get();
+        $items = NestedMaterial::with('materialRate')
+                    ->when($search, function ($query) use ($search) {
+                return $query->where('name', 'LIKE', "%$search%");
+                })
+                ->has('materialRate')
+                ->get();
 
         $response = [];
         foreach ($items as $item)
@@ -53,13 +59,12 @@ class ProcurementAutoSuggestController extends Controller
                 'label' => $item->name,
                 'value' => $item->name,
                 'material_id' => $item->id,
-                'unit_name' => $item->unit->name,
-                'unit_id' => $item->unit->id,
-                'demand_rate'=> $item->materialRate->demand_rate,
-                'refund_rate'=> $item->materialRate->refund_rate
+                'unit_name' => $item->unit?->name,
+                // 'unit_id' => $item->unit?->id ,
+                'demand_rate'=> $item->materialRate?->demand_rate,
+                'refund_rate'=> $item->materialRate?->refund_rate
             ];
         }
-
         return response()->json($response);
     }
 

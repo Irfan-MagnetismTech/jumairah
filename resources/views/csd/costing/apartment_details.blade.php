@@ -69,7 +69,7 @@
                         @foreach ($csd_final_costing_demand as $data)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $data->csdMaterials->name }}</td>
+                                <td style="text-align: left">{{ $data->csdMaterials->name }}</td>
                                 <td>{{ $data->csdMaterials->unit->name }}</td>
                                 <td>{{ $data->quantity }}</td>
                                 <td>{{ $data->demand_rate }}</td>
@@ -110,7 +110,7 @@
                         @foreach ($csd_final_costing_refund as $data)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $data->csdMaterials->name }}</td>
+                                <td style="text-align: left">{{ $data->csdMaterials->name }}</td>
                                 <td>{{ $data->csdMaterials->unit->name }}</td>
                                 <td>{{ $data->quantity_refund }}</td>
                                 <td>{{ $data->refund_rate }}</td>

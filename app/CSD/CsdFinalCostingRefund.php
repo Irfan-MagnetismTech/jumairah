@@ -2,8 +2,10 @@
 
 namespace App\CSD;
 
+use App\Procurement\NestedMaterial;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NestedSet;
 
 class CsdFinalCostingRefund extends Model
 {
@@ -12,7 +14,7 @@ class CsdFinalCostingRefund extends Model
 
     public function csdMaterials()
     {
-        return $this->belongsTo(CsdMaterial::class, 'material_id_refund', 'id');
+        return $this->belongsTo(NestedMaterial::class, 'material_id_refund', 'id');
     }
 
 

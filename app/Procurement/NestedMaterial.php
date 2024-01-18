@@ -3,18 +3,19 @@
 namespace App\Procurement;
 
 use App\Accounts\Account;
+use App\CSD\CsdMaterialRate;
 use App\Boq\BoqMaterialPrice;
-use App\Boq\Configurations\BoqMaterialPriceWastage;
-use App\Boq\Departments\Civil\BoqCivilBudget;
-use App\Boq\Departments\Sanitary\ProjectWiseMaterial;
-use App\Boq\Departments\Sanitary\SanitaryMaterialAllocation;
-use App\Boq\Departments\Sanitary\SanitaryMaterialRate;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Kalnoy\Nestedset\NodeTrait;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Boq\Departments\Eme\BoqEmeRate;
+use Illuminate\Database\Eloquent\Model;
+use App\Boq\Departments\Civil\BoqCivilBudget;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Boq\Configurations\BoqMaterialPriceWastage;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Boq\Departments\Sanitary\ProjectWiseMaterial;
+use App\Boq\Departments\Sanitary\SanitaryMaterialRate;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Boq\Departments\Sanitary\SanitaryMaterialAllocation;
 
 class NestedMaterial extends Model
 {
@@ -125,5 +126,10 @@ class NestedMaterial extends Model
     {
         return $this->hasOne(BoqMaterialPriceWastage::class, 'nested_material_id', 'id')
             ->withDefault();
+    }
+
+    public function materialRate()
+    {
+        return $this->hasOne(CsdMaterialRate::class, 'material_id', 'id');
     }
 }
