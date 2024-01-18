@@ -16,6 +16,7 @@
 @section('content-grid',null)
 
 @section('content')
+@php($currentUser = auth()->user())
 <div class="row">
     <div class="col-lg-6 table-responsive">
         <table id="" class="table table-striped table-bordered text-center">
@@ -71,9 +72,15 @@
                                             @if($apartment->sell)
                                                 <p class="m-1"><strong class="px-1 bg-danger rounded">SOLD</strong> <br></p>
                                                 <strong class="breakWords">Client :
+                                                    @if ($currentUser->hasrole(['CSD-Manager']))
+                                                        <a href="{{ route('csd.sales-client-list') }}">
+                                                            {{$apartment->sell->sellClient->client->name}}
+                                                        </a>
+                                                    @else
                                                     <a href="{{route('sells.show', $apartment->sell->id)}}" target="_blank">
                                                         {{$apartment->sell->sellClient->client->name}}
                                                     </a>
+                                                    @endif
                                                 </strong>
                                             @else
                                                 <p class="m-1"><strong class="px-1 bg-success rounded">UNSOLD</strong> <br></p>
@@ -255,7 +262,7 @@
     </div>
 
 </div> <!-- end row -->
-
+@if (!$currentUser->hasrole(['CSD-Manager']))
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
@@ -336,6 +343,7 @@
         </div>
     </div>
 </div> <!-- end row -->
+@endif
 
 @endsection
 
