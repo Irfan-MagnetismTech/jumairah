@@ -1598,14 +1598,14 @@
                         <span class="pcoded-mcaret"></span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class="{{ request()->routeIs('csd.materials.*') ? 'active' : null }}"><a
+                        {{-- <li class="{{ request()->routeIs('csd.materials.*') ? 'active' : null }}"><a
                                 href="{{ route('csd.materials.index') }}"><span class="pcoded-micon"><i
                                         class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Materials
-                                </span><span class="pcoded-mcaret"></span></a></li>
+                                </span><span class="pcoded-mcaret"></span></a></li> --}}
                         <li class="{{ request()->routeIs('csd.material_rate.*') ? 'active' : null }}"><a
                                 href="{{ route('csd.material_rate.index') }}"><span class="pcoded-micon"><i
                                         class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Material Rate
-                                </span><span class="pcoded-mcaret"></span></a></li> 
+                                </span><span class="pcoded-mcaret"></span></a></li>
                     </ul>
                 </li>
             @endcan
@@ -1615,8 +1615,8 @@
                         <span class="pcoded-micon"><i class="fas fa-sitemap"></i><b>BC</b></span>
                         <span class="pcoded-mtext">Sales Client List</span>
                         {{-- <span class="pcoded-mcaret"></span> --}}
-                    </a> 
-                </li>  
+                    </a>
+                </li>
             @endcan
             @can('csd-final-costing-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('csd.costing.*') ? 'active pcoded-trigger' : null }}">
@@ -1811,7 +1811,7 @@
             'materialmovement-view', 'movementIn-view', 'stock-reports'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Supply Chain</div>
         @endcanany
-        <ul class="pcoded-item pcoded-left-item"> 
+        <ul class="pcoded-item pcoded-left-item">
                 <li class="pcoded-hasmenu {{ request()->routeIs(['units.*', 'materialcategories.*','nestedmaterials.*','opening-material.*','suppliers.*']) ? 'active pcoded-trigger' : null }}">
                     @canany(['nestedmaterial-view'])
                         <a href="javascript:void(0)">
@@ -1820,7 +1820,7 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     @endcanany
-                    
+
                     <ul class="pcoded-submenu">
                         @can('nestedmaterial-view')
                         <li class="{{ request()->routeIs('units.*') ? 'active' : null }}"><a
@@ -2430,7 +2430,7 @@
                         <span class="pcoded-mtext">Configurations</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
-                    <ul class="pcoded-submenu"> 
+                    <ul class="pcoded-submenu">
                         <li class="{{ request()->routeIs('bill-title.*') ? 'active' : null }}"><a
                                 href="{{ route('bill-title.index') }}"><span class="pcoded-micon"><i
                                         class="icon-pie-chart"></i></span><span class="pcoded-mtext"> Bill Title
@@ -2666,7 +2666,7 @@
                 </li>
 
             @endcan
-            
+
         </ul>
         @hasanyrole('super-admin|admin|Accounts-Manager')
             <div class="pcoded-navigation-label text-uppercase bg-primary">Accounts</div>

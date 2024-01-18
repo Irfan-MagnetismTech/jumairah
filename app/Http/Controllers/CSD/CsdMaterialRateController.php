@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\CSD;
 
-use App\CSD\CsdMaterialRate;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CSD\CsdMaterialRateRequest;
-use App\Http\Requests\CSD\CsdMaterialRequest;
 use App\Procurement\Unit;
-use Illuminate\Database\QueryException;
+use App\CSD\CsdMaterialRate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Procurement\NestedMaterial;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
+use App\Http\Requests\CSD\CsdMaterialRequest;
+use App\Http\Requests\CSD\CsdMaterialRateRequest;
 
 class CsdMaterialRateController extends Controller
 {
@@ -47,9 +48,9 @@ class CsdMaterialRateController extends Controller
     public function create()
     {
         $formType = "create";
-        $material_rate = CsdMaterialRate::orderBy('id', 'desc');
-        $units = Unit::orderBy('name')->pluck('name', 'id');
-        return view('csd.rate.create', compact('formType', 'material_rate', 'units'));
+        // $material_rate = CsdMaterialRate::orderBy('id', 'desc');
+        // $units = Unit::orderBy('name')->pluck('name', 'id');
+        return view('csd.rate.create', compact('formType'));
     }
 
     /**
@@ -65,10 +66,11 @@ class CsdMaterialRateController extends Controller
             foreach($request->material_id as  $key => $data){
                 $material_rate_data[] = [
                     'material_id'   =>$request->material_id[$key],
-                    'unit_id'       =>$request->unit_id[$key],
+                    // 'unit_id'       =>$request->unit_id[$key],
                     'actual_rate'   =>$request->actual_rate[$key],
                     'demand_rate'   =>$request->demand_rate[$key],
-                    'refund_rate'   =>$request->refund_rate[$key]
+                    'refund_rate'   =>$request->refund_rate[$key],
+                    'created_at'    => now()
                 ];
             }
 
@@ -102,9 +104,9 @@ class CsdMaterialRateController extends Controller
     public function edit(CsdMaterialRate $material_rate)
     {
         $formType = "edit";
-        $units = Unit::orderBy('name')->pluck('name', 'id');
+        // $units = Unit::orderBy('name')->pluck('name', 'id');
         $rate = CsdMaterialRate::where('id', $material_rate->id)->first();
-        return view('csd.rate.create', compact('rate',  'formType',  'units'));
+        return view('csd.rate.create', compact('rate',  'formType'));
     }
 
     /**
@@ -117,7 +119,8 @@ class CsdMaterialRateController extends Controller
     public function update(CsdMaterialRateRequest $request, CsdMaterialRate $material_rate)
     {
         try{
-            $material_rate_data = $request->only('material_id','unit_id','actual_rate','demand_rate' ,'refund_rate');
+            $material_rate_data = $request->only('material_id','actual_rate','demand_rate' ,'refund_rate');
+            $material_rate_data['updated_at'] = now();
             DB::transaction(function()use($material_rate, $material_rate_data){
                 $material_rate->update($material_rate_data);
             });

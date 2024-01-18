@@ -52,7 +52,7 @@
                         </td>
                         <td>
                             <input type="text" name="unit_name[]"  value="{{old('unit_name')[$key]}}" id="unit_name" class="form-control form-control-sm unit_name" readonly tabindex="-1">
-                            <input type="hidden" name="unit_id[]"  value="{{old('unit_id')[$key]}}" id="unit_id" class="form-control form-control-sm unit_id">
+                            {{-- <input type="hidden" name="unit_id[]"  value="{{old('unit_id')[$key]}}" id="unit_id" class="form-control form-control-sm unit_id"> --}}
                         </td>
                         <td><input type="text" name="refund_rate[]"  value="{{old('refund_rate')[$key]}}" id="refund_rate" class="form-control form-control-sm refund_rate" autocomplete="off" readonly></td>
                         <td><input type="text" name="actual_rate[]"  value="{{old('actual_rate')[$key]}}" id="actual_rate" class="form-control form-control-sm actual_rate" autocomplete="off"></td>
@@ -66,12 +66,12 @@
                         <input type="hidden" name="id"   value="{{ $rate->id }}" id="id" class="form-control form-control-sm id">
 
                         <td>
-                            <input type="text" name="material_name"   value="{{ $rate->csdMaterials->name }}" id="material_name" class="form-control form-control-sm material_name" autocomplete="off">
-                            <input type="hidden" name="material_id"   value="{{ $rate->csdMaterials->id }}" id="material_id" class="form-control form-control-sm material_id">
+                            <input type="text" name="material_name"   value="{{ $rate->material->name }}" id="material_name" class="form-control form-control-sm material_name" autocomplete="off">
+                            <input type="hidden" name="material_id"   value="{{ $rate->material->id }}" id="material_id" class="form-control form-control-sm material_id">
                         </td>
                         <td>
-                            <input type="text" name="unit_name"  value="{{ $rate->csdMaterials->unit->name }}" id="unit_name" class="form-control form-control-sm unit_name" readonly tabindex="-1">
-                            <input type="hidden" name="unit_id"  value="{{ $rate->csdMaterials->unit->id }}" id="unit_id" class="form-control form-control-sm unit_id">
+                            <input type="text" name="unit_name"  value="{{ $rate->material->unit->name }}" id="unit_name" class="form-control form-control-sm unit_name" readonly tabindex="-1">
+                            {{-- <input type="hidden" name="unit_id"  value="{{ $rate->csdMaterials->unit->id }}" id="unit_id" class="form-control form-control-sm unit_id"> --}}
                         </td>
                         <td><input type="text" name="refund_rate"  value="{{ $rate->refund_rate }}" id="refund_rate" class="form-control form-control-sm refund_rate" autocomplete="off" readonly></td>
                         <td><input type="text" name="actual_rate"  value="{{ $rate->actual_rate }}" id="actual_rate"  class="form-control form-control-sm actual_rate" autocomplete="off"></td>
@@ -112,7 +112,6 @@
                 </td>
                 <td>
                     <input type="text" name="unit_name[]" id="unit_name" class="form-control form-control-sm unit_name" readonly tabindex="-1">
-                    <input type="hidden" name="unit_id[]" id="unit_id" class="form-control form-control-sm unit_id">
                 </td>
                 <td><input type="text" name="refund_rate[]" id="refund_rate" class="form-control form-control-sm refund_rate" autocomplete="off" readonly></td>
                 <td><input type="text" name="actual_rate[]" id="actual_rate" class="form-control form-control-sm actual_rate" autocomplete="off"></td>
@@ -144,31 +143,54 @@
 
 
             $(document).on('keyup', ".material_name", function(){
+                // $(this).autocomplete({
+                // source: function( request, response ) {
+                //     $.ajax({
+                //         url:"{{route('csd.csdMaterialAutoSuggest')}}",
+                //         type: 'post',
+                //         dataType: "json",
+                //         data: {
+                //             _token: CSRF_TOKEN,
+                //             search: request.term
+                //         },
+                //         success: function( data ) {
+                //             response( data );
+                //         }
+                //     });
+                // },
+                // select: function (event, ui) {
+
+                //     $(this).closest('#material_name').val(ui.item.label);
+                //     $(this).closest('tr').find("#material_id").val(ui.item.material_id);
+                //     $(this).closest('tr').find("#unit_name").val(ui.item.unit_name);
+                //     $(this).closest('tr').find("#unit_id").val(ui.item.unit_id);
+
+                //     return false;
+                //     }
+                // })
                 $(this).autocomplete({
-                source: function( request, response ) {
-                    $.ajax({
-                        url:"{{route('csd.csdMaterialAutoSuggest')}}",
-                        type: 'post',
-                        dataType: "json",
-                        data: {
-                            _token: CSRF_TOKEN,
-                            search: request.term
+                        source: function(request, response) {
+                            $.ajax({
+                                url: "{{route('scj.materialAutoSuggest')}}",
+                                type: 'post',
+                                dataType: "json",
+                                data: {
+                                    _token: CSRF_TOKEN,
+                                    search: request.term
+                                },
+                                success: function(data) {
+                                    response(data);
+                                }
+                            });
                         },
-                        success: function( data ) {
-                            response( data );
+                        select: function(event, ui) {
+
+                            $(this).val(ui.item.label);
+                            $(this).closest('tr').find('.material_name').val(ui.item.label);
+                            $(this).closest('tr').find('.material_id').val(ui.item.material_id);
+                            $(this).closest('tr').find('.unit_name').val(ui.item.unit.name);
                         }
                     });
-                },
-                select: function (event, ui) {
-
-                    $(this).closest('#material_name').val(ui.item.label);
-                    $(this).closest('tr').find("#material_id").val(ui.item.material_id);
-                    $(this).closest('tr').find("#unit_name").val(ui.item.unit_name);
-                    $(this).closest('tr').find("#unit_id").val(ui.item.unit_id);
-
-                    return false;
-                    }
-                })
             });
             $(document).on('keyup change', ".actual_rate", function(){
                 const actual_rate = $(this).val();

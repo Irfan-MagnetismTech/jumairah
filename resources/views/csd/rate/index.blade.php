@@ -51,8 +51,8 @@
                 <div class="col-md-">
                 <tr>
                     <td>{{  $loop->iteration}}</td>
-                    <td>{{ $rate->csdMaterials->name}}</td>
-                    <td> {{ $rate->csdMaterials->unit->name }}</td>
+                    <td style="text-align: left">{{ $rate->material->name}}</td>
+                    <td> {{ $rate->material->unit->name }}</td>
                     <td> {{ $rate->refund_rate}}</td>
                     <td> {{ $rate->actual_rate}}</td>
                     <td> {{ $rate->demand_rate}}</td>
