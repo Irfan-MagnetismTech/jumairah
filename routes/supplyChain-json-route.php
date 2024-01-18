@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'scj', 'as' => 'scj.'], functi
     Route::post('bdLeadAtoSuggest', 'Procurement\SupplyChainJsonController@bdLeadAtoSuggest')->name('bdLeadAtoSuggest');
 
     Route::get('getChildMaterial', 'Procurement\SupplyChainJsonController@getChildMaterial');
+    Route::get('getEmeWorks', 'Procurement\SupplyChainJsonController@getEmeWorks')->name('getEmeWorks');
+    Route::post('getLaborWorks', 'Procurement\SupplyChainJsonController@getLaborWorks');
     Route::post('ConstructionTentativeBudgetProjectAutoSuggestWithBoq', 'Procurement\SupplyChainJsonController@ConstructionTentativeBudgetProjectAutoSuggestWithBoq')->name('ConstructionTentativeBudgetProjectAutoSuggestWithBoq');
 
     Route::get('getParentMaterial', 'Procurement\SupplyChainJsonController@getParentMaterial')->name('getParentMaterial');

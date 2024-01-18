@@ -328,6 +328,7 @@ Route::middleware( 'auth' )->prefix( 'boq' )->as( 'boq.' )->group( function () {
 
 				//electrical calculations
 				Route::resource( '/calculations', \Boq\Departments\Electrical\Calculations\BoqElectricalCalculationController::class );
+				Route::resource('/eme-labor-budgets', \Boq\Departments\Electrical\EmeLaborBudgetController::class);
 				Route::get( '/calculation/pdf', 'Boq\Departments\Electrical\Calculations\BoqElectricalCalculationController@pdf' )->name( 'calculation.pdf' );
 				Route::prefix( 'calculations' )->as( 'calculations.' )->group( function () {
 					Route::get( 'approved/{calculations}/{status}', 'Boq\Departments\Electrical\Calculations\BoqElectricalCalculationController@Approve' )->name( 'Approved' );

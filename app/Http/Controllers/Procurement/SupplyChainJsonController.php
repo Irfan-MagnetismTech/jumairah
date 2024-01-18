@@ -1352,6 +1352,28 @@ class SupplyChainJsonController extends Controller
         }
         return $option_view;
     }
+
+    public function getEmeWorks(Request $request)
+    {
+        $search = $request->search;
+        $item_id = $request->item_id;
+
+        $materials = BoqEmeRate::where('parent_id_second', $item_id)
+            ->where('boq_work_name', 'like', '%' . $search . '%')
+            ->orderBy('id')
+            ->get()
+            ->map(function ($item) {
+        return [
+            'label' => $item->boq_work_name,
+            'unit_name' => optional($item->laborUnit)->name,
+            'boq_eme_rate_id' => $item->id,
+            'labour_rate' => $item->labour_rate ?? 0
+        ];
+    });
+
+    return response()->json($materials);
+    }
+
     public function ConstructionTentativeBudgetProjectAutoSuggestWithBoq(Request $request)
     {
         $search = $request->search;

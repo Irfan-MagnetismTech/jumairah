@@ -59,10 +59,10 @@ class LaborBudgetController extends Controller
         return view('construction.labor-budget.monthList', compact(   'months'));
     }
 
-    
+
 
     public function budgetDetails($year, $month){
-        
+
         $details = ConstructionBill::with('project', 'supplier')
         ->where('year', $year)
         ->where('month', $month)
@@ -185,5 +185,5 @@ class LaborBudgetController extends Controller
     {
         return substr(date_format(date_create($date), "m"), 0);
     }
-    
+
 }

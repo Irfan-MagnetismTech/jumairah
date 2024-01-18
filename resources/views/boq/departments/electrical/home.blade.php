@@ -67,6 +67,10 @@
                     <td class="text-right">@money($item->amount)</td>
                 </tr>
             @endforeach
+            <tr>
+                <td class="text-left"><b>Total labor Cost</b></td>
+                <td class="text-right">@money($laborBudget->flatten()->sum('total_labor_amount'))</td>
+            </tr>
         <tr class="">
             <th colspan="">Total</th>
             <th colspan="">@money($budgets->sum('amount'))</th>
