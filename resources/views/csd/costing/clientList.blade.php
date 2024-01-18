@@ -21,25 +21,32 @@
                 <div class="table-responsive">
                     <table id="dataTable" class="table table-striped table-bordered">
                         <thead>
-                        
+
                         <tr>
                             <th>SL</th>
                             <th>Project Name</th>
                             <th>Apartment</th>
+                            <th>Sold By</th>
                             <th>Client Name</th>
+                            <th>Client Phone</th>
+                            <th>Client Email</th>
                             <th>Action</th>
                         </tr>
                         </thead>
-                        
+
                         <tbody>
                             @foreach ($sales as $sale)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $sale->apartment->project->name }}</td>
                                     <td>{{ $sale->apartment->name }}</td>
-                                    <td>{{ $sale->sellClients->pluck('client.name') }}</td>
+                                    <td>{{ $sale->sellClients->first()->sell->user->name }}</td>
+                                    <td>{{ $sale->sellClients->first()->client->name  }}</td>
+                                    <td>{{ $sale->sellClients->first()->client->contact  }}</td>
+                                    <td>{{ $sale->sellClients->first()->client->email  }}</td>
                                     <td>
-                                        {{-- <a href="{{ url("csd/costing/$costing->id") }}" data-toggle="tooltip" title="Details" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a> --}}
+                                        <a href="#" title="Handover PDF" class="btn btn-out-dashed btn-sm btn-success"><i class="fas fa-file-pdf"></i></a>
+                                        <a href="#" title="Key Handover PDF" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-file-pdf"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
