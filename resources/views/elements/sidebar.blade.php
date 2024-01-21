@@ -355,8 +355,7 @@
         </ul>
 
         @canany(['mouza-view','bd-source-view', 'bd-Feasibility-particuler-view', 'bd-Feasibility-referene-fees-view','BD-Feasibility-copy','bd-lead-generation-view', 'project-layout', 'bd-feasibility-locations-view',
-            'project-view', 'bd-monthly-budget-view', 'bd-yearly-budget-view', 'bd-priority-land-view', 'bd-inventory-view',
-            'parking-view', 'apartment-view'])
+            'project-view', 'bd-monthly-budget-view', 'bd-yearly-budget-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Business Development (BD)</div>
         @endcanany
 
@@ -777,34 +776,7 @@
                 </li>
             @endcan
 
-            @can('project-view')
-                <li class="pcoded-hasmenu {{ request()->routeIs('projects.*') ? 'active pcoded-trigger' : null }}">
-                    <a href="javascript:void(0)">
-                        <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                        <span class="pcoded-mtext">Project Details</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                    <ul class="pcoded-submenu">
-                        @can('project-create')
-                            <li class="{{ request()->routeIs('projects.create') ? 'active' : null }}">
-                                <a href="{{ route('projects.create') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">New Project </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        @endcan
-
-                        <li class="{{ request()->routeIs('projects.index') ? 'active' : null }}">
-                            <a href="{{ route('projects.index') }}">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Projects List </span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+            
             {{-- @can('bd-priority-land-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('priority_land.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -832,7 +804,7 @@
                 </li>
             @endcan --}}
 
-            @can('bd-inventory-view')
+            {{-- @can('bd-inventory-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bd_inventory.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
@@ -857,61 +829,8 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
-            @can('parking-view')
-                <li class="pcoded-hasmenu {{ request()->routeIs('parkings.*') ? 'active pcoded-trigger' : null }}">
-                    <a href="javascript:void(0)">
-                        <span class="pcoded-micon"><i class="fa fa-car"></i><b>BC</b></span>
-                        <span class="pcoded-mtext">Parkings</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                    <ul class="pcoded-submenu">
-                        @can('parking-create')
-                            <li class="{{ request()->routeIs('parkings.create') ? 'active' : null }}">
-                                <a href="{{ route('parkings.create') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">New Parking </span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        @endcan
-                        <li class="{{ request()->routeIs('parkings.index') ? 'active' : null }}">
-                            <a href="{{ route('parkings.index') }}">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Parking List </span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
-            @can('apartment-view')
-                <li class="pcoded-hasmenu {{ request()->routeIs('apartments.*') ? 'active pcoded-trigger' : null }}">
-                    <a href="javascript:void(0)">
-                        <span class="pcoded-micon"><i class="ti-home"></i><b>BC</b></span>
-                        <span class="pcoded-mtext">Apartment</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                    <ul class="pcoded-submenu">
-                        @can('apartment-create')
-                            <li class="{{ request()->routeIs('apartments.create') ? 'active' : null }}">
-                                <a href="{{ route('apartments.create') }}">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext">New Apartment</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        @endcan
-                        <li class="{{ request()->routeIs('apartments.index') ? 'active' : null }}">
-                            <a href="{{ route('apartments.index') }}">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Apartment List </span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+            @endcan --}}
+            
 
             {{-- @can('bd-monthly-budget-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bd_budget.*') ? 'active pcoded-trigger' : null }}">
@@ -1130,10 +1049,94 @@
         {{--        @hasanyrole('super-admin|admin|Sales-Manager|CSD-Manager') --}}
 
         @canany(['leadgeneration-view', 'client-view', 'sell-view', 'salesCollection-view', 'sale-cancellation-view',
-            'name-transfer-view', 'apartment-shifting-view', 'final-settlement-view', 'budget-view', 'sales-report'])
+            'name-transfer-view', 'apartment-shifting-view', 'final-settlement-view', 'budget-view', 'sales-report','bd-priority-land-view', 'bd-inventory-view',
+            'parking-view', 'apartment-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Sales </div>
         @endcanany
+
         <ul class="pcoded-item pcoded-left-item">
+            @can('project-view')
+                <li class="pcoded-hasmenu {{ request()->routeIs('projects.*') ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
+                        <span class="pcoded-mtext">Project Details</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        @can('project-create')
+                            <li class="{{ request()->routeIs('projects.create') ? 'active' : null }}">
+                                <a href="{{ route('projects.create') }}">
+                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                    <span class="pcoded-mtext">New Project </span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        @endcan
+
+                        <li class="{{ request()->routeIs('projects.index') ? 'active' : null }}">
+                            <a href="{{ route('projects.index') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Projects List </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+            @can('parking-view')
+                <li class="pcoded-hasmenu {{ request()->routeIs('parkings.*') ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="fa fa-car"></i><b>BC</b></span>
+                        <span class="pcoded-mtext">Parkings</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        @can('parking-create')
+                            <li class="{{ request()->routeIs('parkings.create') ? 'active' : null }}">
+                                <a href="{{ route('parkings.create') }}">
+                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                    <span class="pcoded-mtext">New Parking </span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        @endcan
+                        <li class="{{ request()->routeIs('parkings.index') ? 'active' : null }}">
+                            <a href="{{ route('parkings.index') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Parking List </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+            @can('apartment-view')
+                <li class="pcoded-hasmenu {{ request()->routeIs('apartments.*') ? 'active pcoded-trigger' : null }}">
+                    <a href="javascript:void(0)">
+                        <span class="pcoded-micon"><i class="ti-home"></i><b>BC</b></span>
+                        <span class="pcoded-mtext">Apartment</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        @can('apartment-create')
+                            <li class="{{ request()->routeIs('apartments.create') ? 'active' : null }}">
+                                <a href="{{ route('apartments.create') }}">
+                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                    <span class="pcoded-mtext">New Apartment</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        @endcan
+                        <li class="{{ request()->routeIs('apartments.index') ? 'active' : null }}">
+                            <a href="{{ route('apartments.index') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Apartment List </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
             @can('leadgeneration-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs(['leadgenerations.*', 'followups.*', 'noactivity']) ? 'active pcoded-trigger' : null }}">

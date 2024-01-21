@@ -168,9 +168,11 @@
                                         @if($apartment->sell)
                                             <p class="m-1"><strong class="px-1 bg-danger rounded">SOLD</strong> <br></p>
                                             <strong class="breakWords">Client :
-                                                <a href="{{route('sells.show', $apartment->sell->id)}}" target="_blank">
-                                                    {{$apartment->sell->sellClient->client->name}}
-                                                </a>
+                                                
+                                                    <a @can('project-create') href="{{route('sells.show', $apartment->sell->id)}}" target="_blank" @endcan >
+                                                        {{$apartment->sell->sellClient->client->name}}
+                                                    </a>
+                                                
                                             </strong>
                                         @else
                                             <p class="m-1"><strong class="px-1 bg-success rounded">UNSOLD</strong> <br></p>
@@ -191,6 +193,7 @@
             </tbody>
         </table>
     </div>
+    @can('project-create')
     <div class="col-lg-12">
         <div class="table-responsive">
             <table id="dataTable" class="table table-striped table-bordered">
@@ -260,9 +263,9 @@
             </table>
         </div>
     </div>
-
+    @endcan
 </div> <!-- end row -->
-@if (!$currentUser->hasrole(['CSD-Manager']))
+@can('project-create')
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
@@ -343,7 +346,7 @@
         </div>
     </div>
 </div> <!-- end row -->
-@endif
+@endcan
 
 @endsection
 
