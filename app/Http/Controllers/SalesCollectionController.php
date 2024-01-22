@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\SaleCollectionEvent;
-use App\Events\SaleEvent;
-use App\Mail\SalesCollectionMail;
-use App\Notifications\SalesCollectionNotificiation;
-use App\Project;
-use App\SalesCollection;
-use App\SalesCollectionDetails;
-use App\SellCollectionHead;
-use App\Sells\InstallmentList;
-use App\Sells\Sell;
 use App\User;
+use App\Project;
 use Carbon\Carbon;
-use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Database\QueryException;
+use App\Sells\Sell;
+use NumberFormatter;
+use Twilio\Rest\Client;
+use App\SalesCollection;
+use App\Events\SaleEvent;
+use App\SellCollectionHead;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Sells\InstallmentList;
+use App\SalesCollectionDetails;
+use App\Mail\SalesCollectionMail;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
+use App\Events\SaleCollectionEvent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\QueryException;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Notification;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Twilio\Rest\Client;
-use Illuminate\Support\Str;
+use App\Notifications\SalesCollectionNotificiation;
 
 class SalesCollectionController extends Controller
 {
@@ -167,8 +168,9 @@ class SalesCollectionController extends Controller
 
     public function acknowledgement(SalesCollection $salesCollection)
     {
-        $spell = new \NumberFormatter(locale_get_default(), \NumberFormatter::SPELLOUT);
-        $inwords = 'Taka '. Str::title($spell->format($salesCollection->received_amount)).' Only.';
+        // $spell = new \NumberFormatter(locale_get_default(), \NumberFormatter::SPELLOUT);
+        $amount = strval($salesCollection->received_amount);
+        $inwords = 'Taka '.$this->bengaliTk($amount) .' Only.';
         $paidValue =  SalesCollectionDetails::whereHas('salesCollection', function ($q) use($salesCollection){
                 $q->where('sell_id', $salesCollection->sell_id);
             })->whereIn('particular',['Booking Money','Down Payment','Installment'])
@@ -186,6 +188,31 @@ class SalesCollectionController extends Controller
 //        return view('salesCollections.acknowledgement', compact('salesCollection', 'bmCollection','dpCollection','inwords','paidValue'));
         return  PDF::loadview('sales.salesCollections.acknowledgement', compact('saleClients','salesCollection', 'bmCollection','dpCollection','inwords','paidValue'))->stream('projects_inventory_report'.now()->format('d-m-Y').'.pdf');
 
+    }
+
+    function bengaliTk($num) {
+        $spell = new NumberFormatter(locale_get_default(), NumberFormatter::SPELLOUT);
+        $num_in_words = '';
+
+        $units = [
+            10000000 => 'Crore',
+            100000 => 'Lacs',
+            1000 => 'Thousand',
+        ];
+
+        foreach ($units as $divisor => $unit) {
+            if ($num >= $divisor) {
+                $chunk = floor($num / $divisor);
+                $num_in_words .= Str::title($spell->format($chunk)) . " $unit ";
+                $num %= $divisor;
+            }
+        }
+
+        if ($num > 0) {
+            $num_in_words .= $num;
+        }
+
+        return $num_in_words;
     }
 
 }
