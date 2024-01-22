@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Procurement;
 
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Accounts\Account;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\NestedMaterialRequest;
-use App\Procurement\NestedMaterial;
 use App\Procurement\Unit;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Procurement\NestedMaterial;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
+use App\Http\Requests\NestedMaterialRequest;
 
 class NestedMaterialController extends Controller
 {
@@ -55,6 +56,16 @@ class NestedMaterialController extends Controller
             ->with('i',(request()->input('page', 1) -1) * 1)
             ;
 
+    }
+
+    //A function to get all the materials in a pdf file
+    public function getMaterialsPdf()
+    {
+        $materials = NestedMaterial::with('descendants','ancestors')->withDepth()
+            ->having('depth', '=', 0)->whereNull('parent_id')
+            ->get();
+
+        return PDF::loadview('procurement.nestedmaterials.pdf', compact('materials'))->download('material.pdf');
     }
 
     /**

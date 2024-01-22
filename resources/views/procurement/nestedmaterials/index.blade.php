@@ -18,6 +18,8 @@
 @section('breadcrumb-button')
     <a href="{{ url('nestedmaterials/create') }}" class="btn btn-out-dashed btn-sm btn-success" data-toggle="tooltip"
         title="Add New"><i class="fa fa-plus"></i></a>
+    <a href="{{ url('material-list-pdf') }}" class="btn btn-out-dashed btn-sm btn-danger" data-toggle="tooltip"
+        title="PDF"><i class="fa fa-file-pdf"></i></a>
     <a href="{{ url('nestedmaterials') }}" class="btn btn-out-dashed btn-sm btn-secondary" data-toggle="tooltip"
         title="Refresh"><i class="fa fa-sync"></i></a>
 @endsection
