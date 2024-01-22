@@ -209,7 +209,7 @@ class SalesCollectionController extends Controller
         }
 
         if ($num > 0) {
-            $num_in_words .= $num;
+            $num_in_words .= Str::title($spell->format($num));
         }
 
         return $num_in_words;
