@@ -110,8 +110,7 @@
     </header>
 
     <footer>
-        Atlas Rangs Plaza (Level 9&10), 7, Sk. Mujib Road,<br>
-        Agrabad C/A, Chattogram, <br>
+        {!! htmlspecialchars(config('company_info.company_address')) !!}<br>
         Phone: {!! htmlspecialchars(config('company_info.company_mobile')) !!} <br>
         {!! htmlspecialchars(config('company_info.company_email')) !!}
     </footer>

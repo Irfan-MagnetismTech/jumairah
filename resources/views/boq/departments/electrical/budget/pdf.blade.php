@@ -148,7 +148,7 @@
 </head>
 
 <body>
-    @php 
+    @php
         $iteration = 1;
     @endphp
 
@@ -156,9 +156,9 @@
     <div>
     <div>
         <div id="logo" class="pdflogo" id="fixed_header">
-            <img src="{{ asset('images/ranksfc_log.png') }}" alt="Logo" class="pdfimg">
+            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg">
             <div class="clearfix"></div>
-            <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+            <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
         </div>
 
         <div id="pageTitle" style="display: block; width: 100%;">
@@ -185,13 +185,13 @@
             <tr style="vertical-align: middle" class="text-center">
                 <th width="20px">SL No</th>
                  <th width="100px">Budget Head</th>
-                <th width="30px">Amount</th> 
+                <th width="30px">Amount</th>
             </tr>
         </thead>
         <tbody>
             @php $price_index = 0;$total = 0; @endphp
             @foreach ($dataFiltered as $data)
-                    
+
                 <tr>
                     <td style="text-align: center">{{ $iteration++ }}</td>
                     <td style="text-align: center"><b>{{ $data->EmeBudgetHead->name }}</b></td>
@@ -203,10 +203,10 @@
             @endforeach
                 <tr>
                     <td></td>
-                    <td colspan="" style="text-align: right">Total</td> 
-                    <td style="text-align: center">{{$total}}</td> 
+                    <td colspan="" style="text-align: right">Total</td>
+                    <td style="text-align: center">{{$total}}</td>
                 </tr>
-          
+
         </tbody>
     </table>
     <br>

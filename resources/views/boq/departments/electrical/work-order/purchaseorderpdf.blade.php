@@ -102,9 +102,9 @@
         <div class="container">
             <div class="row">
                 <div class="head1" style="padding-left: 180px; text-align: center">
-                    <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
+                    <img src="{{ asset(config('company_info.logo')) }}" alt="Rangsfc">
                     <p>
-                        Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
+                        {!! htmlspecialchars(config('company_info.company_address')) !!}<br>
                         Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!} Mobile: {!! htmlspecialchars(config('company_info.company_mobile')) !!}.<br>
                         <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                     </p>

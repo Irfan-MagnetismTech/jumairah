@@ -99,7 +99,7 @@
 
 <div id="logo" class="pdflogo">
     <img src="{{ asset('images/ranksfc_log.png')}}" alt="Logo" class="pdfimg">
-    <h5>Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.</h5>
+    <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
     <h2>{{ $project->name }}</h2>
 </div>
 
