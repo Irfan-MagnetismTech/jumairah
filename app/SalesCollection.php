@@ -2,15 +2,17 @@
 
 namespace App;
 
-use App\Accounts\Account;
-use App\Sells\AccounceApproval;
-use App\Sells\Apartment;
-use App\Sells\SalesCollectionApproval;
-use App\Sells\Sell;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Sells\Sell;
+use NumberFormatter;
+use App\Sells\Apartment;
+use App\Accounts\Account;
+use Illuminate\Support\Str;
+use App\Sells\AccounceApproval;
+use App\Sells\SalesCollectionApproval;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SalesCollection extends Model
 {
@@ -79,8 +81,9 @@ class SalesCollection extends Model
 
     public function getReceivedAmountInwordsAttribute()
     {
-        $f = new \NumberFormatter(locale_get_default(), \NumberFormatter::SPELLOUT);
-        return $received_amount = $this->received_amount ? ucwords($f->format($this->received_amount)) : null;
+        // $f = new \NumberFormatter(locale_get_default(), \NumberFormatter::SPELLOUT);
+        $received_amount = $this->received_amount ? ucwords($this->bengaliTk($this->received_amount)) : null;
+        return $received_amount;
     }
 
     public function getPaymentStatusAttribute()
@@ -89,6 +92,29 @@ class SalesCollection extends Model
         return $status;
     }
 
+    function bengaliTk($num) {
+        $spell = new NumberFormatter(locale_get_default(), NumberFormatter::SPELLOUT);
+        $num_in_words = '';
 
+        $units = [
+            10000000 => 'Crore',
+            100000 => 'Lacs',
+            1000 => 'Thousand',
+        ];
+
+        foreach ($units as $divisor => $unit) {
+            if ($num >= $divisor) {
+                $chunk = floor($num / $divisor);
+                $num_in_words .= Str::title($spell->format($chunk)) . " $unit ";
+                $num %= $divisor;
+            }
+        }
+
+        if ($num > 0) {
+            $num_in_words .= Str::title($spell->format($num));
+        }
+
+        return $num_in_words;
+    }
 
 }

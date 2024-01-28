@@ -93,6 +93,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('supplierBillReject/{supplierbill}', 'Procurement\SupplierbillController@supplierBillReject')->name('supplierBillReject');
     Route::get('material-receive-approve/{materialReceive}/{status}', 'Procurement\MaterialReceiveController@materialReceiveApproval');
     Route::get('material-list', 'Procurement\NestedMaterialController@materialList')->name('material-list');
+    Route::get('material-list-pdf', 'Procurement\NestedMaterialController@getMaterialsPdf')->name('material-list-pdf');
 
 
     Route::get('cost-center-list', 'Procurement\MaterialInventoryReportController@projectList')->name('mir-costcenter-List');
