@@ -3,6 +3,7 @@
 return [
 
         'company_name' => 'jumairah',
+        'company_fullname' => 'Jumairah Holdings Ltd',
         'company_address' => 'House#29, Road#03,O.R Nizam Road R/A, Chattogram, Bangladesh',
         'company_phone' => '01777-775701',
         'company_mobile' => '',

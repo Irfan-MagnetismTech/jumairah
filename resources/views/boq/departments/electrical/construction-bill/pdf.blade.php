@@ -105,7 +105,7 @@
 <body>
     <header>
         <div id="logo" class="pdflogo">
-            <img src="{{ asset('images/ranksfc_log.png')}}" alt="Logo" class="pdfimg pullRight">
+            <img src="{{ asset(config('company_info.logo')) }}" alt="Logo" class="pdfimg pullRight">
         </div>
     </header>
 
