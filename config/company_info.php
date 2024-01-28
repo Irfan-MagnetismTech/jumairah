@@ -5,6 +5,7 @@ return [
         'company_name' => 'jumairah',
         'company_address' => 'House#29, Road#03,O.R Nizam Road R/A, Chattogram, Bangladesh',
         'company_phone' => '01777-775701',
+        'company_mobile' => '',
         'company_email' => '',
         'company_website' => '',
         'logo' => "images/jumairah_logo.png",

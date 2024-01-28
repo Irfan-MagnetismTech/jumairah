@@ -105,7 +105,7 @@
                     <img src="{{ asset('images/ranksfc_log.png') }}" alt="Rangsfc">
                     <p>
                         Atlas Rangs Plaza (Level- 9 & 10), 7, SK Mujib Road, Agrabad C/A, Chattogram.<br>
-                        Phone: 0312519906 Mobile: 09617124124.<br>
+                        Phone: {!! htmlspecialchars(config('company_info.company_phone')) !!} Mobile: {!! htmlspecialchars(config('company_info.company_mobile')) !!}.<br>
                         <a style="color:#000;" target="_blank">{!! htmlspecialchars(config('company_info.company_email')) !!}</a>
                     </p>
                     <h3 style="border: 1px solid #000;">
