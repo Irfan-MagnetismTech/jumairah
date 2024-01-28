@@ -11,6 +11,7 @@ return [
         'login_logo' => "images/Jumairah_original.png",
         'altText' => 'Jumairah Holdings Limited',
         'company_fax' => '',
+        'company_shortname' => 'JHL',
 
         'modules' => [
                 'Administrative'=>'Administrative',
