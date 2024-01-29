@@ -14,7 +14,7 @@
 
 @section('breadcrumb-button')
     @can('project-create')
-        <a href="{{ route('boq.project.departments.sanitary.labor-cost.create',['project' => $project]) }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
+        <a href="{{ route('boq.project.departments.sanitary.project-wise-labor-cost.create',['project' => $project]) }}" class="btn btn-out-dashed btn-sm btn-success"><i class="fa fa-plus"></i></a>
     @endcan
 @endsection
 
