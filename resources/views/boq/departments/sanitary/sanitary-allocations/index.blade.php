@@ -45,15 +45,15 @@
                     @endcan
                 </tr>
                 <tr>
-                    <th>JHL</th>
+                    <th>{!! htmlspecialchars(config('company_info.company_shortname')) !!}</th>
                     <th>LO</th>
-                    <th>JHL</th>
+                    <th>{!! htmlspecialchars(config('company_info.company_shortname')) !!}</th>
                     <th>LO</th>
-                    <th>JHL</th>
+                    <th>{!! htmlspecialchars(config('company_info.company_shortname')) !!}</th>
                     <th>LO</th>
-                    <th>JHL</th>
+                    <th>{!! htmlspecialchars(config('company_info.company_shortname')) !!}</th>
                     <th>LO</th>
-                    <th>JHL</th>
+                    <th>{!! htmlspecialchars(config('company_info.company_shortname')) !!}</th>
                     <th>LO</th>
                 </tr>
             </thead>
