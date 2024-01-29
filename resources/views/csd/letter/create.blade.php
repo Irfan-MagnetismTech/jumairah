@@ -125,7 +125,7 @@
                             <span>---------------------------------</span><br>
                             <span>Manager</span><br>
                             <span>Customer Service Department</span><br>
-                            <span>Jumairah Holdings Limited</span>
+                            <span>{!! htmlspecialchars(config('company_info.company_fullname')) !!}</span>
                         </td>
                     </tr>
                 </table>

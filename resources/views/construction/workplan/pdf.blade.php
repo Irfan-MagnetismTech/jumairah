@@ -143,7 +143,7 @@
             <table id="table" class="table table-striped table-bordered text-center">
                 <thead>
                     <tr>
-                        <th colspan="13">Jumairah Holdings Ltd.</th>
+                        <th colspan="13">{!! htmlspecialchars(config('company_info.company_fullname')) !!}.</th>
                     </tr>
                     <tr>
                         <th rowspan="4">Project Name</th>

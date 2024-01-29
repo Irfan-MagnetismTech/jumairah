@@ -21,7 +21,7 @@
         <table id="dataTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th colspan="9">Jumairah Holdings Ltd.</th>
+                    <th colspan="9">{!! htmlspecialchars(config('company_info.company_fullname')) !!}.</th>
                 </tr>
                 <tr>
                     <th colspan="4">Project Name: {{ $currentYearPlans[0]->materialPlan->projects->name }}</th>

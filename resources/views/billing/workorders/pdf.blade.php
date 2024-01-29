@@ -122,7 +122,7 @@
         </p><br>
 
         <h4>Dear {{$workorder->supplier->contact_person_name}},</h4><br>
-        <p>The Management of <span style="font-weight: bold;"> "JUMAIRAH HOLDINGS LTD."</span> is pleased to inform you that against your offer, you have been awarded the "Work Order"
+        <p>The Management of <span style="font-weight: bold;"> "{!! htmlspecialchars(config('company_info.company_fullname')) !!}"</span> is pleased to inform you that against your offer, you have been awarded the "Work Order"
             for the captioned works under the following terms & conditions and rates etc (enclosed herewith). The terms & conditions, quotation
             and rates are an integral part of this Work Order.
         </p><br>
@@ -131,7 +131,7 @@
         <p>If you agree with the above, please return the duplicate upon your proper signing in acceptance. </p><br><br>
         <p>Thanking you,</p><br><br>
         <p>Very Truly Yours</p>
-        <p>For <span style="font-weight: bold;">JUMAIRAH HOLDINGS LTD.</span> </p>
+        <p>For <span style="font-weight: bold;">{!! htmlspecialchars(config('company_info.company_fullname')) !!}</span> </p>
     </div>
     <div class="container" style= "width:100%; margin-top: 50px;">
         <div class="text-left" style="float:left; width:75%;">

@@ -57,7 +57,7 @@
                     <td ><strong><a href="{{ url("apartments/$apartment->id") }}">{{$apartment->name}}</a></strong></td>
                     <td class="breakWords text-center"><strong>{{$apartment->project->name}}</strong></td>
                     <td>{{$apartment->floor}}</td>
-                    <td>{{$apartment->owner  == 2 ? "LandOwner" : "Jumairah Holdings Ltd"}}</td>
+                    <td>{{$apartment->owner  == 2 ? "LandOwner" :  config('company_info.company_fullname')}}</td>
                     <td  class="text-right">@money($apartment->apartment_size)</td>
                     <td  class="text-right">@money($apartment->total_value)</td>
                     <td>

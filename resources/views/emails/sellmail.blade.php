@@ -7,7 +7,7 @@ Ref: RFPL/CSD/R.Prayash/{{now()->format('Y-d')}} <br>
 
 <p>
     Dear Sir,<br>
-    On behalf of Jumairah Holdings Ltd. I would like to take this opportunity to congratulate you as the new member of Jumairah family by booking an apartment from our project.
+    On behalf of {!! htmlspecialchars(config('company_info.company_fullname')) !!} I would like to take this opportunity to congratulate you as the new member of {!! htmlspecialchars(config('company_info.company_name')) !!} family by booking an apartment from our project.
 <p>
 
 <table>

@@ -170,7 +170,7 @@
                     <span>{{ Auth::user()?->employee?->fullName }}</span><br/>
                     <span>{{ Auth::user()?->employee?->designation?->name }}</span><br>
                     <span>Customer Service Department</span><br>
-                    <span>JUMAIRAH HOLDINGS Limited</span><br/>
+                    <span>{!! htmlspecialchars(config('company_info.company_fullname')) !!}</span><br/>
                     <span>Contact : {{ Auth::user()?->employee?->contact }}</span>
                 </td
             </tr>

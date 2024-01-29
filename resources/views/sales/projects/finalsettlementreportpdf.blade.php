@@ -193,7 +193,7 @@
                 <td style="text-align: right">@money($regCost = $sell->finalSettlement->registration_cost ?? 0)</td>
             </tr>
             <tr>
-                <td style="width: 80%">Less: Refund by JUMAIRAH HOLDINGS LTD</td>
+                <td style="width: 80%">Less: Refund by {!! htmlspecialchars(config('company_info.company_fullname')) !!}</td>
                 <td style="width: 2px !important;">:</td>
                 <td style="text-align: right">@money($csd_final_costing_refund->sum('amount_refund'))</td>
             </tr>

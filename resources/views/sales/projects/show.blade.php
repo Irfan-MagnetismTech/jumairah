@@ -68,7 +68,7 @@
                                         @if($apartment->owner == 1)
                                             <h6 class="m-0">{{$apartment->name}} </h6>
                                             Size (SFT): @money($apartment->apartment_size)
-                                            <h6 class="m-0">{{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}</h6>
+                                            <h6 class="m-0">{{$apartment->owner == 1 ? config('company_info.company_fullname') : "Land Owner"}}</h6>
                                             @if($apartment->sell)
                                                 <p class="m-1"><strong class="px-1 bg-danger rounded">SOLD</strong> <br></p>
                                                 <strong class="breakWords">Client :
@@ -87,7 +87,7 @@
                                             @endif
                                         @else
                                             {{$apartment->name}} <br> Size (SFT): @money($apartment->apartment_size) <br>
-                                            {{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}
+                                            {{$apartment->owner == 1 ?  config('company_info.company_fullname') : "Land Owner"}}
                                         @endif
                                     @endif
                                 @endforeach
@@ -164,15 +164,15 @@
                                     @if($apartment->owner == 1)
                                         <h6 class="m-0">{{$apartment->name}} </h6>
                                         Size (SFT): @money($apartment->apartment_size)
-                                        <h6 class="m-0">{{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}</h6>
+                                        <h6 class="m-0">{{$apartment->owner == 1 ?  config('company_info.company_fullname') : "Land Owner"}}</h6>
                                         @if($apartment->sell)
                                             <p class="m-1"><strong class="px-1 bg-danger rounded">SOLD</strong> <br></p>
                                             <strong class="breakWords">Client :
-                                                
+
                                                     <a @can('project-create') href="{{route('sells.show', $apartment->sell->id)}}" target="_blank" @endcan >
                                                         {{$apartment->sell->sellClient->client->name}}
                                                     </a>
-                                                
+
                                             </strong>
                                         @else
                                             <p class="m-1"><strong class="px-1 bg-success rounded">UNSOLD</strong> <br></p>
@@ -180,7 +180,7 @@
                                     @else
                                         {{$apartment->name}} <br>
                                         Size (SFT): @money($apartment->apartment_size) <br>
-                                        {{$apartment->owner == 1 ? "Jumairah Holdings Limited" : "Land Owner"}}
+                                        {{$apartment->owner == 1 ?  config('company_info.company_fullname') : "Land Owner"}}
                                     @endif
                                     {{--                        @endif--}}
                                 </td>

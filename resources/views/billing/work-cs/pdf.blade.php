@@ -152,7 +152,7 @@
         <h5>{!! htmlspecialchars(config('company_info.company_address')) !!}</h5>
     </div>
     <div class="container">
-        <h2 class="text-center">JUMAIRAH HOLDINGS LTD.</h2>
+        <h2 class="text-center">{!! htmlspecialchars(config('company_info.company_fullname')) !!}</h2>
         <h2 class="text-center"> {{ $workCs->title }} </h2>
     </div>
 

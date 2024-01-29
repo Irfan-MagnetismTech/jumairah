@@ -205,7 +205,7 @@
 
 
                             @if ($total > 0)
-                                <th>Payable to Ranconfc</th>
+                                <th>Payable to {!! htmlspecialchars(config('company_info.company_name')) !!}</th>
                                 <th colspan="2">{{ number_format(abs($total)) }}</th>
                             @else
                                 <th>Payable to Client</th>

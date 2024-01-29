@@ -121,7 +121,7 @@
         </li>
         <li>
             Payable only in favor of
-            <strong>Jumairah Holdings Ltd.</strong>
+            <strong>{!! htmlspecialchars(config('company_info.company_fullname')) !!}.</strong>
         </li>
     </ul>
     <br>
@@ -131,7 +131,7 @@
     <p>Executive-Customer Care Revenue</p>
     <p>Mob- xxxxxxxxxx, Email-xxxxxx@rancon.com.bd</p><br>
     <p>Thanking you and assuring you of our best services always.</p><br>
-    <p>For Jumairah Holdings Ltd,</p><br><br><br>
+    <p>For {!! htmlspecialchars(config('company_info.company_fullname')) !!},</p><br><br><br>
     <p style="border-top: 1px solid #333; display: inline-block;"><strong>Authorized Signature</strong></p>
 
     </body>
