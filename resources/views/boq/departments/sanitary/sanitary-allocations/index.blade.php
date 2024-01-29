@@ -45,16 +45,16 @@
                     @endcan
                 </tr>
                 <tr>
-                    <th>FC</th>
-                    <th>LW</th>
-                    <th>FC</th>
-                    <th>LW</th>
-                    <th>FC</th>
-                    <th>LW</th>
-                    <th>FC</th>
-                    <th>LW</th>
-                    <th>FC</th>
-                    <th>LW</th>
+                    <th>JHL</th>
+                    <th>LO</th>
+                    <th>JHL</th>
+                    <th>LO</th>
+                    <th>JHL</th>
+                    <th>LO</th>
+                    <th>JHL</th>
+                    <th>LO</th>
+                    <th>JHL</th>
+                    <th>LO</th>
                 </tr>
             </thead>
             <tbody>

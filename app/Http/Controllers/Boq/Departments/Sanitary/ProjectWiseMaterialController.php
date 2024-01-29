@@ -57,9 +57,8 @@ class ProjectWiseMaterialController extends Controller
     {
         $formType = 'create';
         $floors = BoqFloorProject::where('project_id', $project->id)->get()->pluck('floor.name','boq_floor_project_id');
-        $rateType = ['All'=> 'All', 'Master (LW)'=>'Master (LW)','Master (FC)'=>'Master (FC)','Child (LW)'=>'Child (LW)','Child (FC)'=>'Child (FC)','Common (LW)'=>'Common (LW)','Common (FC)'=>'Common (FC)',
-                    'Maid Toilet (LW)'=>'Maid Toilet (LW)','Maid Toilet (FC)'=>'Maid Toilet (FC)','Commercial Toilet'=>'Commercial Toilet'];
-                $leyer1NestedMaterial = NestedMaterial::with('descendants')->where('account_id',123)->where('parent_id',null)->orderBy('id')->pluck('name', 'id');
+        $rateType = ['All'=> 'All', 'Master (LW)'=>'Master (LO)','Master (FC)'=>'Master (JHL)','Child (LW)'=>'Child (LO)','Child (FC)'=>'Child (JHL)','Common (LW)'=>'Common (LO)','Common (FC)'=>'Common (JHL)', 'Maid Toilet (LW)'=>'Maid Toilet (LO)','Maid Toilet (FC)'=>'Maid Toilet (JHL)','Commercial Toilet'=>'Commercial Toilet'];
+        $leyer1NestedMaterial = NestedMaterial::with('descendants')->where('account_id',123)->where('parent_id',null)->orderBy('id')->pluck('name', 'id');
         return view('boq.departments.sanitary.project-wise-materials.create', compact('floors','project','rateType','leyer1NestedMaterial','formType'));
     }
 
@@ -68,8 +67,7 @@ class ProjectWiseMaterialController extends Controller
 
         $formType = 'create';
         $floors = BoqFloorProject::where('project_id', $project->id)->get()->pluck('floor.name','boq_floor_project_id');
-        $rateType = ['All'=> 'All', 'Master (LW)'=>'Master (LW)','Master (FC)'=>'Master (FC)','Child (LW)'=>'Child (LW)','Child (FC)'=>'Child (FC)','Common (LW)'=>'Common (LW)','Common (FC)'=>'Common (FC)',
-            'Maid Toilet (LW)'=>'Maid Toilet (LW)','Maid Toilet (FC)'=>'Maid Toilet (FC)','Commercial Toilet'=>'Commercial Toilet'];
+        $rateType = ['All'=> 'All', 'Master (LW)'=>'Master (LO)','Master (FC)'=>'Master (JHL)','Child (LW)'=>'Child (LO)','Child (FC)'=>'Child (JHL)','Common (LW)'=>'Common (LO)','Common (FC)'=>'Common (JHL)', 'Maid Toilet (LW)'=>'Maid Toilet (LO)','Maid Toilet (FC)'=>'Maid Toilet (JHL)','Commercial Toilet'=>'Commercial Toilet'];
         $leyer1NestedMaterial = NestedMaterial::with('descendants')->where('account_id',123)->where('parent_id',null)->orderBy('id')->pluck('name', 'id');
         $secondParents = NestedMaterial::where('parent_id', $parent_id)->where('account_id',123)->pluck('name','id');
         return view('boq.departments.sanitary.project-wise-materials.create', compact('parent_id','secondParents','floors','project','rateType','leyer1NestedMaterial','formType'));
@@ -147,8 +145,8 @@ class ProjectWiseMaterialController extends Controller
                                                ->pluck('name','id');
 
         $floors = BoqFloorProject::where('project_id', $project)->get()->pluck('floor.name','boq_floor_project_id');
-        $rateType = ['All'=> 'All', 'Master (LW)'=>'Master (LW)','Master (FC)'=>'Master (FC)','Child (LW)'=>'Child (LW)','Child (FC)'=>'Child (FC)','Common (LW)'=>'Common (LW)','Common (FC)'=>'Common (FC)',
-            'Maid Toilet (LW)'=>'Maid Toilet (LW)','Maid Toilet (FC)'=>'Maid Toilet (FC)','Commercial Toilet'=>'Commercial Toilet'];        $leyer1NestedMaterial = NestedMaterial::with('descendants')->where('account_id',123)->where('parent_id',null)->orderBy('id')->pluck('name', 'id');
+        $rateType = ['All'=> 'All', 'Master (LW)'=>'Master (LO)','Master (FC)'=>'Master (JHL)','Child (LW)'=>'Child (LO)','Child (FC)'=>'Child (JHL)','Common (LW)'=>'Common (LO)','Common (FC)'=>'Common (JHL)', 'Maid Toilet (LW)'=>'Maid Toilet (LO)','Maid Toilet (FC)'=>'Maid Toilet (JHL)','Commercial Toilet'=>'Commercial Toilet'];
+        $leyer1NestedMaterial = NestedMaterial::with('descendants')->where('account_id',123)->where('parent_id',null)->orderBy('id')->pluck('name', 'id');
         return view('boq.departments.sanitary.project-wise-materials.create', compact('project','project_wise_material','calculation','floors','rateType','leyer1NestedMaterial','ProjectWiseMaterialData','secondLayerMaterial','formType'));
     }
 
