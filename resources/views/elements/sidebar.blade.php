@@ -355,7 +355,7 @@
         </ul>
 
         @canany(['mouza-view','bd-source-view', 'bd-Feasibility-particuler-view', 'bd-Feasibility-referene-fees-view','BD-Feasibility-copy','bd-lead-generation-view', 'project-layout', 'bd-feasibility-locations-view',
-            'project-view', 'bd-monthly-budget-view', 'bd-yearly-budget-view'])
+             'bd-monthly-budget-view', 'bd-yearly-budget-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Business Development (BD)</div>
         @endcanany
 
@@ -1050,7 +1050,7 @@
 
         @canany(['leadgeneration-view', 'client-view', 'sell-view', 'salesCollection-view', 'sale-cancellation-view',
             'name-transfer-view', 'apartment-shifting-view', 'final-settlement-view', 'budget-view', 'sales-report','bd-priority-land-view', 'bd-inventory-view',
-            'parking-view', 'apartment-view'])
+            'project-view','parking-view', 'apartment-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Sales </div>
         @endcanany
 
