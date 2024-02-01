@@ -639,7 +639,7 @@
 
     @can('hr-admin-management')
         <li
-            class="pcoded-hasmenu {{ request()->routeIs(['holidays.*', 'bonus-process.*']) ? 'active pcoded-trigger' : null }}">
+            class="pcoded-hasmenu {{ request()->routeIs(['holidays.*', 'bonus-process.*', 'loan-applications.*']) ? 'active pcoded-trigger' : null }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-panel"></i><b></b></span>
                 <span class="pcoded-mtext">Admin Management</span>
@@ -665,6 +665,18 @@
                                 <i class="ti-angle-right"></i>
                             </span>
                             <span class="pcoded-mtext">Allowance</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('loan-application')
+                    <li class="{{ request()->routeIs('loan-applications.*') ? 'active' : null }}">
+                        <a href="{{ route('loan-applications.index') }}">
+                            <span class="pcoded-micon">
+                                <i class="ti-angle-right"></i>
+                            </span>
+                            <span class="pcoded-mtext">Loan Application</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
@@ -703,7 +715,7 @@
                         </ul>
                     </li>
                 @endcan
-                
+
             </ul>
         </li>
     @endcan

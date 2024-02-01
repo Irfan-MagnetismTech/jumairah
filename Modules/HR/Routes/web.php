@@ -40,6 +40,7 @@ use Modules\HR\Http\Controllers\EmployeeMasterController;
 use Modules\HR\Http\Controllers\EmployeeSalaryController;
 use Modules\HR\Http\Controllers\ProcessedBonusController;
 use Modules\HR\Http\Controllers\EmployeeReleaseController;
+use Modules\HR\Http\Controllers\LoanApplicationController;
 use Modules\HR\Http\Controllers\ProcessedSalaryController;
 use Modules\HR\Http\Controllers\AttendanceReportController;
 use Modules\HR\Http\Controllers\EmployeeDocumentController;
@@ -110,6 +111,7 @@ Route::prefix('hr')->group(function () {
             'finger-print-device-infos' => FingerPrintDeviceInfoController::class,
             'finger-print-device-users' => FingerPrintDeviceUserController::class,
             // 'employee-overtime' => EmployeeOtController::class,
+            'loan-applications' => LoanApplicationController::class,
         ]);
     });
 

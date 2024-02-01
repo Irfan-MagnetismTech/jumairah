@@ -244,7 +244,7 @@ Leave Balance @endsection @section('style')
                 if (response.employee.gender_id == 1) {
                     $('#ml').val('0');
                     $('#ml').closest('.col-md-6').addClass('d-none')
-                }else{
+                } else {
                     $('#ml').closest('.col-md-6').removeClass('d-none')
                 }
             },
