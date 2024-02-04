@@ -72,7 +72,7 @@
                                             @if($apartment->sell)
                                                 <p class="m-1"><strong class="px-1 bg-danger rounded">SOLD</strong> <br></p>
                                                 <strong class="breakWords">Client :
-                                                    @if ($currentUser->hasrole(['CSD-Manager']))
+                                                    @if ($currentUser->hasrole(['CSD-Manager', 'CC-Manager']))
                                                         <a href="{{ route('csd.sales-client-list') }}">
                                                             {{$apartment->sell->sellClient->client->name}}
                                                         </a>
