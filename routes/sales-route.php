@@ -86,7 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('sells/{sell}/handover', 'Sells\ApartmentHandoverController@handover')->name('handover');
 
-    Route::get('salesCollections/{salesCollection}/acknowledgement', 'SalesCollectionController@acknowledgement')->name('acknowledgement'); // print acknowledgement report.
+    Route::get('salesCollections/{salesCollection}/{type}', 'SalesCollectionController@acknowledgement')->name('acknowledgement'); // print acknowledgement report.
 
     Route::post('apartment-handover-approval', 'Sells\ApartmentHandoverController@apartmentHandoverApproval')->name('apartment-handover-approval');
     Route::get('name-transfer-approval/{nameTransfer}/{status}', 'Sells\NameTransferController@approval')->name('name-transfer-approval');

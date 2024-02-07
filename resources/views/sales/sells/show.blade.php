@@ -315,7 +315,7 @@
                             <th>Bank Name</th>
                             <th>Cheque No</th>
                             <th>Cheque <br>Dated</th>
-                            <th>D/A <br> Days</th>
+                            <th>Delay <br> Days</th>
                             <th>Delay <br> Amount </th>
                             <th>Status</th>
                             <th>Action</th>

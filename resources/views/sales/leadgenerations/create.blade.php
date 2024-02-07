@@ -208,7 +208,7 @@
         </div>
         <div class="col-12">
             <div class="input-group input-group-sm input-group-primary">
-                <label class="input-group-addon" for="offer_details">Offers Details</label>
+                <label class="input-group-addon" for="offer_details">{{ config('company_info.company_shortname') }} Offers Details</label>
                 {{ Form::textarea('offer_details', old('offer_details') ? old('offer_details') : (!empty($leadgeneration->offer_details) ? $leadgeneration->offer_details : null), ['class' => 'form-control', 'id' => 'offer_details', 'autocomplete' => 'off', 'rows' => 2]) }}
             </div>
         </div>
