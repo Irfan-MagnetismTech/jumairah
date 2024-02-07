@@ -96,10 +96,10 @@
                 <td>#</td>
                 <td>Project Name </td>
                 <td>Location </td>
-                <td> Stage - A </td>
-                <td> Stage - B </td>
-                <td> Stage - C </td>
-                <td> Stage - D </td>
+                <td> Priority Stage </td>
+                <td> Negotiation Stage </td>
+                <td> Lead Stage </td>
+                <td> Closed Lead</td>
                 <td> Total Leads </td>
             </tr>
         </thead>

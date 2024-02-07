@@ -37,13 +37,14 @@
                             @endif
                         </td>
                     </tr>
+                    @php($leadStage = ['A' => 'Priority', 'B' => 'Negotiation', 'C' => 'Lead'])
                     <tr><td> <strong>Spouse Name</strong> </td> <td> {{ $leadgeneration->spouse_name}}</td></tr>
                     <tr><td> <strong>Spouse Contact</strong> </td> <td> {{ $leadgeneration->spouse_contact}}</td></tr>
                     <tr><td> <strong>Present Address</strong> </td> <td> {{ $leadgeneration->present_address}}</td></tr>
                     <tr><td> <strong>Permanent Address</strong> </td> <td> {{ $leadgeneration->permanent_address}}</td></tr>
                     <tr><td> <strong>Nationality</strong> </td> <td> {{ $leadgeneration->nationality}}</td></tr>
                     <tr><td> <strong>Lead Date</strong> </td> <td> {{ $leadgeneration->lead_date}}</td></tr>
-                    <tr><td> <strong>Lead Stage</strong> </td> <td> {{ $leadgeneration->lead_stage}}</td></tr>
+                    <tr><td> <strong>Lead Stage</strong> </td> <td> {{ $leadStage[$leadgeneration->lead_stage] }}</td></tr>
                     <tr><td> <strong>Source Type</strong> </td> <td> {{ $leadgeneration->source_type}}</td></tr>
                     <tr><td> <strong>Project</strong> </td> <td> {{ $leadgeneration->apartment->project->name}}</td></tr>
                     <tr><td> <strong>Apartment Id</strong> </td> <td> {{ $leadgeneration->apartment->name}}</td></tr>

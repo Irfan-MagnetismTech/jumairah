@@ -104,7 +104,7 @@ class LeadgenerationController extends Controller
     {
         $codes = Country::pluck('phonecode', 'phonecode');
         $formType = 'create';
-        $lead_stages = ['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D'];
+        $lead_stages = ['A' => 'Priority', 'B' => 'Negotiate', 'C' => 'Lead', 'D' => 'Closed Lead'];
         $apartments = [];
         return view('sales.leadgenerations.create', compact('formType', 'codes', 'lead_stages', 'apartments'));
     }
@@ -141,7 +141,7 @@ class LeadgenerationController extends Controller
     {
         $formType = 'edit';
         $codes = Country::pluck('phonecode', 'phonecode');
-        $lead_stages = ['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D'];
+        $lead_stages = ['A' => 'Priority', 'B' => 'Negotiate', 'C' => 'Lead', 'D' => 'Closed Lead'];
         $apartments = Apartment::where('project_id', $leadgeneration->apartment->project->id)->pluck('name', 'id');
         $follow_up = $leadgeneration->followups->first();
         return view('sales.leadgenerations.create', compact('codes', 'formType', 'lead_stages', 'apartments', 'leadgeneration', 'follow_up'));

@@ -1165,7 +1165,7 @@
                         <li class="{{ request()->routeIs('dead-list') ? 'active' : null }}">
                             <a href="{{ route('dead-list') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Dead List </span>
+                                <span class="pcoded-mtext">Closed Lead List </span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
