@@ -1635,14 +1635,14 @@
                         <li class="{{ request()->routeIs('csd.costing.create') ? 'active' : null }}">
                             <a href="{{ route('csd.costing.create') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Create Final Costing</span>
+                                <span class="pcoded-mtext">Create Costing for Modification</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
                         <li class="{{ request()->routeIs('csd.project-List') ? 'active' : null }}">
                             <a href="{{ route('csd.project-List') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Final Costing List </span>
+                                <span class="pcoded-mtext">Costing Modification List </span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
