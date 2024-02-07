@@ -776,7 +776,7 @@
                 </li>
             @endcan
 
-            
+
             {{-- @can('bd-priority-land-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('priority_land.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -830,7 +830,7 @@
                     </ul>
                 </li>
             @endcan --}}
-            
+
 
             {{-- @can('bd-monthly-budget-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('bd_budget.*') ? 'active pcoded-trigger' : null }}">
@@ -1483,6 +1483,7 @@
                         <span class="pcoded-mcaret"></span>
                     </a>
                     <ul class="pcoded-submenu">
+                        @can('sales-admin-report')
                         <li class="{{ request()->routeIs('inventoryreport') ? 'active' : null }}">
                             <a href="{{ route('inventoryreport') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -1532,13 +1533,6 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('yearly-sales-plan-report') ? 'active' : null }}">
-                            <a href="{{ route('yearly-sales-plan-report') }}">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Yearly Sales Plan Report </span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                        </li>
                         <li class="{{ request()->routeIs('yearlycollectionreport') ? 'active' : null }}">
                             <a href="{{ route('yearlycollectionreport') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -1553,6 +1547,14 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
+                        @endcan
+                        <li class="{{ request()->routeIs('yearly-sales-plan-report') ? 'active' : null }}">
+                            <a href="{{ route('yearly-sales-plan-report') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Yearly Sales Plan Report </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
                         <li class="{{ request()->routeIs('project-wise-lead-report') ? 'active' : null }}">
                             <a href="{{ route('project-wise-lead-report') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -1560,6 +1562,14 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
+                        <li class="{{ request()->routeIs('category-wise-lead-generation-report') ? 'active' : null }}">
+                            <a href="{{ route('category-wise-lead-generation-report') }}">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext">Category wise Monthly Report </span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        @can('admin-sales-report')
                         <li class="{{ request()->routeIs('monthly-sales-report') ? 'active' : null }}">
                             <a href="{{ route('monthly-sales-report') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -1574,14 +1584,7 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class="{{ request()->routeIs('category-wise-lead-generation-report') ? 'active' : null }}">
-                            <a href="{{ route('category-wise-lead-generation-report') }}">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Category wise Monthly Report </span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                        </li>
-
+                        @endcan
                     </ul>
                 </li>
             @endcan
