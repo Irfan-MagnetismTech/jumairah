@@ -196,7 +196,7 @@
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="">Rental Compensation Amount<span class="text-danger"></span></label>
-                {{Form::text('rental_compensation', old('rental_compensation') ? old('rental_compensation') : (!empty($sell->rental_compensation) ? $sell->rental_compensation : 14),['class' => 'form-control ', 'id' => 'rental_compensation', 'min'=>'0', 'step'=>'0.01', 'placeholder' => '0.00', 'autocomplete'=>"off", ] )}}
+                {{Form::text('rental_compensation', old('rental_compensation') ? old('rental_compensation') : (!empty($sell->rental_compensation) ? $sell->rental_compensation : 0),['class' => 'form-control ', 'id' => 'rental_compensation', 'min'=>'0', 'step'=>'0.01', 'placeholder' => '0.00', 'autocomplete'=>"off", ] )}}
             </div>
         </div>
         <div class="col-xl-4 col-md-6">
