@@ -29,6 +29,8 @@ class CreateLoanApplicationsTable extends Migration
             $table->integer('left_amount')->nullable();
             $table->text('terms_and_conditions')->nullable();
             $table->integer('interest_rate')->nullable();
+            $table->date('loan_released_date')->nullable();
+            $table->string('loan_released_by')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });

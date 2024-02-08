@@ -51,11 +51,11 @@
 
         <div class="col-md-4 py-2">
             <div class="input-group input-group-sm input-group-primary">
-                <label class="input-group-addon" for="employee_id">Employee<span class="text-danger">*</span></label>
+                <label class="input-group-addon" for="employee_id">Employee <span class="text-danger">*</span></label>
                 {{ Form::select(
                     'employee_id',
                     $employees,
-                    old('employee_id') ? old('employee_id') : (!empty($loanApplication) ? $loanApplication->emp_id : null),
+                    old('employee_id') ? old('employee_id') : (!empty($loanApplication) ? $loanApplication->employee_id : null),
                     [
                         'class' => 'form-control select2',
                         'id' => 'employee_id',
@@ -82,7 +82,7 @@
                         '6' => 'business loan',
                         '7' => 'other loan',
                     ],
-                    old('loan_type_id') ? old('loan_type_id') : (!empty($loanApplication) ? $loanApplication->emp_id : null),
+                    old('loan_type_id') ? old('loan_type_id') : (!empty($loanApplication) ? $loanApplication->loan_type_id : null),
                     [
                         'class' => 'form-control select2',
                         'id' => 'loan_type_id',
@@ -267,7 +267,7 @@
             <div>
                 <label class="input-group" for="name">Terms and Conditions
                 </label>
-                <textarea name="terms_and_conditions" id="terms_and_conditions" cols="30" rows="2" class="mtl-summernote">{{ old('terms_and_conditions') ? old('terms_and_conditions') : null }}</textarea>
+                <textarea name="terms_and_conditions" id="terms_and_conditions" cols="30" rows="2" class="mtl-summernote">{{ old('terms_and_conditions') ? old('terms_and_conditions') : (!empty($loanApplication->terms_and_conditions) ? $loanApplication->terms_and_conditions : null) }}</textarea>
             </div>
             @error('terms_and_conditions')
                 <p class="text-danger">{{ $errors->first('terms_and_conditions') }}</p>

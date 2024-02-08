@@ -52,17 +52,15 @@
                 </tr>
             </tfoot>
             <tbody>
-                    @php
-                        $indx = 1;
-                    @endphp
+                @php
+                    $indx = 1;
+                @endphp
                 @foreach ($requisitions as $key => $requisition)
                     @if (auth()->user()->project_assigned == 0 ||
                             (auth()->user()->project_assigned == 1 &&
                                 in_array(
                                     $requisition->cost_center_id,
                                     auth()->user()->assignedProject->pluck('cost_center_id')->toArray())))
-
-
                         <tr>
                             @php
                                 $po_no = count($requisition->purchase_order);
@@ -87,16 +85,20 @@
                             <td> {{ $requisition->created_at }}</td>
                             @php
                                 $approvals = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($requisition) {
-                                                $q->where('id', $requisition->approval_layer_id);
-                                            })
-                                                ->whereDoesntHave('approvals', function ($q) use ($requisition) {
-                                                    $q->where('approvable_id', $requisition->id)->where('approvable_type', \App\Procurement\Requisition::class);
-                                                })
-                                                ->orderBy('order_by', 'asc')
-                                                ->first();
+                                    $q->where('id', $requisition->approval_layer_id);
+                                })
+                                    ->whereDoesntHave('approvals', function ($q) use ($requisition) {
+                                        $q->where('approvable_id', $requisition->id)->where('approvable_type', \App\Procurement\Requisition::class);
+                                    })
+                                    ->orderBy('order_by', 'asc')
+                                    ->first();
 
-                                $TotalApproval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($requisition) {$q->where('id', $requisition->approval_layer_id);
-                                            })->orderBy('order_by', 'asc')->get()->count();
+                                $TotalApproval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($requisition) {
+                                    $q->where('id', $requisition->approval_layer_id);
+                                })
+                                    ->orderBy('order_by', 'asc')
+                                    ->get()
+                                    ->count();
                             @endphp
                             <td>
                                 @if ($requisition->approval()->exists())
@@ -108,11 +110,15 @@
                                             {{ $approval1->user->employee->designation->name ?? '' }}
                                         </span><br>
                                     @endforeach
-                                    @if (($requisition->approval->count() != $TotalApproval))
-                                        <span class="badge bg-warning badge-sm">Pending in {{$approvals->designation->name ?? ''}} - {{$approvals->department->name ?? ''}}</span>
+                                    @if ($requisition->approval->count() != $TotalApproval)
+                                        <span class="badge bg-warning badge-sm">Pending in
+                                            {{ $approvals->designation->name ?? '' }} -
+                                            {{ $approvals->department->name ?? '' }}</span>
                                     @endif
                                 @else
-                                <span class="badge bg-warning badge-sm">Pending in {{$approvals->designation->name ?? ''}} - {{$approvals->department->name ?? ''}}</span>
+                                    <span class="badge bg-warning badge-sm">Pending in
+                                        {{ $approvals->designation->name ?? '' }} -
+                                        {{ $approvals->department->name ?? '' }}</span>
                                 @endif
                             </td>
                             <td>

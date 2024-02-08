@@ -34,9 +34,12 @@
                     <th>Loan Type</th>
                     <th>Loan Amount</th>
                     <th>Installment</th>
+                    <th>Left Amount</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Loan Release Date</th>
                     <th>Remarks</th>
+                    <th>Payment</th>
                     @canany(['line-edit', 'line-delete'])
                         <th>Action</th>
                     @endcanany
@@ -49,9 +52,11 @@
                     <th>Loan Type</th>
                     <th>Loan Amount</th>
                     <th>Installment</th>
+                    <th>Left Amount</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Remarks</th>
+                    <th>Payment</th>
                     @canany(['line-edit', 'line-delete'])
                         <th>Action</th>
                     @endcanany
@@ -65,18 +70,29 @@
                         <td class="text-left"> {{ $data->loan_type?->name }} </td>
                         <td class="text-left">{{ $data->loan_amount }}</td>
                         <td class="text-left">{{ $data->loan_installment }}</td>
-                        <td class="text-left">{{ $data->start_date }}</td>
-                        <td class="text-left">{{ $data->end_date }}</td>
+                        <td class="text-left">{{ $data->left_amount }}</td>
+                        <td class="text-left">{{ $data->loan_start_date }}</td>
+                        <td class="text-left">{{ $data->loan_end_date }}</td>
                         <td class="text-left">{{ $data->remarks }}</td>
-                        @canany(['line-edit', 'line-delete'])
+                        <td class="text-left">
+                            <a href="{{ route('loan-payment-create', $data->id) }}" class="btn btn-outline-info btn-sm">
+                                Installment
+                            </a>
+                            <a href="{{ route('loan-payment-form', $data->id) }}" class="btn btn-outline-info btn-sm">
+                                Payment
+                            </a>
+                        </td>
+                        @canany(['loan-application-delete', 'loan-application-edit'])
                             <td>
                                 <div class="icon-btn">
                                     <nobr>
-                                        @can('line-edit')
+                                        @can('loan-application-edit')
                                             <a href="{{ route('loan-applications.edit', $data->id) }}" data-toggle="tooltip"
-                                                title="Edit" class="btn btn-outline-warning"><i class="fas fa-pen"></i></a>
+                                                title="Edit" class="btn btn-outline-warning">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
                                         @endcan
-                                        @can('line-delete')
+                                        @can('loan-application-delete')
                                             <form action="{{ url("hr/loan-applications/$data->id") }}" method="POST"
                                                 data-toggle="tooltip" title="Delete" class="d-inline">
                                                 @csrf

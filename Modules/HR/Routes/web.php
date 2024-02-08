@@ -26,6 +26,7 @@ use Modules\HR\Http\Controllers\SubSectionController;
 use Modules\HR\Http\Controllers\BuidingInfoController;
 use Modules\HR\Http\Controllers\DesignationController;
 use Modules\HR\Http\Controllers\JobLocationController;
+use Modules\HR\Http\Controllers\LoanPaymentController;
 use Modules\HR\Http\Controllers\BonusSettingController;
 use Modules\HR\Http\Controllers\EmployeeTypeController;
 use Modules\HR\Http\Controllers\LeaveBalanceController;
@@ -112,7 +113,12 @@ Route::prefix('hr')->group(function () {
             'finger-print-device-users' => FingerPrintDeviceUserController::class,
             // 'employee-overtime' => EmployeeOtController::class,
             'loan-applications' => LoanApplicationController::class,
+            'loan-payments' => LoanPaymentController::class,
+
         ]);
+
+        Route::get('loan-payment/create/{id}', [LoanPaymentController::class, 'create'])->name('loan-payment-create');
+        Route::get('loan-payment-form/{id}', [LoanPaymentController::class, 'loanHandover'])->name('loan-payment-form');
     });
 
 

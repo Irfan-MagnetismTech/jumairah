@@ -9,16 +9,23 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Modules\HR\Entities\LoanApplication;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+
+
+
 
 class LoanApplicationController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        $loanApplications = LoanApplication::with('employee', 'loan_type')->get();
+        $this->authorize('loan-application-index');
+        $loanApplications = LoanApplication::with('employee', 'loan_type')->latest()->get();
         // dd($loanApplications);
         return view('hr::loan-application.index', compact('loanApplications'));
     }
@@ -29,6 +36,7 @@ class LoanApplicationController extends Controller
      */
     public function create()
     {
+        $this->authorize('loan-application-create');
         $employees = Employee::where('is_active', 1)->pluck('emp_name', 'id');
         $formType = 'create';
         return view('hr::loan-application.create', compact('employees', 'formType'));
@@ -41,9 +49,11 @@ class LoanApplicationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('loan-application-store');
         try {
-            $input = $request->all();
             DB::beginTransaction();
+            $input = $request->all();
+            $input['left_amount'] = $input['loan_amount'];
             LoanApplication::create($input);
             DB::commit();
             return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction created Successfully.');
@@ -70,7 +80,12 @@ class LoanApplicationController extends Controller
      */
     public function edit($id)
     {
-        return view('hr::edit');
+
+        $this->authorize('loan-application-edit');
+        $loanApplication = LoanApplication::findOrFail($id);
+        $employees = Employee::where('is_active', 1)->pluck('emp_name', 'id');
+        $formType = 'edit';
+        return view('hr::loan-application.create', compact('loanApplication', 'employees', 'formType'));
     }
 
     /**
@@ -81,7 +96,19 @@ class LoanApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        try {
+            $this->authorize('loan-application-update');
+            $input = $request->all();
+            DB::beginTransaction();
+            $loanApplication = LoanApplication::findOrFail($id);
+            $loanApplication->update($input);
+            DB::commit();
+            return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction updated Successfully.');
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return redirect()->route('loan-applications.edit', $id)->withInput()->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -91,6 +118,16 @@ class LoanApplicationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->authorize('loan-application-delete');
+            DB::beginTransaction();
+            $loanApplication = LoanApplication::findOrFail($id);
+            $loanApplication->delete();
+            DB::commit();
+            return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction deleted Successfully.');
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return redirect()->route('loan-applications.index')->withInput()->withErrors($e->getMessage());
+        }
     }
 }
