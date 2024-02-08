@@ -13,7 +13,7 @@ class Leadgeneration extends Model
     protected $fillable = ['name','country_code','contact','contact_alternate','email','profession','company_name','business_card',
                         'spouse_name','spouse_contact','present_address','permanent_address','nationality','lead_date','lead_stage',
                         'source_type','referral_id','apartment_id','offer_details','attachment','remarks', 'created_by',
-                        'country_code_two','country_code_three','contact_alternate_three'];
+                        'country_code_two','country_code_three','contact_alternate_three', 'customer_offer_details'];
 
     public function apartment()
     {

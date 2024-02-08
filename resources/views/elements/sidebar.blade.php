@@ -1059,7 +1059,7 @@
                 <li class="pcoded-hasmenu {{ request()->routeIs('projects.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                        <span class="pcoded-mtext">Project Details</span>
+                        <span class="pcoded-mtext">Project</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                     <ul class="pcoded-submenu">

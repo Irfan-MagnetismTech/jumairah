@@ -114,7 +114,6 @@ class LeadgenerationController extends Controller
         try {
             $data = $request->except('business_card', 'attachment', 'project_name', 'project_id', 'created_by', 'date', 'next_followup_date', 'time_from', 'time_till', 'activity_type', 'reason', 'feedback');
             $followupData = $request->only('date', 'next_followup_date', 'time_from', 'time_till', 'activity_type', 'reason', 'feedback', 'remarks');
-
             $data['business_card'] = $request->hasFile('business_card') ? $request->file('business_card')->store('lead') : null;
             $data['attachment'] = $request->hasFile('attachment') ? $request->file('attachment')->store('lead') : null;
             $data['lead_date'] = date('d-m-Y', strtotime(now()));
