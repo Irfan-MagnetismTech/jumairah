@@ -6,8 +6,7 @@
 @endsection
 
 @section('style')
-    <style>
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/Datatables/dataTables.bootstrap4.min.css')}}">
 @endsection
 @section('breadcrumb-button')
     <a href="{{ route('roles.create')}}" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-plus"></i></a>
@@ -30,8 +29,9 @@
                     <td>{{ $loop->iteration }}</td>
                     <td class="text-left">{{$role->name}}</td>
                     <td class="text-left breakWords">
-                        @foreach($role->permissions as $permission)
-                            <span class="label label-success tableBadge">{{$permission->name}}</span>
+                        {{-- {{ $role->permissions->pluck('module','module')->implode(', ')}} --}}
+                        @foreach($role->permissions->pluck('module','module') as $permission)
+                            <span class="label label-success tableBadge">{{ $permission }}</span>
                         @endforeach
                     </td>
                     <td>
@@ -63,5 +63,23 @@
 @endsection
 
 @section('script')
+<script src="{{asset('js/Datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/Datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <script>
+        $(window).scroll(function () {
+            //set scroll position in session storage
+            sessionStorage.scrollPos = $(window).scrollTop();
+        });
+        var init = function () {
+            //get scroll position in session storage
+            $(window).scrollTop(sessionStorage.scrollPos || 0)
+        };
+        window.onload = init;
 
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                stateSave: true
+            });
+        });
+    </script>
 @endsection

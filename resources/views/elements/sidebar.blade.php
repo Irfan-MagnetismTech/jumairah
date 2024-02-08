@@ -131,9 +131,9 @@
                 </li>
             @endcan
         </ul>
-        @can('general')
+        @canany(['general-requisitions-view', 'bill-register-view', 'general-bill-view', 'iou-create', 'admin-yearly-budgets', 'admin-monthly-budgets'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">General</div>
-        @endcan
+        @endcanany
         <ul class="pcoded-item pcoded-left-item">
             @can('general-requisitions-view')
                 <li
@@ -187,7 +187,7 @@
                 </li>
             @endcan
 
-            @can('general-bill-view')
+            {{-- @can('general-bill-view')
                 <li class="pcoded-hasmenu {{ request()->routeIs('generalBill.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
@@ -211,7 +211,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
             {{-- <li class="pcoded-hasmenu {{ request()->routeIs('costMemo.*') ? 'active pcoded-trigger' : null }}">
                 <a href="javascript:void(0)">
                     <span class="pcoded-micon"><i class="fas fa-cart-plus"></i><b>BC</b></span>
@@ -1784,7 +1784,7 @@
                     </ul>
                 </li>
             @endcan --}}
-            @can('material-servicing-view')
+            {{-- @can('material-servicing-view')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs('boq.MaterialServincing.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
@@ -1809,7 +1809,7 @@
                         </li>
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
         </ul>
         @canany(['supplier-view', 'nestedmaterial-view', 'requisition-view', 'comparative-statement-view',
             'purchase-order-view', 'materialReceiv-view', 'supplierbill-view', 'pending-bill', 'storeissue-view',
@@ -2265,7 +2265,7 @@
                 </li>
             @endcan
         </ul>
-        @canany(['boq-eme-load-calculation', 'boq-eme-labor-rate-view', 'boq-eme-utility-bill-view',
+        {{-- @canany(['boq-eme-load-calculation', 'boq-eme-labor-rate-view', 'boq-eme-utility-bill-view',
             'boq-eme-work-cs-view', 'boq-eme-work-order-view', 'boq-eme-construction-bill-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Eme</div>
         @endcanany
@@ -2419,7 +2419,7 @@
                     </ul>
                 </li>
             @endcan
-        </ul>
+        </ul> --}}
         @canany(['csd-material-view', 'construction-action-plan-view', 'construction-material-plan-view',
             'work-cs-view', 'work-order-view', 'construction-bill-view', 'construction-tentative-budget-view',
             'construction-cost-incurred-report-view', 'construction-project-progress-report-view'])
