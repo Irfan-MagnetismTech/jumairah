@@ -17,7 +17,7 @@ class ApartmentShifting extends Model
     protected $fillable=['sale_id','date','old_project_id','old_apartment_id','old_apartment_size','old_apartment_rate','old_utility_no',
         'old_utility_price','old_reserve_no','old_reserve_rate','old_parking_no','old_parking_price','new_project_id','new_apartment_id',
         'new_apartment_size','new_apartment_rate','new_utility_no','new_utility_price','new_reserve_no','new_reserve_rate','new_parking_no',
-        'new_parking_price','hand_over_date','attachment','stage','tf_percentage','transfer_fee','discount','old_total_value','new_total_value'];
+        'new_parking_price','hand_over_date','attachment','stage','tf_percentage','transfer_fee','discount','old_total_value','new_total_value', 'reason'];
 
     public function apartmentShiftingDetails()
     {

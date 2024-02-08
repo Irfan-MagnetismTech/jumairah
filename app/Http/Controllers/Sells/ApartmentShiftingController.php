@@ -53,7 +53,7 @@ class ApartmentShiftingController extends Controller
             $sale = Sell::where('id', $request->sale_id)->first();
             $sell_data = $request->only('old_project_id', 'sale_id','tf_percentage','transfer_fee','discount','new_project_id','new_apartment_id'
             ,'hand_over_date', 'new_apartment_size','new_apartment_rate','new_utility_no','new_utility_price','new_reserve_no','new_reserve_rate',
-            'new_parking_no','new_parking_price');
+            'new_parking_no','new_parking_price', 'reason');
             $sell_data['user_id'] = Auth::user()->id;
             $sell_data['old_apartment_id'] = $sale->apartment_id;
             $sell_data['old_apartment_size'] = $sale->apartment_size;
@@ -91,7 +91,7 @@ class ApartmentShiftingController extends Controller
                     ];
                 }
             }
-
+            
             DB::transaction(function()use($sell_data, $sellParkingData, $saleUpdateData){
                 $shifting = ApartmentShifting::create($sell_data);
                 $client = $shifting->sale->sellClient->client->name;
