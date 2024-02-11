@@ -41,7 +41,7 @@
                     <th>Material Cost</th>
                     <th>Total Cost</th>
                 </tr>
-                <tr class="text-center">
+                {{-- <tr class="text-center">
                     <td>1</td>
                     <td>2</td>
                     <td>3</td>
@@ -63,7 +63,7 @@
                     <td>19</td>
                     <td>20</td>
                     <td>21</td>
-                </tr>
+                </tr> --}}
             </thead>
             <tbody>
                 @foreach ($projects as $key => $project)

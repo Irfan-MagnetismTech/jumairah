@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\construction;
+namespace App\Http\Controllers\Construction;
 
 use App\Boq\Departments\Civil\BoqCivilBudget;
 use App\Boq\Projects\BoqFloorProject;
@@ -10,7 +10,7 @@ use App\Construction\TentativeBudget;
 use App\Construction\TentativeBudgetDetail;
 use App\CostCenter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\construction\ProjectProgressReportRequest;
+use App\Http\Requests\Construction\ProjectProgressReportRequest;
 use App\LedgerEntry;
 use App\Transaction;
 use Illuminate\Database\QueryException;
