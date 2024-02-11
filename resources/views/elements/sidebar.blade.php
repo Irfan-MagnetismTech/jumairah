@@ -2420,7 +2420,7 @@
                 </li>
             @endcan
         </ul> --}}
-        @canany(['csd-material-view', 'construction-action-plan-view', 'construction-material-plan-view',
+        @canany(['construction-configurations', 'construction-action-plan-view', 'construction-material-plan-view',
             'work-cs-view', 'work-order-view', 'construction-bill-view', 'construction-tentative-budget-view',
             'construction-cost-incurred-report-view', 'construction-project-progress-report-view'])
             <div class="pcoded-navigation-label text-uppercase bg-primary">Constructions</div>
@@ -2428,7 +2428,7 @@
 
         <ul class="pcoded-item pcoded-left-item">
 
-            @can('csd-material-view')
+            @can('construction-configurations')
                 <li
                     class="pcoded-hasmenu {{ request()->routeIs(['csd.materials.*', 'csd.material_rate.*', 'bill-title.*']) ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
