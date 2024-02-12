@@ -3,7 +3,7 @@
 
     @can('hr-config')
         <li
-            class="pcoded-hasmenu {{ request()->routeIs(['salary-settings.*', 'employee-types.*', 'religions.*', 'shifts.*', 'units.*', 'post-offices.*', 'police-stations.*', 'designations.*', 'grades.*', 'lines.*', 'floors.*', 'districts.*', 'sections.*', 'departments.*', 'sub-sections.*', 'banks.*', 'bank-branch-info.*', 'building-infos.*', 'bus-stops.*', 'pay-modes.*', 'genders.*', 'released-types.*', 'allowance-types.*', 'bonus-settings.*', 'job-locations.*', 'leave-types.*', 'bonuses.*']) ? 'active pcoded-trigger' : null }}">
+            class="pcoded-hasmenu {{ request()->routeIs(['salary-settings.*', 'employee-types.*', 'religions.*', 'shifts.*', 'units.*', 'post-offices.*', 'police-stations.*', 'designations.*', 'grades.*', 'lines.*', 'floors.*', 'districts.*', 'sections.*', 'departments.*', 'sub-sections.*', 'banks.*', 'bank-branch-info.*', 'building-infos.*', 'bus-stops.*', 'pay-modes.*', 'genders.*', 'released-types.*', 'allowance-types.*', 'bonus-settings.*', 'job-locations.*', 'leave-types.*', 'bonuses.*', 'adjustment-types.*']) ? 'active pcoded-trigger' : null }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-panel"></i><b></b></span>
                 <span class="pcoded-mtext">Configurations</span>
@@ -335,6 +335,15 @@
                         </a>
                     </li>
                 @endcan
+                <li class="{{ request()->routeIs('adjustment-types.*') ? 'active' : null }}">
+                    <a href="{{ route('adjustment-types.index') }}">
+                        <span class="pcoded-micon">
+                            <i class="ti-angle-right"></i>
+                        </span>
+                        <span class="pcoded-mtext">Adjustment Types</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
             </ul>
         </li>
     @endcan

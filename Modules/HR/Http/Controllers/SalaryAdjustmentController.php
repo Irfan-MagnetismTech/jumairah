@@ -50,7 +50,7 @@ class SalaryAdjustmentController extends Controller
             'employee_id' => 'required',
             'amount' => 'required|numeric|min:0',
             'remarks' => 'required',
-            'type' => 'required',
+
         ]);
         try {
             $input = $request->all();

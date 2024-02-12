@@ -36,6 +36,7 @@ use Modules\HR\Http\Controllers\AttendanceLogController;
 use Modules\HR\Http\Controllers\FixAttendanceController;
 use Modules\HR\Http\Controllers\PoliceStationController;
 use Modules\HR\Http\Controllers\SalarySettingController;
+use Modules\HR\Http\Controllers\AdjustmentTypeController;
 use Modules\HR\Http\Controllers\BankBranchInfoController;
 use Modules\HR\Http\Controllers\EmployeeMasterController;
 use Modules\HR\Http\Controllers\EmployeeSalaryController;
@@ -114,6 +115,7 @@ Route::prefix('hr')->group(function () {
             // 'employee-overtime' => EmployeeOtController::class,
             'loan-applications' => LoanApplicationController::class,
             'loan-payments' => LoanPaymentController::class,
+            'adjustment-types' => AdjustmentTypeController::class,
 
         ]);
 

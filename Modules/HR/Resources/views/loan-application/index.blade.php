@@ -55,6 +55,7 @@
                     <th>Left Amount</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Loan Release Date</th>
                     <th>Remarks</th>
                     <th>Payment</th>
                     @canany(['line-edit', 'line-delete'])
@@ -67,12 +68,13 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td class="text-left">{{ $data->employee->emp_name }}</td>
-                        <td class="text-left"> {{ $data->loan_type?->name }} </td>
+                        <td class="text-left">{{ $data->loan_type?->name }}</td>
                         <td class="text-left">{{ $data->loan_amount }}</td>
                         <td class="text-left">{{ $data->loan_installment }}</td>
                         <td class="text-left">{{ $data->left_amount }}</td>
                         <td class="text-left">{{ $data->loan_start_date }}</td>
                         <td class="text-left">{{ $data->loan_end_date }}</td>
+                        <td class="text-left">{{ $data->loan_released_date }}</td>
                         <td class="text-left">{{ $data->remarks }}</td>
                         <td class="text-left">
                             <a href="{{ route('loan-payment-create', $data->id) }}" class="btn btn-outline-info btn-sm">

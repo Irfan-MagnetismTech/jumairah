@@ -72,8 +72,9 @@
                                                 title="Delete" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger btn-sm delete"><i
-                                                        class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-outline-danger btn-sm delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </form>
                                         @endcan
                                     </nobr>

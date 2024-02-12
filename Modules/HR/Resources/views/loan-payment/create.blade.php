@@ -83,7 +83,10 @@
         <div class="col-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label style="min-width: 22% !important; max-width:22% !important;" class="input-group-addon"
-                    for="name">Payment Amount <span class="text-danger">*</span></label>
+                    for="name">
+                    Payment Amount
+                    <span class="text-danger">*</span>
+                </label>
                 {{ Form::number(
                     'payment_amount',
                     old('payment_amount')
