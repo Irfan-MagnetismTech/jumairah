@@ -2,13 +2,16 @@
 
 namespace Modules\HR\Http\Controllers;
 
+use App\Accounts\Account;
 use App\Employee;
-use App\Http\Controllers\AccountController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Modules\HR\Entities\LoanApplication;
+use App\Http\Controllers\AccountController;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -54,16 +57,23 @@ class LoanApplicationController extends Controller
         try {
             DB::beginTransaction();
             $input = $request->all();
-            $input['left_amount'] = $input['loan_amount'];
             $loan = LoanApplication::create($input);
 
-            $loan->account()->create([
-                'account_name' => $loan->employee->emp_name,
-                'account_type' => 2,
-                'account_code' => (new AccountController)->AccountsRefGeneratorBackendUse(9),
-                'balance_and_income_line_id' => 9,
-                'parent_account_id' => null,
-            ]);
+            $accountChk = Account::where('accountable_type', LoanApplication::class)
+                ->where('balance_and_income_line_id', 9)
+                ->where('account_name', $loan->employee->emp_name)
+                ->first();
+
+            if (!$accountChk) {
+                $loan->account()->create([
+                    'account_name' => $loan->employee->emp_name,
+                    'account_type' => 2,
+                    'account_code' => (new AccountController)->AccountsRefGeneratorBackendUse(9),
+                    'balance_and_income_line_id' => 9,
+                    'parent_account_id' => null,
+                ]);
+            }
+
 
             DB::commit();
             return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction created Successfully.');
@@ -148,9 +158,70 @@ class LoanApplicationController extends Controller
         }
     }
 
-    public function loanPaymentStore(Request $request)
+    public function loanApprove($id)
     {
 
-        dd($request->all());
+        $loanApplication = LoanApplication::findOrFail($id);
+
+        $loanApplication->update([
+            'loan_status' => 'approved',
+            'approved_by' => Auth::user()->id,
+            'approved_date' => Carbon::now(),
+        ]);
+
+        return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction Approved Successfully.');
+    }
+
+    public function loanPaymentStore(Request $request)
+    {
+        try {
+            $input = $request->all();
+            DB::beginTransaction();
+            $loanApplication = LoanApplication::findOrFail($input['loan_application_id']);
+            $loanApplication->update([
+                'left_amount' => $input['loan_amount'],
+                'loan_released_date' => $input['date'],
+                'loan_released_by' => Auth::user()->id,
+            ]);
+
+            // accounts voucher entry
+
+            $transactionData = [
+                'voucher_type' => 'Journal',
+                'bill_no' => null,
+                'mr_no' => null,
+                'transaction_date' => Carbon::createFromFormat('Y-m-d', $input['date'])->format('d-m-Y'),
+                'narration' => 'loan released to ' . $loanApplication->employee->emp_name,
+                'user_id' => auth()->id(),
+            ];
+
+            $transaction = $loanApplication->transaction()->create($transactionData);
+
+            $employeeLoanAccount = Account::where('accountable_type', LoanApplication::class)
+                ->where('balance_and_income_line_id', 9)
+                ->where('account_name', $loanApplication->employee->emp_name)
+                ->first();
+
+            $emoloyeeLoanAccountLedgerData = [
+                'account_id' => $employeeLoanAccount->id,
+                'dr_amount' => $input['loan_amount'],
+                'pourpose' => 'loan released to ' . $loanApplication->employee->emp_name,
+            ];
+
+            $paymentAccount = Account::where('id', $input['payment_account'])->first();
+
+            $paymentAccountLedgerData = [
+                'account_id' =>  $paymentAccount->id,
+                'cr_amount' => $input['loan_amount'],
+                'remarks' => 'loan released to ' . $loanApplication->employee->emp_name,
+            ];
+
+            $transaction->ledgerEntries()->createMany([$emoloyeeLoanAccountLedgerData, $paymentAccountLedgerData]);
+            DB::commit();
+            return redirect()->route('loan-applications.index')->with('message', 'Loan Released Successfully.');
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return redirect()->route('loan-applications.index')->withInput()->withErrors($e->getMessage());
+        }
     }
 }

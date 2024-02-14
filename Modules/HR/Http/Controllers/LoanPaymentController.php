@@ -3,13 +3,15 @@
 namespace Modules\HR\Http\Controllers;
 
 use App\Accounts\Loan;
+use App\Accounts\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Modules\HR\Entities\LoanPayment;
 use Illuminate\Database\QueryException;
 use Modules\HR\Entities\LoanApplication;
 use Illuminate\Contracts\Support\Renderable;
-use Modules\HR\Entities\LoanPayment;
 
 class LoanPaymentController extends Controller
 {
@@ -49,7 +51,8 @@ class LoanPaymentController extends Controller
             $loanApplication->left_amount -= $input['payment_amount'];
             $loanApplication->save();
             $input['created_by'] = auth()->user()->id;
-            LoanPayment::create($input);
+            $loanPayment = LoanPayment::create($input);
+
             DB::commit();
             return redirect()->route('loan-applications.index')->with('message', 'Loan Payment created Successfully.');
         } catch (QueryException $e) {
@@ -128,6 +131,7 @@ class LoanPaymentController extends Controller
     {
         $loan_application = LoanApplication::findOrFail($id);
         $formType = 'create';
-        return view('hr::loan-application.loan-handover-form', compact('loan_application', 'formType'));
+        $accounts = Account::pluck('account_name', 'id');
+        return view('hr::loan-application.loan-handover-form', compact('loan_application', 'formType', 'accounts'));
     }
 }

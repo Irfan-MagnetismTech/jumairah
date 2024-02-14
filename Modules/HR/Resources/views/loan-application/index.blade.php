@@ -39,6 +39,7 @@
                     <th>End Date</th>
                     <th>Loan Release Date</th>
                     <th>Remarks</th>
+                    <th>Status</th>
                     <th>Payment</th>
                     @canany(['line-edit', 'line-delete'])
                         <th>Action</th>
@@ -57,6 +58,7 @@
                     <th>End Date</th>
                     <th>Loan Release Date</th>
                     <th>Remarks</th>
+                    <th>Status</th>
                     <th>Payment</th>
                     @canany(['line-edit', 'line-delete'])
                         <th>Action</th>
@@ -76,18 +78,31 @@
                         <td class="text-left">{{ $data->loan_end_date }}</td>
                         <td class="text-left">{{ $data->loan_released_date }}</td>
                         <td class="text-left">{{ $data->remarks }}</td>
+                        <td class="text-left">{{ $data->loan_status }}</td>
                         <td class="text-left">
-                            <a href="{{ route('loan-payment-create', $data->id) }}" class="btn btn-outline-info btn-sm">
-                                Installment
-                            </a>
-                            <a href="{{ route('loan-payment-form', $data->id) }}" class="btn btn-outline-info btn-sm">
-                                Payment
-                            </a>
+                            @if ($data->loan_status == 'approved')
+                                <a href="{{ route('loan-payment-create', $data->id) }}"
+                                    class="btn btn-outline-info btn-sm">
+                                    Installment
+                                </a>
+                            @endif
+                            @if ($data->loan_released_date == null)
+                                <a href="{{ route('loan-payment-form', $data->id) }}" class="btn btn-outline-info btn-sm">
+                                    Payment
+                                </a>
+                            @endif
                         </td>
                         @canany(['loan-application-delete', 'loan-application-edit'])
                             <td>
                                 <div class="icon-btn">
                                     <nobr>
+                                        <a href="{{ route('loan-approve', ['id' => $data->id]) }}">
+                                            <button class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                                                title="Click to Approve">
+                                                <i class="fas fa-check-circle"></i>
+                                            </button>
+                                        </a>
+
                                         @can('loan-application-edit')
                                             <a href="{{ route('loan-applications.edit', $data->id) }}" data-toggle="tooltip"
                                                 title="Edit" class="btn btn-outline-warning">

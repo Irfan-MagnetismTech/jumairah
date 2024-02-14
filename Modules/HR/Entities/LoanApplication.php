@@ -3,6 +3,7 @@
 namespace Modules\HR\Entities;
 
 use App\Employee;
+use App\Transaction;
 use App\Accounts\Account;
 use Modules\HR\Entities\LoanType;
 use Illuminate\Database\Eloquent\Model;
@@ -28,4 +29,11 @@ class LoanApplication extends Model
     {
         return $this->morphOne(Account::class, 'accountable');
     }
+
+    public function transaction()
+    {
+        return $this->morphOne(Transaction::class, 'transactionable');
+    }
+
+
 }

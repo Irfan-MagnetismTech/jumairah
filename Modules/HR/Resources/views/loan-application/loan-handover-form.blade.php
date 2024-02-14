@@ -40,7 +40,7 @@
     @endif
 
     <div class="row">
-
+        <input type="number" name="loan_application_id" value="{{ $loan_application->id }}" hidden>
         <div class="col-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="date">Date<span class="text-danger">*</span></label>
@@ -55,10 +55,13 @@
             </div>
         </div>
 
-
-
-
-
+        <div class="col-6">
+            <div class="input-group input-group-sm input-group-primary">
+                <label class="input-group-addon " for="payment_account">Payment Account<span
+                        class="text-danger">*</span></label>
+                {{ Form::select('payment_account', $accounts, old('payment_account') ? old('payment_account') : (!empty($loanApplication->payment_account) ? $loanApplication->payment_account : null), ['class' => 'form-control select2', 'id' => 'payment_account', 'autocomplete' => 'off']) }}
+            </div>
+        </div>
     </div><!-- end row -->
 
     <div class="row">

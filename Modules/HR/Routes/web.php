@@ -122,6 +122,7 @@ Route::prefix('hr')->group(function () {
         Route::get('loan-payment/create/{id}', [LoanPaymentController::class, 'create'])->name('loan-payment-create');
         Route::get('loan-payment-form/{id}', [LoanPaymentController::class, 'loanHandover'])->name('loan-payment-form');
         Route::post('loan-payment-store', [LoanApplicationController::class, 'loanPaymentStore'])->name('loan-payment-store');
+        Route::get('loan-approve/{id}', [LoanApplicationController::class, 'loanApprove'])->name('loan-approve');
     });
 
 
