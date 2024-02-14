@@ -31,16 +31,8 @@
 @section('content')
     @if ($formType == 'create')
         {!! Form::open([
-            'url' => 'hr/loan-applications',
+            'url' => 'hr/loan-payment-store',
             'method' => 'POST',
-            'class' => 'custom-form',
-            'files' => true,
-            'enctype' => 'multipart/form-data',
-        ]) !!}
-    @else
-        {!! Form::open([
-            'url' => "hr/loan-applications/$loanApplication->id",
-            'method' => 'PUT',
             'class' => 'custom-form',
             'files' => true,
             'enctype' => 'multipart/form-data',
@@ -48,6 +40,20 @@
     @endif
 
     <div class="row">
+
+        <div class="col-6">
+            <div class="input-group input-group-sm input-group-primary">
+                <label class="input-group-addon" for="date">Date<span class="text-danger">*</span></label>
+                {{ Form::date('date', old('date') ? old('date') : (!empty($loanApplication->date) ? $loanApplication->date : date('Y-m-d')), ['class' => 'form-control', 'id' => 'date', 'autocomplete' => 'off']) }}
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="input-group input-group-sm input-group-primary">
+                <label class="input-group-addon " for="loan_amount">Amount<span class="text-danger">*</span></label>
+                {{ Form::number('loan_amount', old('loan_amount') ? old('loan_amount') : (!empty($loanApplication->loan_amount) ? $loanApplication->loan_amount : null), ['class' => 'form-control', 'id' => 'loan_amount', 'autocomplete' => 'off']) }}
+            </div>
+        </div>
 
 
 

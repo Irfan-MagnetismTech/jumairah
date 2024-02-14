@@ -9,6 +9,7 @@ use App\Http\Requests\AccountRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
+
 class AccountController extends Controller
 {
     /**
@@ -25,9 +26,9 @@ class AccountController extends Controller
     public function accountList()
     {
         $balanceIncomeHeaders = BalanceAndIncomeLine::whereIn('line_type', ['income_header', 'balance_header'])
-                                ->get();
-//        $accounts = Account::whereNull('parent_account_id')->get();
-//        dd($balanceIncomeHeaders);
+            ->get();
+        //        $accounts = Account::whereNull('parent_account_id')->get();
+        //        dd($balanceIncomeHeaders);
         return view('accounts.accounts.accountList', compact('balanceIncomeHeaders'));
     }
 
@@ -39,10 +40,10 @@ class AccountController extends Controller
     public function create()
     {
         $parentAccounts = [];
-        $groups = CogsGroup::pluck('name','id');
-        $balanceIncomeLines = BalanceAndIncomeLine::whereIn('line_type', ['balance_line','income_line'])->orderBy('line_text')->pluck('line_text', 'id');
-        $accountTypes = [1=> 'Assets',2=> 'Liabilities',3=> 'Equity',4=> 'Revenues',5=> 'Expenses'];
-        return view('accounts.accounts.create', compact('balanceIncomeLines', 'accountTypes', 'parentAccounts','groups'));
+        $groups = CogsGroup::pluck('name', 'id');
+        $balanceIncomeLines = BalanceAndIncomeLine::whereIn('line_type', ['balance_line', 'income_line'])->orderBy('line_text')->pluck('line_text', 'id');
+        $accountTypes = [1 => 'Assets', 2 => 'Liabilities', 3 => 'Equity', 4 => 'Revenues', 5 => 'Expenses'];
+        return view('accounts.accounts.create', compact('balanceIncomeLines', 'accountTypes', 'parentAccounts', 'groups'));
     }
 
     public function store(AccountRequest $request)
@@ -52,9 +53,7 @@ class AccountController extends Controller
             $data['account_name'] = $request->account_name;
             Account::create($data);
             return redirect()->route('accounts.create')->with('message', 'Data has been Inserted successfully');
-        }
-        catch (QueryException $e)
-        {
+        } catch (QueryException $e) {
             return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
@@ -72,12 +71,12 @@ class AccountController extends Controller
 
     public function edit(Account $account)
     {
-        $groups = CogsGroup::pluck('name','id');
-        $parentAccounts = Account::orderBy('account_name')->where('balance_and_income_line_id',$account->balance_and_income_line_id)->pluck('account_name', 'id');
-        $balanceIncomeLines = BalanceAndIncomeLine::whereIn('line_type', ['balance_line','income_line'])->orderBy('line_text')->pluck('line_text', 'id');
-        $accountTypes = [1=> 'Assets',2=> 'Liabilities',3=> 'Equity',4=> 'Revenues',5=> 'Expenses'];
+        $groups = CogsGroup::pluck('name', 'id');
+        $parentAccounts = Account::orderBy('account_name')->where('balance_and_income_line_id', $account->balance_and_income_line_id)->pluck('account_name', 'id');
+        $balanceIncomeLines = BalanceAndIncomeLine::whereIn('line_type', ['balance_line', 'income_line'])->orderBy('line_text')->pluck('line_text', 'id');
+        $accountTypes = [1 => 'Assets', 2 => 'Liabilities', 3 => 'Equity', 4 => 'Revenues', 5 => 'Expenses'];
 
-        return view('accounts.accounts.create', compact('balanceIncomeLines', 'accountTypes', 'parentAccounts', 'account','groups'));
+        return view('accounts.accounts.create', compact('balanceIncomeLines', 'accountTypes', 'parentAccounts', 'account', 'groups'));
     }
 
     public function update(AccountRequest $request, Account $account)
@@ -85,12 +84,10 @@ class AccountController extends Controller
         try {
             $data = $request->all();
             $account->update($data);
-           return redirect()->route('accounts.index')->with('message', 'Data has been Updated successfully');
-       }
-       catch (QueryException $e)
-       {
-           return redirect()->back()->withInput()->withErrors($e->getMessage());
-       }
+            return redirect()->route('accounts.index')->with('message', 'Data has been Updated successfully');
+        } catch (QueryException $e) {
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
+        }
     }
 
     public function destroy(Account $account)
@@ -98,9 +95,7 @@ class AccountController extends Controller
         try {
             $account->delete();
             return redirect()->route('accounts.index')->with('message', 'Data has been Deleted successfully');
-        }
-        catch (\Exception$e)
-        {
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
@@ -109,31 +104,47 @@ class AccountController extends Controller
     {
         $currentAccountCode = null;
         $balanceid = BalanceAndIncomeLine::where('id', $balanceIncomeLineId)->firstOrFail()->ancestors->pluck('id')->implode('-');
-        $lastAccount = Account::where('account_code', "LIKE" ,"$balanceid-$balanceIncomeLineId-%")->latest()->first();
+        $lastAccount = Account::where('account_code', "LIKE", "$balanceid-$balanceIncomeLineId-%")->latest()->first();
 
-//        dd($balanceid,$lastAccount);
-        if(!empty($lastAccount)){
-            list(,,,$aad)= explode("-", $lastAccount->account_code);
-            $currentAccountCode = $aad+1;
-        }else{
+        //        dd($balanceid,$lastAccount);
+        if (!empty($lastAccount)) {
+            list(,,, $aad) = explode("-", $lastAccount->account_code);
+            $currentAccountCode = $aad + 1;
+        } else {
             $currentAccountCode = 1;
         }
-//        dd($currentAccountCode);
+        //        dd($currentAccountCode);
         return json_encode("$balanceid-$balanceIncomeLineId-$currentAccountCode");
+    }
+
+    public function AccountsRefGeneratorBackendUse($balanceIncomeLineId)
+    {
+        $currentAccountCode = null;
+        $balanceid = BalanceAndIncomeLine::where('id', $balanceIncomeLineId)->firstOrFail()->ancestors->pluck('id')->implode('-');
+        $lastAccount = Account::where('account_code', "LIKE", "$balanceid-$balanceIncomeLineId-%")->latest()->first();
+        if (!empty($lastAccount)) {
+            list(,,, $aad) = explode("-", $lastAccount->account_code);
+            $currentAccountCode = $aad + 1;
+        } else {
+            $currentAccountCode = 1;
+        }
+        $account_code =  $balanceid . '-' . $balanceIncomeLineId . '-' . $currentAccountCode;
+
+        return $account_code;
     }
 
     public function accountsRefCode($accountId)
     {
-        $balanceIncomeLineData = Account::where('id',$accountId)->first();
+        $balanceIncomeLineData = Account::where('id', $accountId)->first();
         $balanceIncomeLineId = $balanceIncomeLineData->balance_and_income_line_id;
         $currentAccountCode = null;
         $balanceid = BalanceAndIncomeLine::where('id', $balanceIncomeLineId)->first()->ancestors->pluck('id')->implode('-');
-        $lastAccount = Account::where('account_code', "LIKE" ,"$balanceid-$balanceIncomeLineId-%")->latest()->first();
+        $lastAccount = Account::where('account_code', "LIKE", "$balanceid-$balanceIncomeLineId-%")->latest()->first();
 
-        if(!empty($lastAccount)){
-            list(,,,$aad)= explode("-", $lastAccount->account_code);
-            $currentAccountCode = $aad+1;
-        }else{
+        if (!empty($lastAccount)) {
+            list(,,, $aad) = explode("-", $lastAccount->account_code);
+            $currentAccountCode = $aad + 1;
+        } else {
             $currentAccountCode = 1;
         }
         return json_encode("$balanceid-$balanceIncomeLineId-$currentAccountCode");

@@ -3,6 +3,7 @@
 namespace Modules\HR\Entities;
 
 use App\Employee;
+use App\Accounts\Account;
 use Modules\HR\Entities\LoanType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,5 +22,10 @@ class LoanApplication extends Model
     public function loan_type()
     {
         return $this->belongsTo(LoanType::class, 'loan_type_id', 'id');
+    }
+
+    public function account()
+    {
+        return $this->morphOne(Account::class, 'accountable');
     }
 }

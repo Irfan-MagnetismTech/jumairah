@@ -126,18 +126,8 @@ class LoanPaymentController extends Controller
 
     public function loanHandover($id)
     {
-        try {
-            DB::beginTransaction();
-            $loanApplication = LoanApplication::findOrFail($id);
-            $loanApplication->loan_status = 'released';
-            $loanApplication->loan_released_date = date('Y-m-d');
-            $loanApplication->loan_released_by = auth()->user()->id;
-            $loanApplication->save();
-            DB::commit();
-            return redirect()->route('loan-applications.index')->with('message', 'Loan Handover Successfully.');
-        } catch (QueryException $e) {
-            DB::rollBack();
-            return redirect()->route('loan-applications.index')->withErrors($e->getMessage());
-        }
+        $loan_application = LoanApplication::findOrFail($id);
+        $formType = 'create';
+        return view('hr::loan-application.loan-handover-form', compact('loan_application', 'formType'));
     }
 }

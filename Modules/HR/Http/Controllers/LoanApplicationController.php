@@ -3,6 +3,7 @@
 namespace Modules\HR\Http\Controllers;
 
 use App\Employee;
+use App\Http\Controllers\AccountController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,16 @@ class LoanApplicationController extends Controller
             DB::beginTransaction();
             $input = $request->all();
             $input['left_amount'] = $input['loan_amount'];
-            LoanApplication::create($input);
+            $loan = LoanApplication::create($input);
+
+            $loan->account()->create([
+                'account_name' => $loan->employee->emp_name,
+                'account_type' => 2,
+                'account_code' => (new AccountController)->AccountsRefGeneratorBackendUse(9),
+                'balance_and_income_line_id' => 9,
+                'parent_account_id' => null,
+            ]);
+
             DB::commit();
             return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction created Successfully.');
         } catch (QueryException $e) {
@@ -103,6 +113,10 @@ class LoanApplicationController extends Controller
             DB::beginTransaction();
             $loanApplication = LoanApplication::findOrFail($id);
             $loanApplication->update($input);
+
+            $loanApplication->account->update([
+                'account_name' => $loanApplication->employee->emp_name,
+            ]);
             DB::commit();
             return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction updated Successfully.');
         } catch (QueryException $e) {
@@ -123,11 +137,20 @@ class LoanApplicationController extends Controller
             DB::beginTransaction();
             $loanApplication = LoanApplication::findOrFail($id);
             $loanApplication->delete();
+            if ($loanApplication->account) {
+                $loanApplication->account->delete();
+            }
             DB::commit();
             return redirect()->route('loan-applications.index')->with('message', 'Loan Appliaction deleted Successfully.');
         } catch (QueryException $e) {
             DB::rollBack();
             return redirect()->route('loan-applications.index')->withInput()->withErrors($e->getMessage());
         }
+    }
+
+    public function loanPaymentStore(Request $request)
+    {
+
+        dd($request->all());
     }
 }
