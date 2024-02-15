@@ -45,8 +45,8 @@
                                     <td>{{ $sale->sellClients->first()->client->contact  }}</td>
                                     <td>{{ $sale->sellClients->first()->client->email  }}</td>
                                     <td>
-                                        <a href="#" title="Handover PDF" class="btn btn-out-dashed btn-sm btn-success"><i class="fas fa-file-pdf"></i></a>
-                                        <a href="#" title="Key Handover PDF" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-file-pdf"></i></a>
+                                        <a href="{{ url("csd/apartment-handover/$sale->id") }}" title="Apartment Handover PDF" class="btn btn-out-dashed btn-sm btn-success"><i class="fas fa-file-pdf"></i></a>
+                                        <a href="{{ url("csd/key-handover/$sale->id") }}" title="Key Handover PDF" class="btn btn-out-dashed btn-sm btn-warning"><i class="fas fa-file-pdf"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
