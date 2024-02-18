@@ -224,4 +224,22 @@ class LoanApplicationController extends Controller
             return redirect()->route('loan-applications.index')->withInput()->withErrors($e->getMessage());
         }
     }
+
+
+    public function getEmployeeLoan(Request $request)
+    {
+
+        $employee_id = $request->employee_id;
+
+        $loanApplications = LoanApplication::with('loan_type')->where('employee_id', $employee_id)->where('loan_status', 'approved')->get();
+
+        $loanApplications = $loanApplications->map(function ($loan) {
+            return [
+                'id' => $loan->id,
+                'loan_type' => $loan->loan_type->name,
+            ];
+        });
+
+        return response()->json($loanApplications);
+    }
 }

@@ -25,6 +25,7 @@ use Modules\HR\Entities\LeaveBalance;
 use Modules\HR\Entities\ReleasedType;
 use Modules\HR\Entities\FixAttendance;
 use Modules\HR\Entities\ProcessedBonus;
+use Modules\HR\Entities\LoanApplication;
 use Modules\HR\Entities\ProcessedSalary;
 use Modules\HR\Entities\EmployeeIncrement;
 use Illuminate\Contracts\Support\Renderable;
@@ -1602,5 +1603,35 @@ class HRReportController extends Controller
         );
 
         return $pdf->stream('employee_summary_report.pdf');
+    }
+
+    public function employeeLoanStatement()
+    {
+        // $this->authorize('employee-loan-statement');
+        $formType = 'employee-loan-statement';
+        $employees = Employee::orderBy('emp_name')->pluck('emp_name', 'id');
+        return view('hr::employee-loan-statement.index', compact('formType', 'employees'));
+    }
+
+    public function employeeLoanStatementReport(Request $request)
+    {
+
+        // dd($request->all());
+
+        $loanApplication = LoanApplication::with('employee.department', 'loan_type', 'loanPayments')->where('id', $request->employee_loan_id)->first();
+        // dd($loanApplication);
+        $pdf = PDF::loadView(
+            'hr::employee-loan-statement.print',
+            compact('loanApplication'),
+            [],
+            [
+                ...watermarkImageSettings(),
+                'title' => 'Employee Loan Statement',
+                'format' => 'A4-L',
+                'orientation' => 'L'
+            ]
+        );
+
+        return $pdf->stream('employee_loan_statement.pdf');
     }
 }

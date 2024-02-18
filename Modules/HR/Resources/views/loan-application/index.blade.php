@@ -96,12 +96,15 @@
                             <td>
                                 <div class="icon-btn">
                                     <nobr>
-                                        <a href="{{ route('loan-approve', ['id' => $data->id]) }}">
-                                            <button class="btn btn-success" data-toggle="tooltip" data-placement="top"
-                                                title="Click to Approve">
-                                                <i class="fas fa-check-circle"></i>
-                                            </button>
-                                        </a>
+                                        @if ($data->loan_status == 'pending')
+                                            <a href="{{ route('loan-approve', ['id' => $data->id]) }}">
+                                                <button class="btn btn-success" data-toggle="tooltip" data-placement="top"
+                                                    title="Click to Approve">
+                                                    <i class="fas fa-check-circle"></i>
+                                                </button>
+                                            </a>
+                                        @endif
+
 
                                         @can('loan-application-edit')
                                             <a href="{{ route('loan-applications.edit', $data->id) }}" data-toggle="tooltip"

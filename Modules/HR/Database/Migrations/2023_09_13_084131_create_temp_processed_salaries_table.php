@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('skill_bonus')->default(0);
             $table->string('management_bonus')->default(0);
             $table->string('income_tax')->default(0);
+            $table->integer('loan_deduction')->default(0);
             $table->string('casual_salary')->default(0);
             $table->uuid('com_id')->nullable();
             $table->timestamps();

@@ -239,4 +239,9 @@ Route::prefix('hr')->group(function () {
 
     // Check uniqueness of provided finger id
     Route::get('is-fingerid-unique/{device_id}/{finger_id}/{ignore_id?}', [EmployeeMasterController::class, 'checkFingerIdUniqueness'])->name('isFingerIdUnique');
+
+    Route::get('employee-loan-statement', [HrReportController::class, 'employeeLoanStatement'])->name('employeeLoanStatement');
+    Route::post('employee-loan-statement/report', [HrReportController::class, 'employeeLoanStatementReport'])->name('employeeLoanStatement-report');
+
+    Route::get('get-employee-loan', [LoanApplicationController::class, 'getEmployeeLoan'])->name('getEmployeeLoan');
 });

@@ -731,7 +731,7 @@
 
     @can('hr-report')
         <li
-            class="pcoded-hasmenu {{ request()->routeIs(['reports.late', 'employeeList', 'promotionIncrementList', 'dailyAttendance', 'attendanceSummary', 'jobCard', 'leaveReport', 'otSheet', 'salarySheet', 'bonusSheet', 'allowanceReportIndex', 'fixAttendanceReportIndex', 'employeeSummary', 'paySlipReportIndex']) ? 'active pcoded-trigger' : null }}">
+            class="pcoded-hasmenu {{ request()->routeIs(['reports.late', 'employeeList', 'promotionIncrementList', 'dailyAttendance', 'attendanceSummary', 'jobCard', 'leaveReport', 'otSheet', 'salarySheet', 'bonusSheet', 'allowanceReportIndex', 'fixAttendanceReportIndex', 'employeeSummary', 'paySlipReportIndex', 'employeeLoanStatement']) ? 'active pcoded-trigger' : null }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="ti-panel"></i><b></b></span>
                 <span class="pcoded-mtext">Reports</span>
@@ -903,6 +903,16 @@
                         </a>
                     </li>
                 @endcan
+
+                <li class="{{ request()->routeIs('employeeLoanStatement') ? 'active' : null }}">
+                    <a href="{{ route('employeeLoanStatement') }}">
+                        <span class="pcoded-micon">
+                            <i class="ti-angle-right"></i>
+                        </span>
+                        <span class="pcoded-mtext">Employee Loan Statement</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
             </ul>
         </li>
     @endcan

@@ -2,8 +2,11 @@
 
 namespace Modules\HR\Http\Controllers;
 
+use Carbon\Carbon;
 use App\CostCenter;
 use App\Department;
+use App\Transaction;
+use App\Accounts\Account;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -67,8 +70,6 @@ class ProcessedSalaryController extends Controller
                 ->where('cost_center_id', $cost_center_id)
                 ->get();
 
-            // dd($AllProcessedSalary);
-
             // total salary calculation
 
             $total_salary = 0;
@@ -97,48 +98,34 @@ class ProcessedSalaryController extends Controller
 
 
 
-            // if (count($AllProcessedSalary) > 0) {
+            if (count($AllProcessedSalary) > 0) {
 
-            //     $transactionData = [
-            //         'voucher_type' => 'Journal',
-            //         'transactionable_type' => ProcessedSalary::class,
-            //         'transactionable_id' => $AllProcessedSalary[0]->id,
-            //         'bill_no' => null,
-            //         'mr_no' => null,
-            //         'transaction_date' => Carbon::now()->format('d-m-Y'),
-            //         'narration' => 'salary',
-            //         'user_id' => auth()->id(),
-            //     ];
+                $transactionData = [
+                    'voucher_type' => 'Journal',
+                    'transactionable_type' => ProcessedSalary::class,
+                    'transactionable_id' => $AllProcessedSalary[0]->id,
+                    'bill_no' => null,
+                    'mr_no' => null,
+                    'transaction_date' => Carbon::now()->format('d-m-Y'),
+                    'narration' => 'salary',
+                    'user_id' => auth()->id(),
+                ];
 
-            //     $transaction = Transaction::create($transactionData);
+                $transaction = Transaction::create($transactionData);
 
-            //     // ledger entry
+                // ledger entry
 
-            //     $SalaryAllowanceAndBenefits = Account::where('com_id', $com_user_id)->where('balance_and_income_line_id', 86)->where('account_name', 'Salary, Allowances & Benefits')->first();
-
-            //     if ($cost_center_id == 1 || $cost_center_id == 3) {
-            //         $AdminSalaryLedgerData = [
-            //             'account_id' => $SalaryAllowanceAndBenefits->id,
-            //             'dr_amount' => $total_salary,
-            //             'cost_center_id' => $cost_center_id,
-            //             'remarks' => 'salary',
-            //             'purpose' => 'administrative salary expense',
-            //             'balance_and_income_line_id' => $SalaryAllowanceAndBenefits->balance_and_income_line_id,
-            //         ];
-            //         $transaction->ledgerEntries()->create($AdminSalaryLedgerData);
-            //     } else {
-            //         $FactorySalaryAllowanceAccount = Account::where('com_id', $com_user_id)->where('balance_and_income_line_id', 168)->where('account_name', 'Factory - Salary & Allowance')->first();
-            //         $FactorySalaryLedgerData = [
-            //             'account_id' => $FactorySalaryAllowanceAccount->id,
-            //             'dr_amount' => $total_salary,
-            //             'cost_center_id' => $cost_center_id,
-            //             'remarks' => 'salary',
-            //             'purpose' => 'factory salary expense',
-            //             'balance_and_income_line_id' =>  $FactorySalaryAllowanceAccount->balance_and_income_line_id,
-            //         ];
-            //         $transaction->ledgerEntries()->create($FactorySalaryLedgerData);
-            //     }
-            // }
+                $SalaryAllowanceAndBenefits = Account::where('balance_and_income_line_id', 86)->where('account_name', 'Salary, Allowances & Benefits')->first();
+                    $AdminSalaryLedgerData = [
+                        'account_id' => $SalaryAllowanceAndBenefits->id,
+                        'dr_amount' => $total_salary,
+                        'cost_center_id' => $cost_center_id,
+                        'remarks' => 'salary',
+                        'purpose' => 'administrative salary expense',
+                        'balance_and_income_line_id' => $SalaryAllowanceAndBenefits->balance_and_income_line_id,
+                    ];
+                    $transaction->ledgerEntries()->create($AdminSalaryLedgerData);
+            }
 
             return redirect()->route(
                 'process-salary.index',

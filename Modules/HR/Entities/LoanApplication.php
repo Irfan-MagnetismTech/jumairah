@@ -6,6 +6,7 @@ use App\Employee;
 use App\Transaction;
 use App\Accounts\Account;
 use Modules\HR\Entities\LoanType;
+use Modules\HR\Entities\LoanPayment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,6 +34,11 @@ class LoanApplication extends Model
     public function transaction()
     {
         return $this->morphOne(Transaction::class, 'transactionable');
+    }
+
+    public function loanPayments()
+    {
+        return $this->hasMany(LoanPayment::class, 'loan_application_id', 'id');
     }
 
 
