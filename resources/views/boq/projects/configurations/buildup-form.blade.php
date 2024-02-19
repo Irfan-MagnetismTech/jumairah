@@ -18,7 +18,28 @@
 
 @can('boq-configuration-edit')
     <!-- Submit button -->
-    @include('components.buttons.submit-button', ['label' => 'Save'])
+    @if ($approval == 0)
+        @include('components.buttons.submit-button', ['label' => 'Save'])
+    @endif
+
+    @if ($boq_floor_projects)
+    <div class="row">
+        <div class="mt-2 offset-md-5 col-md-2">
+            <div class="input-group input-group-sm">
+                @if ($approval == 0)
+                @if ($boq_floor_projects->sum('area') > 0)
+                @can('boq-floorwise-project-approval')
+                <button type="button" class="py-2 btn btn-warning btn-round btn-block"><a href="{{ route('boq.project.configurations.floorApproval', ['project' => $project]) }}" class="text-white">Approve</a></button>
+                @endcan
+                @endif
+                @else
+                <button type="button" class="py-2 btn btn-info btn-block">Approved</button>
+                @endif
+            </div>
+        </div>
+    </div>
+    @endif
+
 @endcan
 
 @section('script')
