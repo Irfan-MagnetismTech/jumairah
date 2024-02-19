@@ -6,7 +6,7 @@
 @endsection
 
 @section('breadcrumb-title')
-    List of No Activity (More than {{!empty(request()->check_days) ? request()->check_days : 90}} Days)
+    List of No Activity (More than {{!empty(request()->check_days) ? request()->check_days : 180}} Days)
 @endsection
 
 
@@ -33,7 +33,7 @@
                 <input type="hidden" id="project_id" name="project_id" class="form-control form-control-sm" value="{{!empty(request()->project_id) ? request()->project_id : null}}">
             </div>
             <div class="col-md-2 px-1 my-1 my-md-0">
-                <input type="number" id="check_days" name="check_days" data-toggle="tooltip" title="Enter Days In Number" class="form-control form-control-sm" value="{{!empty(request()->check_days) ? request()->check_days : 90}}" placeholder="Enter Days In Number" autocomplete="off">
+                <input type="number" id="check_days" name="check_days" data-toggle="tooltip" title="Enter Days In Number" class="form-control form-control-sm" value="{{!empty(request()->check_days) ? request()->check_days : 180}}" placeholder="Enter Days In Number" autocomplete="off">
             </div>
             <div class="col-md-1 px-1 my-1 my-md-0">
                 <div class="input-group input-group-sm">

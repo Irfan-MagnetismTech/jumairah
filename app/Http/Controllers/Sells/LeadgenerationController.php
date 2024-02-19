@@ -184,7 +184,7 @@ class LeadgenerationController extends Controller
 
     public function noactivity()
     {
-        $check_days = request()->check_days ?? 90;
+        $check_days = request()->check_days ?? 180;
         $raw = Leadgeneration::with('apartment.project', 'lastFollowup')
             ->where('lead_stage', '!=', 'D')
             ->where('is_sold', 0)
