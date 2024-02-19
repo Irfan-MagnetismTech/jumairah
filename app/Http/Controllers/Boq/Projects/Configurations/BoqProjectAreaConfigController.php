@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Boq\Projects\Configurations;
 
-use App\Boq\Projects\BoqFloorProject;
-use App\Http\Controllers\Controller;
 use App\Project;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+use App\Boq\Projects\BoqFloorProject;
+use Illuminate\Http\RedirectResponse;
+use App\Boq\Departments\Civil\BoqFloorProjectApproval;
 
 class BoqProjectAreaConfigController extends Controller
 {
@@ -28,7 +29,9 @@ class BoqProjectAreaConfigController extends Controller
             ->get()
             ->sortBy(['floor.floor_type.serial_no', 'floor.id']);
 
-        return view('boq.projects.configurations.create-area', compact('project', 'boq_floor_projects'));
+        $approval = BoqFloorProjectApproval::where('project_id', $project->id)->first() ? 1 : 0;
+
+        return view('boq.projects.configurations.create-area', compact('project', 'boq_floor_projects', 'approval'));
     }
 
     /**
@@ -56,6 +59,22 @@ class BoqProjectAreaConfigController extends Controller
         catch (\Exception$e)
         {
             return redirect()->back()->withInput()->withError($e->getMessage());
+        }
+    }
+
+    public function floorApproval(Project $project)
+    {
+        $approval = BoqFloorProjectApproval::where('project_id', $project->id)->first();
+
+        if (is_null($approval)) {
+            BoqFloorProjectApproval::create([
+               'project_id' => $project->id,
+                'status'    => 1
+            ]);
+
+            return redirect()->route('boq.project.configurations.areas.index', ['project' => $project])->withMessage('Project has been  approved!');
+        } else {
+            return redirect()->route('boq.project.configurations.areas.index', ['project' => $project])->withMessage('Project already   approved!');
         }
     }
 }

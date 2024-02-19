@@ -2,15 +2,16 @@
 
 namespace App\Sells;
 
-use App\Accounts\Account;
-use App\SalesCollection;
-use App\SalesCollectionDetails;
-use App\Sells\InstallmentList;
-use App\SellsClient;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\SellsClient;
+use App\SalesCollection;
+use App\Accounts\Account;
+use App\Approval\Approval;
+use App\Sells\InstallmentList;
+use App\SalesCollectionDetails;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sell extends Model{
     use HasFactory;
@@ -225,6 +226,11 @@ class Sell extends Model{
         }else{
             return $query->whereDate($column, now());
         }
+    }
+
+    public function approval()
+    {
+        return $this->morphMany(Approval::class,'approvable','approvable_type','approvable_id');
     }
 
 }

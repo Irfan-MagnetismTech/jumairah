@@ -89,7 +89,7 @@
                         <td class="text-right"> @money($saleCancellation->refund_amount) </td>
                         <td>{{ $saleCancellation->applied_date }}</td>
                         <td>{{ $saleCancellation->user->name }}</td>
-                        @php
+                        {{-- @php
                             $approval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
                                 $q->where('name', 'Sale Cancellation');
                             })
@@ -114,6 +114,47 @@
                                 <span class="badge bg-warning badge-sm">Pending in {{ $approval->designation->name ?? '' }}
                                     - {{ $approval->department->name ?? '' }}</span>
                             @endif
+                        </td> --}}
+                        @php
+                            $approvals = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
+                                $q->where('name', 'Sale Cancellation');
+                            })
+                                ->wheredoesnthave('approvals', function ($q) use ($saleCancellation) {
+                                    $q->where('approvable_id', $saleCancellation->id)->where('approvable_type', \App\Sells\SaleCancellation::class);
+                                })
+                                ->orderBy('order_by', 'asc')
+                                ->first();
+
+                            $TotalApproval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) {
+                                $q->where('name', 'Sale Cancellation');
+                            })
+                                ->wheredoesnthave('approvals', function ($q) use ($saleCancellation) {
+                                    $q->where('approvable_id', $saleCancellation->id)->where('approvable_type', \App\Sells\SaleCancellation::class);
+                                })
+                                ->orderBy('order_by', 'asc')
+                                ->get()
+                                ->count();
+                            $approvalstatus = '';
+                        @endphp
+                        <td>
+                            @if ($saleCancellation->approval()->exists())
+                                @foreach ($saleCancellation->approval as $approval1)
+                                    <span
+                                        class="badge @if ($approval1->status == 'Approved') bg-primary @else bg-warning @endif bg-warning badge-sm">
+                                        {{ $approval1->status }} - {{ $approval1->user->employee->department->name ?? '' }}
+                                        - {{ $approval1->user->employee->designation->name ?? '' }}
+                                    </span><br>
+                                @endforeach
+                                @if ( $saleCancellation->approval->count() <= $TotalApproval)
+                                    <span class="badge bg-warning badge-sm">Pending in
+                                    {{ $approvals->designation->name ?? '' }} -
+                                    {{ $approvals->department->name ?? '' }}</span>
+                                @endif
+                            @else
+                                <span class="badge bg-warning badge-sm">Pending in
+                                    {{ $approvals->designation->name ?? '' }} -
+                                    {{ $approvals->department->name ?? '' }}</span>
+                            @endif
                         </td>
                         <td>
                             <div class="icon-btn">
@@ -127,11 +168,8 @@
                                             })
                                             ->orderBy('order_by', 'asc')
                                             ->first();
-                                        //dump($approval->designation_id, auth()->user()->designation->id)
                                     @endphp
-                                    {{--                                    {{$approvalstatus}} --}}
-                                    {{-- @dump($approvalstatus); --}}
-                                    @if (!empty($approval) && $approval->designation_id == auth()->user()->designation?->id)
+                                    @if((!empty($approval) && $approval->designation_id == auth()->user()->designation?->id && $approval->department_id == auth()->user()->department_id) || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin'])))
                                         {{-- @if (@$approvalstatus == 'Pending' || @$approvalstatus == 'Approved') --}}
                                             <a href="{{ url("saleCancellations/{$saleCancellation->id}/approve") }}"
                                                 data-toggle="tooltip" title="Approve Request" class="btn btn-primary"><i

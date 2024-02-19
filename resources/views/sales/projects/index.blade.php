@@ -43,7 +43,7 @@
                 <tr>
                     <td> {{ $loop->iteration}}</td>
                     <td class="text-left">
-                        <strong><a target="_blank" href="{{ url("projects/$project->id") }}"> {{ $project->name}}</a></strong> <br>
+                        <strong><a href="{{ url("projects/$project->id") }}"> {{ $project->name}}</a></strong> <br>
                         {{ $project->location}}
                     </td>
                     <td>{{ $project->status}}</td>

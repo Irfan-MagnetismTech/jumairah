@@ -84,7 +84,7 @@
     <img src="{{ asset(config('company_info.logo'))}}" alt="{!! htmlspecialchars(config('company_info.altText')) !!}" class="pdfimg">
     <div style="float: right; border: 1px solid #000; margin-right: 45px">
         <h3 style="padding-left: 5px; padding-right: 5px">
-            Office Copy
+            Customer's Copy
         </h3>
     </div>
     <div class="clearfix"></div>

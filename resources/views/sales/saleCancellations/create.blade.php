@@ -97,7 +97,7 @@
         <div class="col-12">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="deducted_amount">Deducted Amount<span class="text-danger">*</span></label>
-                <input type="number" id="deducted_amount" name="deducted_amount" value="{{old('deducted_amount') ? old('deducted_amount') : (!empty($saleCancellation) ? $saleCancellation->deducted_amount : null)}}" class="form-control form-control-sm" readonly tabindex="-1">
+                <input type="number" id="deducted_amount" name="deducted_amount" value="{{old('deducted_amount') ? old('deducted_amount') : (!empty($saleCancellation) ? $saleCancellation->deducted_amount : null)}}" class="form-control form-control-sm" tabindex="-1">
             </div>
         </div>
         <div class="col-12">
@@ -182,6 +182,15 @@
             $("#refund_amount").val((paid_amount - deducted_amount).toFixed(2));
         }
 
+        function calculateRefundAmount(){
+            let sold_price = $("#sold_price").val();
+            let paid_amount = $("#paid_amount").val();
+            let deducted_amount = $("#deducted_amount").val();
+            let service_charge = (deducted_amount * 100 /sold_price).toFixed(2);
+            $("#service_charge").val(service_charge);
+            $("#refund_amount").val((paid_amount - deducted_amount).toFixed(2));
+        }
+
         var CSRF_TOKEN = "{{csrf_token()}}";
         $(function(){
             @if(old() || $formType == 'edit')
@@ -220,6 +229,10 @@
 
             $("#service_charge").on('change', function(){
                 calculateRefund();
+            });
+
+            $("#deducted_amount").on('change', function(){
+                calculateRefundAmount();
             });
         });//document.ready
     </script>

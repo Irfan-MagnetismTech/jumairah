@@ -3,9 +3,9 @@
 
 @section('breadcrumb-title')
     @if ($formType == 'edit')
-        Edit Costing
+        Edit Costing for Modification
     @else
-        Make Costing
+        Make Costing for Modification
     @endif
 
 @endsection

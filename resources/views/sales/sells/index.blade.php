@@ -34,6 +34,9 @@
                 <th>Downpayment</th>
                 <th>Installment</th>
                 <th>
+                    Status
+                </th>
+                <th>
                 @hasanyrole('super-admin|admin|Sales-HOD|CSD-Manager')
                     Action
                 @endhasrole
@@ -50,6 +53,9 @@
                     <th>Booking Money</th>
                     <th>Downpayment</th>
                     <th>Installment</th>
+                    <th>
+                        Status
+                    </th>
                     <th>
                     @hasanyrole('super-admin|admin|Sales-HOD|CSD-Manager')
                         Action
@@ -76,13 +82,41 @@
                     </td>
                     <td><strong>{{$sell->apartment->name}}</strong></td>
                     <td><strong>{{$sell->apartment->project->name}}</strong></td>
-                    <td  class="text-right">@money($sell->total_value)</td>
-                    <td  class="text-right">@money($sell->booking_money)</td>
-                    <td  class="text-right">@money($sell->downpayment)</td>
-                    <td  class="text-right">@money($sell->installment)</td>
+                    <td class="text-right">@money($sell->total_value)</td>
+                    <td class="text-right">@money($sell->booking_money)</td>
+                    <td class="text-right">@money($sell->downpayment)</td>
+                    <td class="text-right">@money($sell->installment)</td>
+                    @php
+                        $approval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($sell){
+                                $q->where([['name','Sell'],['department_id',$sell->user->department_id]]);
+                            })->whereDoesntHave('approvals',function ($q) use($sell){
+                                $q->where('approvable_id',$sell->id)->where('approvable_type',\App\Sells\Sell::class);
+                            })->orderBy('order_by','asc')->first();
+                    @endphp
+                    <td>
+                        @if($sell->approval()->exists())
+                            @foreach($sell->approval as $approval)
+                                <span class="badge @if($approval->status == 'Approved') bg-primary @else bg-warning @endif bg-warning badge-sm">
+                                    {{ $approval->status }} - {{$approval->user->employee->department->name ?? ''}} - {{$approval->user->employee->designation->name ?? ''}}
+                                </span><br>
+                            @endforeach
+                        @else
+                        <span class="badge bg-warning badge-sm">Pending in {{$approval->designation->name ?? ''}} - {{$approval->department->name ?? ''}}</span>
+                        @endif
+                    </td>
                     <td>
                         <div class="icon-btn">
                             <nobr>
+                                @php
+                                    $approval = \App\Approval\ApprovalLayerDetails::whereHas('approvalLayer', function ($q) use ($sell){
+                                        $q->where([['name','Sell'],['department_id',$sell->user->department_id]]);
+                                    })->whereDoesntHave('approvals',function ($q) use($sell){
+                                        $q->where('approvable_id',$sell->id)->where('approvable_type',\App\Sells\Sell::class);
+                                    })->orderBy('order_by','asc')->first();
+                                @endphp
+                                @if((!empty($approval) && $approval->designation_id == auth()->user()->designation?->id && $approval->department_id == auth()->user()->department_id) || (!empty($approval) && auth()->user()->hasAnyRole(['admin','super-admin'])))
+                                    <a href="{{ url("sells/approved/$sell->id/1") }}" data-toggle="tooltip" title="Approve sell" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                @endif
                             @hasanyrole('super-admin|admin|Sales-HOD|CSD-Manager')
                                 @can('sell-view')
                                     <a href="{{ url("sells/$sell->id") }}" data-toggle="tooltip" title="Show" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>

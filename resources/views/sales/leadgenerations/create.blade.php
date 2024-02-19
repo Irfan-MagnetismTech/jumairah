@@ -135,6 +135,12 @@
                 {{ Form::textarea('permanent_address', old('permanent_address') ? old('permanent_address') : (!empty($leadgeneration->permanent_address) ? $leadgeneration->permanent_address : null), ['class' => 'form-control', 'id' => 'permanent_address', 'autocomplete' => 'off', 'rows' => 2]) }}
             </div>
         </div>
+        <div class="col-12">
+            <div class="input-group input-group-sm input-group-primary">
+                <label class="input-group-addon" for="customer_offer_details">Customer <br> Offer Details</label>
+                {{ Form::textarea('customer_offer_details', old('customer_offer_details') ? old('customer_offer_details') : (!empty($leadgeneration->customer_offer_details) ? $leadgeneration->customer_offer_details : null), ['class' => 'form-control', 'id' => 'customer_offer_details', 'autocomplete' => 'off', 'rows' => 2]) }}
+            </div>
+        </div>
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
                 <label class="input-group-addon" for="business_card">Business Card</label>
@@ -208,7 +214,7 @@
         </div>
         <div class="col-12">
             <div class="input-group input-group-sm input-group-primary">
-                <label class="input-group-addon" for="offer_details">Offers Details</label>
+                <label class="input-group-addon" for="offer_details">{{ config('company_info.company_shortname') }} Offers Details</label>
                 {{ Form::textarea('offer_details', old('offer_details') ? old('offer_details') : (!empty($leadgeneration->offer_details) ? $leadgeneration->offer_details : null), ['class' => 'form-control', 'id' => 'offer_details', 'autocomplete' => 'off', 'rows' => 2]) }}
             </div>
         </div>
@@ -244,7 +250,7 @@
         </div>
         <div class="col-xl-4 col-md-6">
             <div class="input-group input-group-sm input-group-primary">
-                <label class="input-group-addon" for="date">Next Followup Date<span
+                <label class="input-group-addon" for="date">Next<br>Followup Date<span
                         class="text-danger">*</span></label>
                 {{ Form::text('next_followup_date', old('next_followup_date') ? old('next_followup_date') : (!empty($followup->next_followup_date) ? $followup->next_followup_date : null), ['class' => 'form-control', 'id' => 'next_followup_date', 'autocomplete' => 'off', 'required', 'placeholder' => 'dd-mm-yyyy']) }}
             </div>

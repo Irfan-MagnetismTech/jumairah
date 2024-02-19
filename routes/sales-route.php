@@ -86,13 +86,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('sells/{sell}/handover', 'Sells\ApartmentHandoverController@handover')->name('handover');
 
-    Route::get('salesCollections/{salesCollection}/acknowledgement', 'SalesCollectionController@acknowledgement')->name('acknowledgement'); // print acknowledgement report.
+    Route::get('salesCollections/{salesCollection}/{type}', 'SalesCollectionController@acknowledgement')->name('acknowledgement'); // print acknowledgement report.
 
     Route::post('apartment-handover-approval', 'Sells\ApartmentHandoverController@apartmentHandoverApproval')->name('apartment-handover-approval');
     Route::get('name-transfer-approval/{nameTransfer}/{status}', 'Sells\NameTransferController@approval')->name('name-transfer-approval');
     Route::get('apartment-shiftings-approval/{apartmentShifting}/{status}', 'Sells\ApartmentShiftingController@approval')->name('apartment-shiftings-approval');
     Route::get('yearly-sales-plan-report', 'Sells\SellsReportController@yearlySalesPlan')->name('yearly-sales-plan-report');
     Route::get('yearly-collection-plan-report', 'Sells\SellsReportController@yearlyCollectionPlan')->name('yearly-collection-plan-report');
+    Route::get('sells/approved/{sell}/{status}', 'Sells\SellController@sellsApproval')->name('sellApproved');
 
     //    Route::get('sellNameTransfer', 'Sells\SellController@sellNameTransfer')->name('sellNameTransfer');
 

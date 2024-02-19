@@ -1059,7 +1059,7 @@
                 <li class="pcoded-hasmenu {{ request()->routeIs('projects.*') ? 'active pcoded-trigger' : null }}">
                     <a href="javascript:void(0)">
                         <span class="pcoded-micon"><i class="far fa-building"></i><b>BC</b></span>
-                        <span class="pcoded-mtext">Project Details</span>
+                        <span class="pcoded-mtext">Project</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                     <ul class="pcoded-submenu">
@@ -1165,7 +1165,7 @@
                         <li class="{{ request()->routeIs('dead-list') ? 'active' : null }}">
                             <a href="{{ route('dead-list') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Dead List </span>
+                                <span class="pcoded-mtext">Closed Lead List </span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
@@ -1635,14 +1635,14 @@
                         <li class="{{ request()->routeIs('csd.costing.create') ? 'active' : null }}">
                             <a href="{{ route('csd.costing.create') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Create Final Costing</span>
+                                <span class="pcoded-mtext">Create Costing for Modification</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
                         <li class="{{ request()->routeIs('csd.project-List') ? 'active' : null }}">
                             <a href="{{ route('csd.project-List') }}">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext">Final Costing List </span>
+                                <span class="pcoded-mtext">Costing Modification List </span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>

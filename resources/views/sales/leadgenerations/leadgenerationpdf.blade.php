@@ -130,6 +130,7 @@
         </tr>
         </thead>
         <tbody>
+            @php($leadStage = ['A' => 'Priority', 'B' => 'Negotiation', 'C' => 'Lead', 'D' => 'Closed Lead'])
             @foreach($leadgenerations as $key => $leadGeneration)
                 <tr>
                     <td>{{$loop->iteration}}</td>
@@ -138,7 +139,7 @@
                         {{$leadGeneration->country_code}}-{{$leadGeneration->contact}}
                     </td>
                     <td>{{$leadGeneration->lead_date}}</td>
-                    <td>{{$leadGeneration->lead_stage}}</td>
+                    <td>{{ $leadStage[$leadGeneration->lead_stage] }}</td>
                     <td class="breakWords">
                         <strong>{{$leadGeneration->apartment->project->name}}</strong>
                     </td>

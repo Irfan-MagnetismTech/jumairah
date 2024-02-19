@@ -85,6 +85,8 @@ Route::middleware( 'auth' )->prefix( 'boq' )->as( 'boq.' )->group( function () {
 		Route::prefix( 'configurations' )->as( 'configurations.' )->group( function () {
 			Route::resource( 'areas', \Boq\Projects\Configurations\BoqProjectAreaConfigController::class )
 				->parameter( 'areas', 'area' );
+
+            Route::get('floor-approval', [\App\Http\Controllers\Boq\Projects\Configurations\BoqProjectAreaConfigController::class, 'floorApproval'])->name('floorApproval');
 		} );
 
 		// departments routes
