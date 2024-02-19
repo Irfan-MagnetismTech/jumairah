@@ -72,6 +72,12 @@
                     @endif
                 </p>
             </div>
+            <div class="col-12">
+                <div class="input-group input-group-sm input-group-primary">
+                    <label class="input-group-addon" for="reason">Reason</label>
+                    {{Form::text('reason', old('reason') ? old('reason') : (!empty($apartmentShifting) ? $apartmentShifting->reason : null),['class' => 'form-control','id' => 'reason', 'autocomplete'=>"off"])}}
+                </div>
+            </div>
             <br>
             <hr>
             <div class="col-md-12">

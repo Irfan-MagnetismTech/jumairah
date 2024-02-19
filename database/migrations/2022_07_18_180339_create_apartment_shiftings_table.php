@@ -47,6 +47,7 @@ class CreateApartmentShiftingsTable extends Migration
             $table->decimal('discount', 20,2)->nullable();
 
             $table->string('attachment')->nullable();
+            $table->string('reason')->nullable();
             $table->integer('stage')->default(1);
             $table->timestamps();
         });

@@ -194,8 +194,8 @@
             });
             $(document).on('keyup change', ".actual_rate", function(){
                 const actual_rate = $(this).val();
-                let refund_rate = (actual_rate*(1 - 0.20));
-                let demand_rate = (actual_rate*(1 + 0.20));
+                let refund_rate = (actual_rate*(1));
+                let demand_rate = (actual_rate*(1 + 0.15));
                 if(refund_rate < 1.5){
                     refund_rate = refund_rate.toFixed(2);
                 }else{

@@ -104,7 +104,7 @@ class LeadgenerationController extends Controller
     {
         $codes = Country::pluck('phonecode', 'phonecode');
         $formType = 'create';
-        $lead_stages = ['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D'];
+        $lead_stages = ['A' => 'Priority', 'B' => 'Negotiate', 'C' => 'Lead', 'D' => 'Closed Lead'];
         $apartments = [];
         return view('sales.leadgenerations.create', compact('formType', 'codes', 'lead_stages', 'apartments'));
     }
@@ -114,7 +114,6 @@ class LeadgenerationController extends Controller
         try {
             $data = $request->except('business_card', 'attachment', 'project_name', 'project_id', 'created_by', 'date', 'next_followup_date', 'time_from', 'time_till', 'activity_type', 'reason', 'feedback');
             $followupData = $request->only('date', 'next_followup_date', 'time_from', 'time_till', 'activity_type', 'reason', 'feedback', 'remarks');
-
             $data['business_card'] = $request->hasFile('business_card') ? $request->file('business_card')->store('lead') : null;
             $data['attachment'] = $request->hasFile('attachment') ? $request->file('attachment')->store('lead') : null;
             $data['lead_date'] = date('d-m-Y', strtotime(now()));
@@ -141,7 +140,7 @@ class LeadgenerationController extends Controller
     {
         $formType = 'edit';
         $codes = Country::pluck('phonecode', 'phonecode');
-        $lead_stages = ['A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D'];
+        $lead_stages = ['A' => 'Priority', 'B' => 'Negotiate', 'C' => 'Lead', 'D' => 'Closed Lead'];
         $apartments = Apartment::where('project_id', $leadgeneration->apartment->project->id)->pluck('name', 'id');
         $follow_up = $leadgeneration->followups->first();
         return view('sales.leadgenerations.create', compact('codes', 'formType', 'lead_stages', 'apartments', 'leadgeneration', 'follow_up'));

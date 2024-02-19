@@ -208,7 +208,7 @@
             @role('super-admin')
             <div class="col-xl-4 col-md-6">
                 <div class="input-group input-group-sm input-group-primary">
-                    <label class="input-group-addon" for="landowner_cash_benefit">Cash Benefit<span class="text-danger">*</span></label>
+                    <label class="input-group-addon" for="landowner_cash_benefit">Cash Benefit</label>
                     {{Form::number('landowner_cash_benefit', old('landowner_cash_benefit') ? old('landowner_cash_benefit') : (!empty($project->landowner_cash_benefit) ? $project->landowner_cash_benefit : null),['class' => 'form-control','id' => 'landowner_cash_benefit', 'autocomplete'=>"off",'min'=>0,'step'=>0.01])}}
                 </div>
             </div>
@@ -228,13 +228,13 @@
             <div class="col-xl-4 col-md-6">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="rebate_charge">Rebate Charge<span class="text-danger">*</span></label>
-                    {{Form::number('rebate_charge', old('rebate_charge') ? old('rebate_charge') : (!empty($project->rebate_charge) ? $project->rebate_charge : null),['class' => 'form-control','id' => 'rebate_charge', 'min'=>0, 'step'=>0.01, 'autocomplete'=>"off", 'required','data-toggle'=>"tooltip",'title'=>"Yearly Percentage(%)"])}}
+                    {{Form::number('rebate_charge', old('rebate_charge') ? old('rebate_charge') : (!empty($project->rebate_charge) ? $project->rebate_charge : 0),['class' => 'form-control','id' => 'rebate_charge', 'min'=>0, 'step'=>0.01, 'autocomplete'=>"off", 'required','data-toggle'=>"tooltip",'title'=>"Yearly Percentage(%)"])}}
                 </div>
             </div>
             <div class="col-xl-4 col-md-6">
                 <div class="input-group input-group-sm input-group-primary">
                     <label class="input-group-addon" for="delay_charge">Delay Charge<span class="text-danger">*</span></label>
-                    {{Form::number('delay_charge', old('delay_charge') ? old('delay_charge') : (!empty($project->delay_charge) ? $project->delay_charge : null),['class' => 'form-control','id' => 'delay_charge', 'min'=>0, 'step'=>0.01, 'autocomplete'=>"off", 'required','data-toggle'=>"tooltip",'title'=>"Monthly Percentage(%)"])}}
+                    {{Form::number('delay_charge', old('delay_charge') ? old('delay_charge') : (!empty($project->delay_charge) ? $project->delay_charge : 0),['class' => 'form-control','id' => 'delay_charge', 'min'=>0, 'step'=>0.01, 'autocomplete'=>"off", 'required','data-toggle'=>"tooltip",'title'=>"Monthly Percentage(%)"])}}
                 </div>
             </div>
             <div class="col-xl-4 col-md-6">
@@ -671,4 +671,3 @@
 
     </script>
 @endsection
-

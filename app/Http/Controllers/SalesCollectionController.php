@@ -166,7 +166,7 @@ class SalesCollectionController extends Controller
         }
     }
 
-    public function acknowledgement(SalesCollection $salesCollection)
+    public function acknowledgement(SalesCollection $salesCollection, $type)
     {
         // $spell = new \NumberFormatter(locale_get_default(), \NumberFormatter::SPELLOUT);
         $amount = strval($salesCollection->received_amount);
@@ -186,8 +186,12 @@ class SalesCollectionController extends Controller
         $saleClients = $salesCollection->sell->sellClients()->where('stage',$salesCollection->sell->sellClient->stage)->get();
 //        dd($dpCollection);
 //        return view('salesCollections.acknowledgement', compact('salesCollection', 'bmCollection','dpCollection','inwords','paidValue'));
-        return  PDF::loadview('sales.salesCollections.acknowledgement', compact('saleClients','salesCollection', 'bmCollection','dpCollection','inwords','paidValue'))->stream('projects_inventory_report'.now()->format('d-m-Y').'.pdf');
 
+        if($type == 'customer-copy'){
+            return  PDF::loadview('sales.salesCollections.acknowledgementCustomer', compact('saleClients','salesCollection', 'bmCollection','dpCollection','inwords','paidValue'))->stream('sales_collection_report_customer'.now()->format('d-m-Y').'.pdf');
+        }else{
+            return  PDF::loadview('sales.salesCollections.acknowledgement', compact('saleClients','salesCollection', 'bmCollection','dpCollection','inwords','paidValue'))->stream('sales_collection_report_office'.now()->format('d-m-Y').'.pdf');
+        }
     }
 
     function bengaliTk($num) {

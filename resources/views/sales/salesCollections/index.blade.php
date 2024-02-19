@@ -156,7 +156,8 @@
                                         @endcan
 
                                         @can('salesCollection-view')
-                                             <a href="{{ url("salesCollections/$salesCollection->id/acknowledgement") }}" data-toggle="tooltip" title="Print Acknowledgement" class="btn btn-outline-dark"><i class="fas fa-print"></i></a>
+                                             <a href="{{ route('acknowledgement', [$salesCollection->id, 'office-copy']) }}" data-toggle="tooltip" title="{{ config('company_info.company_shortname') }} Copy" class="btn btn-outline-dark"><i class="fas fa-print"></i></a>
+                                             <a href="{{ route('acknowledgement', [$salesCollection->id, 'customer-copy']) }}" data-toggle="tooltip" title="Customer's Copy" class="btn btn-outline-info"><i class="fas fa-print"></i></a>
                                         @endcan
                                         @can('salesCollection-edit')
                                         @if(!$salesCollection->salesCollectionApprovals->isNotEmpty())

@@ -71,6 +71,7 @@
             </tr>
             </tfoot>
             <tbody>
+            @php($leadStage = ['A' => 'Priority', 'B' => 'Negotiation', 'C' => 'Lead', 'D' => 'Closed Lead'])
             @forelse($leadgenerations as $key => $leadGeneration)
                 <tr>
                     <td>{{$loop->iteration}}</td>
@@ -79,7 +80,7 @@
                         {{$leadGeneration->contact}}
                     </td>
                     <td>{{$leadGeneration->lead_date}}</td>
-                    <td>{{$leadGeneration->lead_stage}}</td>
+                    <td>{{ $leadStage[$leadGeneration->lead_stage] }}</td>
                     <td class="text-left breakWords">{{$leadGeneration->apartment->project->name}}</td>
                     <td class="text-left">
                         {{$leadGeneration->apartment->name}}

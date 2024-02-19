@@ -35,12 +35,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'csd', 'as' => 'csd.'], functi
     Route::get('mail-records', 'CSD\CsdLetterController@mailRecords')->name('mail-records');
 
     Route::get('sales-client-list', 'CSD\FinalCostingController@clientList')->name('sales-client-list');
+    Route::get('apartment-handover/{sale_id}', 'CSD\FinalCostingController@apartmentHandover')->name('apartment-handover');
+    Route::get('key-handover/{sale_id}', 'CSD\FinalCostingController@keyHandover')->name('key-handover');
 
-    
+
         Route::resources([
-        'materials'                   => 'CSD\CsdMaterialController',            
-        'material_rate'               => 'CSD\CsdMaterialRateController',            
-        'costing'                     => 'CSD\FinalCostingController',       
-        'letter'                      => 'CSD\CsdLetterController'          
+        'materials'                   => 'CSD\CsdMaterialController',
+        'material_rate'               => 'CSD\CsdMaterialRateController',
+        'costing'                     => 'CSD\FinalCostingController',
+        'letter'                      => 'CSD\CsdLetterController'
     ]);
 });

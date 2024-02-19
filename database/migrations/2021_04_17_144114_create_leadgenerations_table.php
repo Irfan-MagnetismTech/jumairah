@@ -40,6 +40,7 @@ class CreateLeadGenerationsTable extends Migration
             $table->string('offer_details')->nullable();
             $table->string('attachment')->nullable();
             $table->string('remarks')->nullable();
+            $table->string('customer_offer_details')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('is_sold')->nullable();
             $table->timestamps();

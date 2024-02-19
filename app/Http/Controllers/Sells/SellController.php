@@ -2,33 +2,34 @@
 
 namespace App\Http\Controllers\Sells;
 
-use App\Accounts\Account;
-use App\Events\SaleEvent;
-use App\Http\Controllers\Controller;
-
-use App\Http\Requests\SellsRequest;
-use App\Mail\SellMail;
-use App\Notifications\SaleNotification;
+use App\Team;
+use App\User;
 use App\Parking;
+
+use Carbon\Carbon;
+use App\Sells\Sell;
+use App\TeamMember;
+use App\Sells\Client;
+use App\Mail\SellMail;
 use App\ParkingDetails;
 use App\SalesCollection;
-use App\SalesCollectionDetails;
 use App\Sells\Apartment;
-use App\Sells\Client;
-use App\Sells\InstallmentList;
-use App\Sells\Saleactivity;
-use App\Sells\Sell;
+use App\Accounts\Account;
+use App\Events\SaleEvent;
 use App\Sells\SoldParking;
-use App\Team;
-use App\TeamMember;
-use App\User;
-use Barryvdh\DomPDF\Facade as PDF;
-use Carbon\Carbon;
-use Illuminate\Database\QueryException;
+use App\Sells\Saleactivity;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Sells\InstallmentList;
+use App\SalesCollectionDetails;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\SellsRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Approval\ApprovalLayerDetails;
+use App\Notifications\SaleNotification;
+use Illuminate\Database\QueryException;
 
 class SellController extends Controller
 {
@@ -77,7 +78,7 @@ class SellController extends Controller
         }
         $months = [1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10,11=>11,12=>12];
         $apartments = [];
-        return view('sales.sells..create', compact('formType', 'clients','apartments', 'employees','months'));
+        return view('sales.sells.create', compact('formType', 'clients','apartments', 'employees','months'));
     }
 
     /**
@@ -383,4 +384,25 @@ class SellController extends Controller
             ->stream('paymentDetailspdf.pdf');
     }
 
+    public function sellsApproval(Sell $sell, $status){
+        try{
+            $approval = ApprovalLayerDetails::whereHas('approvalLayer', function ($q)use($sell){
+                $q->where([['name','Sell'],['department_id',$sell->user->department_id]]);
+            })->whereDoesntHave('approvals',function ($q) use($sell){
+                $q->where('approvable_id',$sell->id)->where('approvable_type',Sell::class);
+            })->orderBy('order_by','asc')->first();
+
+            $data = [
+                'layer_key' => $approval->layer_key,
+                'user_id' => auth()->id(),
+                'status' => $status,
+            ];
+
+            $sell->approval()->create($data);
+
+            return redirect()->route('sells.index')->with('message', "Sell of apartment {$sell->apartment->name} has been approved.");
+        }catch(QueryException $e){
+            return redirect()->back()->withInput()->withErrors($e->getMessage());
+        }
+    }
 }

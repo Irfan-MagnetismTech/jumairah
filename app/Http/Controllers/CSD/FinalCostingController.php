@@ -297,4 +297,18 @@ class FinalCostingController extends Controller
         $sales = Sell::with('sellClients','apartment.project')->get();
         return view('csd.costing.clientList', compact('sales'));
     }
+
+    public function apartmentHandover($sale_id)
+    {
+
+        $sell = Sell::with('sellClients', 'apartment.project')->find($sale_id);
+
+        return PDF::loadview('csd.costing.apartmentHandoverPdf', compact('sell'))->setPaper('a4')->stream('Apartment Handover.pdf');
+    }
+    public function keyHandover($sale_id)
+    {
+        $sell = Sell::with('sellClients', 'apartment.project')->find($sale_id);
+
+        return PDF::loadview('csd.costing.keyHandoverPdf', compact('sell'))->setPaper('a4')->stream('Key Handover.pdf');
+    }
 }

@@ -63,9 +63,9 @@
             <div class="col-md-1 px-1 my-1 my-md-0">
                 <select class="form-control form-control-sm" name="lead_stage">
                     <option value="">Lead Stage</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
+                    <option value="A">Priority</option>
+                    <option value="B">Negotiation</option>
+                    <option value="C">Lead</option>
                 </select>
             </div>
             <div class="col-md-2 px-1 my-1 my-md-0">
@@ -115,6 +115,7 @@
                     <th>Action</th>
                 </tr>
             </tfoot>
+            @php($leadStage = ['A' => 'Priority', 'B' => 'Negotiation', 'C' => 'Lead', 'D' => 'Closed Lead'])
             <tbody>
                 @foreach ($leadgenerations as $key => $leadGeneration)
                     <tr>
@@ -126,7 +127,7 @@
                             {{ $leadGeneration->country_code }}-{{ $leadGeneration->contact }}
                         </td>
                         <td>{{ $leadGeneration->lead_date }}</td>
-                        <td>{{ $leadGeneration->lead_stage }}</td>
+                        <td>{{ $leadStage[$leadGeneration->lead_stage] }}</td>
                         <td class="breakWords">
                             <strong>{{ $leadGeneration->apartment->project->name }}</strong>
                         </td>
