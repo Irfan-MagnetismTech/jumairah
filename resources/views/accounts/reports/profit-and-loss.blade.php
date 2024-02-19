@@ -365,23 +365,27 @@
                             @endphp
                         </tbody>
                         <tfoot>
-                            @if($profitLoss < 0 ) <tr>
-                                <td> Loss</td>
-                                <td></td>
-                                <td style="text-align: right"> @money(abs($profitLoss)) </td>
-            </tr>
-            @endif
-            </tfoot>
+                            @if($profitLoss < 0 ) 
+                                <tr>
+                                    <td> Loss</td>
+                                    <td></td>
+                                    <td style="text-align: right"> @money(abs($profitLoss)) </td>
+                                </tr>
+                            @endif
+                        </tfoot>
         </table>
         </td>
         </tr>
         <tr style="background:#e3e3e3">
             @php
             $totalExp = $profitLoss >=0 ? $totalIndirectExpense + $profitLoss : $totalIndirectExpense;
-            //$totalInc = $profitLoss < 0 ? $totalInDirectIncomes + $grossProfit + abs($profit) : $totalInDirectIncomes + $grossProfit; @endphp <th colspan="2" class="text-right" style="width: 60%; border-right: none">Total Expenses</th>
-                <th class="text-right" style="border-left: none">@money(abs($totalExp)) </th>
-                <th colspan="2" class="text-right" style="width: 60%; border-right: none"> Total Income</th>
-                <th class="text-right" style="border-left: none">@money(abs($totalIndirectIncome + $grossProfitSale + $grossProfitService))</th>
+            // $totalInc = $profitLoss < 0 ? $totalInDirectIncomes + $grossProfit + abs($profit) : $totalInDirectIncomes + $grossProfit; 
+            $ff = $profitLoss > 0 ? $profitLoss : $profitLoss;
+            @endphp 
+            <th colspan="2" class="text-right" style="width: 60%; border-right: none">Total Expenses {{ $ff }}</th>
+            <th class="text-right" style="border-left: none">@money(abs($totalExp)) </th>
+            <th colspan="2" class="text-right" style="width: 60%; border-right: none">Total Income</th>
+            <th class="text-right" style="border-left: none">@money(abs($totalIndirectIncome + $grossProfitSale + $grossProfitService  ))</th>
         </tr>
         </table>
 
